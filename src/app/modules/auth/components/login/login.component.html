@@ -1,0 +1,26 @@
+<div class="row center-xs">
+  <div class="col-md-3">
+    <div class="sub-container">
+      Hola
+      <mat-form-field>
+        <input matInput placeholder="Usuario" required autofocus name="username">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Contraseña" required name="password"
+          [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-form-field>
+      <div class="text-center buttons-containers">
+        <button mat-button color="warn">
+          <mat-icon>clear</mat-icon>
+          Iniciar Session
+        </button>
+        <button mat-raised-button color="primary">
+          <mat-icon aria-label="Guardar">save</mat-icon>
+          Registrate
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

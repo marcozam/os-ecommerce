@@ -1,0 +1,37 @@
+<form #formContacto="ngForm">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="sub-container">
+        <div class="sub-container-header">
+          <span class="sub-titles"> {{catalogName}} </span>
+        </div>
+        <mat-form-field>
+          <input matInput placeholder="Empresa">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Departamento">
+        </mat-form-field>
+        <os-persona [catalogName]="catalogName" [initialData]="initialData" (onChange)="onPersonaChanged($event)"></os-persona>
+        <!--<os-empresa [catalogName]="catalogName"></os-empresa>-->
+      </div>
+    </div>
+    <div class="col-md-4">
+      <app-datos-contacto></app-datos-contacto>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-right buttons-containers">
+        <button mat-button color="warn" routerLink="/crm/search" (click)="cancel()">
+          <mat-icon>clear</mat-icon>
+          Cancelar
+        </button>
+        <button mat-raised-button color="primary" (click)="onSave(formContacto.value)" [disabled]="formContacto.invalid || !isChildValid">
+          <mat-icon aria-label="Guardar">save</mat-icon>
+          Guardar {{catalogName}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

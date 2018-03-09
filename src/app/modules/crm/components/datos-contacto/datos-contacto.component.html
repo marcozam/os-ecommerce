@@ -1,0 +1,34 @@
+<div class="sub-container">
+  <div class="sub-container-header">
+    <span class="sub-titles">
+      Datos Contacto
+    </span>
+    <button mat-icon-button [matMenuTriggerFor]="tipoDatoMenu">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </div>
+
+  <mat-menu #tipoDatoMenu="matMenu" class="slim">
+    <button mat-menu-item *ngFor="let tdc of tiposDato" (click)="addField(tdc)">{{tdc.nombre}}</button>
+  </mat-menu>
+
+  <div *ngFor="let fld of fields">
+    <mat-form-field>
+      <mat-icon *ngIf="fld.value.tipoDatoContacto.icon" matSuffix>{{fld.value.tipoDatoContacto.icon}}</mat-icon>
+      <input matInput [formControl]="fld.control"
+        [attr.maxlength]="fld.value.tipoDatoContacto.maxLength"
+        [attr.type]="fld.value.tipoDatoContacto.validacion"
+        [placeholder]="fld.value.tipoDatoContacto.placeholder">
+    </mat-form-field>
+  </div>
+
+  <div *ngFor="let fld of data">
+    <mat-form-field class="sm">
+      <mat-icon *ngIf="fld.tipoDatoContacto.icon" matSuffix>{{fld.tipoDatoContacto.icon}}</mat-icon>
+      <input matInput type="fld.tipoDatoContacto.validacion"
+        [(ngModel)]="fld.valor"
+        [attr.maxlength]="fld.tipoDatoContacto.maxLength" 
+        [placeholder]="fld.tipoDatoContacto.placeholder">
+    </mat-form-field>
+  </div>
+</div>

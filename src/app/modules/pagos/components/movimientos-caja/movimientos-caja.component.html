@@ -1,0 +1,11 @@
+<ng-template #actionsTemplate let-item>
+  <button mat-icon-button matTooltip="Imprimir ticket" color="primary" *ngIf="corteID === 0"
+    (click)="onPrintTicket(item.ordenVentaID, item.esPagoInicial)">
+    <mat-icon>print</mat-icon>
+  </button>
+  <button mat-icon-button matTooltip="Cancelar" color="warn" *ngIf="corteID === 0"
+    (click)="onCancel(item)">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</ng-template>
+<os-table [loading]="loading" [dataSource]="dataSource" [canAdd]="false" [canEdit]="false" [canDelete]="false"></os-table>

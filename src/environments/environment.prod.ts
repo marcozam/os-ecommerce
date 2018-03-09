@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  webServiceURL: 'http://itg.tecnosin.com.mx/api/General/GetData',
+  DBID: '',
+  defaultUser: 1
 };
