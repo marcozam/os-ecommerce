@@ -38,9 +38,8 @@
   </thead>
   <tbody>
     <tr *ngIf="loading">
-      <td [attr.colspan]="dataSource.columns?.length + 1" class="text-center loading">
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        Cargando, por favor espere ...
+      <td [attr.colspan]="dataSource.columns?.length + 1" class="">
+        <os-loading></os-loading>
       </td>
     </tr>
     <tr>

@@ -60,11 +60,12 @@ export class AddProductoComponent implements OnInit {
 
   ngOnInit() {
     this.createSubscriptions();
-    this._listaPreciosService.getPreciosPreductos(this.listaPreciosID, (precios: PrecioProducto[]) => {
-      this.preciosDetalle = precios;
-      this.field.nativeElement.focus();
-      this._categoriaService.getStandAloneCategories();
-    });
+    this._listaPreciosService.getPreciosPreductos(this.listaPreciosID)
+      .subscribe((precios: PrecioProducto[]) => {
+        this.preciosDetalle = precios;
+        this.field.nativeElement.focus();
+        this._categoriaService.getStandAloneCategories();
+      });
   }
 
   cleanData() {

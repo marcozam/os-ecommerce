@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-xs col-md-4">
+    <div class="sub-container">
+      <div class="sub-container-header">
+        <span class="sub-titles">
+            {{ marcaID > 0 ? 'Editar' : 'Nueva' }} Marca de Producto
+        </span>
+      </div>
+      <os-loading *ngIf="isLoading"></os-loading>
+      <form #productoCategoriaForm="ngForm">
+        <mat-form-field>
+          <input matInput name="nombre" placeholder="Nombre" required
+            [ngModel]="item.nombre"/>
+        </mat-form-field>
+        <mat-selection-list dense>
+          <mat-list-option *ngFor="let cat of listaCategorias">
+            {{cat.nombre}}
+          </mat-list-option>
+        </mat-selection-list>
+      </form>
+    </div>
+  </div>
+</div>

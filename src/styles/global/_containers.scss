@@ -22,7 +22,7 @@
         align-items: center;
         padding-bottom: 10px;
         border-bottom: solid 2px $primary-dark-color;
-        .mat-icon-button{
+        .mat-icon-button, .mat-raised-button{
             margin-left: auto;
         }
     }

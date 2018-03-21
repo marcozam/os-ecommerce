@@ -8,9 +8,9 @@ export const periodos: OSPeriodo[] = [
     new OSPeriodo(5, 'La semana pasada'),
     new OSPeriodo(6, 'Ultimas 2 Semanas'),
     new OSPeriodo(7, 'Mes en especifico'),
-]
+];
 
-export const months: OSMes[] = [ 
+export const months: OSMes[] = [
     new OSMes( 1, 'Enero'),
     new OSMes( 2, 'Febrero'),
     new OSMes( 3, 'Marzo'),
@@ -23,4 +23,4 @@ export const months: OSMes[] = [
     new OSMes(10, 'Octubre'),
     new OSMes(11, 'Noviembre'),
     new OSMes(12, 'Diciembre'),
-  ]
+  ];

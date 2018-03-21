@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+// Consants
 import { SuccessTitle, SuccessMessage, WarningTitle, LeaveWarningMessage } from 'app/modules/base/constants/messages.contants';
-
+// Services
 import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
 import { CategoriaProductoService } from '../../services/categoria-producto.service';
 import { ProductosService } from '../../services/productos.service';
+// Models
 import { CategoriaProductoSumary, Producto } from '../../models/producto.models';
+import { OSBaseComponent } from 'app/modules/base/typings/os-base.component';
 
 @Component({
   selector: 'app-producto-detail',
@@ -14,13 +16,10 @@ import { CategoriaProductoSumary, Producto } from '../../models/producto.models'
   styleUrls: ['./productos.component.scss'],
   providers: [ProductosService, CategoriaProductoService, DialogBoxService]
 })
-export class ProductosComponent implements OnInit {
+export class ProductosComponent extends OSBaseComponent implements OnInit {
   productoID: number;
   product: Producto;
   categorias: CategoriaProductoSumary[];
-
-  loading$: Observable<boolean>;
-  loading: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,14 +27,11 @@ export class ProductosComponent implements OnInit {
     private _categoriasService: CategoriaProductoService,
     private router: Router,
     public dialog: DialogBoxService) {
+    super([_categoriasService, _service]);
     this.product = new Producto('');
-    this.loading$ = Observable.merge(this._categoriasService.loading$, this._service.loading$);
   }
 
   createSubscriptions() {
-    this.loading$.subscribe(() => {
-      this.loading = this._categoriasService.isLoading || this._service.isLoading;
-    });
     this._categoriasService.source$.subscribe(result => this.categorias = result);
   }
 
@@ -55,20 +51,21 @@ export class ProductosComponent implements OnInit {
     if (this.product.hasChanges(data)) {
       this.dialog.openDialog(WarningTitle, LeaveWarningMessage, true, result => {
         if (result) {
-          this.router.navigate(['/productos']);
+          this.router.navigate(['../..'], { relativeTo: this.route});
         }
       });
-    } else { this.router.navigate(['/productos']); }
+    } else {
+      this.router.navigate(['../..'], { relativeTo: this.route});
+    }
   }
 
   onSave(data: Producto) {
     const workingItem = Object.assign(this.product, data);
     this._service.save(workingItem,
       () => {
-        this.router.navigate(['/productos']);
+        this.router.navigate(['../..'], { relativeTo: this.route});
         this.dialog.openDialog(SuccessTitle, SuccessMessage, false);
       },
-      () => {},
-      `os_producto_categoria-${workingItem.categoriaProductoID}`)
+      () => {}, `os_producto_categoria-${workingItem.categoriaProductoID}`);
   }
 }

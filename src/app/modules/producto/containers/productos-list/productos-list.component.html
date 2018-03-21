@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-8 col-xs">
         <div class="sub-container">
-            <os-table [dataSource]="dataSource" [loading]="loading"
+            <os-table [dataSource]="dataSource" [loading]="isLoading"
                 (onEditFired)="onEdit($event)" 
                 (onDeleteFired)="onDelete($event)"
                 (onAddFired)="onAdd()">

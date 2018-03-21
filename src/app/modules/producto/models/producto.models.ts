@@ -27,12 +27,17 @@ export class CategoriaProductoSumary extends BaseGenericCatalog {
   }
 }
 
+export class MarcaProducto extends BaseGenericCatalog {
+  @Field('C1') nombre: string;
+}
+
 export class Producto extends BaseGenericCatalog {
   @Field('C1') nombre: string;
   @Field('C2') categoriaProductoID: number;
   @Field('C4') requireProcesamiento = false;
   @Field('C5') SKU: string;
   @Field('C6') detalleID: number;
+  marcaID?: number;
 
   imagen?: string;
   descripcion?: string;

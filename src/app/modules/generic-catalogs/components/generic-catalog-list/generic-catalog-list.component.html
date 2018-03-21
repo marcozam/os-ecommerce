@@ -4,7 +4,7 @@
       <h3 class="sub-titles">
         {{workingCatalog?.nombre}}
       </h3>
-      <os-table [dataSource]="dataSource" [loading]="loading"
+      <os-table [dataSource]="dataSource" [loading]="isLoading"
         (onDeleteFired)="onDelete($event)"
         (onEditFired)="onEdit($event)"
         (onAddFired)="onAdd()">

@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // Routing
@@ -20,6 +21,7 @@ import { ProductosComponent } from './containers/productos/productos.component';
 import { ProductosListComponent } from './containers/productos-list/productos-list.component';
 import { CategoriaProductoComponent } from './components/categoria-producto/categoria-producto.component';
 import { DetallePreciosProductoComponent } from './components/detalle-precios-producto/detalle-precios-producto.component';
+import { MarcaProductoComponent } from './components/marca-producto/marca-producto.component';
 
 @NgModule({
   imports: [
@@ -37,7 +39,8 @@ import { DetallePreciosProductoComponent } from './components/detalle-precios-pr
     MatFormFieldModule,
     MatTooltipModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatListModule
   ],
   declarations: [
     // OS Components
@@ -45,6 +48,7 @@ import { DetallePreciosProductoComponent } from './components/detalle-precios-pr
     ProductosListComponent,
     CategoriaProductoComponent,
     DetallePreciosProductoComponent,
+    MarcaProductoComponent,
   ],
   exports: [
     ProductoRoutingModule,

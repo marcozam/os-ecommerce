@@ -1,9 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
+// Models
 import { CategoriaProductoSumary, CategoriaProducto, PrecioProducto } from 'app/modules/producto/models/producto.models';
+import { OSBaseComponent } from '../../../base/typings/os-base.component';
+// Services
 import { ProductosService } from 'app/modules/producto/services/productos.service';
 import { ListaPreciosService } from '../../services/lista-precios.service';
 import { CategoriaProductoService } from 'app/modules/producto/services/categoria-producto.service';
 import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+// Constants
+import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
 
 @Component({
   selector: 'app-detalle-precios-producto',
@@ -11,7 +16,7 @@ import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
   styleUrls: ['./detalle-precios-producto.component.scss'],
   providers: [CategoriaProductoService, ProductosService, ListaPreciosService, DialogBoxService]
 })
-export class DetallePreciosProductoComponent implements OnInit {
+export class DetallePreciosProductoComponent extends OSBaseComponent implements OnInit {
   @Input()
   listaPreciosID: number;
 
@@ -21,7 +26,9 @@ export class DetallePreciosProductoComponent implements OnInit {
   constructor(private _service: ProductosService,
     private _categoriaService: CategoriaProductoService,
     private _listaPreciosService: ListaPreciosService,
-    public dialog: DialogBoxService) { }
+    public dialog: DialogBoxService) {
+    super([_service, _categoriaService, _listaPreciosService]);
+  }
 
   ngOnInit() {
     // Listen to Categories
@@ -41,10 +48,11 @@ export class DetallePreciosProductoComponent implements OnInit {
       });
     });
 
-    this._listaPreciosService.getPreciosPreductos(this.listaPreciosID, (precios: PrecioProducto[]) => {
-      this.preciosDetalle = precios;
-      this._categoriaService.getStandAloneCategories();
-    });
+    this._listaPreciosService.getPreciosPreductos(this.listaPreciosID)
+      .subscribe((precios: PrecioProducto[]) => {
+        this.preciosDetalle = precios;
+        this._categoriaService.getStandAloneCategories();
+      });
   }
 
   onSave(data) {
@@ -59,7 +67,7 @@ export class DetallePreciosProductoComponent implements OnInit {
       });
     });
     this._listaPreciosService.setPreciosProductos(this.listaPreciosID, precios, () => {
-      this.dialog.openDialog('Registro exitoso!', 'La informacion se ha guardado con exito.', false);
+      this.dialog.openDialog(SuccessTitle, SuccessMessage, false);
     });
   }
 }

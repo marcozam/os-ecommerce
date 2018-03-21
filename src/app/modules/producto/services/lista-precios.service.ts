@@ -1,17 +1,28 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import { PrecioProducto } from '../models/producto.models';
-import { BaseAjaxService } from '../../base/services/base-ajax.service';
+import { BaseAjaxService, ILoading } from '../../base/services/base-ajax.service';
 
 @Injectable()
-export class ListaPreciosService {
-    // private catalogID = 401;
+export class ListaPreciosService implements ILoading {
+    loading$: Subject<boolean> = new Subject();
+    private _loading = false;
+    get isLoading() { return this._loading; }
+    set isLoading(value) {
+        if (value !== this._loading) {
+            this._loading = value;
+            this.loading$.next(this.isLoading);
+        }
+    }
 
     constructor(private _db: BaseAjaxService) { }
 
-    getPreciosPreductos(listaPreciosID: number, callback) {
+    getPreciosPreductos(listaPreciosID: number): Observable<PrecioProducto[]> {
         const params = this._db.createParameter('ECOM0001', 4, { 'V4': listaPreciosID });
-        this._db.getData(params).subscribe(res => {
+        this.isLoading = true;
+        const rValue = this._db.getData(params).map(res => {
             // TODO: Handle Precio
             let precios: PrecioProducto[];
             if (res.Table1) {
@@ -22,8 +33,10 @@ export class ListaPreciosService {
                     return precio;
                 });
             }
-            callback(precios);
+            return precios;
         });
+        rValue.subscribe(() => { this.isLoading = false; });
+        return rValue;
     }
 
     setPreciosProductos(listaPreciosID: number, precios: PrecioProducto[], callback) {

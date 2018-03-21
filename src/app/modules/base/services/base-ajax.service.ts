@@ -13,15 +13,25 @@ import { AjaxRequestResult } from 'app/modules/base/models/request.models';
 // Constants
 import { WarningTitle, AuthErrorMessage, ErrorTitle, InternalServerErrorMessage } from 'app/modules/base/constants/messages.contants';
 
+export interface ILoading {
+    loading$: Observable<boolean>;
+    isLoading: boolean;
+}
+
 @Injectable()
 export class BaseAjaxService {
     online: boolean;
+    private errorAlertDuration = 5000;
 
     constructor(private _dialog: DialogBoxService, public guard: AjaxGuardService, public snackBar: MatSnackBar) {
         this.guard.online$.subscribe((isOnline) => {
             this.online = isOnline;
-            if (!isOnline) { this.snackBar.open('Se perdio la conexion a internet', 'Ignorar', { duration: 3000 }); }
+            if (!isOnline) { this.openSnackBar('Se perdio la conexion a internet'); }
         });
+    }
+
+    openSnackBar(message: string) {
+        this.snackBar.open(message, 'Ignorar', { duration: this.errorAlertDuration });
     }
 
     private jsonToString(myObject) {
@@ -65,7 +75,8 @@ export class BaseAjaxService {
                                 break;
                             // General Error
                             default:
-                                this.openDialog(ErrorTitle, InternalServerErrorMessage);
+                                this.openSnackBar(InternalServerErrorMessage);
+                                // this.openDialog(ErrorTitle, InternalServerErrorMessage);
                                 // response.next();
                                 break;
                         }

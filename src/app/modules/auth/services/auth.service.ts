@@ -7,10 +7,9 @@ import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
 export class OSAuthService {
 
     authState$: Subject<any> = new Subject();
+    isUserValid = true;
 
-    constructor(private db: BaseAjaxService) {
-
-    }
+    constructor(private db: BaseAjaxService) {}
 
     login(userName: string, password: string) {
         const params = this.db.createParameter('SYS0001', 1, {

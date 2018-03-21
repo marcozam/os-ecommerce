@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700|Roboto:400,500,700');
 @import '~@angular/material/_theming';
 
 @include mat-core();
@@ -21,11 +20,6 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent);
 $primary-color: #1565c0;
 $primary-dark-color: #003c8f;
 $menu-height: 54px;
-
-body{
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-}
 
 .app-content
 {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 // Services
 import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
 import { GenericCatalogService } from 'app/modules/generic-catalogs/services/generic.service';
@@ -9,6 +8,7 @@ import { CatalogsMetadataService } from 'app/modules/generic-catalogs/services/c
 import { GenericCatalog } from 'app/modules/base/models/base.models';
 import { MetaDataCatalog, MetaDataField } from '../../models/metadata-catalogs.models';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
+import { OSBaseComponent } from '../../../base/typings/os-base.component';
 
 @Component({
   selector: 'app-generic-catalog-list',
@@ -16,13 +16,11 @@ import { TableSource, TableColumn } from 'app/modules/base/models/data-source.mo
   styleUrls: ['./generic-catalog-list.component.scss'],
   providers: [GenericCatalogService, CatalogsMetadataService, DialogBoxService]
 })
-export class GenericCatalogListComponent implements OnInit {
+export class GenericCatalogListComponent extends OSBaseComponent implements OnInit {
   catalogID: any;
   workingCatalog: MetaDataCatalog;
   detailURL = '';
 
-  loading$: Observable<boolean>;
-  loading = false;
   dataSource: TableSource<any>;
 
   constructor(
@@ -31,8 +29,7 @@ export class GenericCatalogListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: DialogBoxService) {
-    // Observer when app is retriving data
-    this.loading$ = Observable.merge(this._metaDataService.loading$, this._genericService.loading$);
+    super([_metaDataService, _genericService]);
   }
 
   ngOnInit() {
@@ -72,7 +69,6 @@ export class GenericCatalogListComponent implements OnInit {
   }
 
   createSubscriptions() {
-    this.loading$.subscribe(() => this.loading = this._metaDataService.isLoading || this._genericService.isLoading);
     this._genericService.source$.subscribe((data: any[]) => { this.dataSource.updateDataSource(data); });
   }
 

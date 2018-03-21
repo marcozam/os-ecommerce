@@ -1,0 +1,41 @@
+<mat-toolbar class="os-public-toolbar">
+  <mat-toolbar-row class="main-header">
+      <img src="/assets/image/logos/logo_xs.png"/>
+      <div class="os-spacer"></div>
+      <div class="contact-box text-right">
+        <a href="https://api.whatsapp.com/send?phone=526672481063">
+          <mat-icon svgIcon="whatsapp"></mat-icon>
+          (667) 248 1063
+        </a>
+        <a href="mailto:ventas@healthtaste.mx">
+          <small>
+            ventas@healthtaste.mx
+          </small>
+        </a>
+      </div>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="menu hide-xs">
+    <mat-nav-list class="os-public-menu">
+      <a mat-list-item routerLink="home" routerLinkActive="active">
+        <mat-icon>home</mat-icon>
+        Inicio
+      </a>
+      <a mat-list-item routerLink="productos" routerLinkActive="active">
+        <mat-icon svgIcon="leaf"></mat-icon>
+        Productos
+      </a>
+      <a mat-list-item routerLink="contacto" routerLinkActive="active">
+        Contacto
+      </a>
+    </mat-nav-list>
+    <!--
+    <div class="shopping-cart-resume">
+      <mat-icon>
+        shopping_cart
+      </mat-icon>
+      $ 0.00
+    </div>
+    -->
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>

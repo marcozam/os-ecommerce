@@ -22,6 +22,9 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+// Auth Module
+import { PublicComponent } from './layouts/public/public.component';
+import { SecureComponent } from './layouts/secure/secure.component';
 
 registerLocaleData(localeESMX);
 
@@ -29,7 +32,9 @@ registerLocaleData(localeESMX);
   declarations: [
     AppComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PublicComponent,
+    SecureComponent
   ],
   imports: [
     BrowserModule,

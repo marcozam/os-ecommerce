@@ -22,7 +22,10 @@ export const NumberConverter = (value: any) => {
     if (!(value === null || value === undefined || typeof value === 'number')) {
         rValue = parseFloat(value.toString());
     }
-    return Math.floor((rValue * 100)) / 100;
+    if (typeof value === 'number') {
+        rValue = Math.floor((rValue * 100)) / 100;
+    }
+    return rValue;
 };
 
 

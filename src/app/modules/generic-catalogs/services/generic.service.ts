@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { getFields } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
 // Services
-import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
+import { BaseAjaxService, ILoading } from 'app/modules/base/services/base-ajax.service';
 // Models
 import { BaseGenericCatalog, GenericCatalog } from 'app/modules/base//models/base.models';
 import { FieldProperty } from 'app/modules/generic-catalogs/models/generic-catalogs.models';
@@ -25,10 +25,20 @@ export interface ChangeResponse<T>{
     response: boolean;
 }
 
-export abstract class GenericService<T extends BaseGenericCatalog> {
-    source$: Subject<T[]> = new Subject();
+export abstract class GenericService<T extends BaseGenericCatalog> implements ILoading {
+
     loading$: Subject<boolean> = new Subject();
-    isLoading = false;
+    private _loading = false;
+    get isLoading() { return this._loading; }
+    set isLoading(value) {
+        if (value !== this._loading) {
+            this._loading = value;
+            this.loading$.next(this.isLoading);
+        }
+    }
+
+    source$: Subject<T[]> = new Subject();
+
     autoSort = true;
     private n_requests = 0;
     protected source: T[] = [];
@@ -36,7 +46,6 @@ export abstract class GenericService<T extends BaseGenericCatalog> {
     protected catalogID: number;
 
     constructor( protected db: BaseAjaxService,  storageName?: string,  storageTime?: number) {
-        this.loading$.subscribe((next: boolean) => this.isLoading = next);
         this.source$.subscribe(() => this.finishLoading());
         if (storageName) {
             this.storage = new AjaxLocalStorage(storageName, storageTime);
@@ -115,8 +124,8 @@ export abstract class GenericService<T extends BaseGenericCatalog> {
         return respond.asObservable();
     }
 
-    protected startLoading() { if (++this.n_requests > 0 && !this.isLoading) { this.loading$.next(true); }}
-    protected finishLoading() { if (--this.n_requests <= 0 && this.isLoading) { this.loading$.next(false); }}
+    protected startLoading() { this.isLoading = ++this.n_requests > 0; }
+    protected finishLoading() { this.isLoading = --this.n_requests > 0; }
 
     protected baseSort(list: T[]): T[] {
         return list.sort((v1, v2) => {

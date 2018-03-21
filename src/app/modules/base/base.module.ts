@@ -18,21 +18,22 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MonthYearSelectorComponent } from './components/month-year-selector/month-year-selector.component';
 import { DateSelectionComponent } from './components/date-selection/date-selection.component';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { SelectComponent } from './components/select/select.component';
+import { LoadingComponent } from './components/loading/loading.component';
+// Basic Catalogs
+import { PersonaComponent } from './components/persona/persona.component';
+import { EmpresaComponent } from './components/empresa/empresa.component';
 // Table
 import { TableComponent } from './components/table/table.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FilterComponent } from './components/filter/filter.component';
-// Basic Catalogs
-import { PersonaComponent } from './components/persona/persona.component';
-
 // Services
 import { PersonasService } from './services/personas.service';
 import { DialogBoxService } from './services/dialog-box.service';
 import { AjaxGuardService } from './services/ajax-guard.service';
 import { BaseAjaxService } from './services/base-ajax.service';
-import { EmpresaComponent } from './components/empresa/empresa.component';
 import { EmpresasService } from './services/empresa.service';
-import { SelectComponent } from './components/select/select.component';
+
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { SelectComponent } from './components/select/select.component';
     DateSelectionComponent,
     EmpresaComponent,
     SelectComponent,
+    LoadingComponent,
   ],
   entryComponents: [
     DialogBoxComponent
@@ -69,6 +71,7 @@ import { SelectComponent } from './components/select/select.component';
     TableComponent,
     FilterComponent,
     DialogBoxComponent,
+    LoadingComponent,
     PersonaComponent,
     EmpresaComponent,
     MonthYearSelectorComponent,
