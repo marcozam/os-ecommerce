@@ -10,7 +10,7 @@ import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
 export class PersonasService extends GenericService<Persona> implements GenericServiceBase<Persona> {
 
     constructor(_db: BaseAjaxService) {
-        super(_db);
+        super(_db, 'persona', 1440);
         this.catalogID = 1;
     }
 

@@ -38,9 +38,11 @@ export class TableSource<T> {
     private _filteredData: T[] = [];
 
     // Method to clear
-    filter: any;
+    filter: Function;
     actionsTemplate?: TemplateRef<any>;
-    onDataSourceChange: Subject<any> = new Subject();
+    onDataSourceChange: Subject<T[]> = new Subject();
+    columns: TableColumn[];
+    pagingSettings: TablePagingSettings;
 
     get visibleData(): T[]{
         const sIdx = (this.pagingSettings.currentPage - 1) * this.pagingSettings.itemsPerPage;
@@ -50,16 +52,9 @@ export class TableSource<T> {
         });
     }
 
-    get data(): T[] {
-        return this._data;
-    }
+    get data(): T[] { return this._data; }
 
-    get hasFilter(): boolean {
-        return this._filteredData.length < this.data.length;
-    }
-
-    columns: TableColumn[];
-    pagingSettings: TablePagingSettings;
+    get hasFilter(): boolean { return this._filteredData.length < this.data.length; }
 
     constructor() {
         this.columns = [];
@@ -106,9 +101,7 @@ export class TableSource<T> {
                 newDirection = 'none';
                 break;
         }
-        if (newDirection === 'none') {
-            column.sortOrder = -1;
-        }
+        if (newDirection === 'none') { column.sortOrder = -1; }
         column.sortDirection = newDirection;
         return column;
     }

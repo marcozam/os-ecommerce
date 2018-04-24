@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 // Services
 import { ContactoService } from '../../services/contacto.service';
-import { PersonasService } from 'app/modules/base/services/personas.service';
 // Models
 import { Contacto } from 'app/modules/crm/models/crm.models';
 import { Persona } from 'app/modules/base/models/base.models';
@@ -11,7 +10,7 @@ import { Persona } from 'app/modules/base/models/base.models';
   selector: 'app-search-persona',
   templateUrl: './search-persona.component.html',
   styleUrls: ['./search-persona.component.scss'],
-  providers: [PersonasService, ContactoService]
+  providers: []
 })
 export class SearchPersonaComponent implements OnInit {
 

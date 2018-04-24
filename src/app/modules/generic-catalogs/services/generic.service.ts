@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+// RxJS
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 import { getFields } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
 // Services
@@ -25,7 +27,15 @@ export interface ChangeResponse<T>{
     response: boolean;
 }
 
-export abstract class GenericService<T extends BaseGenericCatalog> implements ILoading {
+export abstract class GenericService<T extends BaseGenericCatalog> implements ILoading, OnDestroy {
+
+    source$: Subject<T[]> = new Subject();
+    autoSort = true;
+    private n_requests = 0;
+    protected subscription$: Subscription;
+    protected source: T[] = [];
+    protected storage: AjaxLocalStorage<T>;
+    protected catalogID: number;
 
     loading$: Subject<boolean> = new Subject();
     private _loading = false;
@@ -37,16 +47,9 @@ export abstract class GenericService<T extends BaseGenericCatalog> implements IL
         }
     }
 
-    source$: Subject<T[]> = new Subject();
-
-    autoSort = true;
-    private n_requests = 0;
-    protected source: T[] = [];
-    protected storage: AjaxLocalStorage<T>;
-    protected catalogID: number;
-
     constructor( protected db: BaseAjaxService,  storageName?: string,  storageTime?: number) {
-        this.source$.subscribe(() => this.finishLoading());
+        console.log('Service created', storageName);
+        this.subscription$ = this.source$.subscribe(() => this.finishLoading());
         if (storageName) {
             this.storage = new AjaxLocalStorage(storageName, storageTime);
             const localData = this.getLocalData(storageName);
@@ -54,17 +57,30 @@ export abstract class GenericService<T extends BaseGenericCatalog> implements IL
         }
     }
 
+    ngOnDestroy() {
+        this.subscription$.unsubscribe();
+        console.log('Service destroyed', this.storage ? this.storage.storageName : 'not set');
+    }
+
     mapList(list: any[]): T[] {
         let respond = list.map(p => this.mapData(p));
         if (this.autoSort) { respond = this.baseSort(respond); }
         return respond;
     }
+
     newInstance(): T | GenericCatalog { return new GenericCatalog(); }
+
     mapData(data: any): T { return this.mapGenericData(this.newInstance(), data); }
 
     map2Server(value: T) {
         const fieldsMD = getFields(value);
         return fieldsMD.map(fld => `${fld.key},${value[fld.propertyName]}` ).join('~');
+    }
+
+    onError(error) {
+        // Report to server
+        console.log(error);
+        this.finishLoading();
     }
 
     getByID(ID: number): Observable<T> {
@@ -73,7 +89,10 @@ export abstract class GenericService<T extends BaseGenericCatalog> implements IL
             this.startLoading();
             const currentItem = this.getLocalByID(ID);
             if (currentItem) {
-                setTimeout(() => item$.next(currentItem), 100);
+                setTimeout(() => {
+                    item$.next(currentItem);
+
+                }, 100);
             } else {
                 return this.db.getDetailedData<T>(this.catalogID, ID)
                 .map((result: any) => {

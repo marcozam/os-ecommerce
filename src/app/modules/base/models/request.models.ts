@@ -2,12 +2,12 @@ import * as moment from 'moment';
 
 export type ResultCode = 'Success' | 'AuthError' | 'GeneralError';
 
-export class AjaxRequestResult{
+export class AjaxRequestResult {
     data: any;
     error: any;
 
-    constructor(public code: ResultCode, info: any){
-        switch(code){
+    constructor(public code: ResultCode, info: any) {
+        switch (code) {
             case 'Success':
                 this.data = info;
                 break;
@@ -22,35 +22,32 @@ export class AjaxRequestResult{
 }
 
 export class AjaxLocalStorage<T>{
-    
-    minutesOld(time): number{
-        let today = moment(new Date());
-        let _time = moment(time);
-        let duration = moment.duration(today.diff(_time));
+
+    minutesOld(time): number {
+        const today = moment(new Date());
+        const _time = moment(time);
+        const duration = moment.duration(today.diff(_time));
         return duration.asMinutes();
     }
 
-    constructor(public storageName: string, public storageDuration: number){ }
+    constructor(public storageName: string, public storageDuration: number) { }
 
-    cleanStorage(){
-        sessionStorage.removeItem(this.storageName);
-    }
+    cleanStorage() { sessionStorage.removeItem(this.storageName); }
 
-    setStorage(data: any, userID: number, storageName?: string){
+    setStorage(data: any, userID: number, storageName?: string) {
         storageName = storageName ? storageName : this.storageName;
-        let _storage = new Storage(userID, new Date().getTime(), data);
+        const _storage = new Storage(userID, new Date().getTime(), data);
         sessionStorage.setItem(storageName, JSON.stringify(_storage));
     }
 
-    getStorage(storageName?: string): T[]{
+    getStorage(storageName?: string): T[] {
         storageName = storageName ? storageName : this.storageName;
-        let dataSaved = sessionStorage.getItem(storageName);
-        if(dataSaved){
-            let _storage: Storage = JSON.parse(dataSaved);
-            if(this.minutesOld(_storage.date) <= this.storageDuration || this.storageDuration === 0){
+        const dataSaved = sessionStorage.getItem(storageName);
+        if (dataSaved) {
+            const _storage: Storage = JSON.parse(dataSaved);
+            if (this.minutesOld(_storage.date) <= this.storageDuration || this.storageDuration === 0) {
                 return _storage.data;
-            }
-            else{
+            } else {
                 this.cleanStorage();
             }
         }
@@ -58,10 +55,6 @@ export class AjaxLocalStorage<T>{
     }
 }
 
-export class Storage{
-    constructor(
-        public userID: number,
-        public date: number,
-        public data: any)
-    { }
+export class Storage {
+    constructor(public userID: number, public date: number, public data: any) { }
 }

@@ -68,6 +68,7 @@ export class BaseAjaxService {
                         switch (result.code) {
                             case 'Success':
                                 response.next(result.data);
+                                response.complete();
                                 break;
                             case 'AuthError':
                                 this.openDialog(WarningTitle, AuthErrorMessage);
@@ -75,9 +76,8 @@ export class BaseAjaxService {
                                 break;
                             // General Error
                             default:
+                                response.error(result.error);
                                 this.openSnackBar(InternalServerErrorMessage);
-                                // this.openDialog(ErrorTitle, InternalServerErrorMessage);
-                                // response.next();
                                 break;
                         }
                     });

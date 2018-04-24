@@ -12,7 +12,7 @@ import { PersonasService } from 'app/modules/base/services/personas.service';
   templateUrl: './contacto.component.html',
   styleUrls: ['./contacto.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [ContactoService, EmailValidator]
+  providers: [EmailValidator]
 })
 export class ContactoComponent implements OnInit {
 

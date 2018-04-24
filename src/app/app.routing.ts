@@ -12,7 +12,7 @@ import { SecureComponent } from './layouts/secure/secure.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
-    { path: '', component: PublicComponent, children: PUBLIC_ROUTES },
+    // { path: '', component: PublicComponent, children: PUBLIC_ROUTES },
     { path: '', component: SecureComponent, children: SECURE_ROUTES },
     { path: '404', component: PageNotFoundComponent, data: { title: ''} },
     { path: '**', component: PageNotFoundComponent, data: { title: ''} }
