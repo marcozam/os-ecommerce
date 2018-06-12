@@ -4,40 +4,13 @@
     <div class="sub-container">
       <div class="sub-container-header">
         <span class="sub-titles">
+          <!--
             {{ productoID > 0 ? 'Editar' : 'Nuevo' }} Producto
+          -->
         </span>
       </div>
-      <os-loading *ngIf="isLoading"></os-loading>
-      <form #productForm="ngForm">
-        <mat-form-field>
-          <mat-select name="categoriaProductoID" placeholder="Categoria" required
-            [ngModel]="product?.categoriaProductoID">
-            <mat-option *ngFor="let c of categorias" [value]="c.key">
-              {{c.nombre}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput name="nombre" placeholder="Nombre" required [ngModel]="product?.nombre"/>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput name="SKU" placeholder="SKU" required [ngModel]="product?.SKU"/>
-        </mat-form-field>
-
-        <div class="text-right buttons-containers">
-          <button mat-button color="warn" (click)="onCancelar(productForm.value)">
-            <mat-icon>cancel</mat-icon>
-            Cancelar
-          </button>
-          <button mat-raised-button color="primary" [disabled]="productForm.invalid"
-            (click)="onSave(productForm.value)">
-            <mat-icon>save</mat-icon>
-            Guardar
-          </button>
-        </div>
-      </form>
+      <os-loading *ngIf="false"></os-loading>
+      <app-producto-form [product]="product$ | async" [categorias]></app-producto-form>
     </div>
   </div>
 </div>

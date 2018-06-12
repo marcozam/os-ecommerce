@@ -5,6 +5,7 @@ import { MetaDataCatalog } from '../../models/metadata-catalogs.models';
 
 import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-dynamic-catalog-list',
@@ -20,25 +21,17 @@ export class DynamicCatalogListComponent implements OnInit {
   constructor(
     private _service: CatalogsMetadataService,
     private router: Router) {
-    this.dataSource = new TableSource();
-    this.dataSource.columns = [
-      new TableColumn(
-        'Nombre',
-        'nombre',
-        (item: MetaDataCatalog) => item.nombre
-      ),
-      new TableColumn(
-        'Tabla',
-        'tabla',
-        (item: MetaDataCatalog) => item.tableName ? item.tableName : ''
-      )
-    ];
-    this.dataSource.columns[0].sortDirection = 'desc';
-    this.dataSource.columns[0].sortOrder = 0;
+    this.dataSource = new TableSource(of(null));
+    this.dataSource.columns = {
+      'nombre': new TableColumn('Nombre', 'nombre', (item: MetaDataCatalog) => item.nombre ),
+      'tabla': new TableColumn('Tabla', 'tabla', (item: MetaDataCatalog) => item.tableName ? item.tableName : '')
+    };
+    this.dataSource.columns.nombre.sortDirection = 'desc';
+    this.dataSource.columns.nombre.sortOrder = 0;
   }
 
   ngOnInit() {
-    this._service.source$.subscribe(result => this.dataSource.updateDataSource(result));
+    // this._service.source$.subscribe(result => this.dataSource.updateDataSource(result));
     this._service.getList();
   }
 

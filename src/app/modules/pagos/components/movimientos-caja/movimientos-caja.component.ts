@@ -10,6 +10,7 @@ import { TableSource, TableColumn } from 'app/modules/base/models/data-source.mo
 import { MovimientoCaja } from '../../models/caja.models';
 
 import { WarningTitle, SuccessTitle } from 'app/modules/base/constants/messages.contants';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-movimientos-caja',
@@ -47,17 +48,17 @@ export class MovimientosCajaComponent implements OnInit, AfterViewInit {
     private _dialog: DialogBoxService,
     private _decimal: DecimalPipe,
     private _date: DatePipe) {
-    this.dataSource = new TableSource();
+    this.dataSource = new TableSource(of(null));
     // Defines Columns
-    this.dataSource.columns = [
-      new TableColumn('Orden', 'orden', item => item.ordenVentaID),
-      new TableColumn('Fecha', 'fecha', item => this._date.transform(item.fecha, 'dd MMM yyyy HH:mm')),
-      new TableColumn('Movimiento', 'movimiento', item => item.esPagoInicial ? item.totalVenta === item.monto ? 'Venta' : 'Anticipo' : 'Abono'),
-      new TableColumn('Metodo de Pago', 'metodoPago', item => item.metodoPago.nombre),
-      new TableColumn('Cliente', 'cliente', item => item.nombreCliente),
-      new TableColumn('Lo Atendio', 'usuario', item => item.nombreUsuario),
-      new TableColumn('Monto', 'monto', item => `$ ${this._decimal.transform(item.monto, '1.2-2')}`, true, item => item.monto),
-    ];
+    this.dataSource.columns = {
+      'orden': new TableColumn('Orden', 'orden', item => item.ordenVentaID),
+      'fecha': new TableColumn('Fecha', 'fecha', item => this._date.transform(item.fecha, 'dd MMM yyyy HH:mm')),
+      'movimiento': new TableColumn('Movimiento', 'movimiento', item => item.esPagoInicial ? item.totalVenta === item.monto ? 'Venta' : 'Anticipo' : 'Abono'),
+      'metodoPago': new TableColumn('Metodo de Pago', 'metodoPago', item => item.metodoPago.nombre),
+      'cliente': new TableColumn('Cliente', 'cliente', item => item.nombreCliente),
+      'usuario': new TableColumn('Lo Atendio', 'usuario', item => item.nombreUsuario),
+      'monto': new TableColumn('Monto', 'monto', item => `$ ${this._decimal.transform(item.monto, '1.2-2')}`, true, item => item.monto),
+    };
   }
 
   ngOnInit() {
@@ -73,9 +74,10 @@ export class MovimientosCajaComponent implements OnInit, AfterViewInit {
       this.loading = true;
       this._service.getMovimientosCorte(this.sucursalID, this.corteID)
         .subscribe(result => {
+          console.log(result);
           // Create an emitter
           // this.corte.movimientos = result;
-          this.dataSource.updateDataSource(result);
+          // this.dataSource.updateDataSource(result);
           this.loading = false;
         });
     }

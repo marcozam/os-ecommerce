@@ -1,0 +1,43 @@
+<div class="row center-xs">
+    <div class="col-xs col-md-6">
+        <div class="sub-container">
+            <div class="container-header text-left">
+                <span class="sub-titles">
+                    {{(categoria$ | async)?.nombre}}
+                </span>
+            </div>
+            <div class="container-content">
+                <mat-table [dataSource]="productos$ | async">
+                    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+                    <mat-row *matRowDef="let myRowData; columns: tableColumns"></mat-row>
+                    <!--Columns Definition-->
+                    <ng-container matColumnDef="nombre">
+                        <mat-header-cell class="text-left" *matHeaderCellDef> Nombre </mat-header-cell>
+                        <mat-cell class="text-left" *matCellDef="let prod"> {{prod.nombre}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell class="text-right" *matHeaderCellDef>
+                            <button mat-icon-button matTooltip="Nuevo producto" color="primary">
+                                <mat-icon>add_circle_outline</mat-icon>
+                            </button>
+                        </mat-header-cell>
+                        <mat-cell class="text-right" *matCellDef="let prod">
+                            <a mat-icon-button matTooltip="Editar" color="primary">
+                                <mat-icon>edit</mat-icon>
+                            </a>
+                            <button mat-icon-button matTooltip="Eliminar" color="warn">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                </mat-table>
+            </div>
+            <div class="container-footer text-left">
+                <button routerLink="../" type="button" mat-button color="accent">
+                    <mat-icon>chevron_left</mat-icon>
+                    Regresar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

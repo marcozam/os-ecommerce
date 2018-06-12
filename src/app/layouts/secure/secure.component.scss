@@ -1,1 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700|Roboto:400,500,700');
+
+$primary: #1565c0;
+$secondary: #003c8f;
+
+.sub-titles {
+    color: $primary;
+}
+
+.sub-container {
+    .container-header {
+        border-bottom: solid 2px $secondary;
+        padding: 10px 0;
+        margin-bottom: 10px;
+    }
+
+    .container-footer {
+        margin-top: 20px;
+    }
+}

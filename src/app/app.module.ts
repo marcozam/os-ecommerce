@@ -16,6 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 // Material Tokens for Date format
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+// Store
+import { RootStoreModule } from './root-store/root-store.module';
 // Routing
 import { routing } from './app.routing';
 // Componentes
@@ -41,6 +43,8 @@ registerLocaleData(localeESMX);
     routing,
     BrowserAnimationsModule,
     HttpClientModule,
+    // Store
+    RootStoreModule,
     // Angular Material
     MatSidenavModule,
     MatMenuModule,
@@ -52,10 +56,10 @@ registerLocaleData(localeESMX);
   ],
   providers: [
     Title,
-    {provide: LOCALE_ID, useValue: 'es-MX'},
-    {provide: MAT_DATE_LOCALE, useValue: 'es-MX'},
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: LOCALE_ID, useValue: 'es-MX'},
+    { provide: MAT_DATE_LOCALE, useValue: 'es-MX'},
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
   bootstrap: [AppComponent],
 })

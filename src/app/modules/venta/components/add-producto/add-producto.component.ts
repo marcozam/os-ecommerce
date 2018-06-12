@@ -1,24 +1,28 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+// RxJs
+// import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/observable';
+import { of } from 'rxjs/observable/of';
+// import { merge } from 'rxjs/observable/merge';
 
-import { ProductosService } from '../../../producto/services/productos.service';
-import { CategoriaProductoService } from '../../../producto/services/categoria-producto.service';
+// Replace for Store
+// import { ProductosService } from '../../../producto/services/productos.service';
+// import { CategoriaProductoService } from '../../../producto/services/categoria-producto.service';
 import { ListaPreciosService } from '../../../producto/services/lista-precios.service';
 
 import { DetalleVenta } from '../../models/venta.models';
-import { CategoriaProductoSumary, Producto, CategoriaProducto, PrecioProducto } from '../../../producto/models/producto.models';
+// CategoriaProducto
+import { Producto, CategoriaProducto, PrecioProducto } from 'app/models/productos/producto.models';
+import { OSBaseComponent } from '../../../base/typings/os-base.component';
 
 @Component({
   selector: 'app-add-producto',
   templateUrl: './add-producto.component.html',
   styleUrls: ['./add-producto.component.scss'],
-  providers: [ProductosService, CategoriaProductoService, ListaPreciosService]
+  providers: [ListaPreciosService]
 })
-export class AddProductoComponent implements OnInit {
-
-  private loading$: Observable<boolean>;
-  loading: boolean;
+export class AddProductoComponent extends OSBaseComponent implements OnInit {
   categorias: CategoriaProducto[];
   preciosDetalle: PrecioProducto[];
   productos: Producto[];
@@ -30,20 +34,15 @@ export class AddProductoComponent implements OnInit {
   @ViewChild('formAddProduct') form: FormControl;
   @ViewChild('cantidadField') field: ElementRef;
 
-  constructor(
-    private _productoService: ProductosService,
-    private _categoriaService: CategoriaProductoService,
-    private _listaPreciosService: ListaPreciosService) {
-    this.loading$ = Observable.merge(_productoService.loading$, _categoriaService.loading$);
+  constructor(private _listaPreciosService: ListaPreciosService) {
+    super([]);
+    // this.loading$ = merge(_productoService.loading$);
   }
 
   createSubscriptions() {
-    this.loading$.subscribe(() => {
-      this.loading = this._categoriaService.isLoading || this._productoService.isLoading;
-    });
-
+    /*
     this._categoriaService.source$
-      .subscribe((r: CategoriaProductoSumary[]) => {
+      .subscribe((r: CategoriaProducto[]) => {
         this.categorias = r.map(cat => new CategoriaProducto(cat));
         this.categorias.forEach(cat => {
           this._productoService.getProductsByCategory(cat.sumary.key)
@@ -56,6 +55,7 @@ export class AddProductoComponent implements OnInit {
             });
         });
       });
+      */
   }
 
   ngOnInit() {
@@ -64,7 +64,7 @@ export class AddProductoComponent implements OnInit {
       .subscribe((precios: PrecioProducto[]) => {
         this.preciosDetalle = precios;
         this.field.nativeElement.focus();
-        this._categoriaService.getStandAloneCategories();
+        // this._categoriaService.getStandAloneCategories();
       });
   }
 
@@ -79,30 +79,35 @@ export class AddProductoComponent implements OnInit {
   }
 
   searchProductBySKU(sku: string) {
-    let rval = null;
-    this.categorias.forEach(cat => {
-      const prods = cat.productos.filter(prod => prod.SKU === sku);
-      if (prods.length > 0) { rval = prods[0]; }
-    });
-    return rval;
+    console.log(sku);
+    // let rval = null;
+    // let prods: Observable<Producto[]>;
+    // this.categorias.forEach(cat => {
+      // prods = cat.productos$.pipe(map(list => list.filter(prod => prod.SKU === sku)));
+      // if (prods.length > 0) { rval = prods[0]; }
+    // });
+    // return rval;
+    return [];
   }
 
-  addDetalleVenta(producto: Producto, cantidad: number) {
-    const dv = new DetalleVenta(producto);
-    dv.cantidad = cantidad;
-    dv.precioUnitario = producto.precio;
-    dv.canEditPrecio = false;
-    dv.canEditCantidad = true;
-    dv.canBeRemoved = true;
-    this.onProdutoAdded.emit(dv);
-    this.cleanData();
+  addDetalleVenta(producto$: Observable<Producto>, cantidad: number) {
+    producto$.subscribe(producto => {
+        const dv = new DetalleVenta(producto);
+        dv.cantidad = cantidad;
+        dv.precioUnitario = producto.precio;
+        dv.canEditPrecio = false;
+        dv.canEditCantidad = true;
+        dv.canBeRemoved = true;
+        this.onProdutoAdded.emit(dv);
+        this.cleanData();
+      });
   }
 
   onCantidadKeyDown(event) {
     const currentValue: string = event.target.value;
     let cantidad = 1;
     let codigo: string;
-    let producto: Producto;
+    // let producto: Observable<Producto>;
     if (event.keyCode === 42 && currentValue.includes('*')) { return false; }
     if (event.keyCode === 13) {
       if (currentValue.includes('*')) {
@@ -114,10 +119,12 @@ export class AddProductoComponent implements OnInit {
         // Revisa si el valor es un codigo de barras
         if (currentValue.length >= 8) { codigo = currentValue; }
       }
+      /*
       if (codigo) {
-        producto = this.searchProductBySKU(codigo);
+        producto = this.searchProductBySKU(codigo).pipe(map(list => list.length > 0 ? list[0] : null));
         if (producto) { this.addDetalleVenta(producto, cantidad); }
       }
+      */
     }
   }
 
@@ -129,7 +136,7 @@ export class AddProductoComponent implements OnInit {
     let cantidad = Number.isNaN(value) ? 1 : Number(value);
     if (cantidad <= 0) { cantidad = 1; }
     if (this.selectedProduct) {
-      this.addDetalleVenta(this.selectedProduct, cantidad);
+      this.addDetalleVenta(of(this.selectedProduct), cantidad);
     }
   }
 }

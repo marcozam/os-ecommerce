@@ -2,13 +2,13 @@ import { Subject } from 'rxjs/Subject';
 
 // Models
 import { BaseGenericCatalog,  GenericCatalog,  Persona, Status } from 'app/modules/base/models/base.models';
-import { Producto } from '../../producto/models/producto.models';
+import { Producto } from 'app/models/productos/producto.models';
 import { Contacto } from 'app/modules/crm/models/crm.models';
 import { Sucursal } from 'app/modules/generic-catalogs/models/generic-catalogs.models';
 
 import { Field } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
 
-export class Venta {
+export class Venta extends BaseGenericCatalog {
     private _detalle: DetalleVenta[] = [];
 
     get detalle(): DetalleVenta[]{ return this._detalle; }
@@ -21,6 +21,7 @@ export class Venta {
     onDetalleChanged: Subject<DetalleVenta[]> = new Subject();
 
     constructor() {
+        super();
         this.pagos = new Array<DetallePagos>();
         this.comentarios = new Array<ComentariosVenta>();
         this.sumary = new SumaryVenta();

@@ -56,10 +56,12 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    /*
     this.dataSource.columns.forEach(col => {
       const _filter = this._filters.find(f => f.uniqueID === col.uniqueID);
       if (_filter) { col.filterTemplate = _filter.template; }
     });
+    */
   }
 
   onAdd() { this.onAddFired.emit(); }

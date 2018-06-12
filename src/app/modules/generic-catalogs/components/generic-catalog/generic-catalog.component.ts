@@ -60,7 +60,7 @@ export class GenericCatalogComponent implements OnInit, OnDestroy {
 
   onSave(newValue: GenericCatalog) {
     const _url = this.catalog.listURL ? this.catalog.listURL : '/DCG/catalogo/' + this.catalogID;
-    this.genericService.save(newValue, this.item)
+    this.genericService.save(newValue)
       .subscribe(() => {
         this.dialog.openDialog(SuccessTitle, SuccessMessage, false);
         this.router.navigate([_url]);

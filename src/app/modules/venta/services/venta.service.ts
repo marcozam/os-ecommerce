@@ -4,11 +4,12 @@ import * as moment from 'moment';
 // Models
 import { Venta, DetalleVenta, DetallePagos, MetodoPago, ComentariosVenta } from '../models/venta.models';
 import { Status } from 'app/modules/base/models/base.models';
-import { Producto } from 'app/modules/producto/models/producto.models';
+import { Producto } from 'app/models/productos/producto.models';
 // Services
 import { BaseAjaxService } from '../../base/services/base-ajax.service';
 import { ContactoService } from 'app/modules/crm/services/contacto.service';
 import { GenericServiceBase } from 'app/modules/generic-catalogs/services/generic.service';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class VentaService implements GenericServiceBase<Venta> {
@@ -128,7 +129,7 @@ export class VentaService implements GenericServiceBase<Venta> {
         });
     }
 
-    save(_currentValue: Venta, _newValue: Venta) { throw new Error('Method not implemented.'); }
+    save(item: Venta) { return of(item); }
 
     changeStatus(ID: number, status: number, internal: boolean = false) {
         const params = this.db.createParameter('ECOM0002', 2, {

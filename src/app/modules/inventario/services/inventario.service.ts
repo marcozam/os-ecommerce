@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
+// RxJs
+import { map } from 'rxjs/operators';
+// Services
 import { GenericService, GenericServiceBase } from 'app/modules/generic-catalogs/services/generic.service';
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
-
+// Models
 import { Inventario } from 'app/modules/inventario/models/inventario.models';
-import { Producto, CategoriaProductoSumary } from 'app/modules/producto/models/producto.models';
+import { Producto, CategoriaProducto } from 'app/models/productos/producto.models';
 
 @Injectable()
 export class InventarioService extends GenericService<Inventario> implements GenericServiceBase<Inventario> {
 
-  constructor(_db: BaseAjaxService) { super(_db); }
+  newInstance(): Inventario { throw new Error('Method not implemented.'); }
+
+  constructor(_db: BaseAjaxService) {
+    super(_db);
+  }
 
   mapData(item: any) {
-    const cat = new CategoriaProductoSumary(item.C6);
+    const cat = new CategoriaProducto(item.C6);
     cat.key = item.C4;
 
     const prod = new Producto(item.C1);
@@ -43,20 +50,25 @@ export class InventarioService extends GenericService<Inventario> implements Gen
       'V3': productoID,
       'V4': sucursalID
     });
-    return this.db.getData(params).map(result => {
-      this.finishLoading();
-      return result.Table.length > 0 ? this.mapData(result.Table[0]) : {};
-    });
+    return this.db.getData(params).pipe(
+      map(result => {
+        this.finishLoading();
+        return result.Table.length > 0 ? this.mapData(result.Table[0]) : {};
+      })
+    );
   }
 
   getInventarioActual(sucursalID: number) {
+    console.log(sucursalID);
     this.startLoading();
-    const params = this.db.createParameter('INV0001', 1, { 'V4': sucursalID });
+    // const params = this.db.createParameter('INV0001', 1, { 'V4': sucursalID });
+    /*
     this.db.getData(params)
       .subscribe(result => {
-        this.source$.next(this.mapList(result.Table));
+        // this.source$.next(this.mapList(result.Table));
         this.finishLoading();
       });
+    */
   }
 
   realizarCorte(sucursalID: number, inventario: Inventario[]) {
@@ -68,10 +80,12 @@ export class InventarioService extends GenericService<Inventario> implements Gen
       'V6': this.mapInventario2Server(inventario2Send)
     });
     const wc = this.db.getData(params);
+    /*
     wc.subscribe(result => {
-      this.source$.next(this.mapList(result.Table));
+      // this.source$.next(this.mapList(result.Table));
       this.finishLoading();
     });
+    */
     return wc;
   }
 }

@@ -1,54 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+// RxJs
+import { Observable } from 'rxjs/observable';
+// Store
+import { Store } from '@ngrx/store';
+import * as fromStore from 'app/root-store/productos-store';
+
 // Consants
-import { SuccessTitle, SuccessMessage, WarningTitle, LeaveWarningMessage } from 'app/modules/base/constants/messages.contants';
+// SuccessTitle, SuccessMessage,
+// import { WarningTitle, LeaveWarningMessage } from 'app/modules/base/constants/messages.contants';
 // Services
 import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
-import { CategoriaProductoService } from '../../services/categoria-producto.service';
-import { ProductosService } from '../../services/productos.service';
 // Models
-import { CategoriaProductoSumary, Producto } from '../../models/producto.models';
-import { OSBaseComponent } from 'app/modules/base/typings/os-base.component';
+import { CategoriaProducto, Producto } from 'app/models/productos/producto.models';
 
 @Component({
   selector: 'app-producto-detail',
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.scss'],
-  providers: [ProductosService, CategoriaProductoService, DialogBoxService]
+  providers: [DialogBoxService]
 })
-export class ProductosComponent extends OSBaseComponent implements OnInit {
-  productoID: number;
-  product: Producto;
-  categorias: CategoriaProductoSumary[];
+export class ProductosComponent implements OnInit {
+  product$: Observable<Producto>;
+  categorias$: Observable<CategoriaProducto[]>;
 
   constructor(
-    private route: ActivatedRoute,
-    private _service: ProductosService,
-    private _categoriasService: CategoriaProductoService,
-    private router: Router,
-    public dialog: DialogBoxService) {
-    super([_categoriasService, _service]);
-    this.product = new Producto('');
-  }
-
-  createSubscriptions() {
-    this._categoriasService.source$.subscribe(result => this.categorias = result);
-  }
+    private store: Store<fromStore.ProductsModuleState>,
+    public dialog: DialogBoxService
+  ) { }
 
   ngOnInit() {
-    this.productoID = Number(this.route.snapshot.params['id']);
-
-    this.createSubscriptions();
-    this._categoriasService.getStandAloneCategories();
-
-    if (this.productoID !== 0) {
-      this._service.getByID(this.productoID)
-        .subscribe((item: Producto) => this.product = item);
-    }
+    // this.product$ = this.store.select(fromStore.getSelectedProducto);
+    this.categorias$ = this.store.select(fromStore.getStandAloneCategories);
   }
 
   onCancelar(data: any) {
-    if (this.product.hasChanges(data)) {
+    console.log(data);
+    /*
+    if (this.product$.hasChanges(data)) {
       this.dialog.openDialog(WarningTitle, LeaveWarningMessage, true, result => {
         if (result) {
           this.router.navigate(['../..'], { relativeTo: this.route});
@@ -57,9 +45,12 @@ export class ProductosComponent extends OSBaseComponent implements OnInit {
     } else {
       this.router.navigate(['../..'], { relativeTo: this.route});
     }
+    */
   }
 
   onSave(data: Producto) {
+    console.log(data);
+    /*
     const workingItem = Object.assign(this.product, data);
     this._service.save(workingItem,
       () => {
@@ -67,5 +58,6 @@ export class ProductosComponent extends OSBaseComponent implements OnInit {
         this.dialog.openDialog(SuccessTitle, SuccessMessage, false);
       },
       () => {}, `os_producto_categoria-${workingItem.categoriaProductoID}`);
+      */
   }
 }

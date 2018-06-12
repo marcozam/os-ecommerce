@@ -1,5 +1,11 @@
 import { Subject } from 'rxjs/Subject';
-import { TemplateRef } from '@angular/core/src/linker/template_ref';
+import { TemplateRef } from '@angular/core';
+// RxJs
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+// Helpers
+import { entitie2List } from 'app/helpers';
+
 
 export type SortDirection = 'asc' | 'desc' | 'none';
 export type ColumnAlign = 'left' | 'center' | 'right';
@@ -8,8 +14,8 @@ export class GroupData {
     groupCount: number;
 
     constructor(public key: any, public dataSource: TableSource<any>) {
-        const sumCol = dataSource.columns.find(col => col.sum);
-        this.groupCount = this.dataSource.suma(sumCol);
+        // const sumCol = dataSource.columns.find(col => col.sum);
+        // this.groupCount = this.dataSource.suma(sumCol);
     }
 }
 
@@ -34,16 +40,16 @@ export class TableColumn {
 }
 
 export class TableSource<T> {
-    private _data: T[] = [];
-    private _filteredData: T[] = [];
+    DataSource$: Observable<T[]>;
 
     // Method to clear
     filter: Function;
     actionsTemplate?: TemplateRef<any>;
     onDataSourceChange: Subject<T[]> = new Subject();
-    columns: TableColumn[];
+    columns: {[key: string]: TableColumn};
     pagingSettings: TablePagingSettings;
 
+    /*
     get visibleData(): T[]{
         const sIdx = (this.pagingSettings.currentPage - 1) * this.pagingSettings.itemsPerPage;
         const eIdx = Math.min(((this.pagingSettings.currentPage) * this.pagingSettings.itemsPerPage) - 1, this.pagingSettings.itemsCount);
@@ -51,27 +57,32 @@ export class TableSource<T> {
             if (idx >= sIdx && idx <= eIdx) { return item; }
         });
     }
+    */
 
-    get data(): T[] { return this._data; }
+    // get data(): T[] { return this._data }
 
-    get hasFilter(): boolean { return this._filteredData.length < this.data.length; }
+    // get hasFilter(): boolean { return this._filteredData.length < this.data.length; }
 
-    constructor() {
-        this.columns = [];
-        this.pagingSettings = new TablePagingSettings(25, this.data ? this.data.length : 0, 5);
+    constructor(_data: Observable<T[]>) {
+        this.DataSource$ = _data.pipe(
+            map((list) => {
+                console.log(list);
+                return list;
+            })
+        );
+        this.columns = {};
+        // this.pagingSettings = new TablePagingSettings(25, this.data ? this.data.length : 0, 5);
     }
 
-    updateDataSource(data: T[]) {
-        this._data = data;
-        this.refresh();
-    }
-
-    refresh() {
-        this.applySort();
-        this.applyFilters();
+    refresh(data: Observable<T>) {
+        console.log(data);
+        // this.applySort();
+        // this.applyFilters();
     }
 
     suma(column: TableColumn) {
+        console.log(column);
+        /*
         const items = this.data;
         if (items.length > 1) {
             return items.map(item => column.sumTemplate(item))
@@ -79,12 +90,7 @@ export class TableSource<T> {
         } else if (items.length > 0) {
             return column.sumTemplate(items[0]);
         } else { return 0; }
-    }
-
-    deleteItem(item: T) {
-        const idx = this._data.indexOf(item);
-        this._data.splice(idx, 1);
-        this.refresh();
+        */
     }
 
     // Sorting
@@ -107,7 +113,7 @@ export class TableSource<T> {
     }
 
     getSortedColumns() {
-        const sortedColumns = this.columns
+        const sortedColumns = entitie2List(this.columns)
             .filter(c => c.sortDirection !== 'none')
             .sort(c => c.sortOrder);
         let addedItems = 0;
@@ -118,6 +124,7 @@ export class TableSource<T> {
     }
 
     applySort() {
+        /*
         const sortedColumns = this.getSortedColumns();
         const nSorts = sortedColumns.length;
         if (nSorts > 0) {
@@ -134,21 +141,26 @@ export class TableSource<T> {
                 return retVal;
             });
         }
+        */
     }
 
     // Filters
     cleanFilters() {
+        /*
         this._filteredData = this.data;
         this.onDataSourceChange.next(this._filteredData);
+        */
     }
 
     applyFilters() {
+        /*
         this._filteredData = this.filter ? this.filter() : this.data;
         this.pagingSettings.itemsCount = this._filteredData.length;
         if (this.pagingSettings.lastPage) {
             this.pagingSettings.currentPage = this.pagingSettings.totalPages;
         }
         this.onDataSourceChange.next(this._filteredData);
+        */
     }
 }
 

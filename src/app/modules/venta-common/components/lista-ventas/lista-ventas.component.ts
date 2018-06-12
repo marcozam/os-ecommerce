@@ -7,6 +7,7 @@ import { VentaService } from 'app/modules/venta/services/venta.service';
 // Models
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { Venta, DetallePagos } from 'app/modules/venta/models/venta.models';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-lista-ventas',
@@ -21,7 +22,7 @@ export class ListaVentasComponent implements AfterViewInit {
   get ventasSource(): Venta[] { return this.ventasSource; }
   set ventasSource(value) {
     this._ventasSource = value ? value : [];
-    this.dataSource.updateDataSource(this._ventasSource);
+    // this.dataSource.updateDataSource(this._ventasSource);
     this.loading = false;
   }
 
@@ -37,16 +38,17 @@ export class ListaVentasComponent implements AfterViewInit {
     private _decimal: DecimalPipe,
     private _date: DatePipe,
   ) {
-    this.dataSource = new TableSource();
-    this.dataSource.columns = [
-      new TableColumn('Orden', 'orden', item => item.sumary.key),
-      new TableColumn('Fecha', 'fecha', item => this._date.transform(item.sumary.fecha, 'dd MMM yyyy HH:mm')),
-      new TableColumn('Status', 'status', item => item.sumary.status.nombre),
-      new TableColumn('Cliente', 'cliente', item => item.sumary.cliente.nombre),
-      new TableColumn('Total Venta', 'total', item => `$ ${this._decimal.transform(item.sumary.total, '1.2-2')}`, true, item => item.sumary.total),
-      new TableColumn('Total Pagado', 'totalPagado', item => `$ ${this._decimal.transform(item.sumary.totalPagado, '1.2-2')}`, true, item => item.sumary.totalPagado),
-      new TableColumn('Saldo', 'saldo', item => `$ ${this._decimal.transform(item.sumary.saldo, '1.2-2')}`, true, item => item.sumary.saldo)
-    ];
+    this.dataSource = new TableSource(of(null));
+    this.dataSource.columns = {
+      'orden': new TableColumn('Orden', 'orden', item => item.sumary.key),
+      'fecha': new TableColumn('Fecha', 'fecha', item => this._date.transform(item.sumary.fecha, 'dd MMM yyyy HH:mm')),
+      'status': new TableColumn('Status', 'status', item => item.sumary.status.nombre),
+      'cliente': new TableColumn('Cliente', 'cliente', item => item.sumary.cliente.nombre),
+      'total': new TableColumn('Total Venta', 'total', item => `$ ${this._decimal.transform(item.sumary.total, '1.2-2')}`, true, item => item.sumary.total),
+      'totalPagado': new TableColumn('Total Pagado', 'totalPagado',
+        item => `$ ${this._decimal.transform(item.sumary.totalPagado, '1.2-2')}`, true, item => item.sumary.totalPagado),
+      'saldo': new TableColumn('Saldo', 'saldo', item => `$ ${this._decimal.transform(item.sumary.saldo, '1.2-2')}`, true, item => item.sumary.saldo)
+    };
   }
 
   ngAfterViewInit() {
@@ -66,9 +68,11 @@ export class ListaVentasComponent implements AfterViewInit {
               this._printVentaService.esPagoInicial = false;
               this._printVentaService.corteID = 0;
               this._printVentaService.getServerData(Number(venta.sumary.key));
+              /*
               if (venta.sumary.saldo === 0 && venta.sumary.status.key === 40203) {
                 this.dataSource.updateDataSource(this.dataSource.data.filter(vta => vta.sumary.key !== venta.sumary.key));
               } else { this.dataSource.refresh(); }
+              */
             });
         }
       }
@@ -78,7 +82,7 @@ export class ListaVentasComponent implements AfterViewInit {
   entregarOrden(venta: Venta) {
     this.ventaService.changeStatus(Number(venta.sumary.key), 40203)
       .subscribe(() => {
-        this.dataSource.updateDataSource(this.dataSource.data.filter(vta => vta.sumary.key !== venta.sumary.key));
+        // this.dataSource.updateDataSource(this.dataSource.data.filter(vta => vta.sumary.key !== venta.sumary.key));
       });
   }
 }

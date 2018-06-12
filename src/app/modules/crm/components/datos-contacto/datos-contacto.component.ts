@@ -24,11 +24,13 @@ export class DatosContactoComponent implements OnInit {
   constructor(private _service: TipoDatoContactoService) { }
 
   ngOnInit() {
+    /*
     this._service.source$.subscribe(list => {
       // Workarround to remove relational field
       this.tiposDato = list.filter(td => td.catalogoID === 0);
       this.loadInitialFields(this.tiposDato.filter(td => td.visible));
     });
+    */
     this._service.getList();
   }
 

@@ -1,9 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 // RxJS
-import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/observable';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-
+// DB Helpers
 import { getFields } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
 // Services
 import { BaseAjaxService, ILoading } from 'app/modules/base/services/base-ajax.service';
@@ -11,11 +11,10 @@ import { BaseAjaxService, ILoading } from 'app/modules/base/services/base-ajax.s
 import { BaseGenericCatalog, GenericCatalog } from 'app/modules/base//models/base.models';
 import { FieldProperty } from 'app/modules/generic-catalogs/models/generic-catalogs.models';
 import { MetaDataField } from 'app/modules/generic-catalogs/models/metadata-catalogs.models';
-import { AjaxLocalStorage } from 'app/modules/base/models/request.models';
 
-export interface GenericServiceBase<T>{
-    save(_newValue: T, _currentValue?: T, callback?);
-    newInstance(): T | GenericCatalog;
+export interface GenericServiceBase<T extends BaseGenericCatalog>{
+    save(item: T): Observable<T>;
+    newInstance(): T;
     mapData(object: any): T;
     mapList?(objects: any[]): T[];
     map2Server?(value: T): any;
@@ -28,13 +27,9 @@ export interface ChangeResponse<T>{
 }
 
 export abstract class GenericService<T extends BaseGenericCatalog> implements ILoading, OnDestroy {
-
-    source$: Subject<T[]> = new Subject();
     autoSort = true;
+    // Check if needed
     private n_requests = 0;
-    protected subscription$: Subscription;
-    protected source: T[] = [];
-    protected storage: AjaxLocalStorage<T>;
     protected catalogID: number;
 
     loading$: Subject<boolean> = new Subject();
@@ -47,30 +42,17 @@ export abstract class GenericService<T extends BaseGenericCatalog> implements IL
         }
     }
 
-    constructor( protected db: BaseAjaxService,  storageName?: string,  storageTime?: number) {
-        console.log('Service created', storageName);
-        this.subscription$ = this.source$.subscribe(() => this.finishLoading());
-        if (storageName) {
-            this.storage = new AjaxLocalStorage(storageName, storageTime);
-            const localData = this.getLocalData(storageName);
-            if (localData) { this.setData(localData, false, storageName, false); }
-        }
-    }
+    constructor(protected db: BaseAjaxService) { console.log('Service created'); }
+    ngOnDestroy() { console.log('Service destroyed'); }
 
-    ngOnDestroy() {
-        this.subscription$.unsubscribe();
-        console.log('Service destroyed', this.storage ? this.storage.storageName : 'not set');
-    }
-
+    // Mappings
+    newInstance(): T | GenericCatalog { return new GenericCatalog(); }
+    mapData(data: any): T { return this.mapGenericData(this.newInstance(), data); }
     mapList(list: any[]): T[] {
         let respond = list.map(p => this.mapData(p));
         if (this.autoSort) { respond = this.baseSort(respond); }
         return respond;
     }
-
-    newInstance(): T | GenericCatalog { return new GenericCatalog(); }
-
-    mapData(data: any): T { return this.mapGenericData(this.newInstance(), data); }
 
     map2Server(value: T) {
         const fieldsMD = getFields(value);
@@ -84,63 +66,36 @@ export abstract class GenericService<T extends BaseGenericCatalog> implements IL
     }
 
     getByID(ID: number): Observable<T> {
-        const item$: Subject<T> = new Subject();
-        if (!Number.isNaN(ID)) {
-            this.startLoading();
-            const currentItem = this.getLocalByID(ID);
-            if (currentItem) {
-                setTimeout(() => {
-                    item$.next(currentItem);
-
-                }, 100);
-            } else {
-                return this.db.getDetailedData<T>(this.catalogID, ID)
-                .map((result: any) => {
-                    const response = result ? this.mapData(result) : null;
-                    if (response) { this.setData([response], true); }
-                    return response;
-                });
-            }
-        }
-        item$.subscribe(() => this.finishLoading);
-        return item$.asObservable();
+        if (Number.isNaN(ID)) { console.error('ID is not a number'); }
+        this.startLoading();
+        return this.db.getDetailedData<T>(this.catalogID, ID).pipe(
+            map((result: any) => {
+                return result ? this.mapData(result) : null;
+            })
+        );
     }
 
-    getList(mapData: boolean = true): void {
-        this.getBaseList(() => {
-            const $sub = this.db.getAllDataFromCatalog(this.catalogID)
-                .subscribe((result: any[]) => {
-                    this.setData(mapData ? this.mapList(result) : result);
-                    $sub.unsubscribe();
-                });
-        });
+    getList(mapData: boolean = true) {
+        return this.db.getAllDataFromCatalog<any>(this.catalogID).pipe(
+            map(result => mapData ? this.mapList(result) : result)
+        );
     }
 
-    delete(ID: number, storageName?: string): Observable<T> {
+    delete(ID: number): Observable<T> {
         this.startLoading();
         const response = this.db.removeItem(this.catalogID, ID);
         const $sub = response.subscribe(() => {
-            this.setData(this.source.filter((s: T | any) => (s.key ? s.key : s.C0) !== ID), false,  storageName);
             this.finishLoading();
             $sub.unsubscribe();
         });
         return response;
     }
 
-    save(workingItem: T, oldItem: T = null): Observable<T> {
-        const respond = this.basicSave(workingItem, (item: T) => {
-            const $sub = this.db.saveDynamicCatalog(
-                this.map2Server(item),
-                this.catalogID,
-                item.key)
-            .map(item => this.mapData(item))
-            .subscribe(item => {
-                respond.next(item);
-                $sub.unsubscribe();
-            });
-        }, oldItem);
-        respond.subscribe(() => this.finishLoading());
-        return respond.asObservable();
+    save(item: T): Observable<T> {
+        return this.db.saveDynamicCatalog(this.map2Server(item), this.catalogID, item.key)
+            .pipe(
+                map(item => this.mapData(item))
+            );
     }
 
     protected startLoading() { this.isLoading = ++this.n_requests > 0; }
@@ -184,77 +139,21 @@ export abstract class GenericService<T extends BaseGenericCatalog> implements IL
         return returnValue.asObservable();
     }
 
-    protected basicSave(newItem: T, action: any, oldItem?: T) {
-        const respond: Subject<T> = new Subject();
-        newItem = Object.assign(this.newInstance(), newItem);
-        this.startLoading();
-        const $sub = this.shouldSave(newItem, oldItem)
-            .subscribe((result: ChangeResponse<T>) => {
-                if (result.response) {
-                    action(result.newItem);
-                } else {
-                    respond.next(newItem);
-                }
-                $sub.unsubscribe();
-            });
-        const _rsub = respond.subscribe(() => {
-            this.finishLoading();
-            _rsub.unsubscribe();
-        });
-        return respond;
-    }
-
     private hasChanges(newItem: T, oldItem: T): ChangeResponse<T> {
         const response: ChangeResponse<T> = { newItem: newItem, oldItem: oldItem, response: true };
         if (oldItem) { if (!oldItem.hasChanges(newItem)) { response.response = false; }}
         return response;
     }
 
-    private getLocalByID(ID: number) {
-        const localData: T[] = this.getLocalData();
-        if (localData) { return localData.find(item => item.key === ID); }
-        return null;
-    }
-
-    protected addItem(item: T, storageName?: string) {
-        const currentItem = this.getLocalByID(Number(item.key));
-        if (currentItem) {
-            const localData = this.getLocalData();
+    protected addItem(item: T) {
+        const currentItem = this.getByID(item.key);
+        // Check if item already exists?
+        if (!currentItem) {
+            /*
             const idx = localData.findIndex(it => it.key === item.key);
             localData[idx] = item;
-            this.setData(localData, false, storageName);
-        } else {
-            this.setData([item], true, storageName);
+            */
         }
-    }
-
-    protected getBaseList(ajax, storageName?: string, concat: boolean = false) {
-        this.startLoading();
-        const localData = this.getLocalData(storageName);
-        if (localData) {
-            this.setData(localData, concat, storageName, false);
-        } else {
-            ajax();
-        }
-    }
-
-    protected setData(data: any[], concat: boolean = false, storageName?: string, saveLocal: boolean = true) {
-        this.source = concat ? this.source.concat(data) : data;
-        this.source$.next(this.source);
-        if (saveLocal && this.storage) {
-            this.storage.setStorage(data, 0, storageName);
-            if (storageName !== this.storage.storageName && concat && saveLocal) {
-                this.storage.setStorage(this.source, 0);
-            }
-        }
-    }
-
-    protected getLocalData(storageName?: string): T[] {
-        if (this.storage) {
-            const storedData = this.storage.getStorage(storageName);
-            if (storedData) { return storedData.map((item: T) => Object.assign(this.newInstance(), item)); }
-        }
-        return null;
     }
 }
 
@@ -279,22 +178,15 @@ export class GenericCatalogService extends GenericService<GenericCatalog> implem
     getByFBKey(key: string) {
         const fmd: FieldProperty = GenericCatalog.prototype['keyFB__dbData'];
         const fld =  this.fields.find((_fld) => _fld.nombreCorto === fmd.serverField);
-        return this.db.getAllDataFromCatalog(this.catalogID, `${fld.key},${key}`)
-            .map(result => result.map(it => this.mapData(it)));
+        return this.db.getAllDataFromCatalog(this.catalogID, `${fld.key},${key}`).pipe(
+            map(result => result.map(it => this.mapData(it)))
+        );
     }
 
-    save(workingItem: GenericCatalog, oldItem: GenericCatalog = null) {
-        const respond = this.basicSave(workingItem, (item: GenericCatalog) => {
-            const $sub = this.db.saveDynamicCatalog(
-                this.map2Server(item),
-                this.catalogID,
-                item.key)
-            .map(item => this.mapData(item))
-            .subscribe(item => {
-                respond.next(item);
-                $sub.unsubscribe();
-            });
-        }, oldItem);
-        return respond.asObservable();
+    save(workingItem: GenericCatalog) {
+        return this.db.saveDynamicCatalog(this.map2Server(workingItem), this.catalogID, workingItem.key)
+            .pipe(
+                map(item => this.mapData(item))
+            );
     }
 }

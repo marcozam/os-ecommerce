@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { EmailValidator } from '@angular/forms';
-
+// Serives
 import { ContactoService } from 'app/modules/crm/services/contacto.service';
-
+// Models
 import { TipoDatosContacto, Contacto } from 'app/modules/crm/models/crm.models';
 import { Persona } from 'app/modules/base/models/base.models';
-import { PersonasService } from 'app/modules/base/services/personas.service';
 
 @Component({
   selector: 'os-contacto',
@@ -38,11 +37,13 @@ export class ContactoComponent implements OnInit {
   isChildValid = false;
 
   constructor(
-    private _personaService: PersonasService,
+    // private _personaService: PersonasService,
     private _contactoService: ContactoService
   ) { }
 
-  ngOnInit() { this.contacto = new Contacto(); }
+  ngOnInit() {
+    this.contacto = new Contacto();
+  }
 
   getContactData() {
     if (this.contactoID) {
@@ -69,12 +70,16 @@ export class ContactoComponent implements OnInit {
     // TODO: Add contact type
     this.contacto.tipoID = 1;
     // this.contacto.datos = datos;
+
+    // ADD Store here
+    /*
     this._personaService.save(this.contacto.persona)
       .subscribe((pRes: Persona) => {
         this.contacto.persona = pRes;
         this._contactoService.save(this.contacto)
           .subscribe((cRes) => this.onSaved(cRes));
       });
+      */
   }
 
   onSaved(data: Contacto) { this.onChange.emit({ Data: data, isNew: this.isNew }); }

@@ -1,5 +1,5 @@
-import { Producto } from "app/modules/producto/models/producto.models";
-import { GenericCatalog, BaseGenericCatalog } from "app/modules/base/models/base.models";
+import { Producto } from 'app/models/productos/producto.models';
+import { GenericCatalog, BaseGenericCatalog } from 'app/modules/base/models/base.models';
 
 export class TipoMovimientoInventario extends GenericCatalog {
 
@@ -12,9 +12,9 @@ export class MovimientoInventario {
     cantidad: number;
     fecha: Date;
 
-    inventario: Inventario
+    inventario: Inventario;
 
-    constructor(_producto: Producto){
+    constructor(_producto: Producto) {
         this.producto = _producto;
     }
 }

@@ -9,6 +9,7 @@ import { GenericCatalog } from 'app/modules/base/models/base.models';
 import { MetaDataCatalog, MetaDataField } from '../../models/metadata-catalogs.models';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { OSBaseComponent } from '../../../base/typings/os-base.component';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-generic-catalog-list',
@@ -29,7 +30,8 @@ export class GenericCatalogListComponent extends OSBaseComponent implements OnIn
     private route: ActivatedRoute,
     private router: Router,
     public dialog: DialogBoxService) {
-    super([_metaDataService, _genericService]);
+    // _metaDataService, _genericService
+    super([]);
   }
 
   ngOnInit() {
@@ -44,7 +46,7 @@ export class GenericCatalogListComponent extends OSBaseComponent implements OnIn
 
   cleanData() {
     this.detailURL = `/DCG/catalogo/${this.catalogID}/`;
-    this.dataSource = new TableSource();
+    this.dataSource = new TableSource(of(null));
   }
 
   loadCatalogData() {
@@ -62,14 +64,17 @@ export class GenericCatalogListComponent extends OSBaseComponent implements OnIn
         this._metaDataService.getFieldsList(this.catalogID)
           .subscribe((fields: MetaDataField[]) => {
             this.dataSource.columns = fields.filter(f => f.visible )
-              .map(fld => new TableColumn(fld.nombre, fld.nombreCorto, item => item[fld.nombreCorto]));
-            this.dataSource.refresh();
+              .map(fld => new TableColumn(fld.nombre, fld.nombreCorto, item => item[fld.nombreCorto]))
+              .reduce((entities: {[key: string]: TableColumn}, item: TableColumn) => {
+                return { ...entities, [item.uniqueID]: item };
+            }, {});
+            // this.dataSource.refresh();
           });
       });
   }
 
   createSubscriptions() {
-    this._genericService.source$.subscribe((data: any[]) => { this.dataSource.updateDataSource(data); });
+    // this._genericService.source$.subscribe((data: any[]) => { this.dataSource.updateDataSource(data); });
   }
 
   getFieldValue(item: any, property: string) { return item[property]; }

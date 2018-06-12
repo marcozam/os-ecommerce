@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import 'rxjs/Rx';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+// RxJs
+import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs/observable';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { of } from 'rxjs/observable/of';
+import { merge } from 'rxjs/observable/merge';
 
 import { AjaxRequestResult } from 'app/modules/base/models/request.models';
 
@@ -14,10 +17,10 @@ export class AjaxGuardService {
 
     constructor(private _http: HttpClient) {
         // Check if Browser is online
-        this.online$ = Observable.merge(
-            Observable.of(navigator.onLine),
-            Observable.fromEvent(window, 'online').mapTo(true),
-            Observable.fromEvent(window, 'offline').mapTo(false)
+        this.online$ = merge(
+            of(navigator.onLine),
+            fromEvent(window, 'online').pipe(map(() => true)),
+            fromEvent(window, 'offline').pipe(map(() => false))
         );
     }
 
@@ -32,25 +35,20 @@ export class AjaxGuardService {
 
     getData(url: string, data: any) {
         const post = this._http.post(url, this.encodeObject(data), {
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
-        });
-        const response: Subject<AjaxRequestResult> = new Subject();
+                headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+            }).pipe(
+                map((result: any) => new AjaxRequestResult(result.Auth ? 'AuthError' : 'Success', result)),
+                catchError(error => of(new AjaxRequestResult('GeneralError', error)))
+            );
         // Execute on complete
+        /*
         response.subscribe(() => {
             const index = queuedConnections.indexOf(post);
             if (index > -1) { queuedConnections.splice(index, 1); }
         });
+        */
 
         queuedConnections.push(post);
-        post.subscribe((result: any) => {
-                const rr = new AjaxRequestResult(result.Auth ? 'AuthError' : 'Success', result);
-                response.next(rr);
-            },
-            (error: any) => {
-                const rr = new AjaxRequestResult('GeneralError', error);
-                response.next(rr);
-            }
-        );
-        return response;
+        return post;
     }
 }

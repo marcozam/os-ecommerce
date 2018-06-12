@@ -1,22 +1,15 @@
 import { BaseGenericCatalog, GenericCatalog } from 'app/modules/base/models/base.models';
-import { Field } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
+import { Field } from 'app/helpers/decorators';
 
-
-export class CategoriaProducto {
-  productos: Producto[];
-  sumary: CategoriaProductoSumary;
-
-  constructor(_sumary?: CategoriaProductoSumary) {
-    this.sumary = _sumary ? _sumary : new CategoriaProductoSumary('');
-    this.productos = new Array<Producto>();
-  }
-}
-
-export class CategoriaProductoSumary extends BaseGenericCatalog {
+export class CategoriaProducto extends BaseGenericCatalog {
   @Field('C1', 40301) nombre: string;
   @Field('C2', 40302) catalogoID: number;
   @Field('C3', 40303) formatoNombre: string;
   @Field('C4', 40304) usaInventario: boolean;
+
+  // For data management
+  productosLoaded: boolean;
+  // productosLoading: boolean;
 
   constructor(_nombre: string) {
     super();
@@ -24,6 +17,9 @@ export class CategoriaProductoSumary extends BaseGenericCatalog {
     this.nombre = _nombre;
     this.usaInventario = true;
     this.keysChanges = ['nombre', 'usaInventario', 'formatoNombre'];
+    // For data management
+    this.productosLoaded = false;
+    // this.productosLoading = false;
   }
 }
 
@@ -43,14 +39,14 @@ export class Producto extends BaseGenericCatalog {
   descripcion?: string;
   precio = 0;
 
-  private _categoriaProducto: CategoriaProductoSumary;
-  get categoriaProducto(): CategoriaProductoSumary{ return this._categoriaProducto; }
-  set categoriaProducto(value: CategoriaProductoSumary){
+  private _categoriaProducto: CategoriaProducto;
+  get categoriaProducto(): CategoriaProducto{ return this._categoriaProducto; }
+  set categoriaProducto(value: CategoriaProducto){
     this._categoriaProducto = value;
     this.categoriaProductoID = value ? Number(value.key) : 0;
   }
 
-  constructor(_nombre: string, _categoria?: CategoriaProductoSumary) {
+  constructor(_nombre: string, _categoria?: CategoriaProducto) {
     super();
     this.keysChanges = ['nombre', 'categoriaProductoID', 'requireProcesamiento', 'SKU'];
     this.key = 0;

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+// RxJs
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/observable';
+import { map } from 'rxjs/operators';
 
-import { PrecioProducto } from '../models/producto.models';
+import { PrecioProducto } from 'app/models/productos/producto.models';
 import { BaseAjaxService, ILoading } from '../../base/services/base-ajax.service';
 
 @Injectable()
@@ -22,19 +24,21 @@ export class ListaPreciosService implements ILoading {
     getPreciosPreductos(listaPreciosID: number): Observable<PrecioProducto[]> {
         const params = this._db.createParameter('ECOM0001', 4, { 'V4': listaPreciosID });
         this.isLoading = true;
-        const rValue = this._db.getData(params).map(res => {
-            // TODO: Handle Precio
-            let precios: PrecioProducto[];
-            if (res.Table1) {
-                precios = res.Table1.map(item => {
-                    const precio = new PrecioProducto(item.C1);
-                    precio.precio = item.C11;
-                    precio.listaPreciosID = listaPreciosID;
-                    return precio;
-                });
-            }
-            return precios;
-        });
+        const rValue = this._db.getData(params).pipe(
+                map(res => {
+                    // TODO: Handle Precio
+                    let precios: PrecioProducto[];
+                    if (res.Table1) {
+                        precios = res.Table1.map(item => {
+                            const precio = new PrecioProducto(item.C1);
+                            precio.precio = item.C11;
+                            precio.listaPreciosID = listaPreciosID;
+                            return precio;
+                        });
+                    }
+                    return precios;
+                })
+            );
         rValue.subscribe(() => { this.isLoading = false; });
         return rValue;
     }

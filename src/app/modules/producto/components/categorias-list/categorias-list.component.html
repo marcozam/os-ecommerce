@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let cat of categorias$ | async">
+        <mat-card class="cat-list-card">
+            <mat-card-header>
+                <mat-card-title class="text-center">
+                    {{cat.nombre}}
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-actions>
+                <div class="row">
+                    <div class="col-xs">
+                        <a routerLink="categoria/{{cat.key}}" mat-button color="accent">
+                            <mat-icon>edit</mat-icon>
+                            Editar
+                        </a>
+                    </div>
+                    <div class="col-xs text-right">
+                        <a routerLink="productos/{{cat.key}}" mat-raised-button color="primary">
+                            <mat-icon>list</mat-icon>
+                            Productos
+                        </a>
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="col-xs">
+                        <button mat-button color="warn">
+                            <mat-icon>delete</mat-icon>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

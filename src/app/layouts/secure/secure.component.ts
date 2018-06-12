@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-secure',
   templateUrl: './secure.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./secure.component.scss']
 })
 export class SecureComponent {

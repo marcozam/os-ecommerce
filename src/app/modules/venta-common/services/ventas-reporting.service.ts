@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+// RxJs
+import { map } from 'rxjs/operators';
 // Models
 import { Status } from 'app/modules/base/models/base.models';
 import { MetodoPago, Venta, DetalleVenta } from 'app/modules/venta/models/venta.models';
 import { ResumenVenta, Ingresos } from '../models/ventas-reporting.models';
-import { Producto } from 'app/modules/producto/models/producto.models';
+import { Producto } from 'app/models/productos/producto.models';
 // Services
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
 
@@ -50,29 +52,35 @@ export class VentasReportingService {
             V4: sucursalID ? sucursalID : '',
             V8: clienteID ? clienteID : '',
         });
-        return this.db.getData(params).map(result => this.mapList(result.Table));
+        return this.db.getData(params).pipe(
+            map(result => this.mapList(result.Table))
+        );
     }
 
     getHistorialCompras(clienteID: number) {
         const params = this.db.createParameter('ECOM0003', 4, { V3: clienteID ? clienteID : '' });
-        return this.db.getData(params).map(result => this.mapList(result.Table));
+        return this.db.getData(params).pipe(
+            map(result => this.mapList(result.Table))
+        );
     }
 
     getResumenMensual(month: number, year: number, sucursalID: number) {
         const params = this.db.createParameter('ECOM0003', 1, { V4: sucursalID, V5: year, V6: month });
-        return this.db.getData(params).map(data => {
-            const resumen = new ResumenVenta();
-            const _dResume = data.Table[0];
-            resumen.totalVenta = _dResume.C1;
-            resumen.totalPagado = _dResume.C2;
-            resumen.noVentas = _dResume.C3;
-            resumen.ingresos = data.Table1.map(ing => {
-                const mp = new MetodoPago(ing.C1);
-                mp.key = ing.C1;
-                return new Ingresos(mp, ing.C2);
-            });
-            resumen.lista = this.mapList(data.Table2);
-            return resumen;
-        });
+        return this.db.getData(params).pipe(
+            map(data => {
+                const resumen = new ResumenVenta();
+                const _dResume = data.Table[0];
+                resumen.totalVenta = _dResume.C1;
+                resumen.totalPagado = _dResume.C2;
+                resumen.noVentas = _dResume.C3;
+                resumen.ingresos = data.Table1.map(ing => {
+                    const mp = new MetodoPago(ing.C1);
+                    mp.key = ing.C1;
+                    return new Ingresos(mp, ing.C2);
+                });
+                resumen.lista = this.mapList(data.Table2);
+                return resumen;
+            })
+        );
     }
 }

@@ -50,7 +50,7 @@ export class MovimientosSinCorteComponent implements OnInit {
         if (result) {
           this.corte.totalRecibido = this.corte.detalle.length > 0 ?
               this.corte.detalle.map(d => d.montoRecibido).reduce((p, c) => p + c) : 0;
-          this._service.save(this.corte, null)
+          this._service.save(this.corte)
             .subscribe(result => {
               this._ticket.corte = result;
               this._ticket.print();

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+// RxJs
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/observable';
+import { _throw } from 'rxjs/observable/throw';
 
 import { environment } from '../../../../environments/environment';
 // Services
@@ -15,7 +17,6 @@ import { WarningTitle, AuthErrorMessage, ErrorTitle, InternalServerErrorMessage 
 
 export interface ILoading {
     loading$: Observable<boolean>;
-    isLoading: boolean;
 }
 
 @Injectable()
@@ -60,29 +61,26 @@ export class BaseAjaxService {
     }
 
     getData(data: any): Observable<any> {
-        const response: Subject<any> = new Subject();
-        if (this.online || !environment.production) {
-            this.guard.getData(environment.webServiceURL, data)
-                .subscribe(
-                    (result: AjaxRequestResult) => {
-                        switch (result.code) {
-                            case 'Success':
-                                response.next(result.data);
-                                response.complete();
-                                break;
-                            case 'AuthError':
-                                this.openDialog(WarningTitle, AuthErrorMessage);
-                                // response.next();
-                                break;
-                            // General Error
-                            default:
-                                response.error(result.error);
-                                this.openSnackBar(InternalServerErrorMessage);
-                                break;
-                        }
-                    });
-        } else { this.openDialog(ErrorTitle, 'No hay conexion'); }
-        return response;
+        if (!this.online || environment.production) {
+            this.openDialog(ErrorTitle, 'No hay conexion');
+        }
+        return this.guard.getData(environment.webServiceURL, data).pipe(
+                map((result: AjaxRequestResult) => {
+                    switch (result.code) {
+                        case 'Success':
+                            return result.data;
+                        case 'AuthError':
+                            this.openDialog(WarningTitle, AuthErrorMessage);
+                            _throw(AuthErrorMessage);
+                            break;
+                        // General Error
+                        default:
+                        this.openSnackBar(InternalServerErrorMessage);
+                            _throw(result.error);
+                            break;
+                    }
+                })
+            );
     }
 
     private openDialog(title: string, message: string) {
@@ -91,7 +89,8 @@ export class BaseAjaxService {
 
     getDetailedData<T>(CatalogoID: number, DetailID: any): Observable<T> {
         const params = this.createParameter('DYN0001', 1, { 'V4': CatalogoID, 'V5': DetailID });
-        return this.getData(params).map(result => result.Table.length > 0 ? result.Table[0] : null);
+        return this.getData(params).pipe(
+            map(result => result.Table.length > 0 ? result.Table[0] : null));
     }
 
     getAllDataFromCatalog<T>(CatalogoID: number, options?): Observable<T[]> {
@@ -105,19 +104,23 @@ export class BaseAjaxService {
             }
         }
         return this.getData(this.createParameter('DYN0001', 1, { V4: CatalogoID, V98: tOption.where }))
-            .map(result => result.Table);
+            .pipe(map(result => result.Table));
     }
 
     saveDynamicCatalog(DatosCatalogo: string, CatalogoID: number, DetailID: any, callback?) {
         const params = this.createParameter('DYN0001', 3, { 'V4': CatalogoID, 'V5': DetailID ? DetailID : 0, 'V6': 'C0,C1,C2~' + DatosCatalogo });
-        const respond = this.getData(params).map(res => res.Table.length >= 1 ? res.Table[0] : null);
+        const respond = this.getData(params).pipe(
+            map(res => res.Table.length >= 1 ? res.Table[0] : null)
+        );
         if (callback) { respond.subscribe(res => callback(res)); }
         return respond;
     }
 
     removeItem(CatalogoID: number, DetailID: any) {
         const params = this.createParameter('DYN0001', 5, { 'V4': CatalogoID, 'V5': DetailID });
-        return this.getData(params).map(result => result.Table);
+        return this.getData(params).pipe(
+            map(result => result.Table)
+        );
     }
 
     mapGeneric(r) {

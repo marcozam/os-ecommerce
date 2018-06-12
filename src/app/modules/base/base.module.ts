@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
+// import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+// Material
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,7 +34,6 @@ import { DialogBoxService } from './services/dialog-box.service';
 import { AjaxGuardService } from './services/ajax-guard.service';
 import { BaseAjaxService } from './services/base-ajax.service';
 import { EmpresasService } from './services/empresa.service';
-
 
 @NgModule({
   imports: [

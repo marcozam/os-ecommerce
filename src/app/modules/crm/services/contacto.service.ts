@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+// RxJS
+import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 // Services
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
@@ -13,7 +15,7 @@ export class ContactoService extends GenericService<Contacto> implements Generic
 
     constructor(_db: BaseAjaxService,
         private personaService: PersonasService) {
-        super(_db, 'contacto', 1440);
+        super(_db);
     }
 
     mapDatos2Server(list: DatoContacto[]) {
@@ -46,20 +48,22 @@ export class ContactoService extends GenericService<Contacto> implements Generic
         const params = this.db.createParameter('CRM0001', 4, { V3: apellido.trim(), V4: nombre.trim(), V5: '' });
         const $sub = this.db.getData(params).subscribe(
             (result: any) => {
+                result.Table.map(item => {
+                    const cnt = new Contacto();
+                    cnt.key = item.C0;
+                    cnt.tipoID = 1;
+                    cnt.persona = new Persona();
+                    cnt.persona.key = item.C1;
+                    cnt.persona.nombre = item.C2;
+                    cnt.persona.apellidoPaterno = item.C3;
+                    cnt.persona.apellidoMaterno = item.C4;
+                    return cnt;
+                });
+                /*
                 this.source$.next(
-                    result.Table.map(item => {
-                        const cnt = new Contacto();
-                        cnt.key = item.C0;
-                        cnt.tipoID = 1;
-                        cnt.persona = new Persona();
-                        cnt.persona.key = item.C1;
-                        cnt.persona.nombre = item.C2;
-                        cnt.persona.apellidoPaterno = item.C3;
-                        cnt.persona.apellidoMaterno = item.C4;
-                        return cnt;
-                    })
                 );
                 $sub.unsubscribe();
+                */
             },
             (error) => {
                 this.onError(error);
@@ -107,10 +111,12 @@ export class ContactoService extends GenericService<Contacto> implements Generic
             V4: item.tipoID === 1 ? item.persona.key : item.empresa.key,
             V7: DCA.join('&')
         });
-        return this.db.getData(tParams).map((result: any) => {
-            const newItem = this.mapData(result.Table[0]);
-            item.key = newItem.key;
-            return item;
-        });
+        return this.db.getData(tParams).pipe(
+            map((result: any) => {
+                const newItem = this.mapData(result.Table[0]);
+                item.key = newItem.key;
+                return item;
+            })
+        );
     }
 }

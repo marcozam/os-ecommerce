@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+// RxJs
+import { map } from 'rxjs/operators';
+// Models
 import { StoreProcedureMetaData, StoreProcedureOptionMetaData } from 'app/modules/development/models/store-procedure.models';
+// Services
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
 import { GenericService, GenericServiceBase } from 'app/modules/generic-catalogs/services/generic.service';
 
@@ -10,7 +14,7 @@ export class StoreProceduresService extends GenericService<StoreProcedureMetaDat
   private optionFilterID = 29801;
 
   constructor(_db: BaseAjaxService) {
-    super(_db, 'os_storeprocedures_metadata', 10);
+    super(_db);
     this.catalogID = 299;
   }
 
@@ -20,6 +24,6 @@ export class StoreProceduresService extends GenericService<StoreProcedureMetaDat
 
   getOptionsList(storeProcedureID: number) {
     return this.db.getAllDataFromCatalog(this.optionsCatalogID, `${this.optionFilterID},${storeProcedureID}`)
-      .map(result => result.map(it => this.mapOptionsData(it)));
+      .pipe(map(result => result.map(it => this.mapOptionsData(it))));
   }
 }

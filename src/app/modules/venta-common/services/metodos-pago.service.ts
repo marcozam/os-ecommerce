@@ -7,7 +7,7 @@ import { GenericService, GenericServiceBase } from '../../generic-catalogs/servi
 export class MetodosPagoService extends GenericService<MetodoPago> implements GenericServiceBase<MetodoPago> {
 
     constructor(_db: BaseAjaxService) {
-        super(_db, 'os-pagos_metodos-pago', 360);
+        super(_db);
         this.catalogID = 304;
         this.autoSort = false;
     }

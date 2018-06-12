@@ -49,7 +49,7 @@
       </td>
     </tr>
     <ng-container *ngIf="!loading">
-      <tr *ngFor="let row of dataSource.visibleData">
+      <tr *ngFor="let row of dataSource.DataSource$ | async">
         <!--Data-->
         <td *ngFor="let col of dataSource.columns" class="text-{{col.align}}">
           <ng-container *ngIf="!col.columnTemplate">
@@ -64,11 +64,11 @@
           <ng-template [ngIf]="dataSource.actionsTemplate"
             *ngTemplateOutlet="dataSource.actionsTemplate, context: { $implicit: row }">
           </ng-template>
-          <button mat-icon-button matTooltip="Ediatr" matTooltipPosition="below" color="primary" 
+          <a mat-icon-button matTooltip="Ediatr" matTooltipPosition="below" color="primary" 
             *ngIf="canEdit"
             (click)="onEdit(row)">
             <mat-icon aria-label="Editar">edit</mat-icon>
-          </button>
+          </a>
           <button mat-icon-button matTooltip="Eliminar" matTooltipPosition="below" color="warn" 
             *ngIf="canDelete"
             (click)="onDelete(row)">

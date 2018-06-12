@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
 import { MovimientoInventario, TipoMovimientoInventario } from 'app/modules/inventario/models/inventario.models';
-import { Producto, CategoriaProductoSumary } from 'app/modules/producto/models/producto.models';
+import { Producto, CategoriaProducto } from 'app/models/productos/producto.models';
 
 @Injectable()
 export class MovimientosInventarioService {
@@ -15,7 +15,7 @@ export class MovimientosInventarioService {
 
     mapData(item: any) {
         // Categoria
-        const cat = new CategoriaProductoSumary(item.C4);
+        const cat = new CategoriaProducto(item.C4);
         cat.key = item.C3;
         // Producto
         const prod = new Producto(item.C1, cat);

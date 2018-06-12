@@ -1,16 +1,18 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/observable';
+import { merge } from 'rxjs/observable/merge';
 import { ILoading } from '../services/base-ajax.service';
 
 export class OSBaseComponent implements ILoading {
     loading$: Observable<boolean>;
-    isLoading = false;
     showLoading = true;
-    constructor(services: ILoading[]) {
-        this.loading$ = Observable.merge(...services.map(s => s.loading$));
+    constructor(services: Observable<boolean>[]) {
+        this.loading$ = merge(...services);
+        /*
         this.loading$.subscribe(() => {
             // Is there any service busy?
             const busyServices = services.filter(s => s.isLoading);
             this.isLoading = busyServices.length > 0;
         });
+        */
     }
 }
