@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // NgRx
 import { StoreModule } from '@ngrx/store';
@@ -33,16 +33,18 @@ import { CategoriasListComponent } from './components/categorias-list/categorias
 import { ProductosListComponent } from './components/productos-list/productos-list.component';
 import { MarcaProductoComponent } from './components/marca-producto/marca-producto.component';
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
+import { MarcasListComponent } from './components/marcas-list/marcas-list.component';
+import { MarcaProductoFormComponent } from './components/marca-producto-form/marca-producto-form.component';
 // Services
 import * as productosServices from 'app/services/productos';
 import * as productosGuards from 'app/services/productos/guards';
-import { MarcasListComponent } from './components/marcas-list/marcas-list.component';
-import { MarcaProductoFormComponent } from './components/marca-producto-form/marca-producto-form.component';
+import * as productosResolvers from 'app/services/productos/resolvers';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     // Routing
     ProductoRoutingModule,
     StoreModule.forFeature('products', reducers),
@@ -82,6 +84,7 @@ import { MarcaProductoFormComponent } from './components/marca-producto-form/mar
   ],
   providers: [
     ...productosGuards.guards,
+    ...productosResolvers.resolvers,
     ...productosServices.services
   ]
 })

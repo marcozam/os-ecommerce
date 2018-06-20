@@ -9,7 +9,7 @@ import { GenericCatalog } from 'app/modules/base/models/base.models';
 import { MetaDataCatalog, MetaDataField } from '../../models/metadata-catalogs.models';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { OSBaseComponent } from '../../../base/typings/os-base.component';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-generic-catalog-list',

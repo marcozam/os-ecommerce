@@ -5,7 +5,7 @@ import { MetaDataCatalog } from '../../models/metadata-catalogs.models';
 
 import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-dynamic-catalog-list',

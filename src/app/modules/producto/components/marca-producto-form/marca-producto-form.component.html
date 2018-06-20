@@ -1,3 +1,6 @@
-<p>
-  marca-producto-form works!
-</p>
+<div [formGroup]="parent">
+  <mat-form-field>
+    <input matInput placeholder="Nombre" formControlName="nombre"/>
+    <mat-error *ngIf="invalid">El nombre de la marca es requerido</mat-error>
+  </mat-form-field>
+</div>

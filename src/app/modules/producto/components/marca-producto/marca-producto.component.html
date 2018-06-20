@@ -1,22 +1,32 @@
 <div class="row">
-  <div class="col-xs col-md-4">
+  <div class="col-xs col-sm col-md-8">
     <div class="sub-container">
       <div class="sub-container-header">
         <span class="sub-titles">
-            {{ marcaID > 0 ? 'Editar' : 'Nueva' }} Marca de Producto
+            {{(item$ | async)?.key > 0 ? 'Editar' : 'Nueva'}}
+            Marca
         </span>
       </div>
-      <os-loading *ngIf="isLoading"></os-loading>
-      <form #productoCategoriaForm="ngForm">
-        <mat-form-field>
-          <input matInput name="nombre" placeholder="Nombre" required
-            [ngModel]="item.nombre"/>
-        </mat-form-field>
-        <mat-selection-list dense>
-          <mat-list-option *ngFor="let cat of listaCategorias">
-            {{cat.nombre}}
-          </mat-list-option>
-        </mat-selection-list>
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-xs col-md-6">
+            <app-marca-producto-form [parent]="form"></app-marca-producto-form>
+          </div>
+          <div class="col-xs col-md-6">
+            <mat-selection-list dense>
+              <mat-list-option *ngFor="let cat of categorias$ | async">
+                {{cat.nombre}}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+        </div>
+        <div class="buttons-container between-xs">
+          <button type="button" mat-stroked-button color="warn">
+            <mat-icon>delete</mat-icon>
+            Cancelar
+          </button>
+          <button type="button" mat-raised-button color="primary" [disabled]="form.invalid">Guardar</button>
+        </div>
       </form>
     </div>
   </div>

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 // RxJs
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/observable';
+import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PrecioProducto } from 'app/models/productos/producto.models';

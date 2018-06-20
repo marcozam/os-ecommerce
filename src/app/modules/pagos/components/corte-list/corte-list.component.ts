@@ -7,7 +7,7 @@ import { CajaService } from '../../services/caja.service';
 
 import { CorteCaja, DetalleCorteCaja } from '../../models/caja.models';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-corte-list',

@@ -1,9 +1,9 @@
 @import '~normalize.css/normalize.css';
 @import '~flexboxgrid/dist/flexboxgrid.min.css';
-@import './styles/mixins/breakpoints';
+@import './styles/material.scss';
 
+@import './styles/mixins/breakpoints';
 @import './styles/global/_global.scss';
-@import './styles/material/table';
 
 body{
     font-family: 'Roboto', sans-serif;

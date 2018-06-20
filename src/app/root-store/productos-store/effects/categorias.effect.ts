@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 // RxJS
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
+// Constants
+import { ITEM_NOT_EXIST_ERROR_MESSAGE } from 'app/constants/messages.contants';
 // Actions
 import * as categoriasActions from '../actions/categorias.action';
 import * as productosActions from '../actions/productos.action';
@@ -40,7 +42,11 @@ export class CategoriasEffects {
         .pipe(
             switchMap((action: categoriasActions.LoadCategoriaByID) => {
                 return this.service.getByID(action.payload).pipe(
-                    map(list => new categoriasActions.LoadCategoriaByIDSuccess(list)),
+                    map(item => {
+                        return item ?
+                        new categoriasActions.LoadCategoriaByIDSuccess(item) :
+                        new categoriasActions.LoadCategoriaByIDFail(ITEM_NOT_EXIST_ERROR_MESSAGE);
+                    }),
                     catchError(error => of(new categoriasActions.LoadCategoriaByIDFail(error)))
                 );
             })

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angul
 import { StoreProceduresService } from 'app/modules/development/services/store-procedures.service';
 import { StoreProcedureMetaData, StoreProcedureOptionMetaData } from 'app/modules/development/models/store-procedure.models';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-store-procedure-list',

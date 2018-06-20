@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // RxJs
-import { Observable } from 'rxjs/observable';
-import { of } from 'rxjs/observable/of';
+import { Observable, of } from 'rxjs';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';

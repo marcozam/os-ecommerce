@@ -1,5 +1,3 @@
-@import '~styles/global/_variables.scss';
-
 table.os-table{
     thead{
         th.item-description{
@@ -20,6 +18,6 @@ table.os-table{
             margin: 20px 0;
         }
         font-weight: 700;
-        color: $primary-color;
+        // color: $primary-color;
     }
 }

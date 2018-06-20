@@ -10,7 +10,7 @@ import { ProductosListGuard } from './productos-list.guard';
 import { CategoriaDetailGuard } from './categoria-detail.guard';
 import { MarcaDetailGuard } from './marca-detail.guard';
 
-import { ProductosDataManagerService } from './data-manager.service';
+import { ProductosDataManagerService } from '../data-manager.service';
 
 export const guards = [
     ProductosDataManagerService,

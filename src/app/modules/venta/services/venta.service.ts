@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject ,  of } from 'rxjs';
 import * as moment from 'moment';
 // Models
 import { Venta, DetalleVenta, DetallePagos, MetodoPago, ComentariosVenta } from '../models/venta.models';
@@ -9,7 +9,6 @@ import { Producto } from 'app/models/productos/producto.models';
 import { BaseAjaxService } from '../../base/services/base-ajax.service';
 import { ContactoService } from 'app/modules/crm/services/contacto.service';
 import { GenericServiceBase } from 'app/modules/generic-catalogs/services/generic.service';
-import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class VentaService implements GenericServiceBase<Venta> {

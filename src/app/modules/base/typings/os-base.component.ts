@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs/observable';
-import { merge } from 'rxjs/observable/merge';
+import { Observable, merge } from 'rxjs';
 import { ILoading } from '../services/base-ajax.service';
 
 export class OSBaseComponent implements ILoading {

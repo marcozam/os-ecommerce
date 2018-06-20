@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# Angular 6 Update folder
+/angular_material_schematics-r8Y30P
+
 # compiled output
 /dist
 /tmp

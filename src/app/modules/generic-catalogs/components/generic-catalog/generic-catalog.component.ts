@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 // Models
 import { GenericCatalog } from 'app/modules/base/models/base.models';
 import { MetaDataCatalog, MetaDataField } from '../../models/metadata-catalogs.models';

@@ -1,8 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 // RxJS
+import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/observable';
-import { Subject } from 'rxjs/Subject';
 // DB Helpers
 import { getFields } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
 // Services

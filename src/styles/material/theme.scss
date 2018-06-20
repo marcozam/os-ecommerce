@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@import '~@angular/material/_theming';
+
+@include mat-core();
+
+// Health Taste
+// $default-primary-palette: mat-palette($mat-green, 700);
+// $default-app-theme: mat-light-theme($health-taste-primary-palette, mat-palette($mat-blue));
+
+// General Brand
+$default-primary-palette:   mat-palette($mat-blue-gray, 700);
+$default-accent-palette:    mat-palette($mat-brown, 400);
+$default-warn-palette:      mat-palette($mat-red, A200);
+
+$default-app-theme: mat-light-theme($default-primary-palette, $default-accent-palette, $default-warn-palette);
+
+@include angular-material-theme($default-app-theme);
+
+// Page colors
+$primary-color: mat-color($default-primary-palette);
+$primary-dark-color: mat-color($default-primary-palette, 900);

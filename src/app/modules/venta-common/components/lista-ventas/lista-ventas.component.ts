@@ -7,7 +7,7 @@ import { VentaService } from 'app/modules/venta/services/venta.service';
 // Models
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { Venta, DetallePagos } from 'app/modules/venta/models/venta.models';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-lista-ventas',
@@ -17,12 +17,13 @@ import { of } from 'rxjs/observable/of';
 })
 export class ListaVentasComponent implements AfterViewInit {
 
-  private _ventasSource: Venta[];
+  // private _ventasSource: Venta[];
   @Input()
   get ventasSource(): Venta[] { return this.ventasSource; }
   set ventasSource(value) {
-    this._ventasSource = value ? value : [];
+    // this._ventasSource = value ? value : [];
     // this.dataSource.updateDataSource(this._ventasSource);
+    console.log(value);
     this.loading = false;
   }
 

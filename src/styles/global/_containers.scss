@@ -1,3 +1,17 @@
+.sub-container {
+    .container-header {
+        border-bottom: solid 2px $primary-dark-color;
+        padding: 10px 0;
+        margin-bottom: 10px;
+    }
+
+    .container-footer {
+        margin-top: 20px;
+    }
+}
+
+
+
 .flex-container{
     display: flex;
 }
@@ -26,22 +40,6 @@
             margin-left: auto;
         }
     }
-}
-
-.buttons-containers{
-    //TODO: On movile full width
-    /*
-    display: flex;
-    flex-wrap: wrap;
-    */
-    padding-top: 10px;
-    margin-bottom: 15px;
-    text-align: right !important;
-    /*
-    button {
-        flex: 1 0 auto;
-    }
-    */
 }
 
 .radio-group-block {

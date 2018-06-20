@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { DecimalPipe, DatePipe } from '@angular/common';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  of } from 'rxjs';
 
 import { CajaService } from '../../services/caja.service';
 import { VentaOptikaTicketService } from 'app/modules/venta/services/tickets/venta-optika-ticket.service';
@@ -10,7 +10,6 @@ import { TableSource, TableColumn } from 'app/modules/base/models/data-source.mo
 import { MovimientoCaja } from '../../models/caja.models';
 
 import { WarningTitle, SuccessTitle } from 'app/modules/base/constants/messages.contants';
-import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-movimientos-caja',

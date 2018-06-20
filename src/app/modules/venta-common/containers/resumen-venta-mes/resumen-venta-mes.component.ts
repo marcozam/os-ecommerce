@@ -4,7 +4,7 @@ import { ResumenVenta, Ingresos } from '../../models/ventas-reporting.models';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { DecimalPipe } from '@angular/common';
 import { Venta } from '../../../venta/models/venta.models';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-resumen-venta-mes',

@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+// RxJs
+import { Observable } from 'rxjs';
 import { tap, take, filter} from 'rxjs/operators';
-// Store
+// Stores
 import { Store } from '@ngrx/store';
-// import * as fromRoot from 'app/state-router';
 import * as fromStore from 'app/root-store/productos-store';
+// Models
+import { MarcaProducto } from 'app/models/productos';
 
 @Injectable()
 export class ProductosDataManagerService {
@@ -29,7 +32,7 @@ export class ProductosDataManagerService {
     loadProductoByID(ID: number) {
         return this.store.select(fromStore.getSelectedProducto).pipe(
             tap(data => {
-                if (!data) { this.store.dispatch(new fromStore.LoadCategoriaByID(ID)); }
+                if (!data) { this.store.dispatch(new fromStore.LoadProductoByID(ID)); }
             }),
             filter((data) => data !== undefined), take(1));
     }
@@ -42,10 +45,10 @@ export class ProductosDataManagerService {
             filter((data) => data !== undefined), take(1));
     }
 
-    loadMarcaByID(ID: number) {
+    loadMarcaByID(ID: number): Observable<MarcaProducto> {
         return this.store.select(fromStore.getSelectedMarca).pipe(
             tap(data => {
-                if (!data) { this.store.dispatch(new fromStore.LoadCategoriaByID(ID)); }
+                if (!data) { this.store.dispatch(new fromStore.LoadMarcaByID(ID)); }
             }),
             filter((data) => data !== undefined), take(1));
     }

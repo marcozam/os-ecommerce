@@ -1,54 +1,66 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+// RxJs
+import { Observable } from 'rxjs';
+// Store
+import { Store } from '@ngrx/store';
+import * as fromStore from 'app/root-store/productos-store';
 // Services
 import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
-import { MarcaProductoService } from 'app/services/productos/marca-producto.service';
 // import { CategoriaProductoService } from '../../services/categoria-producto.service';
 // Models
 import { MarcaProducto, CategoriaProducto } from 'app/models/productos/producto.models';
-import { OSBaseComponent } from 'app/modules/base/typings/os-base.component';
+import { tap } from 'rxjs/operators';
 // Constants
-import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
+// import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
 
 @Component({
   selector: 'app-marca-producto',
   templateUrl: './marca-producto.component.html',
   styleUrls: ['./marca-producto.component.scss'],
-  providers: [MarcaProductoService, DialogBoxService]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ DialogBoxService ]
 })
-export class MarcaProductoComponent extends OSBaseComponent implements OnInit {
-  item: MarcaProducto;
-  listaCategorias: CategoriaProducto[];
-  marcaID: number;
+export class MarcaProductoComponent implements OnInit {
+  item$: Observable<MarcaProducto>;
+  categorias$: Observable<CategoriaProducto[]>;
+  form: FormGroup;
 
   constructor(
-    private _marcaService: MarcaProductoService,
-    private route: ActivatedRoute,
+    private store: Store<fromStore.ProductsModuleState>,
+    private fb: FormBuilder,
     public dialog: DialogBoxService
   ) {
-    // _marcaService
-    super([]);
-    this.item = new MarcaProducto();
+    this.createForm();
+  }
+
+  createForm() {
+    this.form = this.fb.group({
+      'nombre': ['', Validators.required]
+    });
   }
 
   ngOnInit() {
-    this.marcaID = this.route.snapshot.params['detailID'];
-
-    /*
-    this._categoriaService.source$.subscribe(list => {
-      this.listaCategorias = list;
-    });
-    */
-
-    // this._categoriaService.getList();
-    if (this.marcaID > 0) {
-      this._marcaService.getByID(this.marcaID).subscribe(r => this.item = r );
-    }
+    // Listen for new values
+    this.item$ = this.store.select(fromStore.getSelectedMarca).pipe(
+      tap(data => {
+        this.form.patchValue({
+          nombre: data.nombre
+        });
+      })
+    );
+    this.categorias$ = this.store.select(fromStore.getAllCategories);
   }
 
   onSave(value) {
+    if (this.form.invalid) {
+      return;
+    }
+    console.log(value);
+    /*
     this.item = Object.assign(this.item, value);
     this._marcaService.save(this.item)
       .subscribe(() => { this.dialog.openDialog(SuccessTitle, SuccessMessage, false); });
+    */
   }
 }

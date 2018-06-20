@@ -1,7 +1,6 @@
-import { Subject } from 'rxjs/Subject';
 import { TemplateRef } from '@angular/core';
 // RxJs
-import { Observable } from 'rxjs/Observable';
+import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // Helpers
 import { entitie2List } from 'app/helpers';

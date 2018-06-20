@@ -5,8 +5,9 @@ import {
   ProductosListGuard,
   CategoriaDetailGuard,
   MarcasListGuard,
-  MarcaDetailGuard
 } from 'app/services/productos/guards';
+
+import { MarcaDetailResolver } from 'app/services/productos/resolvers';
 
 // Containers
 import { ProductosComponent } from './containers/productos/productos.component';
@@ -41,7 +42,7 @@ const routes: Routes = [
   {
     path: 'marcas/:marcaId', component: MarcaProductoComponent,
     data: { title: 'Marcas de Productos'},
-    canActivate: [MarcaDetailGuard]
+    resolve: { item: MarcaDetailResolver }
   },
   {
     path: 'categorias/:categoryId', component: CategoriaProductoComponent,

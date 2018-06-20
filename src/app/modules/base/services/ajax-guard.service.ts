@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // RxJs
+import { Observable, fromEvent ,  of ,  merge } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs/observable';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { of } from 'rxjs/observable/of';
-import { merge } from 'rxjs/observable/merge';
 
 import { AjaxRequestResult } from 'app/modules/base/models/request.models';
 

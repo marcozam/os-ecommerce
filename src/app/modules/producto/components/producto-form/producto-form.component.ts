@@ -14,8 +14,7 @@ export class ProductoFormComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onCancelar(data: any) {
     console.log(data);

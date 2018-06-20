@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot} from '@angular/router';
 // RxJs
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  of } from 'rxjs';
 import { switchMap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 // Data Manager Service
-import { ProductosDataManagerService } from './data-manager.service';
+import { ProductosDataManagerService } from '../data-manager.service';
 
 @Injectable()
 export class ProductosListGuard implements CanActivate {

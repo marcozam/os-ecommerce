@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // RxJs
+import { throwError, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/observable';
-import { _throw } from 'rxjs/observable/throw';
 
 import { environment } from '../../../../environments/environment';
 // Services
@@ -71,12 +70,12 @@ export class BaseAjaxService {
                             return result.data;
                         case 'AuthError':
                             this.openDialog(WarningTitle, AuthErrorMessage);
-                            _throw(AuthErrorMessage);
+                            throwError(AuthErrorMessage);
                             break;
                         // General Error
                         default:
                         this.openSnackBar(InternalServerErrorMessage);
-                            _throw(result.error);
+                            throwError(result.error);
                             break;
                     }
                 })
@@ -90,7 +89,7 @@ export class BaseAjaxService {
     getDetailedData<T>(CatalogoID: number, DetailID: any): Observable<T> {
         const params = this.createParameter('DYN0001', 1, { 'V4': CatalogoID, 'V5': DetailID });
         return this.getData(params).pipe(
-            map(result => result.Table.length > 0 ? result.Table[0] : null));
+            map((result: any) => result.Table.length > 0 ? result.Table[0] : null));
     }
 
     getAllDataFromCatalog<T>(CatalogoID: number, options?): Observable<T[]> {
@@ -104,13 +103,13 @@ export class BaseAjaxService {
             }
         }
         return this.getData(this.createParameter('DYN0001', 1, { V4: CatalogoID, V98: tOption.where }))
-            .pipe(map(result => result.Table));
+            .pipe(map((result: any) => result.Table));
     }
 
     saveDynamicCatalog(DatosCatalogo: string, CatalogoID: number, DetailID: any, callback?) {
         const params = this.createParameter('DYN0001', 3, { 'V4': CatalogoID, 'V5': DetailID ? DetailID : 0, 'V6': 'C0,C1,C2~' + DatosCatalogo });
         const respond = this.getData(params).pipe(
-            map(res => res.Table.length >= 1 ? res.Table[0] : null)
+            map((res: any) => res.Table.length >= 1 ? res.Table[0] : null)
         );
         if (callback) { respond.subscribe(res => callback(res)); }
         return respond;
@@ -119,7 +118,7 @@ export class BaseAjaxService {
     removeItem(CatalogoID: number, DetailID: any) {
         const params = this.createParameter('DYN0001', 5, { 'V4': CatalogoID, 'V5': DetailID });
         return this.getData(params).pipe(
-            map(result => result.Table)
+            map((result: any) => result.Table)
         );
     }
 

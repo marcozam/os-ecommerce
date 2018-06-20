@@ -1,10 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 // RxJs
-// import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/observable';
-import { of } from 'rxjs/observable/of';
-// import { merge } from 'rxjs/observable/merge';
+import { Observable, of } from 'rxjs';
 
 // Replace for Store
 // import { ProductosService } from '../../../producto/services/productos.service';
@@ -119,6 +116,7 @@ export class AddProductoComponent extends OSBaseComponent implements OnInit {
         // Revisa si el valor es un codigo de barras
         if (currentValue.length >= 8) { codigo = currentValue; }
       }
+      console.log(codigo);
       /*
       if (codigo) {
         producto = this.searchProductBySKU(codigo).pipe(map(list => list.length > 0 ? list[0] : null));
