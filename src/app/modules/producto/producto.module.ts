@@ -37,7 +37,6 @@ import { MarcasListComponent } from './components/marcas-list/marcas-list.compon
 import { MarcaProductoFormComponent } from './components/marca-producto-form/marca-producto-form.component';
 // Services
 import * as productosServices from 'app/services/productos';
-import * as productosGuards from 'app/services/productos/guards';
 import * as productosResolvers from 'app/services/productos/resolvers';
 
 @NgModule({
@@ -83,9 +82,8 @@ import * as productosResolvers from 'app/services/productos/resolvers';
     DetallePreciosProductoComponent,
   ],
   providers: [
-    ...productosGuards.guards,
+    ...productosServices.services,
     ...productosResolvers.resolvers,
-    ...productosServices.services
   ]
 })
 export class ProductoModule { }

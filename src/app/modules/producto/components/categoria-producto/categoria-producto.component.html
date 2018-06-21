@@ -6,7 +6,6 @@
             {{ categoriaID > 0 ? 'Editar' : 'Nueva' }} Categoria de Producto
         </span>
       </div>
-      <os-loading *ngIf="isLoading"></os-loading>
       <form #productoCategoriaForm="ngForm">
         <mat-form-field>
           <input matInput name="nombre" placeholder="Nombre" required

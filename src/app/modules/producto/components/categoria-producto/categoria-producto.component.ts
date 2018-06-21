@@ -22,7 +22,6 @@ import { CatalogsMetadataService } from 'app/modules/generic-catalogs/services/c
 export class CategoriaProductoComponent implements OnInit {
   item$: Observable<CategoriaProducto>;
   catalogos: MetaDataCatalog[];
-  categoriaID: number;
 
   constructor(
     private store: Store<fromStore.ProductsModuleState>,

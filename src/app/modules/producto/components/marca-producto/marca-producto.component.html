@@ -22,10 +22,13 @@
         </div>
         <div class="buttons-container between-xs">
           <button type="button" mat-stroked-button color="warn">
-            <mat-icon>delete</mat-icon>
+            <mat-icon>clear</mat-icon>
             Cancelar
           </button>
-          <button type="button" mat-raised-button color="primary" [disabled]="form.invalid">Guardar</button>
+          <button type="button" mat-raised-button color="primary" [disabled]="form.invalid">
+            <mat-icon>save</mat-icon>
+            Guardar
+          </button>
         </div>
       </form>
     </div>

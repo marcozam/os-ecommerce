@@ -1,13 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {
-  CategoriasListGuard,
-  ProductosListGuard,
-  CategoriaDetailGuard,
-  MarcasListGuard,
-} from 'app/services/productos/guards';
-
-import { MarcaDetailResolver } from 'app/services/productos/resolvers';
+// Resolvers
+import * as resolvers from 'app/services/productos/resolvers';
 
 // Containers
 import { ProductosComponent } from './containers/productos/productos.component';
@@ -23,12 +17,17 @@ const routes: Routes = [
   {
     path: 'categorias', component: CategoriasListComponent,
     data: { title: 'Categorias' },
-    canActivate: [CategoriasListGuard]
+    resolve: {
+      list: resolvers.CategoriasListResolver
+    }
   },
   {
     path: 'categorias/productos/:categoryId', component: ProductosListComponent,
     data: { title: 'Productos' },
-    canActivate: [CategoriaDetailGuard, ProductosListGuard]
+    resolve: {
+      categoria: resolvers.CategoriaDetailResolver,
+      list: resolvers.ProductosListResolver
+    },
   },
   {
     path: 'categorias/productos/:categoryId/detail/:productoId', component: ProductosComponent,
@@ -37,17 +36,23 @@ const routes: Routes = [
   {
     path: 'marcas', component: MarcasListComponent,
     data: { title: 'Marcas de Productos' },
-    canActivate: [MarcasListGuard]
+    resolve: {
+      list: resolvers.MarcasListResolver
+    }
   },
   {
     path: 'marcas/:marcaId', component: MarcaProductoComponent,
     data: { title: 'Marcas de Productos'},
-    resolve: { item: MarcaDetailResolver }
+    resolve: {
+      item: resolvers.MarcaDetailResolver
+    }
   },
   {
     path: 'categorias/:categoryId', component: CategoriaProductoComponent,
     data: { title: 'Categoria de Productos' },
-    canActivate: [CategoriaDetailGuard]
+    resolve: {
+      item: resolvers.CategoriaDetailResolver
+    }
   },
 ];
 
