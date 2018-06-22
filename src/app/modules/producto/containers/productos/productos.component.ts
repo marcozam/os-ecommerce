@@ -9,7 +9,7 @@ import * as fromStore from 'app/root-store/productos-store';
 // SuccessTitle, SuccessMessage,
 // import { WarningTitle, LeaveWarningMessage } from 'app/modules/base/constants/messages.contants';
 // Services
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 // Models
 import { CategoriaProducto, Producto } from 'app/models/productos/producto.models';
 

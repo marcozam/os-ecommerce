@@ -14,16 +14,17 @@ export class MarcaDetailResolver implements Resolve<Observable<MarcaProducto>> {
 
     constructor(private store: Store<fromStore.ProductsModuleState>) { }
 
-    resolve(route: ActivatedRouteSnapshot) {
+    resolve(route: ActivatedRouteSnapshot): Observable<MarcaProducto> {
         const ID = route.params.marcaId;
         if (!isNaN(ID)) { return this.loadMarcaByID(ID); }
     }
 
     loadMarcaByID(ID: number): Observable<MarcaProducto> {
         return this.store.select(fromStore.getSelectedMarca).pipe(
+            take(1),
             tap(data => {
                 if (!data) { this.store.dispatch(new fromStore.LoadMarcaByID(ID)); }
-            }),
-            filter((data) => data !== undefined), take(1));
+            })
+        );
     }
 }

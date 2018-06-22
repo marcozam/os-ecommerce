@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 // Services
 import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 // Models
 import { MetaDataTable, MetaDataField, MetaDataCatalog } from '../../models/metadata-catalogs.models';
 import { GenericCatalog } from 'app/modules/base/models/base.models';

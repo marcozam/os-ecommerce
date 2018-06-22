@@ -5,7 +5,7 @@ import { Producto } from 'app/models/productos';
 // Selectors
 import { getProductsModuleState } from './state.selectors';
 import * as fromSelectors from '../../general.selectors';
-import * as fromRoot from 'app/root-store/router-state';
+import * as fromRoot from 'app/root-store/state/router.state';
 
 export const getProductosState = createSelector(
     getProductsModuleState,

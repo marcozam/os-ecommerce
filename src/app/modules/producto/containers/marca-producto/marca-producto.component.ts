@@ -5,8 +5,6 @@ import { Observable } from 'rxjs';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
-// Services
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
 // import { CategoriaProductoService } from '../../services/categoria-producto.service';
 // Models
 import { MarcaProducto, CategoriaProducto } from 'app/models/productos/producto.models';
@@ -18,8 +16,7 @@ import { tap } from 'rxjs/operators';
   selector: 'app-marca-producto',
   templateUrl: './marca-producto.component.html',
   styleUrls: ['./marca-producto.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ DialogBoxService ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarcaProductoComponent implements OnInit {
   item$: Observable<MarcaProducto>;
@@ -28,8 +25,7 @@ export class MarcaProductoComponent implements OnInit {
 
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
-    private fb: FormBuilder,
-    public dialog: DialogBoxService
+    private fb: FormBuilder
   ) {
     this.createForm();
   }
@@ -44,9 +40,12 @@ export class MarcaProductoComponent implements OnInit {
     // Listen for new values
     this.item$ = this.store.select(fromStore.getSelectedMarca).pipe(
       tap(data => {
-        this.form.patchValue({
-          nombre: data.nombre
-        });
+        console.log('Component', data);
+        if (data) {
+          this.form.patchValue({
+            nombre: data.nombre
+          });
+        }
       })
     );
     this.categorias$ = this.store.select(fromStore.getAllCategories);

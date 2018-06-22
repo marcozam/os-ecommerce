@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { GenericCatalog } from 'app/modules/base/models/base.models';
 import { MetaDataCatalog, MetaDataField } from '../../models/metadata-catalogs.models';
 // Services
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 import { GenericCatalogService } from '../../services/generic.service';
 import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
 // Constants

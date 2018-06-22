@@ -18,7 +18,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 // Common
 import { MonthYearSelectorComponent } from './components/month-year-selector/month-year-selector.component';
 import { DateSelectionComponent } from './components/date-selection/date-selection.component';
-import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import { SelectComponent } from './components/select/select.component';
 import { LoadingComponent } from './components/loading/loading.component';
 // Basic Catalogs
@@ -30,9 +29,6 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FilterComponent } from './components/filter/filter.component';
 // Services
 import { PersonasService } from './services/personas.service';
-import { DialogBoxService } from './services/dialog-box.service';
-import { AjaxGuardService } from './services/ajax-guard.service';
-import { BaseAjaxService } from './services/base-ajax.service';
 import { EmpresasService } from './services/empresa.service';
 
 @NgModule({
@@ -54,7 +50,6 @@ import { EmpresasService } from './services/empresa.service';
   ],
   declarations: [
     TableComponent,
-    DialogBoxComponent,
     PaginatorComponent,
     FilterComponent,
     PersonaComponent,
@@ -64,13 +59,9 @@ import { EmpresasService } from './services/empresa.service';
     SelectComponent,
     LoadingComponent,
   ],
-  entryComponents: [
-    DialogBoxComponent
-  ],
   exports: [
     TableComponent,
     FilterComponent,
-    DialogBoxComponent,
     LoadingComponent,
     PersonaComponent,
     EmpresaComponent,
@@ -80,10 +71,6 @@ import { EmpresasService } from './services/empresa.service';
   providers: [
     PersonasService,
     EmpresasService,
-    // Global Services
-    AjaxGuardService,
-    BaseAjaxService,
-    DialogBoxService,
   ]
 })
 export class BaseModule { }

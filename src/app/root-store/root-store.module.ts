@@ -6,22 +6,28 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Modules
-import { ProductosStoreModule } from './productos-store/productos-store.module';
+import { ProductosStoreModule } from './productos-store';
+// Store
+import * as fromReducers from './reducers';
+import * as fromEffects from './effects';
 // Router
-import * as fromRouterState from './router-state';
+import * as fromRouterState from './state/router.state';
 
 @NgModule({
   imports: [
     CommonModule,
-    ProductosStoreModule,
     StoreModule.forRoot({
-      ...fromRouterState.routerReducers
+      ...fromRouterState.routerReducers,
+      ...fromReducers.reducers
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([
+      ...fromEffects.effects
+    ]),
     StoreDevtoolsModule.instrument({
-      maxAge: 25
+      maxAge: 50
     }),
     StoreRouterConnectingModule,
+    ProductosStoreModule,
   ],
   declarations: [],
   providers: [

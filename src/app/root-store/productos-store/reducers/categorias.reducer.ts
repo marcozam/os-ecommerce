@@ -40,7 +40,8 @@ export function reducer(
             };
         }
         // Check if needed
-        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS_FAIL: {
+        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS_FAIL:
+        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL: {
             return { ...state, loading: false, loaded: false };
         }
         case fromCategorias.CategoriasActionTypes.SET_CATEGORIA_LOADED_STATE: {

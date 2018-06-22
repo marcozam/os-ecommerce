@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 import { PersonasService } from 'app/modules/base/services/personas.service';
 import { Persona } from 'app/modules/base/models/base.models';
 

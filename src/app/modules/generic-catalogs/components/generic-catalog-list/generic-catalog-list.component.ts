@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // Services
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 import { GenericCatalogService } from 'app/modules/generic-catalogs/services/generic.service';
 import { CatalogsMetadataService } from 'app/modules/generic-catalogs/services/catalogs-metadata.service';
 // Models

@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
+// Store
+import { Store } from '@ngrx/store';
+import { StandAloneRootState } from 'app/root-store';
 // RxJS
 import { of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 // Constants
-import { ITEM_NOT_EXIST_ERROR_MESSAGE } from 'app/constants/messages.contants';
+import {
+    ITEM_NOT_EXIST_ERROR_MESSAGE,
+    WARNING_TITLE,
+    DialogTypes
+} from 'app/constants';
 // Actions
 import * as categoriasActions from '../actions/categorias.action';
 import * as productosActions from '../actions/productos.action';
@@ -15,6 +22,7 @@ import { CategoriaProductoService } from 'app/services/productos/categoria-produ
 export class CategoriasEffects {
     constructor(
         private actions$: Actions,
+        private store: Store<StandAloneRootState>,
         private service: CategoriaProductoService
     ) { }
 
@@ -45,7 +53,12 @@ export class CategoriasEffects {
                     map(item => {
                         return item ?
                         new categoriasActions.LoadCategoriaByIDSuccess(item) :
-                        new categoriasActions.LoadCategoriaByIDFail(ITEM_NOT_EXIST_ERROR_MESSAGE);
+                        new categoriasActions.LoadCategoriaByIDFail({
+                            title: WARNING_TITLE,
+                            message: ITEM_NOT_EXIST_ERROR_MESSAGE,
+                            isHandled: true,
+                            type: DialogTypes.WARNING,
+                        });
                     }),
                     catchError(error => of(new categoriasActions.LoadCategoriaByIDFail(error)))
                 );

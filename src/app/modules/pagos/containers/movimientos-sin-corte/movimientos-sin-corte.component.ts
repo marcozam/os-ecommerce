@@ -6,7 +6,7 @@ import { environment } from '../../../../../environments/environment';
 // Services
 import { CorteTicketService } from '../../services/tickets/corte-ticket.service';
 import { CajaService } from '../../services/caja.service';
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 // Models
 import { CorteCaja } from '../../models/caja.models';
 // Components

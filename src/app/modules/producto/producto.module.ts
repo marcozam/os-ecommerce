@@ -2,11 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// NgRx
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { reducers, effects } from 'app/root-store/productos-store';
-
 // Material
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,22 +17,18 @@ import { MatTableModule } from '@angular/material/table';
 
 // Routing
 import { ProductoRoutingModule } from './producto-routing.module';
-// OS Modules
-import { BaseModule } from 'app/modules/base/base.module';
 // Containers
+import { MarcaProductoComponent } from './containers/marca-producto/marca-producto.component';
+import { CategoriaProductoComponent } from './containers/categoria-producto/categoria-producto.component';
 import { ProductosComponent } from './containers/productos/productos.component';
 // Components
 import { DetallePreciosProductoComponent } from './components/detalle-precios-producto/detalle-precios-producto.component';
-import { CategoriaProductoComponent } from './components/categoria-producto/categoria-producto.component';
 import { CategoriasListComponent } from './components/categorias-list/categorias-list.component';
 import { ProductosListComponent } from './components/productos-list/productos-list.component';
-import { MarcaProductoComponent } from './components/marca-producto/marca-producto.component';
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { MarcasListComponent } from './components/marcas-list/marcas-list.component';
 import { MarcaProductoFormComponent } from './components/marca-producto-form/marca-producto-form.component';
-// Services
-import * as productosServices from 'app/services/productos';
-import * as productosResolvers from 'app/services/productos/resolvers';
+import { CategoriaProductoFormComponent } from './components/categoria-producto-form/categoria-producto-form.component';
 
 @NgModule({
   imports: [
@@ -46,10 +37,6 @@ import * as productosResolvers from 'app/services/productos/resolvers';
     ReactiveFormsModule,
     // Routing
     ProductoRoutingModule,
-    StoreModule.forFeature('products', reducers),
-    EffectsModule.forFeature(effects),
-    // OS Module
-    BaseModule,
     // Material
     MatButtonModule,
     MatSelectModule,
@@ -74,6 +61,7 @@ import * as productosResolvers from 'app/services/productos/resolvers';
     ProductoFormComponent,
     MarcasListComponent,
     MarcaProductoFormComponent,
+    CategoriaProductoFormComponent,
   ],
   exports: [
     ProductoRoutingModule,
@@ -81,9 +69,5 @@ import * as productosResolvers from 'app/services/productos/resolvers';
     ProductosListComponent,
     DetallePreciosProductoComponent,
   ],
-  providers: [
-    ...productosServices.services,
-    ...productosResolvers.resolvers,
-  ]
 })
 export class ProductoModule { }

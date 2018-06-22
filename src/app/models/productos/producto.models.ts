@@ -40,8 +40,8 @@ export class Producto extends BaseGenericCatalog {
   precio = 0;
 
   private _categoriaProducto: CategoriaProducto;
-  get categoriaProducto(): CategoriaProducto{ return this._categoriaProducto; }
-  set categoriaProducto(value: CategoriaProducto){
+  get categoriaProducto(): CategoriaProducto { return this._categoriaProducto; }
+  set categoriaProducto(value: CategoriaProducto) {
     this._categoriaProducto = value;
     this.categoriaProductoID = value ? Number(value.key) : 0;
   }

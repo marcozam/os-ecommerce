@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 // State
-import { getRouterState } from 'app/root-store/router-state';
+import { getRouterState } from 'app/root-store/state/router.state';
 import { ProductsModuleState } from '../state';
 // Selectors
 import { getProductsModuleState } from './state.selectors';

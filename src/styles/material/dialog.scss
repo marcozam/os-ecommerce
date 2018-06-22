@@ -1,0 +1,10 @@
+.mat-dialog-container {
+    .mat-dialog-title { 
+        &.error {
+            color: $error-color;
+        }
+        &.warning {
+            color: $warn-color;
+        }
+    }
+}

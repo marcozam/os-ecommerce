@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 // Services
 import { AjaxGuardService } from './ajax-guard.service';
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 // Models
 import { GenericCatalog } from 'app/modules/base/models/base.models';
 import { AjaxRequestResult } from 'app/modules/base/models/request.models';

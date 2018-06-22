@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 // Material Tokens for Date format
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -22,6 +23,7 @@ import { RootStoreModule } from './root-store/root-store.module';
 import { routing } from './app.routing';
 // Componentes
 import { AppComponent } from './app.component';
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 // Auth Module
@@ -33,6 +35,7 @@ registerLocaleData(localeESMX);
 @NgModule({
   declarations: [
     AppComponent,
+    DialogBoxComponent,
     LoginComponent,
     PageNotFoundComponent,
     PublicComponent,
@@ -52,7 +55,11 @@ registerLocaleData(localeESMX);
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
+  ],
+  entryComponents: [
+    DialogBoxComponent
   ],
   providers: [
     Title,

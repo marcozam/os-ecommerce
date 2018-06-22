@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 // Models
-import { CategoriaProducto } from 'app/models/productos/producto.models';
+import { GeneralError } from 'app/models';
+import { CategoriaProducto } from 'app/models/productos';
 
 // CONSTANTS
 export enum CategoriasActionTypes {
@@ -49,7 +50,7 @@ export class LoadCategoriaByIDSuccess implements Action {
 }
 export class LoadCategoriaByIDFail implements Action {
     readonly type = CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL;
-    constructor(public payload: any) { }
+    constructor(public error: GeneralError) { }
 }
 // Update
 export class SetCategoriaLoadedState implements Action {

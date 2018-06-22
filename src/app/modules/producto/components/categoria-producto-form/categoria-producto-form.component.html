@@ -1,0 +1,25 @@
+<div [formGroup]="parent">
+  <mat-form-field>
+    <input matInput placeholder="Nombre" formControlName="nombre"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Catalogo" formControlName="catalogoID">
+      <mat-option [value]="0"> NINGUNO </mat-option>
+      <!--
+      <mat-option *ngFor="let c of catalogos" [value]="c.key">
+        {{c.nombre}}
+      </mat-option>
+      -->
+    </mat-select>
+  </mat-form-field>
+  <div>
+    <mat-checkbox name="usaInventario" formControlName="usaInventario">Tiene Inventario</mat-checkbox>
+  </div>
+</div>
+<!--
+  <mat-form-field *ngIf="productoCategoriaForm.value.catalogoID && productoCategoriaForm.value.catalogoID > 0">
+    <input matInput name="formatoNombre" placeholder="Formato Nombre del Producto" required
+      [ngModel]="item.formatoNombre"/>
+  </mat-form-field>
+-->
+    

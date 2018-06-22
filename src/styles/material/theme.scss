@@ -11,7 +11,7 @@
 // General Brand
 $default-primary-palette:   mat-palette($mat-blue-gray, 700);
 $default-accent-palette:    mat-palette($mat-brown, 400);
-$default-warn-palette:      mat-palette($mat-red, A200);
+$default-warn-palette:      mat-palette($mat-red, A700);
 
 $default-app-theme: mat-light-theme($default-primary-palette, $default-accent-palette, $default-warn-palette);
 
@@ -20,3 +20,5 @@ $default-app-theme: mat-light-theme($default-primary-palette, $default-accent-pa
 // Page colors
 $primary-color: mat-color($default-primary-palette);
 $primary-dark-color: mat-color($default-primary-palette, 900);
+$error-color: mat-color($default-warn-palette);
+$warn-color: mat-color($mat-amber, 700);

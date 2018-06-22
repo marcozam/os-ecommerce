@@ -4,7 +4,7 @@ import { Observable ,  of } from 'rxjs';
 
 import { CajaService } from '../../services/caja.service';
 import { VentaOptikaTicketService } from 'app/modules/venta/services/tickets/venta-optika-ticket.service';
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { MovimientoCaja } from '../../models/caja.models';

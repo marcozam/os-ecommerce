@@ -3,7 +3,7 @@ import { Observable ,  of } from 'rxjs';
 
 import { InventarioService } from 'app/modules/inventario/services/inventario.service';
 // import { CategoriaProductoService } from 'app/modules/producto/services/categoria-producto.service';
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 
 import { Inventario } from 'app/modules/inventario/models/inventario.models';
 import { CategoriaProducto } from 'app/models/productos/producto.models';

@@ -9,7 +9,7 @@ import { OSBaseComponent } from '../../../base/typings/os-base.component';
 // import { ProductosService } from 'app/modules/producto/services/productos.service';
 import { ListaPreciosService } from '../../services/lista-precios.service';
 // import { CategoriaProductoService } from 'app/modules/producto/services/categoria-producto.service';
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 // Constants
 // import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
 

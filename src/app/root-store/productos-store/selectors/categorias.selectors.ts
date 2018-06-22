@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 // State
-import { getRouterState } from 'app/root-store/router-state';
+import { getRouterState } from 'app/root-store/state/router.state';
 import { ProductsModuleState } from '../state';
 // Selectors
 import { getProductsModuleState } from './state.selectors';
@@ -34,7 +34,9 @@ export const getAllCategories = createSelector(
 export const getSelectedCategoria = createSelector(
     getCategoriasEntities,
     getRouterState,
-    (entities, router) => fromSelectors.geSelectedtItem(entities, router, 'categoriaID')
+    (entities, router) => {
+        return fromSelectors.geSelectedtItem(entities, router, 'categoryId');
+    }
 );
 
 export const getStandAloneCategories = createSelector(

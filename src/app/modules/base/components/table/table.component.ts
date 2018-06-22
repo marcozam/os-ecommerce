@@ -15,7 +15,7 @@ import { FilterComponent } from 'app/modules/base/components/filter/filter.compo
 // Models
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 // Services
-import { DialogBoxService } from 'app/modules/base/services/dialog-box.service';
+import { DialogBoxService } from 'app/services/dialog-box.service';
 
 import { WarningTitle } from 'app/modules/base/constants/messages.contants';
 
