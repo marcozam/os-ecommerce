@@ -1,17 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-// Store
-import { Store } from '@ngrx/store';
-import { StandAloneRootState } from 'app/root-store';
 // RxJS
 import { of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 // Constants
-import {
-    ITEM_NOT_EXIST_ERROR_MESSAGE,
-    WARNING_TITLE,
-    DialogTypes
-} from 'app/constants';
+import { MessageCode } from 'app/constants';
 // Actions
 import * as categoriasActions from '../actions/categorias.action';
 import * as productosActions from '../actions/productos.action';
@@ -22,7 +15,6 @@ import { CategoriaProductoService } from 'app/services/productos/categoria-produ
 export class CategoriasEffects {
     constructor(
         private actions$: Actions,
-        private store: Store<StandAloneRootState>,
         private service: CategoriaProductoService
     ) { }
 
@@ -53,15 +45,21 @@ export class CategoriasEffects {
                     map(item => {
                         return item ?
                         new categoriasActions.LoadCategoriaByIDSuccess(item) :
-                        new categoriasActions.LoadCategoriaByIDFail({
-                            title: WARNING_TITLE,
-                            message: ITEM_NOT_EXIST_ERROR_MESSAGE,
-                            isHandled: true,
-                            type: DialogTypes.WARNING,
-                        });
+                        new categoriasActions.LoadCategoriaByIDFail(MessageCode.ITEM_NOT_FOUND);
                     }),
-                    catchError(error => of(new categoriasActions.LoadCategoriaByIDFail(error)))
+                    catchError(() => of(new categoriasActions.LoadCategoriaByIDFail(MessageCode.GENERAL_ERROR)))
                 );
             })
         );
+
+        @Effect()
+        saveCategoria$ = this.actions$.ofType(categoriasActions.CategoriasActionTypes.SAVE_CATEGORIA)
+            .pipe(
+                switchMap((action: categoriasActions.SaveCategoria) => {
+                    return this.service.save(action.newItem, action.oldItem).pipe(
+                        map(item => new categoriasActions.SaveCategoriaSuccess(item, MessageCode.ITEM_SAVED)),
+                        catchError(() => of(new categoriasActions.SaveCategoriaFail(MessageCode.GENERAL_ERROR)))
+                    );
+                })
+            );
 }

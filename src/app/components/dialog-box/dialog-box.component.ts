@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // CONSTANTS
-import { DialogTypes } from 'app/constants';
+import { MessageTypes } from 'app/constants';
 
 @Component({
   selector: 'app-dialog-box',
@@ -11,13 +11,13 @@ import { DialogTypes } from 'app/constants';
 })
 export class DialogBoxComponent implements OnInit {
 
-  dialogType: DialogTypes;
+  dialogType: MessageTypes;
   lines: string[];
 
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.dialogType = DialogTypes.WARNING;
+      this.dialogType = MessageTypes.WARNING;
     }
 
   ngOnInit() { this.lines = this.data.mensaje.split('.'); }

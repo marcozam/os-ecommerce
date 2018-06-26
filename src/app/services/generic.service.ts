@@ -1,30 +1,26 @@
 import { OnDestroy } from '@angular/core';
 // RxJS
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 // DB Helpers
-import { getFields } from 'app/helpers/decorators/dynamic-catalog.decorator';
+import { getFields } from 'app/helpers/decorators';
 // Services
 import { BaseAjaxService } from './base-ajax.service';
 // Models
-import { BaseGenericCatalog } from 'app/modules/base//models/base.models';
+import { BaseCatalog } from 'app/models';
 
-export interface GenericServiceBase<T extends BaseGenericCatalog> {
+export interface IGenericService<T extends BaseCatalog> {
     autoSort: Boolean;
-    save(item: T): Observable<T>;
+    save(newItem: T, oldItem?: T): Observable<T>;
     newInstance(): T;
     mapData(object: any): T;
     mapList?(objects: any[]): T[];
     map2Server?(value: T): any;
 }
 
-export abstract class GenericService<T extends BaseGenericCatalog> implements OnDestroy, GenericServiceBase<T> {
-    constructor(protected db: BaseAjaxService, protected catalogID, public autoSort = true) {
-        console.log('NGRX Service CREATED');
-    }
-
+export abstract class GenericService<T extends BaseCatalog> implements OnDestroy, IGenericService<T> {
+    constructor(protected db: BaseAjaxService, protected catalogID, public autoSort = true) { }
     ngOnDestroy() { console.log('NGRX Service DESTROYED'); }
-
     // MAPPINGS
     newInstance(): T { return null; }
     mapData(data: any): T { return this.mapGenericData(this.newInstance(), data); }
@@ -34,8 +30,12 @@ export abstract class GenericService<T extends BaseGenericCatalog> implements On
         return respond;
     }
     map2Server(value: T) {
-        const fieldsMD = getFields(value);
-        return fieldsMD.map(fld => `${fld.key},${value[fld.propertyName]}` ).join('~');
+        // Made sure we get fields
+        const fieldsMD = getFields(this.newInstance());
+        return fieldsMD.map(fld => {
+            const _value = fld.converter(value[fld.propertyName]);
+            return `${fld.key},${_value}`;
+         }).join('~');
     }
 
     // POST Data
@@ -52,9 +52,13 @@ export abstract class GenericService<T extends BaseGenericCatalog> implements On
             .pipe(map(result => mapData ? this.mapList(result) : result));
     }
     delete(ID: number): Observable<T> { return this.db.removeItem(this.catalogID, ID); }
-    save(item: T): Observable<T> {
-        return this.db.saveDynamicCatalog(this.map2Server(item), this.catalogID, item.key)
+    save(newItem: T, oldItem: T): Observable<T> {
+        if (oldItem.hasChanges(newItem)) {
+            return this.db.saveDynamicCatalog(this.map2Server(newItem), this.catalogID, newItem.key)
             .pipe(map(item => this.mapData(item)));
+        } else {
+            return of(newItem);
+        }
     }
 
     // UTILITIES
@@ -67,8 +71,7 @@ export abstract class GenericService<T extends BaseGenericCatalog> implements On
             return 0;
         });
     }
-
-    protected mapGenericData(item: any, data: any) {
+    protected mapGenericData(item: T, data: any) {
         if (data) {
             if (data.C0) { item.key = data.C0; }
             const fieldsMD = getFields(item);

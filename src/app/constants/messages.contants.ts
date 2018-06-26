@@ -1,8 +1,17 @@
-export enum DialogTypes {
+export enum MessageTypes {
     SUCCESS = 'success',
     ERROR = 'error',
-    WARNING = 'warning'
+    WARNING = 'warning',
+    INFO = 'info',
 }
+
+export enum MessageCode {
+    ITEM_SAVED = 200,
+    GENERAL_ERROR = 400,
+    ITEM_NOT_FOUND = 401,
+    NO_DATA = 402,
+}
+
 // Success
 export const SUCCESS_TITLE = 'Exito!!';
 export const SUCCESS_MESSAGE = 'Informacion guardada con exito.';

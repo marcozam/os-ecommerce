@@ -14,8 +14,8 @@
             Cancelar
           </button>
           <button type="button" mat-raised-button color="primary" 
-            [disabled]="form.invalid"
-            (click)="onSave(form.value)">
+            [disabled]="form?.invalid"
+            (click)="onSave(form.value, item$)">
             <mat-icon aria-label="Guardar">save</mat-icon>
             Guardar
           </button>

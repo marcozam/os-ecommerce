@@ -1,11 +1,13 @@
 import { Field } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
 
-export class BaseGenericCatalog {
+export interface IGenericCatalog {
+    key: number;
+    createdDate: Date;
+}
+
+export class BaseGenericCatalog implements IGenericCatalog {
     key = 0;
-
-    keysChanges: string[] = [];
-
-    createdDate: Object;
+    createdDate: Date;
     createdBy?: string;
     updatedDate?: Object;
     updatedBy?: string;
@@ -13,11 +15,8 @@ export class BaseGenericCatalog {
     constructor() { }
 
     hasChanges(compareWith: any): boolean {
-        let response: boolean = this.keysChanges.length === 0;
-        this.keysChanges.forEach(key => {
-            response = this[key] !== compareWith[key] ? true : response;
-        });
-        return response;
+        console.log(compareWith);
+        return false;
     }
 }
 
@@ -26,7 +25,7 @@ export class GenericCatalog extends BaseGenericCatalog {
 
     constructor(key?: number, nombre?: string) {
         super();
-        this.keysChanges = ['nombre'];
+        // this.keysChanges = ['nombre'];
         this.key = key ? key : 0;
         this.nombre = nombre ? nombre : null;
     }
@@ -36,7 +35,7 @@ export class GrupoStatus extends BaseGenericCatalog {
     @Field('C1', 8601) nombre: string;
     constructor() {
         super();
-        this.keysChanges = ['nombre'];
+        // this.keysChanges = ['nombre'];
     }
 }
 
@@ -59,7 +58,7 @@ export class Empresa extends BaseGenericCatalog {
 
     constructor() {
         super();
-        this.keysChanges = ['nombre'];
+        // this.keysChanges = ['nombre'];
     }
 }
 
@@ -74,7 +73,7 @@ export class Persona extends BaseGenericCatalog {
         return `${this.nombre} ${this.apellidoPaterno ? this.apellidoPaterno : ''} ${this.apellidoMaterno ? this.apellidoMaterno : ''}`;
     }
 
-    public get edad(): number{
+    public get edad(): number {
         const diff = Date.now().valueOf() - this.fechaNacimiento.valueOf();
         const ageDate = new Date(diff);
         // 1970 is start year on JSms
@@ -83,7 +82,7 @@ export class Persona extends BaseGenericCatalog {
 
     constructor() {
         super();
-        this.keysChanges = ['nombre', 'apellidoPaterno', 'apellidoMaterno', 'fechaNacimiento', 'sexo'];
+        // this.keysChanges = ['nombre', 'apellidoPaterno', 'apellidoMaterno', 'fechaNacimiento', 'sexo'];
         this.nombre = '';
         this.apellidoPaterno = '';
         this.apellidoMaterno = '';

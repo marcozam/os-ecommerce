@@ -13,6 +13,7 @@
             <app-marca-producto-form [parent]="form"></app-marca-producto-form>
           </div>
           <div class="col-xs col-md-6">
+            <strong>Categorias:</strong>
             <mat-selection-list dense>
               <mat-list-option *ngFor="let cat of categorias$ | async">
                 {{cat.nombre}}
@@ -21,7 +22,7 @@
           </div>
         </div>
         <div class="buttons-container between-xs">
-          <button type="button" mat-stroked-button color="warn">
+          <button type="button" mat-stroked-button color="warn" routerLink="../">
             <mat-icon>clear</mat-icon>
             Cancelar
           </button>

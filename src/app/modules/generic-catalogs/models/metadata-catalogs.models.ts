@@ -32,7 +32,7 @@ export class MetaDataCatalog extends GenericCatalog {
         super();
         this.key = 0;
         this.tableName = '';
-        this.keysChanges = ['nombre', 'tableName', 'dynamic', 'detailURL', 'listURL'];
+        // this.keysChanges = ['nombre', 'tableName', 'dynamic', 'detailURL', 'listURL'];
     }
 }
 

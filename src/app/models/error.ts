@@ -1,8 +1,7 @@
-import { DialogTypes } from 'app/constants';
+import { MessageTypes } from 'app/constants';
 
 export interface GeneralError {
-    type: DialogTypes;
+    type: MessageTypes;
     message: string;
     title: string;
-    isHandled: boolean;
 }

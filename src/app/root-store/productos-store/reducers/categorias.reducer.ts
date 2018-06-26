@@ -17,6 +17,7 @@ export function reducer(
 ): GeneralListState<CategoriaProducto> {
     switch (action.type) {
         case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID:
+        case fromCategorias.CategoriasActionTypes.SAVE_CATEGORIA:
         case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS: {
             return { ...state, loading: true };
         }
@@ -28,21 +29,20 @@ export function reducer(
                 entities: data2Entities<CategoriaProducto>(action.payload, state)
             };
         }
+        case fromCategorias.CategoriasActionTypes.SAVE_CATEGORIA_SUCCESS:
         case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_SUCCESS: {
             const entities = {
                 ...state.entities,
                 [action.payload.key]: action.payload
             };
-            return {
-                ...state,
-                loading: false,
-                entities
-            };
+            return { ...state, loading: false, entities };
         }
-        // Check if needed
-        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS_FAIL:
-        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL: {
+        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS_FAIL: {
             return { ...state, loading: false, loaded: false };
+        }
+        case fromCategorias.CategoriasActionTypes.SAVE_CATEGORIA_FAIL:
+        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL: {
+            return { ...state, loading: false };
         }
         case fromCategorias.CategoriasActionTypes.SET_CATEGORIA_LOADED_STATE: {
             const entities = { ...state.entities };

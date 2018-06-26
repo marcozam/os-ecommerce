@@ -1,7 +1,10 @@
 import { Action } from '@ngrx/store';
+// Constants
+import { MessageCode } from 'app/constants';
+import { ProductosMessageSection } from '../productos-store.constants';
 // Models
-import { GeneralError } from 'app/models';
 import { CategoriaProducto } from 'app/models/productos';
+import { MessageAction } from 'app/models';
 
 // CONSTANTS
 export enum CategoriasActionTypes {
@@ -31,9 +34,10 @@ export enum CategoriasActionTypes {
 export class LoadAllCategorias implements Action {
     readonly type = CategoriasActionTypes.LOAD_CATEGORIAS;
 }
-export class LoadCategoriasFail implements Action {
+export class LoadCategoriasFail implements Action, MessageAction {
     readonly type = CategoriasActionTypes.LOAD_CATEGORIAS_FAIL;
-    constructor(public payload: any) { }
+    readonly messageSection = ProductosMessageSection.CATEGORIAS;
+    constructor(public messageCode: MessageCode) { }
 }
 export class LoadCategoriasSuccess implements Action {
     readonly type = CategoriasActionTypes.LOAD_CATEGORIAS_SUCCESS;
@@ -48,9 +52,25 @@ export class LoadCategoriaByIDSuccess implements Action {
     readonly type = CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_SUCCESS;
     constructor(public payload: CategoriaProducto) { }
 }
-export class LoadCategoriaByIDFail implements Action {
+export class LoadCategoriaByIDFail implements Action, MessageAction {
     readonly type = CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL;
-    constructor(public error: GeneralError) { }
+    readonly messageSection = ProductosMessageSection.CATEGORIAS;
+    constructor(public messageCode: MessageCode) { }
+}
+// Save
+export class SaveCategoria implements Action {
+    readonly type = CategoriasActionTypes.SAVE_CATEGORIA;
+    constructor(public newItem: CategoriaProducto, public oldItem: CategoriaProducto) { }
+}
+export class SaveCategoriaSuccess implements Action, MessageAction {
+    readonly type = CategoriasActionTypes.SAVE_CATEGORIA_SUCCESS;
+    readonly messageSection = ProductosMessageSection.CATEGORIAS;
+    constructor(public payload: CategoriaProducto, public messageCode: MessageCode) { }
+}
+export class SaveCategoriaFail implements Action, MessageAction {
+    readonly type = CategoriasActionTypes.SAVE_CATEGORIA_FAIL;
+    readonly messageSection = ProductosMessageSection.CATEGORIAS;
+    constructor(public messageCode: MessageCode) { }
 }
 // Update
 export class SetCategoriaLoadedState implements Action {
@@ -65,4 +85,5 @@ export class SetCategoriaLoadingState implements Action {
 export type CategoriasAction =
     LoadAllCategorias | LoadCategoriasFail | LoadCategoriasSuccess |
     LoadCategoriaByID | LoadCategoriaByIDFail | LoadCategoriaByIDSuccess |
+    SaveCategoria | SaveCategoriaFail | SaveCategoriaSuccess |
     SetCategoriaLoadedState | SetCategoriaLoadingState;

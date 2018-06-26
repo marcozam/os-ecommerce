@@ -15,8 +15,9 @@ export class MarcasListResolver implements Resolve<void> {
 
     loadMarcas() {
         return this.store.select(fromStore.getMarcasLoaded).pipe(
+            take(1),
             tap((loaded: boolean) => {
                 if (!loaded) { this.store.dispatch(new fromStore.LoadMarcas()); }
-            }), take(1));
+            }));
     }
 }

@@ -41,7 +41,7 @@ export const getSelectedCategoria = createSelector(
 
 export const getStandAloneCategories = createSelector(
     getCategoriasState,
-    (state) => fromSelectors.getData(state).filter(item => item.catalogoID === 0)
+    (state) => fromSelectors.getData(state).filter(item => !item.catalogoID)
 );
 
 export const getStockCategories = createSelector(

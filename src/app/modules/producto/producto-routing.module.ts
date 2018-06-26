@@ -44,7 +44,8 @@ const routes: Routes = [
     path: 'marcas/:marcaId', component: MarcaProductoComponent,
     data: { title: 'Marcas de Productos'},
     resolve: {
-      item: fromResolvers.MarcaDetailResolver
+      item: fromResolvers.MarcaDetailResolver,
+      categorias: fromResolvers.CategoriasListResolver
     }
   },
   {

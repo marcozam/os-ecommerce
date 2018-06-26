@@ -53,7 +53,23 @@ export function Field(dbField: string, dbFieldKey: number = 0, saveField?: strin
             get: dbGetter,
             enumerable: true
         });
+    };
+}
 
+export function getFields(item: any) {
+    const fields: FieldProperty[] = [];
+    // tslint:disable-next-line:forin
+    for (const prop in item) {
+        const idx = prop.indexOf('__dbData');
+        if (idx >= 0) {
+            fields.push(item[prop]);
+        }
+    }
+    return fields;
+}
+
+
+/*
         const definition = Object.getOwnPropertyDescriptor(target, propertyKey);
         if (definition) {
             Object.defineProperty(target, propertyKey, {
@@ -70,17 +86,4 @@ export function Field(dbField: string, dbFieldKey: number = 0, saveField?: strin
                 configurable: true
             });
         }
-    };
-}
-
-export function getFields(item: any) {
-    const fields: FieldProperty[] = [];
-    // tslint:disable-next-line:forin
-    for (const prop in item) {
-        const idx = prop.indexOf('__dbData');
-        if (idx >= 0) {
-            fields.push(item[prop]);
-        }
-    }
-    return fields;
-}
+        */

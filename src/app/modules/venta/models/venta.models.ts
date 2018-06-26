@@ -147,7 +147,7 @@ export class DetalleVenta extends BaseGenericCatalog {
         this.productoVenta = _producto;
         this.cantidad = 1;
         this.precioUnitario = precio ? precio : 0;
-        this.keysChanges = ['cantidad', 'precioUnitario', 'descuento'];
+        // this.keysChanges = ['cantidad', 'precioUnitario', 'descuento'];
     }
 }
 

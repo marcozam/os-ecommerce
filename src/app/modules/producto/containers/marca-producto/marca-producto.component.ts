@@ -2,15 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 // RxJs
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
-// import { CategoriaProductoService } from '../../services/categoria-producto.service';
 // Models
 import { MarcaProducto, CategoriaProducto } from 'app/models/productos/producto.models';
-import { tap } from 'rxjs/operators';
-// Constants
-// import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
 
 @Component({
   selector: 'app-marca-producto',
@@ -39,13 +36,13 @@ export class MarcaProductoComponent implements OnInit {
   ngOnInit() {
     // Listen for new values
     this.item$ = this.store.select(fromStore.getSelectedMarca).pipe(
-      tap(data => {
-        console.log('Component', data);
+      map(data => {
         if (data) {
           this.form.patchValue({
             nombre: data.nombre
           });
         }
+        return data ? data : new MarcaProducto();
       })
     );
     this.categorias$ = this.store.select(fromStore.getAllCategories);
