@@ -37,7 +37,7 @@ export class BaseFormComponent implements OnInit {
     const subs = this.item$.subscribe(data => {
       if (data.key > 0) {
         this.form.patchValue({ ...data });
-        subs.unsubscribe();
+        if (subs) { subs.unsubscribe(); }
       }
     });
   }

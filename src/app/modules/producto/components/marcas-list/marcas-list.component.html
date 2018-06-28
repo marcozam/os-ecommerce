@@ -12,16 +12,16 @@
           <mat-row *matRowDef="let myRowData; columns: tableColumns"></mat-row>
           <!--Columns Definition-->
           <ng-container matColumnDef="nombre">
-            <mat-header-cell class="text-left" *matHeaderCellDef> Nombre </mat-header-cell>
-            <mat-cell class="text-left" *matCellDef="let marca"> {{marca.nombre}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+            <mat-cell *matCellDef="let marca"> {{marca.nombre}} </mat-cell>
           </ng-container>
           <ng-container matColumnDef="actions">
-            <mat-header-cell class="text-right" *matHeaderCellDef>
+            <mat-header-cell class="end-xs" *matHeaderCellDef>
               <button routerLink="new" mat-icon-button matTooltip="Nueva Marca" color="primary">
                 <mat-icon>add_circle_outline</mat-icon>
               </button>
             </mat-header-cell>
-            <mat-cell class="text-right" *matCellDef="let prod">
+            <mat-cell class="table-actions end-xs" *matCellDef="let prod">
               <a mat-icon-button matTooltip="Editar" color="primary">
                 <mat-icon>edit</mat-icon>
               </a>

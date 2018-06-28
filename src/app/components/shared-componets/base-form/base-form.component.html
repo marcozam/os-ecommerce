@@ -8,11 +8,10 @@
   <form [formGroup]="form">
     <ng-content></ng-content>
     <div class="buttons-container between-xs">
-      <button type="button" mat-stroked-button color="warn" routerLink="../"
-        [disabled]="loading$ | async">
+      <a mat-stroked-button color="warn" routerLink="../" [disabled]="loading$ | async">
         <mat-icon>clear</mat-icon>
         Cancelar
-      </button>
+      </a>
       <button type="button" mat-raised-button color="primary" 
         [disabled]="form?.invalid || (loading$ | async)"
         (click)="onSaveClick(form.value)">

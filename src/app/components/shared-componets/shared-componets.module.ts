@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 // Material
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +14,7 @@ import { BaseFormComponent } from './base-form/base-form.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     // Material
     MatProgressBarModule,
     MatButtonModule,

@@ -1,23 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 // RxJs
 import { Observable } from 'rxjs';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
 // Models
-import { CategoriaProducto } from 'app/models/productos/producto.models';
+import { CategoriaProducto } from 'app/models/productos';
 
 @Component({
   selector: 'app-categorias-list',
   templateUrl: './categorias-list.component.html',
-  styleUrls: ['./categorias-list.component.scss']
+  styleUrls: ['./categorias-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoriasListComponent implements OnInit {
-  categorias$: Observable<CategoriaProducto[]>;
-
+export class CategoriasListComponent {
+  categorias$: Observable<CategoriaProducto[]> = this.store.select(fromStore.getStandAloneCategories);
+  tableColumns = ['nombre', 'inventario', 'actions'];
   constructor(private store: Store<fromStore.ProductsModuleState>) { }
-
-  ngOnInit() {
-    this.categorias$ = this.store.select(fromStore.getStandAloneCategories);
-  }
 }
