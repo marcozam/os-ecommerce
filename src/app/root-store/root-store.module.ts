@@ -7,9 +7,6 @@ import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Modules
 import { ProductosStoreModule } from './productos-store';
-// Store
-import * as fromReducers from './reducers';
-import * as fromEffects from './effects';
 // Router
 import * as fromRouterState from './state/router.state';
 
@@ -17,12 +14,9 @@ import * as fromRouterState from './state/router.state';
   imports: [
     CommonModule,
     StoreModule.forRoot({
-      ...fromRouterState.routerReducers,
-      ...fromReducers.reducers
+      ...fromRouterState.routerReducers
     }),
-    EffectsModule.forRoot([
-      ...fromEffects.effects
-    ]),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 50
     }),

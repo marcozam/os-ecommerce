@@ -8,6 +8,7 @@ import { DialogBoxService } from 'app/services/dialog-box.service';
 import { Inventario } from 'app/modules/inventario/models/inventario.models';
 import { CategoriaProducto } from 'app/models/productos/producto.models';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
+import { MessageTypes } from '../../../../constants';
 
 @Component({
   selector: 'app-corte-inventario',
@@ -107,7 +108,7 @@ export class CorteInventarioComponent implements OnInit, OnDestroy, AfterViewIni
   syncWithLocalCopy() {
     const data = localStorage.getItem('inventario');
     if (data) {
-      this.dialog.openDialog('Informacion', 'Existe informacion del inventario. ¿Desea utilizar esta informacion?', true,
+      this.dialog.openDialog('Informacion', 'Existe informacion del inventario. ¿Desea utilizar esta informacion?', MessageTypes.INFO, true,
         (res) => {
           if (res) {
             // const localInv: Inventario[] = JSON.parse(data);

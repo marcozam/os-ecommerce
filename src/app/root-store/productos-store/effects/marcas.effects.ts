@@ -4,7 +4,7 @@ import { Effect, Actions } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 // Constants
-import { ITEM_NOT_EXIST_ERROR_MESSAGE } from 'app/constants/messages.contants';
+import { MessageCode } from 'app/constants';
 // Actions
 import * as marcasActions from '../actions/marcas.action';
 // Services
@@ -34,10 +34,21 @@ export class MarcasEffects {
                 map((item: any) => {
                     return item ?
                         new marcasActions.LoadMarcaByIDSuccess(item) :
-                        new marcasActions.LoadMarcaByIDFail(ITEM_NOT_EXIST_ERROR_MESSAGE);
+                        new marcasActions.LoadMarcaByIDFail(MessageCode.ITEM_NOT_FOUND);
                 }),
-                catchError(error => of(new marcasActions.LoadMarcasFail(error)))
+                catchError(() => of(new marcasActions.LoadMarcaByIDFail(MessageCode.GENERAL_ERROR)))
             );
         })
     );
+
+    @Effect()
+    saveMarca$ = this.actions$.ofType( marcasActions.MarcasActionTypes.SAVE_MARCA)
+        .pipe(
+            switchMap((action: marcasActions.SaveMarca) => {
+                return this.service.save(action.newItem, action.oldItem).pipe(
+                    map(item => new marcasActions.SaveMarcaSuccess(item, MessageCode.ITEM_SAVED)),
+                    catchError(() => of(new marcasActions.SaveMarcaFail(MessageCode.GENERAL_ERROR)))
+                );
+            })
+        );
 }

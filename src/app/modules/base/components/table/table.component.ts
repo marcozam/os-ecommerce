@@ -18,6 +18,7 @@ import { TableSource, TableColumn } from 'app/modules/base/models/data-source.mo
 import { DialogBoxService } from 'app/services/dialog-box.service';
 
 import { WarningTitle } from 'app/modules/base/constants/messages.contants';
+import { MessageTypes } from '../../../../constants';
 
 @Component({
   selector: 'os-table',
@@ -70,7 +71,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   onDelete(item) {
     this.dialogService.openDialog(WarningTitle,
-    `Esta seguro que desea eliminar:.${item.nombre}.No podran revertir sus cambios`, true, (r) => {
+    `Esta seguro que desea eliminar:.${item.nombre}.No podran revertir sus cambios`, MessageTypes.INFO, true, (r) => {
       if (r) { this.onDeleteFired.emit(item); }
     });
   }

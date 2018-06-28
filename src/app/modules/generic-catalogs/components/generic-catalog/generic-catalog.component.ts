@@ -10,6 +10,7 @@ import { GenericCatalogService } from '../../services/generic.service';
 import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
 // Constants
 import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
+import { MessageTypes } from '../../../../constants';
 
 @Component({
   selector: 'app-generic-catalog',
@@ -62,7 +63,7 @@ export class GenericCatalogComponent implements OnInit, OnDestroy {
     const _url = this.catalog.listURL ? this.catalog.listURL : '/DCG/catalogo/' + this.catalogID;
     this.genericService.save(newValue)
       .subscribe(() => {
-        this.dialog.openDialog(SuccessTitle, SuccessMessage, false);
+        this.dialog.openDialog(SuccessTitle, SuccessMessage, MessageTypes.INFO, false);
         this.router.navigate([_url]);
       });
   }

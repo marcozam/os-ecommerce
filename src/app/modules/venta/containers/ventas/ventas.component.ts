@@ -10,6 +10,7 @@ import { ContactoService } from 'app/modules/crm/services/contacto.service';
 import { InventarioService } from 'app/modules/inventario/services/inventario.service';
 import { DialogPagosService } from 'app/modules/venta-common/services/dialog-pagos.service';
 import { DialogBoxService } from 'app/services/dialog-box.service';
+import { MessageTypes } from '../../../../constants';
 
 @Component({
   selector: 'app-ventas',
@@ -95,6 +96,7 @@ export class VentasComponent implements OnInit {
               this.dialog.openDialog(
                 'Advertencia',
                 `No hay ${item.productoVenta.nombre} en el inventario. ¿Desea continuar?`,
+                MessageTypes.INFO,
                 true,
                 res => { console.log(res ? 'No hacer nada' : 'Remover producto'); });
             }
@@ -120,7 +122,7 @@ export class VentasComponent implements OnInit {
           if (newVenta) {
             this.onVentaSaved.emit(newVenta);
           } else {
-            this.dialog.openDialog('Error', 'Ocurrio un error al generar la venta', false);
+            this.dialog.openDialog('Error', 'Ocurrio un error al generar la venta', MessageTypes.INFO, false);
             this.venta.sumary.totalPagado = 0;
           }
         });

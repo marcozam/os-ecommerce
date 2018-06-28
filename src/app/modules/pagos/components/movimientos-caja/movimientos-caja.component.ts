@@ -10,6 +10,7 @@ import { TableSource, TableColumn } from 'app/modules/base/models/data-source.mo
 import { MovimientoCaja } from '../../models/caja.models';
 
 import { WarningTitle, SuccessTitle } from 'app/modules/base/constants/messages.contants';
+import { MessageTypes } from '../../../../constants';
 
 @Component({
   selector: 'app-movimientos-caja',
@@ -91,7 +92,7 @@ export class MovimientosCajaComponent implements OnInit, AfterViewInit {
   onCancel(item: MovimientoCaja) {
     // Send warning
     this._dialog.openDialog(WarningTitle,
-      `Esta seguro que desea eliminar. el movimiento de la orden ${item.ordenVentaID}. Por un monto de ${item.monto}`, true, (r) => {
+      `Esta seguro que desea eliminar. el movimiento de la orden ${item.ordenVentaID}. Por un monto de ${item.monto}`, MessageTypes.INFO, true, (r) => {
         if (r) {
           this._service.deleteMovimientoCaja(item)
             .subscribe(() => {

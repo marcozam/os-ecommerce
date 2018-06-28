@@ -1,50 +1,51 @@
 <div class="row center-xs">
     <div class="col-xs col-md-7">
         <div class="sub-container">
-        <div class="container-header text-left">
-            <span class="sub-titles"> Categorias de Productos </span>
-        </div>
-        <div class="container-content">
-            <mat-table [dataSource]="categorias$ | async">
-                <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-                <mat-row *matRowDef="let myRowData; columns: tableColumns"></mat-row>
-                <!--Columns Definition-->
-                <!--Nombre-->
-                <ng-container matColumnDef="nombre">
-                    <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-                    <mat-cell *matCellDef="let item"> {{item.nombre}} </mat-cell>
-                </ng-container>
-                <!--Usa Inventario-->
-                <ng-container matColumnDef="inventario">
-                    <mat-header-cell class="center-xs" *matHeaderCellDef> Usa Inventario </mat-header-cell>
-                    <mat-cell class="center-xs" *matCellDef="let item">
-                        <mat-icon color="{{ item.usaInventario ? 'primary' : 'warn' }}">
-                            {{ item.usaInventario ? 'check' : 'close' }}
-                        </mat-icon>
-                    </mat-cell>
-                </ng-container>
-                <!--Actions-->
-                <ng-container matColumnDef="actions">
-                    <!--Header-->
-                    <mat-header-cell class="end-xs" *matHeaderCellDef>
-                        <button routerLink="new" mat-icon-button matTooltip="Nueva Categoria" color="primary">
-                            <mat-icon>add_circle_outline</mat-icon>
-                        </button>
-                    </mat-header-cell>
-                    <!--Cell-->
-                    <mat-cell class="table-actions end-xs" *matCellDef="let item">
-                        <a mat-icon-button matTooltip="Productos" routerLink="productos/{{item.key}}">
-                            <mat-icon>list</mat-icon>
-                        </a>
-                        <a mat-icon-button matTooltip="Editar" color="primary" routerLink="./{{item.key}}">
-                            <mat-icon>edit</mat-icon>
-                        </a>
-                        <button mat-icon-button matTooltip="Eliminar" color="warn">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </mat-cell>
-                </ng-container>
-            </mat-table>
+            <div class="sub-container-header">
+                <span class="sub-titles"> Categorias de Productos </span>
+            </div>
+            <div class="sub-container-content">
+                <mat-table [dataSource]="categorias$ | async">
+                    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+                    <mat-row *matRowDef="let myRowData; columns: tableColumns"></mat-row>
+                    <!--Columns Definition-->
+                    <!--Nombre-->
+                    <ng-container matColumnDef="nombre">
+                        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{item.nombre}} </mat-cell>
+                    </ng-container>
+                    <!--Usa Inventario-->
+                    <ng-container matColumnDef="inventario">
+                        <mat-header-cell class="center-xs" *matHeaderCellDef> Usa Inventario </mat-header-cell>
+                        <mat-cell class="center-xs" *matCellDef="let item">
+                            <mat-icon color="{{ item.usaInventario ? 'primary' : 'warn' }}">
+                                {{ item.usaInventario ? 'check' : 'close' }}
+                            </mat-icon>
+                        </mat-cell>
+                    </ng-container>
+                    <!--Actions-->
+                    <ng-container matColumnDef="actions">
+                        <!--Header-->
+                        <mat-header-cell class="end-xs" *matHeaderCellDef>
+                            <button routerLink="new" mat-icon-button matTooltip="Nueva Categoria" color="primary">
+                                <mat-icon>add_circle_outline</mat-icon>
+                            </button>
+                        </mat-header-cell>
+                        <!--Cell-->
+                        <mat-cell class="table-actions end-xs" *matCellDef="let item">
+                            <a mat-icon-button matTooltip="Productos" routerLink="productos/{{item.key}}">
+                                <mat-icon>list</mat-icon>
+                            </a>
+                            <a mat-icon-button matTooltip="Editar" color="primary" routerLink="./{{item.key}}">
+                                <mat-icon>edit</mat-icon>
+                            </a>
+                            <button mat-icon-button matTooltip="Eliminar" color="warn">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                </mat-table>
+            </div>
         </div>
     </div>
 </div>

@@ -17,6 +17,7 @@ export function reducer(
 ): GeneralListState<MarcaProducto> {
     switch (action.type) {
         case fromMarcas.MarcasActionTypes.LOAD_MARCAS:
+        case fromMarcas.MarcasActionTypes.SAVE_MARCA:
         case fromMarcas.MarcasActionTypes.LOAD_MARCA_BY_ID: {
             return { ...state, loading: true };
         }
@@ -28,19 +29,19 @@ export function reducer(
                 entities: data2Entities<MarcaProducto>(action.payload, state)
             };
         }
+        case fromMarcas.MarcasActionTypes.SAVE_MARCA_SUCCESS:
         case fromMarcas.MarcasActionTypes.LOAD_MARCA_BY_ID_SUCCESS: {
             const entities = {
                 ...state.entities,
                 [action.payload.key]: action.payload
             };
-            return {
-                ...state,
-                loading: false,
-                entities
-            };
+            return { ...state, loading: false, entities };
         }
-        case fromMarcas.MarcasActionTypes.LOAD_MARCAS_FAIL:
-        case fromMarcas.MarcasActionTypes.LOAD_MARCA_BY_ID_FAIL: {
+        case fromMarcas.MarcasActionTypes.LOAD_MARCA_BY_ID_FAIL:
+        case fromMarcas.MarcasActionTypes.SAVE_MARCA_FAIL: {
+            return { ...state, loading: false };
+        }
+        case fromMarcas.MarcasActionTypes.LOAD_MARCAS_FAIL: {
             return { ...state, loading: false, loaded: false };
         }
     }

@@ -1,12 +1,10 @@
 <div class="row center-xs">
   <div class="col-xs col-md-6">
     <div class="sub-container">
-      <div class="container-header text-left">
-        <span class="sub-titles">
-          Marcas
-        </span>
+      <div class="sub-container-header">
+        <span class="sub-titles"> Marcas </span>
       </div>
-      <div class="container-content">
+      <div class="sub-container-content">
         <mat-table [dataSource]="marcas$ | async">
           <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
           <mat-row *matRowDef="let myRowData; columns: tableColumns"></mat-row>

@@ -8,10 +8,10 @@ import * as categoriasActions from '../actions/categorias.action';
 // Services
 import { DialogBoxService } from 'app/services/dialog-box.service';
 // Constants
-import { MessageCode, ERROR_TITLE, ERROR_MESSAGE, WARNING_TITLE } from 'app/constants';
+import { MessageCode, ERROR_TITLE, ERROR_MESSAGE, WARNING_TITLE, MessageTypes } from 'app/constants';
 import { productosMessages, ProductosMessageSection } from '../productos-store.constants';
 // Models
-import { MessageAction } from 'app/models';
+import { MessageAction, DialogMessage } from 'app/models';
 
 @Injectable()
 export class DialogsHandlerEffects {
@@ -32,6 +32,7 @@ export class DialogsHandlerEffects {
             tap((action: MessageAction) => {
                 let title = ERROR_TITLE;
                 let message = ERROR_MESSAGE;
+                let messageType = MessageTypes.ERROR;
                 let callback: Function = null;
                 if (action.messageCode !== MessageCode.GENERAL_ERROR) {
                     switch (action.messageCode) {
@@ -42,15 +43,21 @@ export class DialogsHandlerEffects {
                                     callback = () => this.router.navigate(['/secure/productos/categorias']);
                                     break;
                                 }
+                                case ProductosMessageSection.MARCAS: {
+                                    callback = () => this.router.navigate(['/secure/productos/marcas']);
+                                    break;
+                                }
                             }
                             break;
                         }
                     }
 
-                    title = productosMessages[action.messageSection][action.messageCode].title;
-                    message = productosMessages[action.messageSection][action.messageCode].message;
+                    const messageLabel: DialogMessage = productosMessages[action.messageSection][action.messageCode];
+                    title = messageLabel.title;
+                    message = messageLabel.message;
+                    messageType = messageLabel.type;
                 }
-                this.service.openDialog(title, message, false, callback);
+                this.service.openDialog(title, message, messageType, false, callback);
             })
         );
 }

@@ -6,18 +6,22 @@
   </div>
   <os-loading [loading]="loading$ | async"></os-loading>
   <form [formGroup]="form">
-    <ng-content></ng-content>
-    <div class="buttons-container between-xs">
-      <a mat-stroked-button color="warn" routerLink="../" [disabled]="loading$ | async">
-        <mat-icon>clear</mat-icon>
-        Cancelar
-      </a>
-      <button type="button" mat-raised-button color="primary" 
-        [disabled]="form?.invalid || (loading$ | async)"
-        (click)="onSaveClick(form.value)">
-        <mat-icon aria-label="Guardar">save</mat-icon>
-        Guardar
-      </button>
+    <div class="sub-container-content">
+        <ng-content></ng-content>
+    </div>
+    <div class="sub-container-footer">
+      <div class="buttons-container between-xs">
+        <a mat-stroked-button color="warn" routerLink="../" [disabled]="loading$ | async">
+          <mat-icon>clear</mat-icon>
+          Cancelar
+        </a>
+        <button type="button" mat-raised-button color="primary" 
+          [disabled]="form?.invalid || (loading$ | async)"
+          (click)="onSaveClick(form.value)">
+          <mat-icon aria-label="Guardar">save</mat-icon>
+          Guardar
+        </button>
+      </div>
     </div>
   </form>
 </div>
