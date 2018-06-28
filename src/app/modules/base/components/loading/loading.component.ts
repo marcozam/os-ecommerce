@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'os-loading',
+  selector: 'old-os-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss'],
   host: {

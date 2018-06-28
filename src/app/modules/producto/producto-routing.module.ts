@@ -52,7 +52,7 @@ const routes: Routes = [
     path: 'categorias/:categoryId', component: CategoriaProductoComponent,
     data: { title: 'Categoria de Productos' },
     resolve: {
-      item: fromResolvers.CategoriaDetailResolver
+      item$: fromResolvers.CategoriaDetailResolver
     }
   },
 ];

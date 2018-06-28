@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MessageTypes } from 'app/constants';
 
 @Component({
-  selector: 'app-dialog-box',
+  selector: 'os-dialog-box',
   templateUrl: './dialog-box.component.html',
   styleUrls: ['./dialog-box.component.scss']
 })

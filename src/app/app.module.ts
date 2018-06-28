@@ -23,9 +23,10 @@ import { RootStoreModule } from './root-store/root-store.module';
 import { routing } from './app.routing';
 // Componentes
 import { AppComponent } from './app.component';
-import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+// Base Components
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 // Auth Module
 import { PublicComponent } from './layouts/public/public.component';
 import { SecureComponent } from './layouts/secure/secure.component';
@@ -35,6 +36,7 @@ registerLocaleData(localeESMX);
 @NgModule({
   declarations: [
     AppComponent,
+    // Base components
     DialogBoxComponent,
     LoginComponent,
     PageNotFoundComponent,
@@ -56,8 +58,9 @@ registerLocaleData(localeESMX);
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
+  exports: [],
   entryComponents: [
     DialogBoxComponent
   ],

@@ -1,7 +1,7 @@
 import { OnDestroy } from '@angular/core';
 // RxJS
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, delay } from 'rxjs/operators';
 // DB Helpers
 import { getFields } from 'app/helpers/decorators';
 // Services
@@ -55,7 +55,10 @@ export abstract class GenericService<T extends BaseCatalog> implements OnDestroy
     save(newItem: T, oldItem: T): Observable<T> {
         if (oldItem.hasChanges(newItem)) {
             return this.db.saveDynamicCatalog(this.map2Server(newItem), this.catalogID, newItem.key)
-            .pipe(map(item => this.mapData(item)));
+            .pipe(
+                delay(5000),
+                map(item => this.mapData(item))
+            );
         } else {
             return of(newItem);
         }

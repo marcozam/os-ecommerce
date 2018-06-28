@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,13 +7,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./categoria-producto-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoriaProductoFormComponent implements OnInit {
-
+export class CategoriaProductoFormComponent {
   @Input() parent: FormGroup;
-
   constructor() { }
-
-  ngOnInit() {
-  }
-
 }

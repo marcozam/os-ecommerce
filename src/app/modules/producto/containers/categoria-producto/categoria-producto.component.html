@@ -6,6 +6,7 @@
             {{(item$ | async)?.key > 0 ? 'Editar' : 'Nueva' }} Categoria de Producto
         </span>
       </div>
+      <os-loading [loading]="loading$ | async"></os-loading>
       <form [formGroup]="form">
         <app-categoria-producto-form [parent]="form"></app-categoria-producto-form>
         <div class="buttons-container between-xs">
@@ -14,7 +15,7 @@
             Cancelar
           </button>
           <button type="button" mat-raised-button color="primary" 
-            [disabled]="form?.invalid"
+            [disabled]="form?.invalid || (loading$ | async)"
             (click)="onSave(form.value, item$)">
             <mat-icon aria-label="Guardar">save</mat-icon>
             Guardar

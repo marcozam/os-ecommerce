@@ -29,6 +29,8 @@ import { ProductoFormComponent } from './components/producto-form/producto-form.
 import { MarcasListComponent } from './components/marcas-list/marcas-list.component';
 import { MarcaProductoFormComponent } from './components/marca-producto-form/marca-producto-form.component';
 import { CategoriaProductoFormComponent } from './components/categoria-producto-form/categoria-producto-form.component';
+// Shared Components
+import { SharedComponetsModule } from 'app/components/shared-componets';
 
 @NgModule({
   imports: [
@@ -37,6 +39,8 @@ import { CategoriaProductoFormComponent } from './components/categoria-producto-
     ReactiveFormsModule,
     // Routing
     ProductoRoutingModule,
+    // Shared Components
+    SharedComponetsModule,
     // Material
     MatButtonModule,
     MatSelectModule,

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 // RxJs
-import { take, map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { take, map, filter, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
@@ -13,10 +13,13 @@ import { CategoriaProducto } from 'app/models/productos';
 @Component({
   selector: 'app-categoria-producto',
   templateUrl: './categoria-producto.component.html',
-  styleUrls: ['./categoria-producto.component.scss']
+  styleUrls: ['./categoria-producto.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoriaProductoComponent implements OnInit {
-  item$: Observable<CategoriaProducto>;
+export class CategoriaProductoComponent {
+  item$: Observable<CategoriaProducto> = this.store.select(fromStore.getSelectedCategoria)
+    .pipe(map((data) => data ? data :  new CategoriaProducto('')));
+  loading$: Observable<boolean> = this.store.select(fromStore.getCategoriasLoading);
   form: FormGroup;
   // catalogos: MetaDataCatalog[];
 
@@ -25,6 +28,16 @@ export class CategoriaProductoComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.createForm();
+    // When is loading all fields are disabled
+    this.loading$.subscribe(loading => {
+      loading ? this.form.disable() : this.form.enable();
+    });
+    const subs = this.item$.subscribe(data => {
+      if (data.key > 0) {
+        this.form.patchValue({ ...data });
+        subs.unsubscribe();
+      }
+    });
   }
 
   createForm() {
@@ -33,17 +46,6 @@ export class CategoriaProductoComponent implements OnInit {
       'catalogoID': [0, Validators.required],
       'usaInventario': [true, Validators.required]
     });
-  }
-
-  ngOnInit() {
-    this.item$ = this.store.select(fromStore.getSelectedCategoria).pipe(
-      map(data => {
-        if (data) {
-          this.form.patchValue({ ...data });
-        }
-        return data ? data : new CategoriaProducto('');
-      })
-    );
   }
 
   onSave(value: any) {
