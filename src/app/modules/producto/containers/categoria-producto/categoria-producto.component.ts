@@ -1,14 +1,14 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 // RxJs
-import { take, map, filter, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
 // Models
 import { CategoriaProducto } from 'app/models/productos';
-
+import { FormSaveEvent } from 'app/models';
 
 @Component({
   selector: 'app-categoria-producto',
@@ -26,32 +26,18 @@ export class CategoriaProductoComponent {
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
     private fb: FormBuilder
-  ) {
-    this.createForm();
-    // When is loading all fields are disabled
-    this.loading$.subscribe(loading => {
-      loading ? this.form.disable() : this.form.enable();
-    });
-    const subs = this.item$.subscribe(data => {
-      if (data.key > 0) {
-        this.form.patchValue({ ...data });
-        subs.unsubscribe();
-      }
-    });
-  }
+  ) { this.createForm(); }
 
   createForm() {
     this.form = this.fb.group({
       'nombre': ['', Validators.required],
       'catalogoID': [0, Validators.required],
-      'usaInventario': [true, Validators.required]
+      'usaInventario': [true, Validators.required],
+      'formatoNombre': ['']
     });
   }
 
-  onSave(value: any) {
-    this.item$.pipe(take(1))
-      .subscribe((currentItem: CategoriaProducto) => {
-        this.store.dispatch(new fromStore.SaveCategoria({...currentItem, ...value}, currentItem));
-      });
+  onSave(event: FormSaveEvent<CategoriaProducto>) {
+    this.store.dispatch(new fromStore.SaveCategoria(event.new, event.old));
   }
 }

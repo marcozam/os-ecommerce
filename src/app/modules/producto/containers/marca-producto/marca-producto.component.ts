@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 // RxJs
 import { Observable } from 'rxjs';
@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
 // Models
-import { MarcaProducto, CategoriaProducto } from 'app/models/productos/producto.models';
+import { FormSaveEvent } from 'app/models';
+import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
 
 @Component({
   selector: 'app-marca-producto',
@@ -15,17 +16,17 @@ import { MarcaProducto, CategoriaProducto } from 'app/models/productos/producto.
   styleUrls: ['./marca-producto.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MarcaProductoComponent implements OnInit {
-  item$: Observable<MarcaProducto>;
-  categorias$: Observable<CategoriaProducto[]>;
+export class MarcaProductoComponent {
+  item$: Observable<MarcaProducto> = this.store.select(fromStore.getSelectedMarca)
+    .pipe(map(data => data ? data : new MarcaProducto()));
+  categorias$: Observable<CategoriaProducto[]> = this.store.select(fromStore.getAllCategories);
+  loading$: Observable<boolean> = this.store.select(fromStore.getMarcasLoading);
   form: FormGroup;
 
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
     private fb: FormBuilder
-  ) {
-    this.createForm();
-  }
+  ) { this.createForm(); }
 
   createForm() {
     this.form = this.fb.group({
@@ -33,28 +34,9 @@ export class MarcaProductoComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // Listen for new values
-    this.item$ = this.store.select(fromStore.getSelectedMarca).pipe(
-      map(data => {
-        if (data) {
-          this.form.patchValue({
-            nombre: data.nombre
-          });
-        }
-        return data ? data : new MarcaProducto();
-      })
-    );
-    this.categorias$ = this.store.select(fromStore.getAllCategories);
-  }
-
-  onSave(value) {
-    if (this.form.invalid) {
-      return;
-    }
-    console.log(value);
+  onSave(event: FormSaveEvent<MarcaProducto>) {
+    console.log(event);
     /*
-    this.item = Object.assign(this.item, value);
     this._marcaService.save(this.item)
       .subscribe(() => { this.dialog.openDialog(SuccessTitle, SuccessMessage, false); });
     */

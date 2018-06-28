@@ -1,27 +1,8 @@
 <div class="row">
   <div class="col-xs col-md-4">
-    <div class="sub-container">
-      <div class="sub-container-header">
-        <span class="sub-titles">
-            {{(item$ | async)?.key > 0 ? 'Editar' : 'Nueva' }} Categoria de Producto
-        </span>
-      </div>
-      <os-loading [loading]="loading$ | async"></os-loading>
-      <form [formGroup]="form">
-        <app-categoria-producto-form [parent]="form"></app-categoria-producto-form>
-        <div class="buttons-container between-xs">
-          <button type="button" mat-stroked-button color="warn" routerLink="../">
-            <mat-icon>clear</mat-icon>
-            Cancelar
-          </button>
-          <button type="button" mat-raised-button color="primary" 
-            [disabled]="form?.invalid || (loading$ | async)"
-            (click)="onSave(form.value, item$)">
-            <mat-icon aria-label="Guardar">save</mat-icon>
-            Guardar
-          </button>
-        </div>
-      </form>
-    </div>
+    <os-base-form title="Categoria Producto" [form]="form"
+      [loading$]="loading$" [item$]="item$" (onSaveFired)="onSave($event)">
+      <app-categoria-producto-form [parent]="form"></app-categoria-producto-form>
+    </os-base-form>
   </div>
 </div>

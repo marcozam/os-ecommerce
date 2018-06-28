@@ -1,0 +1,24 @@
+<div class="sub-container">
+  <div class="sub-container-header">
+    <span class="sub-titles">
+        {{(item$ | async)?.key > 0 ? 'Editar' : 'Nueva' }} {{title}}
+    </span>
+  </div>
+  <os-loading [loading]="loading$ | async"></os-loading>
+  <form [formGroup]="form">
+    <ng-content></ng-content>
+    <div class="buttons-container between-xs">
+      <button type="button" mat-stroked-button color="warn" routerLink="../"
+        [disabled]="loading$ | async">
+        <mat-icon>clear</mat-icon>
+        Cancelar
+      </button>
+      <button type="button" mat-raised-button color="primary" 
+        [disabled]="form?.invalid || (loading$ | async)"
+        (click)="onSaveClick(form.value)">
+        <mat-icon aria-label="Guardar">save</mat-icon>
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>
