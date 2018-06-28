@@ -1,0 +1,8 @@
+/* Hack since material sets form fields to 200px*/
+.mat-form-field {
+    min-width: 50px;
+    width: 100%;
+}
+.mat-form-field.sm {
+    max-width: 120px;
+}

@@ -1,14 +1,8 @@
 @import '~normalize.css/normalize.css';
 @import '~flexboxgrid/dist/flexboxgrid.min.css';
+// Custom Styles
 @import './styles/material.scss';
-
-@import './styles/mixins/breakpoints';
-@import './styles/global/_global.scss';
-
-body{
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-}
+@import './styles/global.scss';
 
 a {
     text-decoration: none;

@@ -6,5 +6,8 @@
         &.warning {
             color: $warn-color;
         }
+        &.success {
+            color: $success-color;
+        }
     }
 }

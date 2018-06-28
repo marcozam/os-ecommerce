@@ -1,34 +1,12 @@
 .sub-container {
-    .container-header {
-        border-bottom: solid 2px $primary-dark-color;
-        padding: 10px 0;
-        margin-bottom: 10px;
-    }
-
-    .container-footer {
-        margin-top: 20px;
-    }
-}
-
-
-
-.flex-container{
-    display: flex;
-}
-
-.mat-dialog-container{
-    min-width: 300px;
-}
-
-.sub-container {
     flex: 1;
     padding: 10px 20px;
-    background-color: #FFF;
-    border: solid 1px #E0E0E0;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px 0px #E0E0E0;
     margin-bottom: 10px;
     overflow: auto;
+    background-color: #FFF;
+    border: solid 1px #E0E0E0;
+    box-shadow: 2px 2px 5px 0px #E0E0E0;
     
     .sub-container-header {
         margin: 10px 5px;
@@ -36,10 +14,16 @@
         align-items: center;
         padding-bottom: 10px;
         border-bottom: solid 2px $primary-dark-color;
-        .mat-icon-button, .mat-raised-button{
-            margin-left: auto;
-        }
     }
+
+    .sub-container-footer {
+        margin-top: 20px;
+    }
+}
+
+
+.mat-dialog-container{
+    min-width: 300px;
 }
 
 .radio-group-block {
