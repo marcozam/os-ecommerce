@@ -8,11 +8,7 @@
         </div>
         <div class="col-xs col-md-6">
           <strong>Categorias:</strong>
-          <mat-selection-list dense>
-            <mat-list-option *ngFor="let cat of categorias$ | async">
-              {{cat.nombre}}
-            </mat-list-option>
-          </mat-selection-list>
+          <os-multiple-selection [list]="categorias$ | async" [parent]="form" controlName="categorias"></os-multiple-selection>
         </div>
       </div>
     </os-base-form>

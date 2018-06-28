@@ -8,15 +8,6 @@ import { FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarcaProductoFormComponent {
-
   @Input() parent: FormGroup;
-
   constructor() { }
-
-  get invalid(): boolean {
-    return (
-      this.parent.get('nombre').hasError('required') &&
-      this.parent.get('nombre').touched
-    );
-  }
 }

@@ -1,14 +1,14 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 // RxJs
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
 // Models
-import { CategoriaProducto } from 'app/models/productos';
 import { FormSaveEvent } from 'app/models';
+import { CategoriaProducto } from 'app/models/productos';
 
 @Component({
   selector: 'app-categoria-producto',

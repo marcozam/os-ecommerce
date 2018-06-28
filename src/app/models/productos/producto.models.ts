@@ -25,7 +25,8 @@ export class CategoriaProducto extends BaseCatalog {
 }
 
 export class MarcaProducto extends BaseCatalog {
-  @Field('C1') nombre: string;
+  @Field('C1', 40501) nombre: string;
+  categorias: CategoriaProducto[];
 }
 
 export class Producto extends BaseCatalog {

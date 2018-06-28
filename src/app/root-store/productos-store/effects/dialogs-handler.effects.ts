@@ -4,6 +4,7 @@ import { Effect, Actions } from '@ngrx/effects';
 // RxJs
 import { tap } from 'rxjs/operators';
 // Actions
+import * as marcasActions from '../actions/marcas.action';
 import * as categoriasActions from '../actions/categorias.action';
 // Services
 import { DialogBoxService } from 'app/services/dialog-box.service';
@@ -23,10 +24,16 @@ export class DialogsHandlerEffects {
 
     @Effect({ dispatch: false })
     LoadCategoriaByIDFail$ = this.actions$.ofType(
+        // CATEGORIAS
         categoriasActions.CategoriasActionTypes.LOAD_CATEGORIAS_FAIL,
         categoriasActions.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL,
         categoriasActions.CategoriasActionTypes.SAVE_CATEGORIA_FAIL,
         categoriasActions.CategoriasActionTypes.SAVE_CATEGORIA_SUCCESS,
+        // MARCAS
+        marcasActions.MarcasActionTypes.LOAD_MARCAS_FAIL,
+        marcasActions.MarcasActionTypes.LOAD_MARCA_BY_ID_FAIL,
+        marcasActions.MarcasActionTypes.SAVE_MARCA_FAIL,
+        marcasActions.MarcasActionTypes.SAVE_MARCA_SUCCESS,
     )
         .pipe(
             tap((action: MessageAction) => {

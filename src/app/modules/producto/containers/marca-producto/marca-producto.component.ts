@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
 // RxJs
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import * as fromStore from 'app/root-store/productos-store';
 // Models
 import { FormSaveEvent } from 'app/models';
 import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
+import { MatSelectionListChange } from '@angular/material/list';
 
 @Component({
   selector: 'app-marca-producto',
@@ -17,9 +18,9 @@ import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarcaProductoComponent {
+  categorias$: Observable<CategoriaProducto[]> = this.store.select(fromStore.getAllCategories);
   item$: Observable<MarcaProducto> = this.store.select(fromStore.getSelectedMarca)
     .pipe(map(data => data ? data : new MarcaProducto()));
-  categorias$: Observable<CategoriaProducto[]> = this.store.select(fromStore.getAllCategories);
   loading$: Observable<boolean> = this.store.select(fromStore.getMarcasLoading);
   form: FormGroup;
 
@@ -30,15 +31,12 @@ export class MarcaProductoComponent {
 
   createForm() {
     this.form = this.fb.group({
-      'nombre': ['', Validators.required]
+      'nombre': ['', Validators.required],
+      'categorias': this.fb.array([])
     });
   }
 
   onSave(event: FormSaveEvent<MarcaProducto>) {
-    console.log(event);
-    /*
-    this._marcaService.save(this.item)
-      .subscribe(() => { this.dialog.openDialog(SuccessTitle, SuccessMessage, false); });
-    */
+    this.store.dispatch(new fromStore.SaveMarca(event.new, event.old));
   }
 }

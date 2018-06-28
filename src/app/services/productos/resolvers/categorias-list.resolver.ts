@@ -8,11 +8,8 @@ import * as fromStore from 'app/root-store/productos-store';
 
 @Injectable()
 export class CategoriasListResolver implements Resolve<boolean> {
-
     constructor(private store: Store<fromStore.ProductsModuleState>) { }
-
     resolve() { return this.loadCategorias(); }
-
     loadCategorias() {
         return this.store.select(fromStore.getCategoriasLoaded).pipe(
             take(1),

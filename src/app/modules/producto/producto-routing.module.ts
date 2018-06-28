@@ -18,7 +18,7 @@ const routes: Routes = [
     path: 'categorias', component: CategoriasListComponent,
     data: { title: 'Categorias' },
     resolve: {
-      list: fromResolvers.CategoriasListResolver
+      listLoaded: fromResolvers.CategoriasListResolver
     }
   },
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
     data: { title: 'Productos' },
     resolve: {
       categoria: fromResolvers.CategoriaDetailResolver,
-      list: fromResolvers.ProductosListResolver
+      listLoaded: fromResolvers.ProductosListResolver
     },
   },
   {
@@ -37,7 +37,7 @@ const routes: Routes = [
     path: 'marcas', component: MarcasListComponent,
     data: { title: 'Marcas de Productos' },
     resolve: {
-      list: fromResolvers.MarcasListResolver
+      listLoaded: fromResolvers.MarcasListResolver
     }
   },
   {
@@ -45,7 +45,7 @@ const routes: Routes = [
     data: { title: 'Marcas de Productos'},
     resolve: {
       item: fromResolvers.MarcaDetailResolver,
-      categorias: fromResolvers.CategoriasListResolver
+      categoriasLoaded: fromResolvers.CategoriasListResolver
     }
   },
   {

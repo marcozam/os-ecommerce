@@ -1,0 +1,5 @@
+<mat-selection-list dense (selectionChange)="onSelectionChange($event)">
+  <mat-list-option *ngFor="let item of list" [value]="item">
+    {{item.nombre}}
+  </mat-list-option>
+</mat-selection-list>

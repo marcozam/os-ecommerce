@@ -2,21 +2,20 @@ import {
   Component,
   OnInit,
   Input,
-  ChangeDetectionStrategy,
   Output,
   EventEmitter
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+// RxJs
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 // Models
 import { FormSaveEvent } from 'app/models';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'os-base-form',
   templateUrl: './base-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./base-form.component.scss']
+  styleUrls: ['./base-form.component.scss'],
 })
 export class BaseFormComponent implements OnInit {
 
@@ -30,9 +29,7 @@ export class BaseFormComponent implements OnInit {
 
   ngOnInit() {
     // When is loading all fields are disabled
-    this.loading$.subscribe(loading => {
-      loading ? this.form.disable() : this.form.enable();
-    });
+    this.loading$.subscribe(loading => loading ? this.form.disable() : this.form.enable());
     // Listen for changes
     const subs = this.item$.subscribe(data => {
       if (data.key > 0) {
