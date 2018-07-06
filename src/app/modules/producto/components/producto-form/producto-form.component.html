@@ -1,30 +1,20 @@
-<form #productForm="ngForm">
+<div [formGroup]="parent">
     <mat-form-field>
-      <mat-select name="categoriaProductoID" placeholder="Categoria" required
-        [ngModel]="product?.categoriaProductoID">
-        <mat-option *ngFor="let c of categorias" [value]="c.key">
-          {{c.nombre}}
+      <mat-select placeholder="Marca" formControlName="marcaProductoID">
+        <mat-option value="0">
+          SIN MARCA
+        </mat-option>
+        <mat-option *ngFor="let brand of categoria.marcas" [value]="brand.key">
+          {{brand.nombre}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="nombre" placeholder="Nombre" required [ngModel]="product?.nombre"/>
+      <input matInput formControlName="nombre" placeholder="Nombre"/>
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput name="SKU" placeholder="SKU" required [ngModel]="product?.SKU"/>
+    <mat-form-field class="sm">
+      <input matInput formControlName="SKU" placeholder="SKU"/>
     </mat-form-field>
-
-    <div class="text-right buttons-containers">
-      <button mat-button color="warn" (click)="onCancelar(productForm.value)">
-        <mat-icon>cancel</mat-icon>
-        Cancelar
-      </button>
-      <button mat-raised-button color="primary" [disabled]="productForm.invalid"
-        (click)="onSave(productForm.value)">
-        <mat-icon>save</mat-icon>
-        Guardar
-      </button>
-    </div>
-  </form>
+  </div>

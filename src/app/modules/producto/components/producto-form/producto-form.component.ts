@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 // Models
-import { Producto, CategoriaProducto } from 'app/models/productos/producto.models';
+import { Producto, CategoriaProducto } from 'app/models/productos';
 
 @Component({
   selector: 'app-producto-form',
@@ -9,8 +10,8 @@ import { Producto, CategoriaProducto } from 'app/models/productos/producto.model
 })
 export class ProductoFormComponent implements OnInit {
 
-  @Input() product: Producto;
-  @Input() categorias: CategoriaProducto[];
+  @Input() parent: FormGroup;
+  @Input() categoria: CategoriaProducto;
 
   constructor() { }
 

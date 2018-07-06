@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 // RxJs
-import { Observable, of } from 'rxjs';
-import { tap, take, filter, switchMap, mergeMap, catchError, debounceTime, timeout } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap, take } from 'rxjs/operators';
 // Stores
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
@@ -23,7 +23,11 @@ export class CategoriaDetailResolver implements Resolve<Observable<CategoriaProd
         return this.store.select<CategoriaProducto>(fromStore.getSelectedCategoria).pipe(
             take(1),
             tap((data: CategoriaProducto) => {
-                if (!data) { this.store.dispatch(new fromStore.LoadCategoriaByID(ID)); }
+                if (!data) {
+                    this.store.dispatch(new fromStore.LoadCategoriaByID(ID));
+                } else if (!data.marcasLoaded) {
+                    this.store.dispatch(new fromStore.LoadMarcasByCategoriaID(ID));
+                }
             })
         );
     }

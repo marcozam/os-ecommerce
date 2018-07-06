@@ -22,6 +22,12 @@ export class CategoriaProductoComponent {
   loading$: Observable<boolean> = this.store.select(fromStore.getCategoriasLoading);
   form: FormGroup;
   // catalogos: MetaDataCatalog[];
+  // Grupos
+  get usaGrupos(): boolean {
+    return this.form.value.tieneGrupos;
+  }
+  nombreGrupo: string;
+  grupos = [];
 
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
@@ -33,8 +39,17 @@ export class CategoriaProductoComponent {
       'nombre': ['', Validators.required],
       'catalogoID': [0, Validators.required],
       'usaInventario': [true, Validators.required],
+      'requireProcesamiento': [false, Validators.required],
+      'tieneGrupos': [false, Validators.required],
       'formatoNombre': ['']
     });
+  }
+
+  addGroup(value: string) {
+    if (value) {
+      this.nombreGrupo = '';
+      this.grupos = [ ...this.grupos, value ];
+    }
   }
 
   onSave(event: FormSaveEvent<CategoriaProducto>) {

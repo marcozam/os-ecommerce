@@ -9,7 +9,6 @@ import * as fromStore from 'app/root-store/productos-store';
 // Models
 import { FormSaveEvent } from 'app/models';
 import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
-import { MatSelectionListChange } from '@angular/material/list';
 
 @Component({
   selector: 'app-marca-producto',

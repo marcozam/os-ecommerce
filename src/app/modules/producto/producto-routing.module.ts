@@ -22,7 +22,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'categorias/productos/:categoryId', component: ProductosListComponent,
+    path: 'categorias/list/:categoryId', component: ProductosListComponent,
     data: { title: 'Productos' },
     resolve: {
       categoria: fromResolvers.CategoriaDetailResolver,
@@ -30,8 +30,11 @@ const routes: Routes = [
     },
   },
   {
-    path: 'categorias/productos/:categoryId/detail/:productoId', component: ProductosComponent,
-    data: { title: 'Producto' }
+    path: 'categorias/list/:categoryId/:productoId', component: ProductosComponent,
+    data: { title: 'Producto' },
+    resolve: {
+      categoria: fromResolvers.CategoriaDetailResolver
+    }
   },
   {
     path: 'marcas', component: MarcasListComponent,

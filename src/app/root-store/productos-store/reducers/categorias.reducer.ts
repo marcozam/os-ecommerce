@@ -3,7 +3,7 @@ import { data2Entities } from '../../general.selectors';
 import * as fromCategorias from '../actions/categorias.action';
 
 // Models
-import { CategoriaProducto } from 'app/models/productos/producto.models';
+import { CategoriaProducto } from 'app/models/productos';
 
 export const initialState: GeneralListState<CategoriaProducto> = {
     entities: {},
@@ -16,6 +16,7 @@ export function reducer(
     action: fromCategorias.CategoriasAction
 ): GeneralListState<CategoriaProducto> {
     switch (action.type) {
+        case fromCategorias.CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA:
         case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID:
         case fromCategorias.CategoriasActionTypes.SAVE_CATEGORIA:
         case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS: {
@@ -37,10 +38,18 @@ export function reducer(
             };
             return { ...state, loading: false, entities };
         }
+        case fromCategorias.CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA_SUCCESS: {
+            const categoria = state.entities[action.categoriaID];
+            categoria.marcas = action.payload;
+            categoria.marcasLoaded = true;
+            const entities = { ...state.entities, [action.categoriaID]: categoria };
+            return { ...state, loading: false, entities };
+        }
         case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS_FAIL: {
             return { ...state, loading: false, loaded: false };
         }
         case fromCategorias.CategoriasActionTypes.SAVE_CATEGORIA_FAIL:
+        case fromCategorias.CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA_FAIL:
         case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL: {
             return { ...state, loading: false };
         }

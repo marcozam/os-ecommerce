@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovimientosInventarioService } from 'app/modules/inventario/services/movimientos-inventario.service';
 
 import { MovimientoInventario, TipoMovimientoInventario } from 'app/modules/inventario/models/inventario.models';
-import { CategoriaProducto } from 'app/models/productos/producto.models';
+import { CategoriaProducto } from 'app/models/productos';
 import { OSPeriodo } from 'app/modules/base/models/time-frame.models';
 import { periodos } from 'app/modules/base/constants/date-time.constants';
 

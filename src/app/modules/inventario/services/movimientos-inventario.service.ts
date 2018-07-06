@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
 import { MovimientoInventario, TipoMovimientoInventario } from 'app/modules/inventario/models/inventario.models';
-import { Producto, CategoriaProducto } from 'app/models/productos/producto.models';
+import { Producto, CategoriaProducto } from 'app/models/productos';
 
 @Injectable()
 export class MovimientosInventarioService {

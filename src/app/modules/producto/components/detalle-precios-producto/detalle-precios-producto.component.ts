@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 // import { map } from 'rxjs/operators';
 // Models
 // CategoriaProducto
-import { CategoriaProducto, PrecioProducto } from 'app/models/productos/producto.models';
+import { CategoriaProducto, PrecioProducto } from 'app/models/productos';
 import { OSBaseComponent } from '../../../base/typings/os-base.component';
 // Services
 // import { ProductosService } from 'app/modules/producto/services/productos.service';

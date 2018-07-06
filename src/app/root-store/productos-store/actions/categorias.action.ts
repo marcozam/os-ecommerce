@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { MessageCode } from 'app/constants';
 import { ProductosMessageSection } from '../productos-store.constants';
 // Models
-import { CategoriaProducto } from 'app/models/productos';
+import { CategoriaProducto, MarcaProducto } from 'app/models/productos';
 import { MessageAction } from 'app/models';
 
 // CONSTANTS
@@ -16,6 +16,10 @@ export enum CategoriasActionTypes {
     LOAD_CATEGORIA_BY_ID = '[Products] Load Categoria By ID',
     LOAD_CATEGORIA_BY_ID_FAIL = '[Products] Load Categoria By ID fail',
     LOAD_CATEGORIA_BY_ID_SUCCESS = '[Products] Load Categoria By ID success',
+    // Load Marcas By Categoria
+    LOAD_MARCAS_BY_CATEGORIA = '[Products] Load Marcas By CategoriaID',
+    LOAD_MARCAS_BY_CATEGORIA_FAIL = '[Products] Load Marcas By CategoriaID fail',
+    LOAD_MARCAS_BY_CATEGORIA_SUCCESS = '[Products] Load Marcas By CategoriaID success',
     // Save
     SAVE_CATEGORIA = '[Products] Save Categoria',
     SAVE_CATEGORIA_FAIL = '[Products] Save Categoria fail',
@@ -57,6 +61,20 @@ export class LoadCategoriaByIDFail implements Action, MessageAction {
     readonly messageSection = ProductosMessageSection.CATEGORIAS;
     constructor(public messageCode: MessageCode) { }
 }
+// Load Marcas By Categoria
+export class LoadMarcasByCategoriaID implements Action {
+    readonly type = CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA;
+    constructor(public payload: number) { }
+}
+export class LoadMarcasByCategoriaIDSuccess implements Action {
+    readonly type = CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA_SUCCESS;
+    constructor(public payload: MarcaProducto[], public categoriaID: number) { }
+}
+export class LoadMarcasByCategoriaIDFail implements Action, MessageAction {
+    readonly type = CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA_FAIL;
+    readonly messageSection = ProductosMessageSection.CATEGORIAS;
+    constructor(public messageCode: MessageCode) { }
+}
 // Save
 export class SaveCategoria implements Action {
     readonly type = CategoriasActionTypes.SAVE_CATEGORIA;
@@ -85,5 +103,6 @@ export class SetCategoriaLoadingState implements Action {
 export type CategoriasAction =
     LoadAllCategorias | LoadCategoriasFail | LoadCategoriasSuccess |
     LoadCategoriaByID | LoadCategoriaByIDFail | LoadCategoriaByIDSuccess |
+    LoadMarcasByCategoriaID | LoadMarcasByCategoriaIDFail | LoadMarcasByCategoriaIDSuccess |
     SaveCategoria | SaveCategoriaFail | SaveCategoriaSuccess |
     SetCategoriaLoadedState | SetCategoriaLoadingState;

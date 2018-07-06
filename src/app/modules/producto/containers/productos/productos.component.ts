@@ -1,36 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 // RxJs
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
-
-// Consants
-// SuccessTitle, SuccessMessage,
-// import { WarningTitle, LeaveWarningMessage } from 'app/modules/base/constants/messages.contants';
-// Services
-import { DialogBoxService } from 'app/services/dialog-box.service';
 // Models
-import { CategoriaProducto, Producto } from 'app/models/productos/producto.models';
+import { Producto, CategoriaProducto } from 'app/models/productos';
+
 
 @Component({
   selector: 'app-producto-detail',
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.scss'],
-  providers: [DialogBoxService]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductosComponent implements OnInit {
-  product$: Observable<Producto>;
-  categorias$: Observable<CategoriaProducto[]>;
+export class ProductosComponent {
+  item$: Observable<Producto> = this.store.select(fromStore.getSelectedProducto)
+    .pipe(map(data => data ? data : new Producto('')));
+  categoria$: Observable<CategoriaProducto> = this.store.select(fromStore.getSelectedCategoria);
+  loading$: Observable<boolean> = this.store.select(fromStore.getProductossLoading);
+  form: FormGroup;
 
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
-    public dialog: DialogBoxService
-  ) { }
+    private fb: FormBuilder
+  ) { this.createForm(); }
 
-  ngOnInit() {
-    // this.product$ = this.store.select(fromStore.getSelectedProducto);
-    this.categorias$ = this.store.select(fromStore.getStandAloneCategories);
+  createForm() {
+    this.form = this.fb.group({
+      'nombre': ['', Validators.required],
+      'SKU': [''],
+      'marcaProductoID': [0, Validators.required]
+    });
   }
 
   onCancelar(data: any) {
@@ -39,11 +42,11 @@ export class ProductosComponent implements OnInit {
     if (this.product$.hasChanges(data)) {
       this.dialog.openDialog(WarningTitle, LeaveWarningMessage, true, result => {
         if (result) {
-          this.router.navigate(['../..'], { relativeTo: this.route});
+          this.router.navigate(['../'], { relativeTo: this.route});
         }
       });
     } else {
-      this.router.navigate(['../..'], { relativeTo: this.route});
+      this.router.navigate(['../'], { relativeTo: this.route});
     }
     */
   }

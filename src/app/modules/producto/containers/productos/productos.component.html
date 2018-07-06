@@ -1,15 +1,9 @@
 
 <div class="row">
   <div class="col-lg-4 col-md-5 col-sm-7 col-xs">
-    <div class="sub-container">
-      <div class="sub-container-header">
-        <span class="sub-titles">
-          <!--
-            {{ productoID > 0 ? 'Editar' : 'Nuevo' }} Producto
-          -->
-        </span>
-      </div>
-      <app-producto-form [product]="product$ | async" [categorias]></app-producto-form>
-    </div>
+    <os-base-form title="Producto" [form]="form"
+      [loading$]="loading$" [item$]="item$" (onSaveFired)="onSave($event)">
+      <app-producto-form [parent]="form" [categoria]="categoria$ | async"></app-producto-form>
+    </os-base-form>
   </div>
 </div>

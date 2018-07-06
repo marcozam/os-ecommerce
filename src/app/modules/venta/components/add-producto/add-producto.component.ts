@@ -10,7 +10,7 @@ import { ListaPreciosService } from '../../../producto/services/lista-precios.se
 
 import { DetalleVenta } from '../../models/venta.models';
 // CategoriaProducto
-import { Producto, CategoriaProducto, PrecioProducto } from 'app/models/productos/producto.models';
+import { Producto, CategoriaProducto, PrecioProducto } from 'app/models/productos';
 import { OSBaseComponent } from '../../../base/typings/os-base.component';
 
 @Component({

@@ -6,7 +6,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { BaseAjaxService } from '../base-ajax.service';
 import { GenericService } from '../generic.service';
 // Models
-import { MarcaProducto } from 'app/models/productos/producto.models';
+import { MarcaProducto } from 'app/models/productos';
 
 @Injectable()
 export class MarcaProductoService extends GenericService<MarcaProducto> {
@@ -23,5 +23,10 @@ export class MarcaProductoService extends GenericService<MarcaProducto> {
     saveCategorias(marca: MarcaProducto, categoriasID: number[]): Observable<MarcaProducto> {
         const params = this.db.createParameter('ECOM0005', 2, { 'V3': marca.key, 'V6': categoriasID.join(',') });
         return this.db.getData(params).pipe(map(() => marca));
+    }
+
+    getByCategoria(categoriaID: number) {
+        const params = this.db.createParameter('ECOM0005', 4, { 'V3': categoriaID });
+        return this.db.getData(params).pipe(map(result => this.mapList(result.Table)));
     }
 }

@@ -6,7 +6,7 @@ import { GenericService, GenericServiceBase } from 'app/modules/generic-catalogs
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
 // Models
 import { Inventario } from 'app/modules/inventario/models/inventario.models';
-import { Producto, CategoriaProducto } from 'app/models/productos/producto.models';
+import { Producto, CategoriaProducto } from 'app/models/productos';
 
 @Injectable()
 export class InventarioService extends GenericService<Inventario> implements GenericServiceBase<Inventario> {

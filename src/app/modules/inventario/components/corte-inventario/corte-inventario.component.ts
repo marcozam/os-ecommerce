@@ -6,7 +6,7 @@ import { InventarioService } from 'app/modules/inventario/services/inventario.se
 import { DialogBoxService } from 'app/services/dialog-box.service';
 
 import { Inventario } from 'app/modules/inventario/models/inventario.models';
-import { CategoriaProducto } from 'app/models/productos/producto.models';
+import { CategoriaProducto } from 'app/models/productos';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { MessageTypes } from '../../../../constants';
 

@@ -28,7 +28,7 @@ export class ProductosService extends GenericService<Producto> {
         const params = this.db.createParameter('ECOM0005', 1, {
             V3: item.key,
             V4: item.nombre,
-            V6: item.requireProcesamiento ? 1 : 0,
+            // V6: item.requireProcesamiento ? 1 : 0,
             V9: item.categoriaProductoID,
             V7: item.SKU,
             V8: item.detalleID ? item.detalleID : 0

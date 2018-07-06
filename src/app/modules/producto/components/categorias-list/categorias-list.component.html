@@ -27,13 +27,13 @@
                     <ng-container matColumnDef="actions">
                         <!--Header-->
                         <mat-header-cell class="end-xs" *matHeaderCellDef>
-                            <button routerLink="new" mat-icon-button matTooltip="Nueva Categoria" color="primary">
+                            <button routerLink="new" mat-icon-button matTooltip="Nueva Categoria" color="primary" type="button">
                                 <mat-icon>add_circle_outline</mat-icon>
                             </button>
                         </mat-header-cell>
                         <!--Cell-->
                         <mat-cell class="table-actions end-xs" *matCellDef="let item">
-                            <a mat-icon-button matTooltip="Productos" routerLink="productos/{{item.key}}">
+                            <a mat-icon-button matTooltip="Productos" routerLink="list/{{item.key}}">
                                 <mat-icon>list</mat-icon>
                             </a>
                             <a mat-icon-button matTooltip="Editar" color="primary" routerLink="./{{item.key}}">
