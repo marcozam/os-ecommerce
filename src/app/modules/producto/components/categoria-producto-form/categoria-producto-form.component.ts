@@ -9,5 +9,10 @@ import { FormGroup } from '@angular/forms';
 })
 export class CategoriaProductoFormComponent {
   @Input() parent: FormGroup;
+
+  get catalogoID() {
+    return this.parent.value.catalogoID;
+  }
+
   constructor() { }
 }

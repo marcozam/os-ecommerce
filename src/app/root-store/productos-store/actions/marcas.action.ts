@@ -3,8 +3,8 @@ import { Action } from '@ngrx/store';
 import { MessageCode } from 'app/constants';
 import { ProductosMessageSection } from '../productos-store.constants';
 // Models
-import { MarcaProducto } from 'app/models/productos';
 import { MessageAction } from 'app/models';
+import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
 
 // CONSTANTS
 export enum MarcasActionTypes {
@@ -16,6 +16,10 @@ export enum MarcasActionTypes {
     LOAD_MARCA_BY_ID = '[Products] Load Marca By ID',
     LOAD_MARCA_BY_ID_FAIL = '[Products] Load Marca By ID fail',
     LOAD_MARCA_BY_ID_SUCCESS = '[Products] Load Marca By ID success',
+    // Load Categoria By Marca
+    LOAD_CATEGORIAS_BY_MARCA = '[Products] Load Categoria By MarcaID',
+    LOAD_CATEGORIAS_BY_MARCA_FAIL = '[Products] Load Categoria By MarcaID fail',
+    LOAD_CATEGORIAS_BY_MARCA_SUCCESS = '[Products] Load Categoria By MarcaID success',
     // Save
     SAVE_MARCA = '[Products] Save Marca',
     SAVE_MARCA_FAIL = '[Products] Save Marca fail',
@@ -53,6 +57,20 @@ export class LoadMarcaByIDFail implements Action, MessageAction {
     readonly messageSection = ProductosMessageSection.MARCAS;
     constructor(public messageCode: MessageCode) { }
 }
+// Load Categorias By MarcaID
+export class LoadCategoriasByMarcaID implements Action {
+    readonly type = MarcasActionTypes.LOAD_CATEGORIAS_BY_MARCA;
+    constructor(public payload: number) { }
+}
+export class LoadCategoriasByMarcaIDSuccess implements Action {
+    readonly type = MarcasActionTypes.LOAD_CATEGORIAS_BY_MARCA_SUCCESS;
+    constructor(public payload: CategoriaProducto[], public marcaID: number) { }
+}
+export class LoadCategoriasByMarcaIDFail implements Action, MessageAction {
+    readonly type = MarcasActionTypes.LOAD_CATEGORIAS_BY_MARCA_FAIL;
+    readonly messageSection = ProductosMessageSection.CATEGORIAS;
+    constructor(public messageCode: MessageCode) { }
+}
 // Save
 export class SaveMarca implements Action {
     readonly type = MarcasActionTypes.SAVE_MARCA;
@@ -72,4 +90,5 @@ export class SaveMarcaFail implements Action, MessageAction {
 export type MarcasAction =
     LoadMarcas | LoadMarcasSuccess | LoadMarcasFail |
     LoadMarcaByID | LoadMarcaByIDSuccess | LoadMarcaByIDFail |
+    LoadCategoriasByMarcaID | LoadCategoriasByMarcaIDFail | LoadCategoriasByMarcaIDSuccess |
     SaveMarca | SaveMarcaSuccess | SaveMarcaFail;

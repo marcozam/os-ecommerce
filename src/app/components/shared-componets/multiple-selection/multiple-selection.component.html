@@ -1,5 +1,5 @@
 <mat-selection-list dense (selectionChange)="onSelectionChange($event)">
-  <mat-list-option *ngFor="let item of list" [value]="item">
+  <mat-list-option *ngFor="let item of list" [value]="item" [selected]="isActive(item)">
     {{item.nombre}}
   </mat-list-option>
 </mat-selection-list>

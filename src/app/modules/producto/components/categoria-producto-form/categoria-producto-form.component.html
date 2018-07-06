@@ -12,11 +12,10 @@
       -->
     </mat-select>
   </mat-form-field>
-  <!-- *ngIf="productoCategoriaForm.value.catalogoID && productoCategoriaForm.value.catalogoID > 0" -->
-  <mat-form-field>
+  <mat-form-field *ngIf="catalogoID && catalogoID > 0">
     <input matInput placeholder="Formato Nombre del Producto" formControlName="formatoNombre"/>
   </mat-form-field>
-  <div>
+  <div class="mat-form-field-wrapper">
     <mat-checkbox name="usaInventario" formControlName="usaInventario">Tiene Inventario</mat-checkbox>
   </div>
 </div>

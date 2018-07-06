@@ -9,7 +9,9 @@ import { FormArray, FormGroup, FormControl } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultipleSelectionComponent {
+  touched = false;
   @Input() list: any[];
+  @Input() selected: any[];
   @Input() parent: FormGroup;
   @Input() controlName: string;
 
@@ -21,11 +23,16 @@ export class MultipleSelectionComponent {
 
   onSelectionChange(event: MatSelectionListChange) {
     const value = event.option.value;
+    this.touched = true;
     if (event.option.selected) {
       this.control.push(new FormControl(value));
     } else {
       const index = this.control.value.findIndex(item => item.key === value.key);
       if (index >= 0) { this.control.removeAt(index); }
     }
+  }
+
+  isActive(item: any) {
+    return this.selected.findIndex(sItem => sItem.key === item.key) >= 0;
   }
 }

@@ -18,7 +18,8 @@ export function reducer(
     switch (action.type) {
         case fromMarcas.MarcasActionTypes.LOAD_MARCAS:
         case fromMarcas.MarcasActionTypes.SAVE_MARCA:
-        case fromMarcas.MarcasActionTypes.LOAD_MARCA_BY_ID: {
+        case fromMarcas.MarcasActionTypes.LOAD_MARCA_BY_ID:
+        case fromMarcas.MarcasActionTypes.LOAD_CATEGORIAS_BY_MARCA: {
             return { ...state, loading: true };
         }
         case fromMarcas.MarcasActionTypes.LOAD_MARCAS_SUCCESS: {
@@ -37,7 +38,15 @@ export function reducer(
             };
             return { ...state, loading: false, entities };
         }
+        case fromMarcas.MarcasActionTypes.LOAD_CATEGORIAS_BY_MARCA_SUCCESS: {
+            const marca = state.entities[action.marcaID];
+            marca.categorias = action.payload;
+            marca.categoriasLoaded = true;
+            const entities = { ...state.entities, [action.marcaID]: marca };
+            return { ...state, loading: false, entities };
+        }
         case fromMarcas.MarcasActionTypes.LOAD_MARCA_BY_ID_FAIL:
+        case fromMarcas.MarcasActionTypes.LOAD_CATEGORIAS_BY_MARCA_FAIL:
         case fromMarcas.MarcasActionTypes.SAVE_MARCA_FAIL: {
             return { ...state, loading: false };
         }

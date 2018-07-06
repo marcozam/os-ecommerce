@@ -9,7 +9,7 @@ import { MessageCode } from 'app/constants';
 import * as categoriasActions from '../actions/categorias.action';
 import * as productosActions from '../actions/productos.action';
 // Services
-import { CategoriaProductoService } from 'app/services/productos/categoria-producto.service';
+import { CategoriaProductoService } from 'app/services/productos';
 
 @Injectable()
 export class CategoriasEffects {
@@ -19,7 +19,7 @@ export class CategoriasEffects {
     ) { }
 
     @Effect()
-    LoadProductosByCategorySuccess$ = this.actions$.ofType(productosActions.LOAD_PRODUCTOS_BY_CATEGORY_ID_SUCCESS)
+    loadProductosByCategorySuccess$ = this.actions$.ofType(productosActions.LOAD_PRODUCTOS_BY_CATEGORY_ID_SUCCESS)
         .pipe(
             map((action: productosActions.LoadProductosByCategoryIDSuccess) => {
                 return new categoriasActions.SetCategoriaLoadedState(action.payload.id);
@@ -52,14 +52,14 @@ export class CategoriasEffects {
             })
         );
 
-        @Effect()
-        saveCategoria$ = this.actions$.ofType(categoriasActions.CategoriasActionTypes.SAVE_CATEGORIA)
-            .pipe(
-                switchMap((action: categoriasActions.SaveCategoria) => {
-                    return this.service.save(action.newItem, action.oldItem).pipe(
-                        map(item => new categoriasActions.SaveCategoriaSuccess(item, MessageCode.ITEM_SAVED)),
-                        catchError(() => of(new categoriasActions.SaveCategoriaFail(MessageCode.GENERAL_ERROR)))
-                    );
-                })
-            );
+    @Effect()
+    saveCategoria$ = this.actions$.ofType(categoriasActions.CategoriasActionTypes.SAVE_CATEGORIA)
+        .pipe(
+            switchMap((action: categoriasActions.SaveCategoria) => {
+                return this.service.save(action.newItem, action.oldItem).pipe(
+                    map(item => new categoriasActions.SaveCategoriaSuccess(item, MessageCode.ITEM_SAVED)),
+                    catchError(() => of(new categoriasActions.SaveCategoriaFail(MessageCode.GENERAL_ERROR)))
+                );
+            })
+        );
 }

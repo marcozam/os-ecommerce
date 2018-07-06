@@ -23,7 +23,11 @@ export class MarcaDetailResolver implements Resolve<Observable<MarcaProducto>> {
         return this.store.select(fromStore.getSelectedMarca).pipe(
             take(1),
             tap(data => {
-                if (!data) { this.store.dispatch(new fromStore.LoadMarcaByID(ID)); }
+                if (!data) {
+                    this.store.dispatch(new fromStore.LoadMarcaByID(ID));
+                } else if (!data.categoriasLoaded) {
+                    this.store.dispatch(new fromStore.LoadCategoriasByMarcaID(ID));
+                }
             })
         );
     }

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 // Models
-import { CategoriaProducto } from 'app/models/productos/producto.models';
+import { CategoriaProducto, MarcaProducto } from 'app/models/productos';
 // Services
 import { BaseAjaxService } from '../base-ajax.service';
 import { GenericService } from '../generic.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CategoriaProductoService extends GenericService<CategoriaProducto> {
@@ -19,5 +20,10 @@ export class CategoriaProductoService extends GenericService<CategoriaProducto> 
     map2Server(value: CategoriaProducto) {
         if (value.catalogoID === 0) { value.catalogoID = undefined; }
         return super.map2Server(value);
+    }
+
+    getByMarca(marcaID: number) {
+        const params = this.db.createParameter('ECOM0005', 3, { 'V3': marcaID });
+        return this.db.getData(params).pipe(map(result => this.mapList(result.Table)));
     }
 }

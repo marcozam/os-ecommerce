@@ -9,7 +9,7 @@ export class CategoriaProducto extends BaseCatalog {
 
   // For data management
   productosLoaded: boolean;
-  // productosLoading: boolean;
+  marcasLoaded: boolean;
 
   constructor(_nombre: string) {
     super();
@@ -20,6 +20,7 @@ export class CategoriaProducto extends BaseCatalog {
     this.formatoNombre = '';
     // For data management
     this.productosLoaded = false;
+    this.marcasLoaded = false;
     // this.productosLoading = false;
   }
 }
@@ -27,6 +28,13 @@ export class CategoriaProducto extends BaseCatalog {
 export class MarcaProducto extends BaseCatalog {
   @Field('C1', 40501) nombre: string;
   categorias: CategoriaProducto[];
+  categoriasLoaded: boolean;
+
+  constructor() {
+    super();
+    this.categorias = [];
+    this.categoriasLoaded = false;
+  }
 }
 
 export class Producto extends BaseCatalog {

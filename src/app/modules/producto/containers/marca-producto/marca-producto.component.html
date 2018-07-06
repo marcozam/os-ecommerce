@@ -8,7 +8,9 @@
         </div>
         <div class="col-xs col-md-6">
           <strong>Categorias:</strong>
-          <os-multiple-selection [list]="categorias$ | async" [parent]="form" controlName="categorias"></os-multiple-selection>
+          <os-multiple-selection controlName="categorias"
+            [list]="categorias$ | async" [selected]="(item$ | async)?.categorias" [parent]="form">
+          </os-multiple-selection>
         </div>
       </div>
     </os-base-form>
