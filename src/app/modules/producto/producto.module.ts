@@ -31,6 +31,7 @@ import { MarcaProductoFormComponent } from './components/marca-producto-form/mar
 import { CategoriaProductoFormComponent } from './components/categoria-producto-form/categoria-producto-form.component';
 // Shared Components
 import { SharedComponetsModule } from 'app/components/shared-componets';
+import { GrupoCategoriaComponent } from './components/grupo-categoria/grupo-categoria.component';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import { SharedComponetsModule } from 'app/components/shared-componets';
     MarcasListComponent,
     MarcaProductoFormComponent,
     CategoriaProductoFormComponent,
+    GrupoCategoriaComponent,
   ],
   exports: [
     ProductoRoutingModule,

@@ -3,14 +3,15 @@ import { Field } from 'app/helpers/decorators';
 import { BaseCatalog } from '../base';
 import { MarcaProducto } from './marca-producto.models';
 import { CategoriaProducto } from './categoria-producto.models';
+import { GrupoCategoriaProducto } from './grupo-categoria-producto.models';
 
 export class Producto extends BaseCatalog {
-  @Field('C1') nombre: string;
-  @Field('C2') categoriaProductoID: number;
-  // @Field('C4') requireProcesamiento = false;
-  @Field('C5') SKU: string;
-  @Field('C6') detalleID: number;
-  marcaProductoID: number;
+  @Field('C1', 40201) nombre: string;
+  @Field('C2', 40202) categoriaProductoID: number;
+  @Field('C3', 40203) grupoCategoriaID: number;
+  @Field('C4', 40204) marcaProductoID: number;
+  @Field('C5', 40205) SKU: string;
+  @Field('C6', 40206) detalleID: number;
 
   imagen?: string;
   descripcion?: string;
@@ -30,12 +31,20 @@ export class Producto extends BaseCatalog {
     this.marcaProductoID = value ? Number(value.key) : 0;
   }
 
+  private _grupoCategoria: GrupoCategoriaProducto;
+  get grupoCategoria(): GrupoCategoriaProducto { return this._grupoCategoria; }
+  set grupoCategoria(value: GrupoCategoriaProducto) {
+    this._grupoCategoria = value;
+    this.grupoCategoriaID = value ? Number(value.key) : 0;
+  }
+
   constructor(_nombre: string, _categoria?: CategoriaProducto) {
     super();
     this.key = 0;
     this.nombre = _nombre;
     this.categoriaProducto = _categoria;
     this.marcaProductoID = 0;
+    this.grupoCategoriaID = 0;
   }
 }
 

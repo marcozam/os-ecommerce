@@ -1,0 +1,14 @@
+<div [formGroup]="parent">
+  <div class="mat-form-field-wrapper">
+    <mat-checkbox formControlName="tieneGrupos">¿Contiene grupos?</mat-checkbox>
+  </div>
+  <mat-form-field *ngIf="usaGrupos">
+    <input matInput placeholder="Grupo" />
+    <mat-icon matSuffix (click)="addGroup('hola')">add</mat-icon>
+  </mat-form-field>
+  <mat-list dense *ngIf="usaGrupos">
+    <mat-list-item *ngFor="let group of grupos">
+      {{group.nombre}}
+    </mat-list-item>
+  </mat-list>
+</div>

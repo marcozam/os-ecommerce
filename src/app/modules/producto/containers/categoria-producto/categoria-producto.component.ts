@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
 // Models
 import { FormSaveEvent } from 'app/models';
-import { CategoriaProducto } from 'app/models/productos';
+import { CategoriaProducto, GrupoCategoriaProducto } from 'app/models/productos';
 
 @Component({
   selector: 'app-categoria-producto',
@@ -22,12 +22,6 @@ export class CategoriaProductoComponent {
   loading$: Observable<boolean> = this.store.select(fromStore.getCategoriasLoading);
   form: FormGroup;
   // catalogos: MetaDataCatalog[];
-  // Grupos
-  get usaGrupos(): boolean {
-    return this.form.value.tieneGrupos;
-  }
-  nombreGrupo: string;
-  grupos = [];
 
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
@@ -43,13 +37,6 @@ export class CategoriaProductoComponent {
       'tieneGrupos': [false, Validators.required],
       'formatoNombre': ['']
     });
-  }
-
-  addGroup(value: string) {
-    if (value) {
-      this.nombreGrupo = '';
-      this.grupos = [ ...this.grupos, value ];
-    }
   }
 
   onSave(event: FormSaveEvent<CategoriaProducto>) {
