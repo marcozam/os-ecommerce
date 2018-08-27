@@ -7,6 +7,7 @@ export const SECURE_ROUTES: Routes = [
     { path: 'productos', loadChildren: 'app/modules/producto/producto.module#ProductoModule' },
     { path: 'inventario', loadChildren: 'app/modules/inventario/inventario.module#InventarioModule' },
     { path: 'ventas', loadChildren: 'app/modules/venta/venta.module#VentaModule' },
+    { path: 'devolucion', loadChildren: 'app/modules/devoluciones/devoluciones.module#DevolucionesModule' },
     { path: 'crm', loadChildren: 'app/modules/crm/crm.module#CRMModule' },
     { path: 'caja', loadChildren: 'app/modules/pagos/pagos.module#PagosModule' },
     // Auth
