@@ -1,11 +1,9 @@
 import { Subject } from 'rxjs';
 
-import {
-    DetalleVenta,
-    DetallePagos,
-    VentaComment,
-    VentaSummary
-} from '.';
+import { DetallePagos } from './detalle-pago.model';
+import { DetalleVenta } from './detalle-venta.model';
+import { VentaSummary } from './venta-summary.model';
+import { VentaComment } from './venta-comment.model';
 
 export class Venta {
 

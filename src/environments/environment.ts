@@ -6,7 +6,8 @@
 export const environment = {
   production: false,
   webServiceURL: 'http://localhost:54549/api/General/GetData',
-  DBID: 'OS_eCommerce_Dev',
+  DBID: 'OS_Optica_Dev',
+  // DBID: 'OS_eCommerce_Dev',
   // webServiceURL: 'http://itg.tecnosin.com.mx/api/General/GetData',
   // DBID: 'OPTIKA',
   defaultUser: 1,

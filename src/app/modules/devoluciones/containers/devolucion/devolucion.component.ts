@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { VentaService } from 'app/services/venta';
 
 @Component({
   selector: 'app-devolucion',
   templateUrl: './devolucion.component.html',
-  styleUrls: ['./devolucion.component.scss']
+  styleUrls: ['./devolucion.component.scss'],
+  providers: [ VentaService]
 })
 export class DevolucionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ventaService: VentaService) {
+    ventaService.getByID(1).subscribe((venta) => {
+      console.log(venta);
+    });
+  }
 
   ngOnInit() {
   }
