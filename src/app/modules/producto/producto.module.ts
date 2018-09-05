@@ -29,9 +29,10 @@ import { ProductoFormComponent } from './components/producto-form/producto-form.
 import { MarcasListComponent } from './components/marcas-list/marcas-list.component';
 import { MarcaProductoFormComponent } from './components/marca-producto-form/marca-producto-form.component';
 import { CategoriaProductoFormComponent } from './components/categoria-producto-form/categoria-producto-form.component';
-// Shared Components
-import { SharedComponetsModule } from 'app/components/shared-componets';
 import { GrupoCategoriaComponent } from './components/grupo-categoria/grupo-categoria.component';
+// Shared Components
+import { OSModule } from 'app/modules/shared/os.module';
+import { SharedComponetsModule } from 'app/components/shared-componets';
 
 @NgModule({
   imports: [
@@ -41,6 +42,8 @@ import { GrupoCategoriaComponent } from './components/grupo-categoria/grupo-cate
     // Routing
     ProductoRoutingModule,
     // Shared Components
+    OSModule,
+    // TODO: Remove this module and migrate to OSModule
     SharedComponetsModule,
     // Material
     MatButtonModule,

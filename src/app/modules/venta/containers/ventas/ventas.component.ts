@@ -96,9 +96,10 @@ export class VentasComponent implements OnInit {
               this.dialog.openDialog(
                 'Advertencia',
                 `No hay ${item.productoVenta.nombre} en el inventario. ¿Desea continuar?`,
-                MessageTypes.INFO,
-                true,
-                res => { console.log(res ? 'No hacer nada' : 'Remover producto'); });
+                {
+                  showButtons: true,
+                  onClose: res => { console.log(res ? 'No hacer nada' : 'Remover producto'); }
+                });
             }
           });
       });
@@ -122,7 +123,7 @@ export class VentasComponent implements OnInit {
           if (newVenta) {
             this.onVentaSaved.emit(newVenta);
           } else {
-            this.dialog.openDialog('Error', 'Ocurrio un error al generar la venta', MessageTypes.INFO, false);
+            this.dialog.openDialog('Error', 'Ocurrio un error al generar la venta');
             this.venta.sumary.totalPagado = 0;
           }
         });

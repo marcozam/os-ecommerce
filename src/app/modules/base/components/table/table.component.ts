@@ -70,10 +70,13 @@ export class TableComponent implements OnInit, AfterViewInit {
   onEdit(item) { this.onEditFired.emit(item); }
 
   onDelete(item) {
-    this.dialogService.openDialog(WarningTitle,
-    `Esta seguro que desea eliminar:.${item.nombre}.No podran revertir sus cambios`, MessageTypes.INFO, true, (r) => {
-      if (r) { this.onDeleteFired.emit(item); }
-    });
+    this.dialogService.openDialog(
+      WarningTitle,
+      `Esta seguro que desea eliminar:.${item.nombre}.No podran revertir sus cambios`, 
+      {
+        showButtons: true,
+        onClose: (r) => { if (r) { this.onDeleteFired.emit(item); }}
+      });
   }
 
   toggleFilters() {

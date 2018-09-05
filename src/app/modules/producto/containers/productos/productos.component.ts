@@ -7,7 +7,11 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
 // Models
-import { Producto, CategoriaProducto } from 'app/models/productos';
+import {
+  Producto,
+  CategoriaProducto,
+  FormSaveEvent
+} from 'app/models';
 
 
 @Component({
@@ -17,18 +21,19 @@ import { Producto, CategoriaProducto } from 'app/models/productos';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductosComponent {
+  //#region Get Store Date
   item$: Observable<Producto> = this.store.select(fromStore.getSelectedProducto)
     .pipe(map(data => data ? data : new Producto('')));
   categoria$: Observable<CategoriaProducto> = this.store.select(fromStore.getSelectedCategoria);
   loading$: Observable<boolean> = this.store.select(fromStore.getProductossLoading);
+  //#endregion
+
   form: FormGroup;
 
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
     private fb: FormBuilder
-  ) { this.createForm(); }
-
-  createForm() {
+  ) {
     this.form = this.fb.group({
       'nombre': ['', Validators.required],
       'SKU': [''],
@@ -36,23 +41,8 @@ export class ProductosComponent {
     });
   }
 
-  onCancelar(data: any) {
-    console.log(data);
-    /*
-    if (this.product$.hasChanges(data)) {
-      this.dialog.openDialog(WarningTitle, LeaveWarningMessage, true, result => {
-        if (result) {
-          this.router.navigate(['../'], { relativeTo: this.route});
-        }
-      });
-    } else {
-      this.router.navigate(['../'], { relativeTo: this.route});
-    }
-    */
-  }
-
-  onSave(data: Producto) {
-    console.log(data);
+  onSave(event: FormSaveEvent<Producto>) {
+    this.store.dispatch(new fromStore.SaveProducto(event.new));
     /*
     const workingItem = Object.assign(this.product, data);
     this._service.save(workingItem,

@@ -1,26 +1,26 @@
-<div [formGroup]="parent">
-    <mat-form-field>
-      <mat-select placeholder="Marca" formControlName="marcaProductoID">
-        <mat-option [value]="0">
-          SIN MARCA
-        </mat-option>
-        <mat-option *ngFor="let brand of categoria?.marcas" [value]="brand.key">
-          {{brand.nombre}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<div [formGroup]="form">
+  <mat-form-field>
+    <mat-select placeholder="Marca" formControlName="marcaProductoID">
+      <mat-option [value]="0">
+        SIN MARCA
+      </mat-option>
+      <mat-option *ngFor="let brand of categoria?.marcas" [value]="brand.key">
+        {{brand.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <mat-form-field *ngIf="categoria?.tieneGrupos">
-      <mat-select placeholder="Grupo" formControlName="grupoCategoriaID">
-        
-      </mat-select>
-    </mat-form-field>
+  <mat-form-field *ngIf="categoria?.tieneGrupos">
+    <mat-select placeholder="Grupo" formControlName="grupoCategoriaID">
+      
+    </mat-select>
+  </mat-form-field>
 
-    <mat-form-field>
-      <input matInput formControlName="nombre" placeholder="Nombre"/>
-    </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="nombre" placeholder="Nombre"/>
+  </mat-form-field>
 
-    <mat-form-field class="sm">
-      <input matInput formControlName="SKU" placeholder="SKU"/>
-    </mat-form-field>
-  </div>
+  <mat-form-field class="sm">
+    <input matInput formControlName="SKU" placeholder="SKU"/>
+  </mat-form-field>
+</div>

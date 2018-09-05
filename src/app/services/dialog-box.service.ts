@@ -6,9 +6,18 @@ import { MessageTypes } from 'app/constants';
 import { DialogBoxComponent } from 'app/components/dialog-box/dialog-box.component';
 import { OpenDialogEvent } from 'app/models/events';
 
-@Injectable({
-  providedIn: 'root'
-})
+export interface DialogBoxOptions {
+  type?: MessageTypes;
+  showButtons?: boolean;
+  onClose?: Function;
+}
+
+const DEFAULT_DIALOG_BOX_OPTIONS: DialogBoxOptions = {
+  type: MessageTypes.INFO,
+  showButtons: false
+};
+
+@Injectable({ providedIn: 'root' })
 export class DialogBoxService {
   isOpen = false;
   constructor(public dialog: MatDialog) { }
@@ -16,14 +25,19 @@ export class DialogBoxService {
   openDialog(
     title: string,
     mensaje: string,
-    type: MessageTypes = MessageTypes.INFO,
-    showButtons: boolean = false,
-    _onClose?: Function
+    options?: DialogBoxOptions
   ) {
+    options = options ? { ...DEFAULT_DIALOG_BOX_OPTIONS, ...options } : DEFAULT_DIALOG_BOX_OPTIONS;
     this.isOpen = true;
-    const data: OpenDialogEvent = { title, mensaje, type, showButtons };
+    const data: OpenDialogEvent = {
+      title,
+      mensaje,
+      type: options.type,
+      showButtons: options.showButtons
+    };
+
     const dialogRef = this.dialog.open(DialogBoxComponent, { data });
     dialogRef.afterClosed().subscribe(() => { this.isOpen = false; });
-    if (_onClose) { dialogRef.afterClosed().subscribe(result => { _onClose(result); }); }
+    if (options.onClose) { dialogRef.afterClosed().subscribe(result => { options.onClose(result); }); }
   }
 }

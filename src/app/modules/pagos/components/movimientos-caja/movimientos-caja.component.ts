@@ -10,7 +10,6 @@ import { TableSource, TableColumn } from 'app/modules/base/models/data-source.mo
 import { MovimientoCaja } from '../../models/caja.models';
 
 import { WarningTitle, SuccessTitle } from 'app/modules/base/constants/messages.contants';
-import { MessageTypes } from '../../../../constants';
 
 @Component({
   selector: 'app-movimientos-caja',
@@ -29,13 +28,13 @@ export class MovimientosCajaComponent implements OnInit, AfterViewInit {
   // Add setters
   @Input()
   get corteID(): number { return this._corteID; }
-  set corteID(value: number){
+  set corteID(value: number) {
     this._corteID = value;
     this.loadData();
   }
   @Input()
   get sucursalID(): number { return this._sucursalID; }
-  set sucursalID(value: number){
+  set sucursalID(value: number) {
     this._sucursalID = value;
     this.loadData();
   }
@@ -91,13 +90,18 @@ export class MovimientosCajaComponent implements OnInit, AfterViewInit {
 
   onCancel(item: MovimientoCaja) {
     // Send warning
-    this._dialog.openDialog(WarningTitle,
-      `Esta seguro que desea eliminar. el movimiento de la orden ${item.ordenVentaID}. Por un monto de ${item.monto}`, MessageTypes.INFO, true, (r) => {
-        if (r) {
-          this._service.deleteMovimientoCaja(item)
-            .subscribe(() => {
-              this._dialog.openDialog(SuccessTitle, 'El movimiento ha sido eliminado con exito');
-            });
+    this._dialog.openDialog(
+      WarningTitle,
+      `Esta seguro que desea eliminar. el movimiento de la orden ${item.ordenVentaID}. Por un monto de ${item.monto}`,
+      {
+        showButtons: true,
+        onClose: (r) => {
+          if (r) {
+            this._service.deleteMovimientoCaja(item)
+              .subscribe(() => {
+                this._dialog.openDialog(SuccessTitle, 'El movimiento ha sido eliminado con exito');
+              });
+          }
         }
       });
   }

@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-xs col-md-6">
-    <os-base-form title="Categoria Producto" [form]="form"
-      [loading$]="loading$" [item$]="item$" (onSaveFired)="onSave($event)">
+    <os-base-form [loading$]="loading$">
       <div class="row">
         <div class="col-xs col-md-7">
             <app-categoria-producto-form [parent]="form"></app-categoria-producto-form>

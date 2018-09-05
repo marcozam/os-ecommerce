@@ -7,9 +7,17 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-// Base Components
-import { LoadingComponent } from './loading/loading.component';
-import { MultipleSelectionComponent } from './multiple-selection/multiple-selection.component';
+
+// Components
+import {
+  BaseFormComponent,
+  LoadingComponent
+} from './components';
+// Directives
+import {
+  FormTitleDirective,
+  FormButtonDirective
+} from './directives';
 
 @NgModule({
   imports: [
@@ -23,12 +31,17 @@ import { MultipleSelectionComponent } from './multiple-selection/multiple-select
     MatListModule,
   ],
   declarations: [
+    // Components
+    BaseFormComponent,
     LoadingComponent,
-    MultipleSelectionComponent,
+    // Directives
+    FormTitleDirective,
+    FormButtonDirective
   ],
   exports: [
-    LoadingComponent,
-    MultipleSelectionComponent,
+    BaseFormComponent,
+    FormTitleDirective,
+    FormButtonDirective
   ]
 })
-export class SharedComponetsModule { }
+export class OSModule { }

@@ -1,4 +1,3 @@
-import { Field } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
 import { getFields } from 'app/helpers/decorators';
 
 export class BaseCatalog {
@@ -14,9 +13,11 @@ export class BaseCatalog {
         const fieldsMD = getFields(this);
         let retValue = false;
         fieldsMD.forEach(fld => {
-            const _value = fld.converter(this[fld.propertyName]);
-            const _value2Compare = fld.converter(compareWith[fld.propertyName]);
-            if (_value !== _value2Compare) { retValue = true; }
+            if (compareWith.hasOwnProperty(fld.propertyName)) {
+                const _value = fld.converter(this[fld.propertyName]);
+                const _value2Compare = fld.converter(compareWith[fld.propertyName]);
+                if (_value !== _value2Compare) { retValue = true; }
+            }
         });
         return retValue;
     }

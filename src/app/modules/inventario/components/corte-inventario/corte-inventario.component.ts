@@ -108,17 +108,22 @@ export class CorteInventarioComponent implements OnInit, OnDestroy, AfterViewIni
   syncWithLocalCopy() {
     const data = localStorage.getItem('inventario');
     if (data) {
-      this.dialog.openDialog('Informacion', 'Existe informacion del inventario. ¿Desea utilizar esta informacion?', MessageTypes.INFO, true,
-        (res) => {
-          if (res) {
-            // const localInv: Inventario[] = JSON.parse(data);
-            /*
-            localInv.forEach(inv => {
-              const item = this.dataSource.data.find(ds => ds.productoID === inv.productoID);
-              item.cantidadFisica = inv.cantidadFisica;
-            });
-            */
-          } else { localStorage.removeItem('inventario'); }
+      this.dialog.openDialog(
+        'Informacion',
+        'Existe informacion del inventario. ¿Desea utilizar esta informacion?',
+        {
+          showButtons: true,
+          onClose: (res) => {
+            if (res) {
+              // const localInv: Inventario[] = JSON.parse(data);
+              /*
+              localInv.forEach(inv => {
+                const item = this.dataSource.data.find(ds => ds.productoID === inv.productoID);
+                item.cantidadFisica = inv.cantidadFisica;
+              });
+              */
+            } else { localStorage.removeItem('inventario'); }
+          }
         });
     }
   }

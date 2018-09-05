@@ -64,7 +64,8 @@ export class DialogsHandlerEffects {
                     message = messageLabel.message;
                     messageType = messageLabel.type;
                 }
-                this.service.openDialog(title, message, messageType, false, callback);
+                this.service.openDialog(title, message);
+                // , messageType, false, callback
             })
         );
 }
