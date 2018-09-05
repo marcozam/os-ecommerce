@@ -6,7 +6,9 @@
 
       <div class="row">
         <div class="col-xs col-md-6">
-          <app-marca-producto-form #formComponent [form]="form" [value]="item$ | async"></app-marca-producto-form>
+          <app-marca-producto-form #formComponent [form]="form" 
+            [value]="item$ | async" (onSaveTrigger)="onSave($event)">
+          </app-marca-producto-form>
         </div>
         <div class="col-xs col-md-6">
           <strong>Categorias:</strong>

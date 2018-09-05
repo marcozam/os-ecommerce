@@ -26,9 +26,7 @@ export class MarcaProductoComponent {
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
     private fb: FormBuilder
-  ) { this.createForm(); }
-
-  createForm() {
+  ) {
     this.form = this.fb.group({
       'nombre': ['', Validators.required],
       'categorias': this.fb.array([])

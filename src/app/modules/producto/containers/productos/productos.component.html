@@ -4,8 +4,10 @@
     <os-base-form [loading$]="loading$">
       <span class="sub-titles" osFormTitle> Productos </span>
 
-      <app-producto-form #formComponent [form]="form" [value]="item$ | async"
-        (onSaveTrigger)="onSave($event)"></app-producto-form>
+      <app-producto-form #formComponent [form]="form" 
+        [value]="item$ | async" [categoria]="categoria$ | async"
+        (onSaveTrigger)="onSave($event)">
+      </app-producto-form>
         
       <button mat-stroked-button color="warn" osFormButton
       (click)="formComponent.onCancel()">
