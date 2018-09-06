@@ -1,12 +1,7 @@
-import { Input, EventEmitter, Output, Inject } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 // Models
 import { FormSaveEvent, BaseCatalog } from 'app/models';
-// Constants
-import { WARNING_TITLE, LEAVE_WARNING_MESSAGE, MessageTypes } from 'app/constants';
-// TODO: Move to other place
-import { DialogBoxService } from 'app/services/dialog-box.service';
 
 export abstract class OSBaseFormComponent<T extends BaseCatalog> {
     private hasPendingChanges: boolean;
@@ -32,31 +27,5 @@ export abstract class OSBaseFormComponent<T extends BaseCatalog> {
         } else { this.hasPendingChanges = true; }
     }
 
-    constructor(
-        private dialog: DialogBoxService,
-        private router: Router,
-        private route: ActivatedRoute
-    ) { this.hasPendingChanges = false; }
-
-    onSave() {
-        if (this.form.invalid) { return; }
-        const clone = Object.create(this.value);
-        this.onSaveTrigger.emit({
-            new: Object.assign(clone, this.form.value),
-            old: this.value
-        });
-    }
-
-    goBack() { this.router.navigate(['../'], { relativeTo: this.route}); }
-
-    onCancel() {
-        if (this.value && this.value.hasChanges(this.form.value)) {
-            this.dialog.openDialog(WARNING_TITLE, LEAVE_WARNING_MESSAGE,
-                {
-                    type: MessageTypes.WARNING,
-                    showButtons: true,
-                    onClose: result => { if (result) { this.goBack(); }}
-                });
-        } else { this.goBack(); }
-    }
+    constructor() { this.hasPendingChanges = false; }
 }

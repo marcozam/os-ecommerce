@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 // RxJs
 import { Observable } from 'rxjs';
 // Store
@@ -12,15 +12,10 @@ import { MarcaProducto } from 'app/models/productos';
   templateUrl: './marcas-list.component.html',
   styleUrls: ['./marcas-list.component.scss']
 })
-export class MarcasListComponent implements OnInit {
-
+export class MarcasListComponent {
   marcas$: Observable<MarcaProducto[]>;
   tableColumns = ['nombre', 'actions'];
-
-  constructor(private store: Store<fromStore.ProductsModuleState>) { }
-
-  ngOnInit() {
+  constructor(private store: Store<fromStore.ProductsModuleState>) {
     this.marcas$ = this.store.select(fromStore.getMarcas);
   }
-
 }

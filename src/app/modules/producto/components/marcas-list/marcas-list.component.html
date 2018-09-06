@@ -13,6 +13,7 @@
             <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
             <mat-cell *matCellDef="let item"> {{item.nombre}} </mat-cell>
           </ng-container>
+
           <ng-container matColumnDef="actions">
             <mat-header-cell class="end-xs" *matHeaderCellDef>
               <button routerLink="new" mat-icon-button matTooltip="Nueva Marca" color="primary">
@@ -20,7 +21,7 @@
               </button>
             </mat-header-cell>
             <mat-cell class="table-actions end-xs" *matCellDef="let item">
-              <a mat-icon-button matTooltip="Editar" color="primary"  routerLink="./{{item.key}}">
+              <a mat-icon-button matTooltip="Editar" color="primary" routerLink="./{{item.key}}">
                 <mat-icon>edit</mat-icon>
               </a>
               <button mat-icon-button matTooltip="Eliminar" color="warn">

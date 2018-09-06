@@ -1,14 +1,18 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 // RxJs
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
+// Components
+import { OSBaseFormContainer } from 'app/modules/shared';
 // Models
-import { FormSaveEvent } from 'app/models';
 import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
+// TODO: Move to other place
+import { DialogBoxService } from 'app/services/dialog-box.service';
 
 @Component({
   selector: 'app-marca-producto',
@@ -16,24 +20,31 @@ import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
   styleUrls: ['./marca-producto.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MarcaProductoComponent {
-  categorias$: Observable<CategoriaProducto[]> = this.store.select(fromStore.getAllCategories);
-  item$: Observable<MarcaProducto> = this.store.select(fromStore.getSelectedMarca)
-    .pipe(map(data => data ? data : new MarcaProducto()));
-  loading$: Observable<boolean> = this.store.select(fromStore.getMarcasLoading);
-  form: FormGroup;
+export class MarcaProductoComponent extends OSBaseFormContainer<MarcaProducto> {
+  categorias$: Observable<CategoriaProducto[]>;
 
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    dialog: DialogBoxService,
+    router: Router,
+    route: ActivatedRoute
   ) {
+    super(dialog, router, route);
+    //#region Get Store Date
+    this.categorias$ = this.store.select(fromStore.getAllCategories);
+    this.item$ = this.store.select(fromStore.getSelectedMarca)
+      .pipe(map(data => data ? data : new MarcaProducto()));
+    this.loading$ = this.store.select(fromStore.getMarcasLoading);
+    //#endregion
+
     this.form = this.fb.group({
       'nombre': ['', Validators.required],
       'categorias': this.fb.array([])
     });
   }
 
-  onSave(event: FormSaveEvent<MarcaProducto>) {
-    this.store.dispatch(new fromStore.SaveMarca(event.new, event.old));
+  onSave(newItem: MarcaProducto) {
+    this.store.dispatch(new fromStore.SaveMarca(newItem, this.item));
   }
 }

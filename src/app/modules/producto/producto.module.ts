@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -38,6 +39,7 @@ import { SharedComponetsModule } from 'app/components/shared-componets';
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     // Routing
     ProductoRoutingModule,

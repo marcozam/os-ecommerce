@@ -1,11 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 // Models
 import { MarcaProducto } from 'app/models';
 // Components
 import { OSBaseFormComponent } from 'app/modules/shared';
-// Services
-import { DialogBoxService } from 'app/services/dialog-box.service';
 
 @Component({
   selector: 'app-marca-producto-form',
@@ -14,7 +11,5 @@ import { DialogBoxService } from 'app/services/dialog-box.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarcaProductoFormComponent extends OSBaseFormComponent<MarcaProducto> {
-  constructor(dialog: DialogBoxService, router: Router, route: ActivatedRoute) {
-    super(dialog, router, route);
-  }
+  constructor() { super(); }
 }

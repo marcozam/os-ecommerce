@@ -6,8 +6,7 @@
 
       <div class="row">
         <div class="col-xs col-md-6">
-          <app-marca-producto-form #formComponent [form]="form" 
-            [value]="item$ | async" (onSaveTrigger)="onSave($event)">
+          <app-marca-producto-form [form]="form" [value]="item$ | async">
           </app-marca-producto-form>
         </div>
         <div class="col-xs col-md-6">
@@ -19,11 +18,11 @@
       </div>
 
       <button mat-stroked-button color="warn" osFormButton
-      (click)="formComponent.onCancel()">
+      (click)="onCancel()">
         <mat-icon>clear</mat-icon> Cancelar
       </button>
       <button mat-raised-button color="primary" osFormButton type="submit" 
-        (click)="formComponent.onSave()" [disabled]="form.invalid">
+        (click)="onContinue()" [disabled]="form.invalid">
         <mat-icon>save</mat-icon> Guardar
       </button>
     </os-base-form>
