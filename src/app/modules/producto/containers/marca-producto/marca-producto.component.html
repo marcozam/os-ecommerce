@@ -11,8 +11,8 @@
         </div>
         <div class="col-xs col-md-6">
           <strong>Categorias:</strong>
-          <os-multiple-selection controlName="categorias"
-            [list]="categorias$ | async" [selected]="(item$ | async)?.categorias" [parent]="form">
+          <os-multiple-selection [control]="form.get('categorias')" 
+            [list]="categorias$ | async" [value]="(item$ | async)?.categorias">
           </os-multiple-selection>
         </div>
       </div>

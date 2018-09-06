@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
-import { FormArray, FormGroup, FormControl } from '@angular/forms';
+import { FormControl, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'os-multiple-selection',
@@ -9,30 +9,35 @@ import { FormArray, FormGroup, FormControl } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultipleSelectionComponent {
-  touched = false;
-  @Input() list: any[];
-  @Input() selected: any[];
-  @Input() parent: FormGroup;
-  @Input() controlName: string;
-
-  constructor() { }
-
-  get control(): FormArray {
-    return this.parent.get(this.controlName) as FormArray;
+  private _value: any[];
+  @Input()
+  set value( value: any[]) {
+    this._value = value;
+    if (this.control) { this.updateControls(); }
   }
+  get value() { return this._value; }
 
-  onSelectionChange(event: MatSelectionListChange) {
-    const value = event.option.value;
-    this.touched = true;
-    if (event.option.selected) {
-      this.control.push(new FormControl(value));
-    } else {
-      const index = this.control.value.findIndex(item => item.key === value.key);
-      if (index >= 0) { this.control.removeAt(index); }
+  @Input() control: FormArray;
+  @Input() list: any[];
+
+  updateControls() {
+    if (this.value) {
+      this.control.controls = this.value.map(() => new FormControl());
+      this.control.patchValue(this.value);
     }
   }
 
+  constructor() {}
+
+  onSelectionChange(event: MatSelectionListChange) {
+    const optValue = event.option.value;
+    this.value = event.option.selected ?
+      [ ...this.value, optValue] : this.value.filter(item => item.key !== optValue.key);
+  }
+
   isActive(item: any) {
-    return this.selected.findIndex(sItem => sItem.key === item.key) >= 0;
+    if (this.value) {
+      return this.value.findIndex(sItem => sItem.key === item.key) >= 0;
+    } else { return false; }
   }
 }
