@@ -17,9 +17,18 @@ export function reducer(
 ): GeneralListState<Producto> {
     switch (action.type) {
         case fromProductos.LOAD_PRODUCTOS:
+        case fromProductos.SAVE_PRODUCTO:
         case fromProductos.LOAD_PRODUCTO_BY_ID:
         {
             return { ...state, loading: true };
+        }
+        case fromProductos.LOAD_PRODUCTO_BY_ID_SUCCESS:
+        case fromProductos.SAVE_PRODUCTO_SUCCESS: {
+            const entities = {
+                ...state.entities,
+                [action.payload.key]: action.payload
+            };
+            return { ...state, loading: false, entities };
         }
         case fromProductos.LOAD_PRODUCTOS_SUCCESS: {
             return {
@@ -32,6 +41,10 @@ export function reducer(
         case fromProductos.LOAD_PRODUCTOS_BY_CATEGORY_ID_SUCCESS: {
             const entities = { ...state.entities, ...data2Entities<Producto>(action.payload.list, state) };
             return { ...state, entities };
+        }
+        case fromProductos.SAVE_PRODUCTO_FAIL:
+        case fromProductos.LOAD_PRODUCTO_BY_ID_FAIL: {
+            return { ...state, loading: false };
         }
         case fromProductos.LOAD_PRODUCTOS_FAIL: {
             return { ...state, loading: false, loaded: false };

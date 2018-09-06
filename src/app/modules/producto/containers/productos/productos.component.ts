@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 // RxJs
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 // Store
 import { Store } from '@ngrx/store';
@@ -24,7 +24,10 @@ export class ProductosComponent {
   //#region Get Store Date
   item$: Observable<Producto> = this.store.select(fromStore.getSelectedProducto)
     .pipe(map(data => data ? data : new Producto('')));
-  categoria$: Observable<CategoriaProducto> = this.store.select(fromStore.getSelectedCategoria);
+  categoria: CategoriaProducto;
+  // TODO: Look for a nicer way to do it
+  categoria$: Observable<CategoriaProducto> = this.store.select(fromStore.getSelectedCategoria)
+    .pipe(tap(value => this.categoria = value));
   loading$: Observable<boolean> = this.store.select(fromStore.getProductossLoading);
   //#endregion
 
@@ -42,6 +45,8 @@ export class ProductosComponent {
   }
 
   onSave(event: FormSaveEvent<Producto>) {
+    event.new.categoriaProducto = this.categoria;
+    console.log('About to Dispatch SaveProducto', event);
     this.store.dispatch(new fromStore.SaveProducto(event.new));
     /*
     const workingItem = Object.assign(this.product, data);

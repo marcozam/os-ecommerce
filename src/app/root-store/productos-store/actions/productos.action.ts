@@ -26,7 +26,7 @@ export const DELETE_PRODUCTO_SUCCESS = '[Products] Delete Producto success';
 
 // Actions
 // Load All
-export class LoadAllProductos implements Action { readonly type = LOAD_PRODUCTOS; }
+export class LoadProductos implements Action { readonly type = LOAD_PRODUCTOS; }
 export class LoadProductosSuccess implements Action {
     readonly type = LOAD_PRODUCTOS_SUCCESS;
     constructor(public payload: Producto[]) { }
@@ -76,7 +76,7 @@ export class SaveProductoFail implements Action {
 }
 
 export type ProductosAction =
-    LoadAllProductos | LoadProductosSuccess | LoadProductosFail |
+    LoadProductos | LoadProductosSuccess | LoadProductosFail |
     LoadProductoByID | LoadProductoByIDSuccess | LoadProductoByIDFail |
     LoadProductosByCategoryID | LoadProductosByCategoryIDSuccess | LoadProductosByCategoryIDFail |
     SaveProducto | SaveProductoSuccess | SaveProductoFail;

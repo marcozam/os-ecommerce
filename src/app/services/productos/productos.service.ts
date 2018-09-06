@@ -29,9 +29,10 @@ export class ProductosService extends GenericService<Producto> {
             V3: item.key,
             V4: item.nombre,
             // V6: item.requireProcesamiento ? 1 : 0,
-            V9: item.categoriaProductoID,
             V7: item.SKU,
-            V8: item.detalleID ? item.detalleID : 0
+            V8: item.detalleID ? item.detalleID : 0,
+            V9: item.categoriaProductoID,
+            V10: item.marcaProductoID
         });
         return this.db.getData(params).pipe(
             map(result => result.Table.length > 0 ? this.mapData(result.Table[0]) : null));
