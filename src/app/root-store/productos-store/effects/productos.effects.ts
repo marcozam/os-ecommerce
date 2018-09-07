@@ -16,7 +16,7 @@ export class ProductosEffects {
     ) { }
 
     @Effect()
-    loadProductos$ = this.actions$.ofType(productosActions.LOAD_PRODUCTOS)
+    loadProductos$ = this.actions$.ofType(productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS)
         .pipe(
             mergeMap(() => {
                 return this.service.getList().pipe(
@@ -27,7 +27,7 @@ export class ProductosEffects {
         );
 
     @Effect()
-    loadProductosByCategoria$ = this.actions$.ofType(productosActions.LOAD_PRODUCTOS_BY_CATEGORY_ID)
+    loadProductosByCategoria$ = this.actions$.ofType(productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_BY_CATEGORY_ID)
         .pipe(
             mergeMap((action: productosActions.LoadProductosByCategoryID) => {
                 return this.service.getProductsByCategory(action.payload).pipe(
@@ -40,7 +40,7 @@ export class ProductosEffects {
         );
 
     @Effect()
-    saveProducto$ = this.actions$.ofType(productosActions.SAVE_PRODUCTO)
+    saveProducto$ = this.actions$.ofType(productosActions.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO)
         .pipe(
             mergeMap((action: productosActions.SaveProducto) => {
                 return this.service.save(action.payload).pipe(

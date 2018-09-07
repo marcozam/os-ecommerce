@@ -1,7 +1,7 @@
-import { MessageTypes } from 'app/constants';
+import { NOTIFICATION_TYPES } from 'app/notifications';
 
 export interface GeneralError {
-    type: MessageTypes;
+    type: NOTIFICATION_TYPES;
     message: string;
     title: string;
 }

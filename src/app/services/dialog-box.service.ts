@@ -1,19 +1,19 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Injectable } from '@angular/core';
-// Constants
-import { MessageTypes } from 'app/constants';
+// Notifications
+import { NOTIFICATION_TYPES } from 'app/notifications';
 // Component
 import { DialogBoxComponent } from 'app/components/dialog-box/dialog-box.component';
 import { OpenDialogEvent } from 'app/models/events';
 
 export interface DialogBoxOptions {
-  type?: MessageTypes;
+  type?: NOTIFICATION_TYPES;
   showButtons?: boolean;
   onClose?: Function;
 }
 
 const DEFAULT_DIALOG_BOX_OPTIONS: DialogBoxOptions = {
-  type: MessageTypes.INFO,
+  type: NOTIFICATION_TYPES.INFO,
   showButtons: false
 };
 

@@ -3,8 +3,8 @@ import { Effect, Actions } from '@ngrx/effects';
 // RxJS
 import { of, concat } from 'rxjs';
 import { map, catchError, switchMap, tap, filter } from 'rxjs/operators';
-// Constants
-import { MessageCode } from 'app/constants';
+// Notifications
+import { NOTIFICATION_CODE } from 'app/notifications';
 // Actions
 import * as marcasActions from '../actions/marcas.action';
 // Services
@@ -50,10 +50,10 @@ export class MarcasEffects {
                         item.categorias = _categorias;
                         return new marcasActions.LoadMarcaByIDSuccess(item);
                     } else {
-                        return new marcasActions.LoadMarcaByIDFail(MessageCode.ITEM_NOT_FOUND);
+                        return new marcasActions.LoadMarcaByIDFail(NOTIFICATION_CODE.ITEM_NOT_FOUND);
                     }
                 }),
-                catchError(() => of(new marcasActions.LoadMarcaByIDFail(MessageCode.GENERAL_ERROR)))
+                catchError(() => of(new marcasActions.LoadMarcaByIDFail(NOTIFICATION_CODE.GENERAL_ERROR)))
             );
         })
     );
@@ -66,9 +66,9 @@ export class MarcasEffects {
                     map(items => {
                         return items ?
                         new marcasActions.LoadCategoriasByMarcaIDSuccess(items, action.payload) :
-                        new marcasActions.LoadCategoriasByMarcaIDFail(MessageCode.NO_DATA);
+                        new marcasActions.LoadCategoriasByMarcaIDFail(NOTIFICATION_CODE.NO_DATA);
                     }),
-                    catchError(() => of(new marcasActions.LoadCategoriasByMarcaIDFail(MessageCode.GENERAL_ERROR)))
+                    catchError(() => of(new marcasActions.LoadCategoriasByMarcaIDFail(NOTIFICATION_CODE.GENERAL_ERROR)))
                 );
             })
         );
@@ -78,8 +78,8 @@ export class MarcasEffects {
         .pipe(
             switchMap((action: marcasActions.SaveMarca) => {
                 return this.service.save(action.newItem, action.oldItem).pipe(
-                    map(item => new marcasActions.SaveMarcaSuccess(item, MessageCode.ITEM_SAVED)),
-                    catchError(() => of(new marcasActions.SaveMarcaFail(MessageCode.GENERAL_ERROR)))
+                    map(item => new marcasActions.SaveMarcaSuccess(item, NOTIFICATION_CODE.ITEM_SAVED)),
+                    catchError(() => of(new marcasActions.SaveMarcaFail(NOTIFICATION_CODE.GENERAL_ERROR)))
                 );
             })
         );

@@ -1,16 +1,26 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { OnInit, OnDestroy } from '@angular/core';
+// RxJS
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
+// NgRx
+import { Actions } from '@ngrx/effects';
 // Models
-import { BaseCatalog } from 'app/models';
-// Constants
-import { WARNING_TITLE, LEAVE_WARNING_MESSAGE, MessageTypes } from 'app/constants';
+import { BaseCatalog, MessageAction, DialogMessage } from 'app/models';
+// Notifications
+import {
+    WARNING_TITLE,
+    LEAVE_WARNING_MESSAGE,
+    NOTIFICATION_TYPES
+} from 'app/notifications';
 // TODO: Move to other place
 import { DialogBoxService } from 'app/services/dialog-box.service';
 
 export abstract class OSBaseFormContainer<T extends BaseCatalog>
-implements OnInit {
+implements OnInit, OnDestroy {
+
+    protected destroyed$ = new Subject<boolean>();
     form: FormGroup;
     loading$: Observable<boolean>;
     // TODO: Find a nicer way to do it.
@@ -18,13 +28,40 @@ implements OnInit {
     item$: Observable<T>;
 
     constructor(
-        private dialog: DialogBoxService,
+        protected dialog: DialogBoxService,
+        protected actions$: Actions,
         private router: Router,
-        private route: ActivatedRoute
-    ) { }
+        private route: ActivatedRoute,
+        successAction: any,
+        failAction: any,
+        protected messages: any
+    ) {
+        // OnSuccess
+        actions$.ofType(successAction).pipe(
+            takeUntil(this.destroyed$),
+            tap((action: MessageAction) => { this.openMessage(action, () => { this.goBack(); }); })
+        ).subscribe();
+        // OnFail
+        actions$.ofType(failAction).pipe(
+            takeUntil(this.destroyed$),
+            tap((action: MessageAction) => { this.openMessage(action); })
+        ).subscribe();
+    }
 
-    ngOnInit() {
-        this.item$.subscribe(value => this.item = value);
+    //#region Angular LifeCycle Hooks
+    ngOnInit() { this.item$.subscribe(value => { this.item = value; }); }
+    ngOnDestroy() {
+        this.destroyed$.next(true);
+        this.destroyed$.complete();
+    }
+    //#endregion
+
+    protected openMessage(action: MessageAction, onClose?: Function) {
+        const messageLabel: DialogMessage = this.messages[action.messageSection][action.messageCode];
+        this.dialog.openDialog(messageLabel.title, messageLabel.message, {
+            type: messageLabel.type,
+            onClose: onClose
+        });
     }
 
     protected onSave(newItem: T) { throw new Error('OnSave funciont not implemnted'); }
@@ -42,7 +79,7 @@ implements OnInit {
         if (this.item && this.item.hasChanges(this.form.value)) {
             this.dialog.openDialog(WARNING_TITLE, LEAVE_WARNING_MESSAGE,
                 {
-                    type: MessageTypes.WARNING,
+                    type: NOTIFICATION_TYPES.WARNING,
                     showButtons: true,
                     onClose: result => { if (result) { this.goBack(); }}
                 });

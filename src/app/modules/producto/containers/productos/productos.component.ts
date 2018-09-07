@@ -4,6 +4,8 @@ import { Validators, FormBuilder } from '@angular/forms';
 // RxJs
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
+// NgRx
+import { Actions } from '@ngrx/effects';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
@@ -11,7 +13,10 @@ import * as fromStore from 'app/root-store/productos-store';
 import { DialogBoxService } from 'app/services/dialog-box.service';
 // Models
 import { Producto, CategoriaProducto } from 'app/models';
+// Components
 import { OSBaseFormContainer } from 'app/modules/shared';
+// Notifications
+import { PRODUCTOS_NOTIFICATIONS } from 'app/notifications';
 
 
 @Component({
@@ -27,11 +32,17 @@ export class ProductosComponent extends OSBaseFormContainer<Producto> {
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
     private fb: FormBuilder,
+    actions$: Actions,
     dialog: DialogBoxService,
     router: Router,
     route: ActivatedRoute
   ) {
-    super(dialog, router, route);
+    super(
+      dialog, actions$, router, route,
+      fromStore.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_SUCCESS,
+      fromStore.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_FAIL,
+      PRODUCTOS_NOTIFICATIONS
+    );
     //#region Get Store Date
     // TODO: Look for a nicer way to do it
     this.categoria$ = this.store.select(fromStore.getSelectedCategoria)

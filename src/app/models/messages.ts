@@ -1,12 +1,12 @@
-import { MessageCode, MessageTypes } from 'app/constants';
+import { NOTIFICATION_TYPES, NOTIFICATION_CODE } from 'app/notifications';
 
 export interface MessageAction {
-    messageCode: MessageCode;
+    messageCode: NOTIFICATION_CODE;
     messageSection: string;
 }
 
 export interface DialogMessage {
     title: string;
     message: string;
-    type: MessageTypes;
+    type: NOTIFICATION_TYPES;
 }

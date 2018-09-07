@@ -3,8 +3,8 @@ import { Effect, Actions } from '@ngrx/effects';
 // RxJS
 import { of, concat } from 'rxjs';
 import { switchMap, map, catchError, tap, filter } from 'rxjs/operators';
-// Constants
-import { MessageCode } from 'app/constants';
+// Notifications
+import { NOTIFICATION_CODE } from 'app/notifications';
 // Actions
 import * as categoriasActions from '../actions/categorias.action';
 import * as productosActions from '../actions/productos.action';
@@ -22,7 +22,7 @@ export class CategoriasEffects {
     ) { }
 
     @Effect()
-    loadProductosByCategorySuccess$ = this.actions$.ofType(productosActions.LOAD_PRODUCTOS_BY_CATEGORY_ID_SUCCESS)
+    loadProductosByCategorySuccess$ = this.actions$.ofType(productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_BY_CATEGORY_ID_SUCCESS)
         .pipe(
             map((action: productosActions.LoadProductosByCategoryIDSuccess) => {
                 return new categoriasActions.SetCategoriaLoadedState(action.payload.id);
@@ -58,10 +58,10 @@ export class CategoriasEffects {
                             item.marcas = _marcas;
                             return new categoriasActions.LoadCategoriaByIDSuccess(item);
                         } else {
-                            return new categoriasActions.LoadCategoriaByIDFail(MessageCode.ITEM_NOT_FOUND);
+                            return new categoriasActions.LoadCategoriaByIDFail(NOTIFICATION_CODE.ITEM_NOT_FOUND);
                         }
                     }),
-                    catchError(() => of(new categoriasActions.LoadCategoriaByIDFail(MessageCode.GENERAL_ERROR)))
+                    catchError(() => of(new categoriasActions.LoadCategoriaByIDFail(NOTIFICATION_CODE.GENERAL_ERROR)))
                 );
             })
         );
@@ -71,8 +71,8 @@ export class CategoriasEffects {
         .pipe(
             switchMap((action: categoriasActions.SaveCategoria) => {
                 return this.service.save(action.newItem, action.oldItem).pipe(
-                    map(item => new categoriasActions.SaveCategoriaSuccess(item, MessageCode.ITEM_SAVED)),
-                    catchError(() => of(new categoriasActions.SaveCategoriaFail(MessageCode.GENERAL_ERROR)))
+                    map(item => new categoriasActions.SaveCategoriaSuccess(item, NOTIFICATION_CODE.ITEM_SAVED)),
+                    catchError(() => of(new categoriasActions.SaveCategoriaFail(NOTIFICATION_CODE.GENERAL_ERROR)))
                 );
             })
         );
@@ -85,9 +85,9 @@ export class CategoriasEffects {
                     map(items => {
                         return items ?
                         new categoriasActions.LoadMarcasByCategoriaIDSuccess(items, action.payload) :
-                        new categoriasActions.LoadMarcasByCategoriaIDFail(MessageCode.NO_DATA);
+                        new categoriasActions.LoadMarcasByCategoriaIDFail(NOTIFICATION_CODE.NO_DATA);
                     }),
-                    catchError(() => of(new categoriasActions.LoadMarcasByCategoriaIDFail(MessageCode.GENERAL_ERROR)))
+                    catchError(() => of(new categoriasActions.LoadMarcasByCategoriaIDFail(NOTIFICATION_CODE.GENERAL_ERROR)))
                 );
             })
         );

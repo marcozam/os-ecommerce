@@ -1,7 +1,9 @@
 import { Action } from '@ngrx/store';
-// Constants
-import { MessageCode } from 'app/constants';
-import { ProductosMessageSection } from '../productos-store.constants';
+// Notifications
+import {
+    NOTIFICATION_CODE,
+    PRODUCTOS_NOTIFICATION_SECTIONS
+} from 'app/notifications';
 // Models
 import { MessageAction } from 'app/models';
 import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
@@ -54,8 +56,8 @@ export class LoadMarcaByIDSuccess implements Action {
 }
 export class LoadMarcaByIDFail implements Action, MessageAction {
     readonly type = MarcasActionTypes.LOAD_MARCA_BY_ID_FAIL;
-    readonly messageSection = ProductosMessageSection.MARCAS;
-    constructor(public messageCode: MessageCode) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.MARCAS;
+    constructor(public messageCode: NOTIFICATION_CODE) { }
 }
 // Load Categorias By MarcaID
 export class LoadCategoriasByMarcaID implements Action {
@@ -68,8 +70,8 @@ export class LoadCategoriasByMarcaIDSuccess implements Action {
 }
 export class LoadCategoriasByMarcaIDFail implements Action, MessageAction {
     readonly type = MarcasActionTypes.LOAD_CATEGORIAS_BY_MARCA_FAIL;
-    readonly messageSection = ProductosMessageSection.CATEGORIAS;
-    constructor(public messageCode: MessageCode) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.CATEGORIAS;
+    constructor(public messageCode: NOTIFICATION_CODE) { }
 }
 // Save
 export class SaveMarca implements Action {
@@ -78,13 +80,13 @@ export class SaveMarca implements Action {
 }
 export class SaveMarcaSuccess implements Action, MessageAction {
     readonly type = MarcasActionTypes.SAVE_MARCA_SUCCESS;
-    readonly messageSection = ProductosMessageSection.MARCAS;
-    constructor(public payload: MarcaProducto, public messageCode: MessageCode) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.MARCAS;
+    constructor(public payload: MarcaProducto, public messageCode: NOTIFICATION_CODE) { }
 }
 export class SaveMarcaFail implements Action, MessageAction {
     readonly type = MarcasActionTypes.SAVE_MARCA_FAIL;
-    readonly messageSection = ProductosMessageSection.MARCAS;
-    constructor(public messageCode: MessageCode) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.MARCAS;
+    constructor(public messageCode: NOTIFICATION_CODE) { }
 }
 
 export type MarcasAction =

@@ -10,7 +10,6 @@ import { ContactoService } from 'app/modules/crm/services/contacto.service';
 import { InventarioService } from 'app/modules/inventario/services/inventario.service';
 import { DialogPagosService } from 'app/modules/venta-common/services/dialog-pagos.service';
 import { DialogBoxService } from 'app/services/dialog-box.service';
-import { MessageTypes } from '../../../../constants';
 
 @Component({
   selector: 'app-ventas',

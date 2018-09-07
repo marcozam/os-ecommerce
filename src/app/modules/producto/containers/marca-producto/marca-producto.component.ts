@@ -1,14 +1,18 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 // RxJs
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+// NgRx
+import { Actions } from '@ngrx/effects';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
 // Components
 import { OSBaseFormContainer } from 'app/modules/shared';
+// Notifications
+import { PRODUCTOS_NOTIFICATIONS } from 'app/notifications';
 // Models
 import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
 // TODO: Move to other place
@@ -26,11 +30,17 @@ export class MarcaProductoComponent extends OSBaseFormContainer<MarcaProducto> {
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
     private fb: FormBuilder,
+    actions$: Actions,
     dialog: DialogBoxService,
     router: Router,
     route: ActivatedRoute
   ) {
-    super(dialog, router, route);
+    super(
+      dialog, actions$, router, route,
+      fromStore.MarcasActionTypes.SAVE_MARCA_SUCCESS,
+      fromStore.MarcasActionTypes.SAVE_MARCA_FAIL,
+      PRODUCTOS_NOTIFICATIONS
+    );
     //#region Get Store Date
     this.categorias$ = this.store.select(fromStore.getAllCategories);
     this.item$ = this.store.select(fromStore.getSelectedMarca)

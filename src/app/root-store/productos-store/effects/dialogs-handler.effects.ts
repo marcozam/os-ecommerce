@@ -8,9 +8,15 @@ import * as marcasActions from '../actions/marcas.action';
 import * as categoriasActions from '../actions/categorias.action';
 // Services
 import { DialogBoxService } from 'app/services/dialog-box.service';
-// Constants
-import { MessageCode, ERROR_TITLE, ERROR_MESSAGE, WARNING_TITLE, MessageTypes } from 'app/constants';
-import { productosMessages, ProductosMessageSection } from '../productos-store.constants';
+// Notifications
+import {
+    NOTIFICATION_CODE,
+    NOTIFICATION_TYPES,
+    ERROR_MESSAGE,
+    ERROR_TITLE,
+    PRODUCTOS_NOTIFICATION_SECTIONS,
+    PRODUCTOS_NOTIFICATIONS
+} from 'app/notifications';
 // Models
 import { MessageAction, DialogMessage } from 'app/models';
 
@@ -31,27 +37,21 @@ export class DialogsHandlerEffects {
         categoriasActions.CategoriasActionTypes.SAVE_CATEGORIA_SUCCESS,
         // MARCAS
         marcasActions.MarcasActionTypes.LOAD_MARCAS_FAIL,
-        marcasActions.MarcasActionTypes.LOAD_MARCA_BY_ID_FAIL,
-        marcasActions.MarcasActionTypes.SAVE_MARCA_FAIL,
-        marcasActions.MarcasActionTypes.SAVE_MARCA_SUCCESS,
+        marcasActions.MarcasActionTypes.LOAD_MARCA_BY_ID_FAIL
     )
         .pipe(
             tap((action: MessageAction) => {
                 let title = ERROR_TITLE;
                 let message = ERROR_MESSAGE;
-                let messageType = MessageTypes.ERROR;
+                let messageType = NOTIFICATION_TYPES.ERROR;
                 let callback: Function = null;
-                if (action.messageCode !== MessageCode.GENERAL_ERROR) {
+                if (action.messageCode !== NOTIFICATION_CODE.GENERAL_ERROR) {
                     switch (action.messageCode) {
-                        case MessageCode.ITEM_SAVED:
-                        case MessageCode.ITEM_NOT_FOUND: {
+                        case NOTIFICATION_CODE.ITEM_SAVED:
+                        case NOTIFICATION_CODE.ITEM_NOT_FOUND: {
                             switch (action.messageSection) {
-                                case ProductosMessageSection.CATEGORIAS: {
+                                case PRODUCTOS_NOTIFICATION_SECTIONS.CATEGORIAS: {
                                     callback = () => this.router.navigate(['/secure/productos/categorias']);
-                                    break;
-                                }
-                                case ProductosMessageSection.MARCAS: {
-                                    callback = () => this.router.navigate(['/secure/productos/marcas']);
                                     break;
                                 }
                             }
@@ -59,7 +59,7 @@ export class DialogsHandlerEffects {
                         }
                     }
 
-                    const messageLabel: DialogMessage = productosMessages[action.messageSection][action.messageCode];
+                    const messageLabel: DialogMessage = PRODUCTOS_NOTIFICATIONS[action.messageSection][action.messageCode];
                     title = messageLabel.title;
                     message = messageLabel.message;
                     messageType = messageLabel.type;

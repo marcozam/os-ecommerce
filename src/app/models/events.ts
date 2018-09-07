@@ -1,4 +1,4 @@
-import { MessageTypes } from '../constants';
+import { NOTIFICATION_TYPES } from 'app/notifications';
 
 export interface FormSaveEvent<T> {
     new: T;
@@ -8,6 +8,6 @@ export interface FormSaveEvent<T> {
 export interface OpenDialogEvent {
     title: string;
     mensaje: string;
-    type: MessageTypes;
+    type: NOTIFICATION_TYPES;
     showButtons: boolean;
 }

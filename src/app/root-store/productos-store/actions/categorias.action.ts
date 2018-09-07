@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
-// Constants
-import { MessageCode } from 'app/constants';
-import { ProductosMessageSection } from '../productos-store.constants';
+// Notifications
+import { NOTIFICATION_CODE, PRODUCTOS_NOTIFICATION_SECTIONS } from 'app/notifications';
 // Models
 import { CategoriaProducto, MarcaProducto } from 'app/models/productos';
 import { MessageAction } from 'app/models';
@@ -40,8 +39,8 @@ export class LoadAllCategorias implements Action {
 }
 export class LoadCategoriasFail implements Action, MessageAction {
     readonly type = CategoriasActionTypes.LOAD_CATEGORIAS_FAIL;
-    readonly messageSection = ProductosMessageSection.CATEGORIAS;
-    constructor(public messageCode: MessageCode) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.CATEGORIAS;
+    constructor(public messageCode: NOTIFICATION_CODE) { }
 }
 export class LoadCategoriasSuccess implements Action {
     readonly type = CategoriasActionTypes.LOAD_CATEGORIAS_SUCCESS;
@@ -58,8 +57,8 @@ export class LoadCategoriaByIDSuccess implements Action {
 }
 export class LoadCategoriaByIDFail implements Action, MessageAction {
     readonly type = CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL;
-    readonly messageSection = ProductosMessageSection.CATEGORIAS;
-    constructor(public messageCode: MessageCode) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.CATEGORIAS;
+    constructor(public messageCode: NOTIFICATION_CODE) { }
 }
 // Load Marcas By Categoria
 export class LoadMarcasByCategoriaID implements Action {
@@ -72,8 +71,8 @@ export class LoadMarcasByCategoriaIDSuccess implements Action {
 }
 export class LoadMarcasByCategoriaIDFail implements Action, MessageAction {
     readonly type = CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA_FAIL;
-    readonly messageSection = ProductosMessageSection.CATEGORIAS;
-    constructor(public messageCode: MessageCode) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.CATEGORIAS;
+    constructor(public messageCode: NOTIFICATION_CODE) { }
 }
 // Save
 export class SaveCategoria implements Action {
@@ -82,13 +81,13 @@ export class SaveCategoria implements Action {
 }
 export class SaveCategoriaSuccess implements Action, MessageAction {
     readonly type = CategoriasActionTypes.SAVE_CATEGORIA_SUCCESS;
-    readonly messageSection = ProductosMessageSection.CATEGORIAS;
-    constructor(public payload: CategoriaProducto, public messageCode: MessageCode) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.CATEGORIAS;
+    constructor(public payload: CategoriaProducto, public messageCode: NOTIFICATION_CODE) { }
 }
 export class SaveCategoriaFail implements Action, MessageAction {
     readonly type = CategoriasActionTypes.SAVE_CATEGORIA_FAIL;
-    readonly messageSection = ProductosMessageSection.CATEGORIAS;
-    constructor(public messageCode: MessageCode) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.CATEGORIAS;
+    constructor(public messageCode: NOTIFICATION_CODE) { }
 }
 // Update
 export class SetCategoriaLoadedState implements Action {

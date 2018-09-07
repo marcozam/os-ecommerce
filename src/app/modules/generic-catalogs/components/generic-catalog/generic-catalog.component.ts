@@ -10,7 +10,6 @@ import { GenericCatalogService } from '../../services/generic.service';
 import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
 // Constants
 import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
-import { MessageTypes } from '../../../../constants';
 
 @Component({
   selector: 'app-generic-catalog',

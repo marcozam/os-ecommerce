@@ -1,7 +1,7 @@
 import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // CONSTANTS
-import { MessageTypes } from 'app/constants';
+import { NOTIFICATION_TYPES } from 'app/notifications';
 // Models
 import { OpenDialogEvent } from 'app/models/events';
 
@@ -12,7 +12,7 @@ import { OpenDialogEvent } from 'app/models/events';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogBoxComponent {
-  dialogType: MessageTypes;
+  dialogType: NOTIFICATION_TYPES;
   lines: string[];
 
   constructor(
