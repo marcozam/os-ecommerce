@@ -1,0 +1,24 @@
+.mat-snack-bar-container {
+    &.success {
+        background-color: $success-color;
+    }
+    &.error {
+        background-color: $error-color;
+    }
+    &.warning {
+        background-color: $warn-color;
+    }
+    .mat-simple-snackbar {
+        &:first-letter {
+            text-transform: uppercase;
+        }
+    }
+    .mat-simple-snackbar-action {
+        .mat-button {
+            min-width: 50px;
+            margin-left: 35px;
+            padding: 0;
+            color: white;
+        }
+    }
+}

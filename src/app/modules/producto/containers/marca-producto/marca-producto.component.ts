@@ -37,8 +37,8 @@ export class MarcaProductoComponent extends OSBaseFormContainer<MarcaProducto> {
   ) {
     super(
       dialog, actions$, router, route,
-      fromStore.MarcasActionTypes.SAVE_MARCA_SUCCESS,
-      fromStore.MarcasActionTypes.SAVE_MARCA_FAIL,
+      fromStore.MARCAS_ACTION_TYPES.SAVE_MARCA_SUCCESS,
+      fromStore.MARCAS_ACTION_TYPES.SAVE_MARCA_FAIL,
       PRODUCTOS_NOTIFICATIONS
     );
     //#region Get Store Date

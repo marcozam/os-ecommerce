@@ -39,12 +39,7 @@ implements OnInit, OnDestroy {
         // OnSuccess
         actions$.ofType(successAction).pipe(
             takeUntil(this.destroyed$),
-            tap((action: MessageAction) => { this.openMessage(action, () => { this.goBack(); }); })
-        ).subscribe();
-        // OnFail
-        actions$.ofType(failAction).pipe(
-            takeUntil(this.destroyed$),
-            tap((action: MessageAction) => { this.openMessage(action); })
+            tap(() => { this.goBack(); })
         ).subscribe();
     }
 
