@@ -16,13 +16,13 @@ export function reducer(
     action: fromCategorias.CategoriasAction
 ): GeneralListState<CategoriaProducto> {
     switch (action.type) {
-        case fromCategorias.CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA:
-        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID:
-        case fromCategorias.CategoriasActionTypes.SAVE_CATEGORIA:
-        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS: {
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.LOAD_MARCAS_BY_CATEGORIA:
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIA_BY_ID:
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA:
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIAS: {
             return { ...state, loading: true };
         }
-        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS_SUCCESS: {
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIAS_SUCCESS: {
             return {
                 ...state,
                 loading: false,
@@ -30,30 +30,30 @@ export function reducer(
                 entities: data2Entities<CategoriaProducto>(action.payload, state)
             };
         }
-        case fromCategorias.CategoriasActionTypes.SAVE_CATEGORIA_SUCCESS:
-        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_SUCCESS: {
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_SUCCESS:
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIA_BY_ID_SUCCESS: {
             const entities = {
                 ...state.entities,
                 [action.payload.key]: action.payload
             };
             return { ...state, loading: false, entities };
         }
-        case fromCategorias.CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA_SUCCESS: {
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.LOAD_MARCAS_BY_CATEGORIA_SUCCESS: {
             const categoria = state.entities[action.categoriaID];
             categoria.marcas = action.payload;
             categoria.marcasLoaded = true;
             const entities = { ...state.entities, [action.categoriaID]: categoria };
             return { ...state, loading: false, entities };
         }
-        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIAS_FAIL: {
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIAS_FAIL: {
             return { ...state, loading: false, loaded: false };
         }
-        case fromCategorias.CategoriasActionTypes.SAVE_CATEGORIA_FAIL:
-        case fromCategorias.CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA_FAIL:
-        case fromCategorias.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL: {
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_FAIL:
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.LOAD_MARCAS_BY_CATEGORIA_FAIL:
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIA_BY_ID_FAIL: {
             return { ...state, loading: false };
         }
-        case fromCategorias.CategoriasActionTypes.SET_CATEGORIA_LOADED_STATE: {
+        case fromCategorias.CATEGORIAS_ACTION_TYPES.SET_CATEGORIA_LOADED_STATE: {
             const entities = { ...state.entities };
             entities[action.payload].productosLoaded = true;
             return { ...state, entities };

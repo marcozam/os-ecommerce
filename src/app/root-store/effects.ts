@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 // RxJs
 import { tap } from 'rxjs/operators';
-// Actions
+// Product Actions
 import {
     PRODUCTOS_NOTIFICATION_ACTIONS,
-    MARCAS_NOTIFICATION_ACTIONS
-} from '../actions';
-import * as categoriasActions from '../actions/categorias.action';
+    MARCAS_NOTIFICATION_ACTIONS,
+    CATEGORIAS_NOTIFICATION_ACTIONS
+} from './productos-store/actions';
 // Notifications
 import {
     NotificationService,
@@ -22,25 +22,17 @@ import {
 import { MessageAction } from 'app/models';
 
 @Injectable()
-export class DialogsHandlerEffects {
+export class GlobalEffects {
     constructor(
         private actions$: Actions,
         private notificationService: NotificationService
-        // private service: DialogBoxService,
     ) { }
 
     @Effect({ dispatch: false })
     notifications$ = this.actions$.ofType(
         ...PRODUCTOS_NOTIFICATION_ACTIONS,
         ...MARCAS_NOTIFICATION_ACTIONS,
-        //#region CATEGORIAS
-        // Fail
-        categoriasActions.CategoriasActionTypes.LOAD_CATEGORIAS_FAIL,
-        categoriasActions.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID_FAIL,
-        categoriasActions.CategoriasActionTypes.SAVE_CATEGORIA_FAIL,
-        // Success
-        categoriasActions.CategoriasActionTypes.SAVE_CATEGORIA_SUCCESS,
-        //#endregion
+        ...CATEGORIAS_NOTIFICATION_ACTIONS
     ).pipe(
         tap((action: MessageAction) => {
             let notification: INotification = {

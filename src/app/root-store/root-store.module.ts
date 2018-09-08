@@ -9,6 +9,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ProductosStoreModule } from './productos-store';
 // Router
 import * as fromRouterState from './state/router.state';
+// Effects
+import { GlobalEffects } from './effects';
 
 @NgModule({
   imports: [
@@ -16,7 +18,7 @@ import * as fromRouterState from './state/router.state';
     StoreModule.forRoot({
       ...fromRouterState.routerReducers
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([ GlobalEffects ]),
     StoreDevtoolsModule.instrument({
       maxAge: 50
     }),

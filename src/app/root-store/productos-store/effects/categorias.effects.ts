@@ -30,7 +30,7 @@ export class CategoriasEffects {
         );
 
     @Effect()
-    loadCategorias$ = this.actions$.ofType(categoriasActions.CategoriasActionTypes.LOAD_CATEGORIAS)
+    loadCategorias$ = this.actions$.ofType(categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIAS)
         .pipe(
             switchMap(() => {
                 return this.service.getList().pipe(
@@ -41,7 +41,7 @@ export class CategoriasEffects {
         );
 
     @Effect()
-    loadCategoriaByID$ = this.actions$.ofType(categoriasActions.CategoriasActionTypes.LOAD_CATEGORIA_BY_ID)
+    loadCategoriaByID$ = this.actions$.ofType(categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIA_BY_ID)
         .pipe(
             switchMap((action: categoriasActions.LoadCategoriaByID) => {
                 let _marcas: MarcaProducto[];
@@ -67,7 +67,7 @@ export class CategoriasEffects {
         );
 
     @Effect()
-    saveCategoria$ = this.actions$.ofType(categoriasActions.CategoriasActionTypes.SAVE_CATEGORIA)
+    saveCategoria$ = this.actions$.ofType(categoriasActions.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA)
         .pipe(
             switchMap((action: categoriasActions.SaveCategoria) => {
                 return this.service.save(action.newItem, action.oldItem).pipe(
@@ -78,7 +78,7 @@ export class CategoriasEffects {
         );
 
     @Effect()
-    loadMarcasByCategoriaID$ = this.actions$.ofType(categoriasActions.CategoriasActionTypes.LOAD_MARCAS_BY_CATEGORIA)
+    loadMarcasByCategoriaID$ = this.actions$.ofType(categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_MARCAS_BY_CATEGORIA)
         .pipe(
             switchMap((action: categoriasActions.LoadMarcasByCategoriaID) => {
                 return this.marcaService.getByCategoria(action.payload).pipe(
