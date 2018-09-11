@@ -21,8 +21,8 @@
                                 <mat-icon>add_circle_outline</mat-icon>
                             </button>
                         </mat-header-cell>
-                        <mat-cell class="text-right" *matCellDef="let prod">
-                            <a mat-icon-button matTooltip="Editar" color="primary">
+                        <mat-cell class="table-actions end-xs" *matCellDef="let item">
+                            <a mat-icon-button matTooltip="Editar" color="primary" routerLink="./{{item.key}}">
                                 <mat-icon>edit</mat-icon>
                             </a>
                             <button mat-icon-button matTooltip="Eliminar" color="warn">

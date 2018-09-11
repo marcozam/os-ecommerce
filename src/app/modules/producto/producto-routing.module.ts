@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // Resolvers
-import * as fromResolvers from 'app/services/productos/resolvers';
+import * as fromResolvers from './resolvers';
 
 // Containers
 import { MarcaProductoComponent } from './containers/marca-producto/marca-producto.component';
@@ -24,10 +24,7 @@ const routes: Routes = [
   {
     path: 'categorias/list/:categoryId', component: ProductosListComponent,
     data: { title: 'Productos' },
-    resolve: {
-      categoria: fromResolvers.CategoriaDetailResolver,
-      listLoaded: fromResolvers.ProductosListResolver
-    },
+    resolve: { list: fromResolvers.ProductosListResolver },
   },
   {
     path: 'categorias/list/:categoryId/:productoId', component: ProductosComponent,
