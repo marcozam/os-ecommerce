@@ -17,9 +17,7 @@ const routes: Routes = [
   {
     path: 'categorias', component: CategoriasListComponent,
     data: { title: 'Categorias' },
-    resolve: {
-      listLoaded: fromResolvers.CategoriasListResolver
-    }
+    resolve: { list: fromResolvers.CategoriasListResolver }
   },
   {
     path: 'categorias/list/:categoryId', component: ProductosListComponent,
@@ -30,30 +28,27 @@ const routes: Routes = [
     path: 'categorias/list/:categoryId/:productoId', component: ProductosComponent,
     data: { title: 'Producto' },
     resolve: {
-      categoria: fromResolvers.CategoriaDetailResolver
+      categoria: fromResolvers.CategoriaDetailResolver,
+      producto: fromResolvers.ProductosDetailResolver
     }
   },
   {
     path: 'marcas', component: MarcasListComponent,
     data: { title: 'Marcas de Productos' },
-    resolve: {
-      listLoaded: fromResolvers.MarcasListResolver
-    }
+    resolve: { list: fromResolvers.MarcasListResolver }
   },
   {
     path: 'marcas/:marcaId', component: MarcaProductoComponent,
     data: { title: 'Marcas de Productos'},
     resolve: {
-      item: fromResolvers.MarcaDetailResolver,
-      categoriasLoaded: fromResolvers.CategoriasListResolver
+      marca: fromResolvers.MarcaDetailResolver,
+      categorias: fromResolvers.CategoriasListResolver
     }
   },
   {
     path: 'categorias/:categoryId', component: CategoriaProductoComponent,
     data: { title: 'Categoria de Productos' },
-    resolve: {
-      item$: fromResolvers.CategoriaDetailResolver
-    }
+    resolve: { categoria: fromResolvers.CategoriaDetailResolver }
   },
 ];
 
