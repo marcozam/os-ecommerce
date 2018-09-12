@@ -3,6 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { getRouterState } from 'app/root-store/state/router.state';
 import { ProductsModuleState } from '../state';
 // Selectors
+import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/modules/producto/constants';
 import { getProductsModuleState } from './state.selectors';
 import * as fromSelectors from '../../general.selectors';
 
@@ -39,5 +40,5 @@ export const getMarcas = createSelector(
 export const getSelectedMarca = createSelector(
     getMarcasEntities,
     getRouterState,
-    (entities, router) => fromSelectors.geSelectedtItem(entities, router, 'marcaId')
+    (entities, router) => fromSelectors.geSelectedtItem(entities, router, PRODUCTOS_ROUTE_STATE_PARAMS.MARCA_ID)
 );

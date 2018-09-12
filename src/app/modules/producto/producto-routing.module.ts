@@ -11,6 +11,7 @@ import { ProductosComponent } from './containers/productos/productos.component';
 import { ProductosListComponent } from './components/productos-list/productos-list.component';
 import { CategoriasListComponent } from './components/categorias-list/categorias-list.component';
 import { MarcasListComponent } from './components/marcas-list/marcas-list.component';
+import { PRODUCTOS_ROUTE_STATE_PARAMS } from './constants';
 
 const routes: Routes = [
   { path: '', redirectTo: 'categorias', pathMatch: 'full' },
@@ -20,12 +21,17 @@ const routes: Routes = [
     resolve: { list: fromResolvers.CategoriasListResolver }
   },
   {
-    path: 'categorias/list/:categoryId', component: ProductosListComponent,
+    path: `categorias/:${PRODUCTOS_ROUTE_STATE_PARAMS.CATEGORIA_ID}`, component: CategoriaProductoComponent,
+    data: { title: 'Categoria de Productos' },
+    resolve: { categoria: fromResolvers.CategoriaDetailResolver }
+  },
+  {
+    path: `categorias/list/:${PRODUCTOS_ROUTE_STATE_PARAMS.CATEGORIA_ID}`, component: ProductosListComponent,
     data: { title: 'Productos' },
     resolve: { list: fromResolvers.ProductosListResolver },
   },
   {
-    path: 'categorias/list/:categoryId/:productoId', component: ProductosComponent,
+    path: `categorias/list/:${PRODUCTOS_ROUTE_STATE_PARAMS.CATEGORIA_ID}/:${PRODUCTOS_ROUTE_STATE_PARAMS.PRODUCTO_ID}`, component: ProductosComponent,
     data: { title: 'Producto' },
     resolve: {
       categoria: fromResolvers.CategoriaDetailResolver,
@@ -38,18 +44,13 @@ const routes: Routes = [
     resolve: { list: fromResolvers.MarcasListResolver }
   },
   {
-    path: 'marcas/:marcaId', component: MarcaProductoComponent,
+    path: `marcas/:${PRODUCTOS_ROUTE_STATE_PARAMS.MARCA_ID}`, component: MarcaProductoComponent,
     data: { title: 'Marcas de Productos'},
     resolve: {
       marca: fromResolvers.MarcaDetailResolver,
       categorias: fromResolvers.CategoriasListResolver
     }
-  },
-  {
-    path: 'categorias/:categoryId', component: CategoriaProductoComponent,
-    data: { title: 'Categoria de Productos' },
-    resolve: { categoria: fromResolvers.CategoriaDetailResolver }
-  },
+  }
 ];
 
 @NgModule({

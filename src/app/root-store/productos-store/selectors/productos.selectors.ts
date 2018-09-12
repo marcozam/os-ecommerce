@@ -3,6 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { ProductsModuleState } from '../state';
 import { Producto } from 'app/models/productos';
 // Selectors
+import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/modules/producto/constants';
 import { getProductsModuleState } from './state.selectors';
 import * as fromSelectors from '../../general.selectors';
 import * as fromRoot from 'app/root-store/state/router.state';
@@ -33,7 +34,7 @@ export const getAllProductos = createSelector(
 export const getSelectedProducto = createSelector(
     getProductosEntities,
     fromRoot.getRouterState,
-    (entities, router) => fromSelectors.geSelectedtItem(entities, router, 'productoID')
+    (entities, router) => fromSelectors.geSelectedtItem(entities, router, PRODUCTOS_ROUTE_STATE_PARAMS.PRODUCTO_ID)
 );
 
 export const getProductosBySelectedCategory = createSelector(
