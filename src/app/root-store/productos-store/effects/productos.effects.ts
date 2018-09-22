@@ -60,8 +60,8 @@ export class ProductosEffects {
         .pipe(
             mergeMap((action: productosActions.SaveProducto) => {
                 return this.service.save(action.payload).pipe(
-                    map(item => new productosActions.SaveProductoSuccess(item)),
-                    catchError(error => of(new productosActions.SaveProductoFail(error)))
+                    map(item => new productosActions.SaveProductoSuccess(item, NOTIFICATION_CODE.ITEM_SAVED)),
+                    catchError(error => of(new productosActions.SaveProductoFail(NOTIFICATION_CODE.ITEM_NOT_SAVED)))
                 );
             })
         );

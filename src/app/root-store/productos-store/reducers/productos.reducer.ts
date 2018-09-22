@@ -19,6 +19,7 @@ export function reducer(
         case fromProductos.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS:
         case fromProductos.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO:
         case fromProductos.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTO_BY_ID:
+        case fromProductos.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_BY_CATEGORY_ID:
         {
             return { ...state, loading: true };
         }
@@ -40,7 +41,7 @@ export function reducer(
         }
         case fromProductos.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_BY_CATEGORY_ID_SUCCESS: {
             const entities = { ...state.entities, ...data2Entities<Producto>(action.payload.list, state) };
-            return { ...state, entities };
+            return { ...state, loading: false, entities };
         }
         case fromProductos.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_FAIL:
         case fromProductos.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTO_BY_ID_FAIL: {

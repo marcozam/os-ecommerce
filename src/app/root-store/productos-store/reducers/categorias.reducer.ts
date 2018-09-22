@@ -54,8 +54,9 @@ export function reducer(
             return { ...state, loading: false };
         }
         case fromCategorias.CATEGORIAS_ACTION_TYPES.SET_CATEGORIA_LOADED_STATE: {
-            const entities = { ...state.entities };
-            entities[action.payload].productosLoaded = true;
+            let entities = { ...state.entities };
+            const newData = { ...entities[action.payload], productosLoaded: true };
+            entities = { ...entities, [action.payload]: newData };
             return { ...state, entities };
         }
     }

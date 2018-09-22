@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 // RxJs
-import { tap, take, filter, map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 // Stores
-import { Store, createSelector, Selector } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
-import { Observable, forkJoin, pipe, combineLatest } from 'rxjs';
 
 @Injectable()
 export class ProductosDataManagerService {
@@ -51,13 +50,10 @@ export class ProductosDataManagerService {
     }
 
     loadProductosByCategoriaID(ID: number) {
-        return combineLatest(
-            this.loadCategoriaByID(ID),
-            this.store.select(fromStore.getProductosBySelectedCategory)
-        ).pipe(
-            map(data => ({ categoria: data[0], productos: data[1] })),
-            tap(data => {
-                if (data.categoria && !data.productos.length) {
+        return this.loadCategoriaByID(ID).pipe(
+            tap(categoria => {
+                console.log('Resolver', categoria);
+                if (categoria && !categoria.productosLoaded) {
                     this.store.dispatch(new fromStore.LoadProductosByCategoryID(ID));
                 }
             })

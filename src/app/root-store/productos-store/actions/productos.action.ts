@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
 // Models
 import { Producto } from 'app/models/productos/producto.models';
+import { MessageAction } from 'app/models';
+import { NOTIFICATION_CODE, PRODUCTOS_NOTIFICATION_SECTIONS } from 'app/notifications';
 
 // CONSTANTS
 export enum PRODUCTOS_ACTION_TYPES {
@@ -56,9 +58,10 @@ export class LoadProductoByIDSuccess implements Action {
     readonly type = PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTO_BY_ID_SUCCESS;
     constructor(public payload: Producto) { }
 }
-export class LoadProductoByIDFail implements Action {
+export class LoadProductoByIDFail implements Action, MessageAction {
     readonly type = PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTO_BY_ID_FAIL;
-    constructor(public payload: any) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.MARCAS;
+    constructor(public messageCode: NOTIFICATION_CODE) { }
 }
 // Load ByCategory ID
 export class LoadProductosByCategoryID implements Action {
@@ -78,13 +81,15 @@ export class SaveProducto implements Action {
     readonly type = PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO;
     constructor(public payload: Producto) { }
 }
-export class SaveProductoSuccess implements Action {
+export class SaveProductoSuccess implements Action, MessageAction {
     readonly type = PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_SUCCESS;
-    constructor(public payload: Producto) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.PRODUCTOS;
+    constructor(public payload: Producto, public messageCode: NOTIFICATION_CODE) { }
 }
-export class SaveProductoFail implements Action {
+export class SaveProductoFail implements Action, MessageAction {
     readonly type = PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_FAIL;
-    constructor(public payload: any) { }
+    readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.PRODUCTOS;
+    constructor(public messageCode: NOTIFICATION_CODE) { }
 }
 
 export type ProductosAction =

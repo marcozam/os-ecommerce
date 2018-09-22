@@ -1,4 +1,4 @@
-import { WARNING_TITLE, SUCCESS_TITLE } from './constants';
+import { WARNING_TITLE, SUCCESS_TITLE, ERROR_TITLE } from './constants';
 import { NOTIFICATION_TYPES } from './enums';
 import { INotification } from './models';
 
@@ -36,6 +36,14 @@ export class NotificatioGenerator {
             title: SUCCESS_TITLE,
             message: `${name} se ha guardado.`,
             type: NOTIFICATION_TYPES.SUCCESS,
+        };
+    }
+
+    static ItemNotSaved(name: string): INotification {
+        return {
+            title: ERROR_TITLE,
+            message: `${name} no pudo ser guardado.`,
+            type: NOTIFICATION_TYPES.ERROR,
         };
     }
 }

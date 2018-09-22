@@ -41,7 +41,7 @@ export const getProductosBySelectedCategory = createSelector(
     getAllProductos,
     fromRoot.getRouterState,
     (list, router): Producto[] => {
-        const ID = router.state.params.categoryId;
-        if (!isNaN(ID)) { return list.filter(item => item.categoriaProductoID === Number(ID)); }
+        const ID = Number(router.state.params[PRODUCTOS_ROUTE_STATE_PARAMS.CATEGORIA_ID]);
+        if (!isNaN(ID)) { return list.filter(item => item.categoriaProductoID === ID); }
     }
 );
