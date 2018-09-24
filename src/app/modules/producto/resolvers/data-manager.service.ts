@@ -52,7 +52,6 @@ export class ProductosDataManagerService {
     loadProductosByCategoriaID(ID: number) {
         return this.loadCategoriaByID(ID).pipe(
             tap(categoria => {
-                console.log('Resolver', categoria);
                 if (categoria && !categoria.productosLoaded) {
                     this.store.dispatch(new fromStore.LoadProductosByCategoryID(ID));
                 }
