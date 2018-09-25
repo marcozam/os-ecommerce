@@ -1,14 +1,30 @@
-<div class="row">
-  <div class="col-xs col-md-6">
+<div class="row center-xs">
+  <!--  col-md-6 -->
+  <div class="col-xs col-md-4">
     <os-base-form [loading$]="loading$">
+      <span class="sub-titles" osFormTitle> Categoria <small>({{ item.nombre ? item.nombre : 'nueva' }})</small></span>
       <div class="row">
-        <div class="col-xs col-md-7">
-            <app-categoria-producto-form [parent]="form"></app-categoria-producto-form>
+        <!--  col-md-7 -->
+        <div class="col-xs">
+          <app-categoria-producto-form [form]="form" [value]="item$ | async"></app-categoria-producto-form>
         </div>
+        <!-- TODO:  -->
+        <!--
         <div class="col-xs col-md-5">
           <app-grupo-categoria [parent]="form" [categoria]="item$ | async"></app-grupo-categoria>
         </div>
+        -->
       </div>
+
+      <!-- Buttons -->
+      <button mat-stroked-button color="warn" osFormButton
+        (click)="onCancel()">
+        <mat-icon>clear</mat-icon> Cancelar
+      </button>
+      <button mat-raised-button color="primary" osFormButton type="submit" 
+        (click)="onContinue()" [disabled]="form.invalid">
+        <mat-icon>save</mat-icon> Guardar
+      </button>
     </os-base-form>
   </div>
 </div>

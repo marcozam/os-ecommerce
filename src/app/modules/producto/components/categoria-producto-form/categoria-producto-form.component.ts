@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CategoriaProducto } from 'app/models';
+import { OSBaseFormComponent } from 'app/modules/shared';
 
 @Component({
   selector: 'app-categoria-producto-form',
@@ -7,12 +9,6 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./categoria-producto-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoriaProductoFormComponent {
-  @Input() parent: FormGroup;
-
-  get catalogoID() {
-    return this.parent.value.catalogoID;
-  }
-
-  constructor() { }
+export class CategoriaProductoFormComponent extends OSBaseFormComponent<CategoriaProducto> {
+  get catalogoID() { return this.form.value.catalogoID; }
 }

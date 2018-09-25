@@ -21,7 +21,11 @@ export class ProductosDataManagerService {
     loadMarcaByID(ID: number) {
         return this.store.select(fromStore.getSelectedMarca).pipe(
             tap(data => {
-                if (!data) { this.store.dispatch(new fromStore.LoadMarcaByID(ID)); }
+                if (!data) {
+                    this.store.dispatch(new fromStore.LoadMarcaByID(ID));
+                } else if (!data.categoriasLoaded) {
+                    this.store.dispatch(new fromStore.LoadCategoriasByMarcaID(ID));
+                }
             })
         );
     }

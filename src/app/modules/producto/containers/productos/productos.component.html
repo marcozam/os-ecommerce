@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row center-xs">
   <div class="col-lg-4 col-md-5 col-sm-7 col-xs">
     <os-base-form [loading$]="loading$">
       <span class="sub-titles" osFormTitle> Productos </span>
@@ -7,7 +7,8 @@
       <app-producto-form [form]="form" [value]="item$ | async" 
         [categoria]="categoria$ | async">
       </app-producto-form>
-        
+
+      <!-- Buttons -->
       <button mat-stroked-button color="warn" osFormButton
         (click)="onCancel()">
         <mat-icon>clear</mat-icon> Cancelar

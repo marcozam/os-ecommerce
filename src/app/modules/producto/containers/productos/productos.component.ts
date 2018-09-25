@@ -43,7 +43,7 @@ export class ProductosComponent extends OSBaseFormContainer<Producto> {
       fromStore.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_FAIL,
       PRODUCTOS_NOTIFICATIONS
     );
-    //#region Get Store Date
+    //#region Get Store Data
     // TODO: Look for a nicer way to do it
     this.categoria$ = this.store.select(fromStore.getSelectedCategoria)
       .pipe(tap(value => this.categoria = value));

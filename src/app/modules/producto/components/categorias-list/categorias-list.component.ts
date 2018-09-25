@@ -15,6 +15,6 @@ import { CategoriaProducto } from 'app/models/productos';
 })
 export class CategoriasListComponent {
   categorias$: Observable<CategoriaProducto[]> = this.store.select(fromStore.getStandAloneCategories);
-  tableColumns = ['nombre', 'inventario', 'actions'];
+  tableColumns = ['nombre', 'inventario', 'requireProcesamiento', 'actions'];
   constructor(private store: Store<fromStore.ProductsModuleState>) { }
 }

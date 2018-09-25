@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
   selector: 'os-base-form',
   templateUrl: './base-form.component.html',
   styleUrls: ['./base-form.component.scss'],
+  host: { class: 'start-xs' }
 })
 export class BaseFormComponent implements OnInit {
   @Input() loading$: Observable<boolean>;

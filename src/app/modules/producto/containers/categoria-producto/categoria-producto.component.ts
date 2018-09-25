@@ -1,14 +1,17 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 // RxJs
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/root-store/productos-store';
 // Models
-import { FormSaveEvent } from 'app/models';
 import { CategoriaProducto, GrupoCategoriaProducto } from 'app/models/productos';
+import { OSBaseFormContainer } from 'app/modules/shared';
+import { DialogBoxService } from 'app/services/dialog-box.service';
+import { Actions } from '@ngrx/effects';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PRODUCTOS_NOTIFICATIONS } from 'app/notifications';
 
 @Component({
   selector: 'app-categoria-producto',
@@ -16,19 +19,21 @@ import { CategoriaProducto, GrupoCategoriaProducto } from 'app/models/productos'
   styleUrls: ['./categoria-producto.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoriaProductoComponent {
-  item$: Observable<CategoriaProducto> = this.store.select(fromStore.getSelectedCategoria)
-    .pipe(map((data) => data ? data :  new CategoriaProducto('')));
-  loading$: Observable<boolean> = this.store.select(fromStore.getCategoriasLoading);
-  form: FormGroup;
+export class CategoriaProductoComponent extends OSBaseFormContainer<CategoriaProducto> {
   // catalogos: MetaDataCatalog[];
-
   constructor(
     private store: Store<fromStore.ProductsModuleState>,
-    private fb: FormBuilder
-  ) { this.createForm(); }
-
-  createForm() {
+    private fb: FormBuilder,
+    actions$: Actions,
+    dialog: DialogBoxService,
+    router: Router,
+    route: ActivatedRoute
+  ) {
+    super(dialog, actions$, router, route,
+      fromStore.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_SUCCESS,
+      fromStore.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_FAIL,
+      PRODUCTOS_NOTIFICATIONS
+    );
     this.form = this.fb.group({
       'nombre': ['', Validators.required],
       'catalogoID': [0, Validators.required],
@@ -37,9 +42,15 @@ export class CategoriaProductoComponent {
       'tieneGrupos': [false, Validators.required],
       'formatoNombre': ['']
     });
+    //#region Get Store Data
+    // TODO: Look for a nicer way to do it
+    this.item$ = this.store.select(fromStore.getSelectedCategoria)
+      .pipe(map((data) => data ? data :  new CategoriaProducto('')));
+    this.loading$ = this.store.select(fromStore.getCategoriasLoading);
+    //#endregion
   }
 
-  onSave(event: FormSaveEvent<CategoriaProducto>) {
-    this.store.dispatch(new fromStore.SaveCategoria(event.new, event.old));
+  onSave(newItem: CategoriaProducto) {
+    this.store.dispatch(new fromStore.SaveCategoria(newItem, this.item));
   }
 }

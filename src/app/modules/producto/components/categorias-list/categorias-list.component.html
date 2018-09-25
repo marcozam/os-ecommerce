@@ -23,6 +23,15 @@
                             </mat-icon>
                         </mat-cell>
                     </ng-container>
+                    <!--Require procesamiento?-->
+                    <ng-container matColumnDef="requireProcesamiento">
+                        <mat-header-cell class="center-xs" *matHeaderCellDef> Require Procesamiento </mat-header-cell>
+                        <mat-cell class="center-xs" *matCellDef="let item">
+                            <mat-icon color="{{ item.requireProcesamiento ? 'primary' : 'warn' }}">
+                                {{ item.requireProcesamiento ? 'check' : 'close' }}
+                            </mat-icon>
+                        </mat-cell>
+                    </ng-container>
                     <!--Actions-->
                     <ng-container matColumnDef="actions">
                         <!--Header-->
