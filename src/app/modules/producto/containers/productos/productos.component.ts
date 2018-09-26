@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 // RxJs
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
@@ -15,8 +15,7 @@ import { DialogBoxService } from 'app/services/dialog-box.service';
 import { Producto, CategoriaProducto } from 'app/models';
 // Components
 import { OSBaseFormContainer } from 'app/modules/shared';
-// Notifications
-import { PRODUCTOS_NOTIFICATIONS } from 'app/notifications';
+import { PRODUCTO_FORM } from '../../constants';
 
 
 @Component({
@@ -37,26 +36,17 @@ export class ProductosComponent extends OSBaseFormContainer<Producto> {
     router: Router,
     route: ActivatedRoute
   ) {
-    super(
-      dialog, actions$, router, route,
-      fromStore.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_SUCCESS,
-      fromStore.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_FAIL,
-      PRODUCTOS_NOTIFICATIONS
-    );
+    super(dialog, actions$, router, route, fromStore.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_SUCCESS);
     //#region Get Store Data
     // TODO: Look for a nicer way to do it
+    this.loading$ = this.store.select(fromStore.getProductossLoading);
     this.categoria$ = this.store.select(fromStore.getSelectedCategoria)
       .pipe(tap(value => this.categoria = value));
-    this.loading$ = this.store.select(fromStore.getProductossLoading);
     this.item$ = this.store.select(fromStore.getSelectedProducto)
       .pipe(map(data => data ? data : new Producto('')));
     //#endregion
 
-    this.form = this.fb.group({
-      'nombre': ['', Validators.required],
-      'SKU': [''],
-      'marcaProductoID': [0, Validators.required]
-    });
+    this.form = this.fb.group(PRODUCTO_FORM);
   }
 
   onSave(newItem: Producto) {

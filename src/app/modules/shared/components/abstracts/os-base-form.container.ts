@@ -7,19 +7,13 @@ import { takeUntil, tap } from 'rxjs/operators';
 // NgRx
 import { Actions } from '@ngrx/effects';
 // Models
-import { BaseCatalog, MessageAction, DialogMessage } from 'app/models';
+import { BaseCatalog } from 'app/models';
 // Notifications
-import {
-    WARNING_TITLE,
-    LEAVE_WARNING_MESSAGE,
-    NOTIFICATION_TYPES
-} from 'app/notifications';
-// TODO: Move to other place
+import { WARNING_TITLE, LEAVE_WARNING_MESSAGE, NOTIFICATION_TYPES } from 'app/notifications';
+// Services
 import { DialogBoxService } from 'app/services/dialog-box.service';
 
-export abstract class OSBaseFormContainer<T extends BaseCatalog>
-implements OnInit, OnDestroy {
-
+export abstract class OSBaseFormContainer<T extends BaseCatalog> implements OnInit, OnDestroy {
     protected destroyed$ = new Subject<boolean>();
     form: FormGroup;
     loading$: Observable<boolean>;
@@ -32,15 +26,13 @@ implements OnInit, OnDestroy {
         protected actions$: Actions,
         private router: Router,
         private route: ActivatedRoute,
-        successAction: any,
-        failAction: any,
-        protected messages: any
+        successAction?: string
     ) {
-        // OnSuccess
-        actions$.ofType(successAction).pipe(
-            takeUntil(this.destroyed$),
-            tap(() => { this.goBack(); })
-        ).subscribe();
+        if (successAction) {
+            actions$.ofType(successAction).pipe(
+                takeUntil(this.destroyed$), tap(() => { this.goBack(); })
+            ).subscribe();
+        }
     }
 
     //#region Angular LifeCycle Hooks
@@ -50,14 +42,6 @@ implements OnInit, OnDestroy {
         this.destroyed$.complete();
     }
     //#endregion
-
-    protected openMessage(action: MessageAction, onClose?: Function) {
-        const messageLabel: DialogMessage = this.messages[action.messageSection][action.messageCode];
-        this.dialog.openDialog(messageLabel.title, messageLabel.message, {
-            type: messageLabel.type,
-            onClose: onClose
-        });
-    }
 
     protected onSave(newItem: T) { throw new Error('OnSave funciont not implemnted'); }
 

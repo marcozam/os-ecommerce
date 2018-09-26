@@ -1,0 +1,32 @@
+<mat-table [dataSource]="dataSource">
+  <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+  <mat-row *matRowDef="let myRowData; columns: tableColumns"></mat-row>
+  <!-- Columns Definition -->
+  <ng-template ngFor let-col [ngForOf]="columns">
+    <ng-container [matColumnDef]="col.uniqueID">
+      <mat-header-cell *matHeaderCellDef> {{ col.header }} </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ col.description(item) }} </mat-cell>
+    </ng-container>
+  </ng-template>
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="end-xs" *matHeaderCellDef>
+      <button routerLink="new" mat-icon-button matTooltip="Nueva Marca" color="primary">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell class="table-actions end-xs" *matCellDef="let item">
+      <a mat-icon-button matTooltip="Editar" color="primary" routerLink="./{{item.key}}">
+        <mat-icon>edit</mat-icon>
+      </a>
+      <button mat-icon-button matTooltip="Eliminar" color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+</mat-table>
+<mat-paginator
+  [length]="dataSource.data.length"
+  [pageSize]="10" 
+  [pageSizeOptions]="pageSizeOptions">
+</mat-paginator>

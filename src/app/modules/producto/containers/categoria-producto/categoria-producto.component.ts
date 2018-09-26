@@ -1,17 +1,20 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 // RxJs
 import { map } from 'rxjs/operators';
 // Store
 import { Store } from '@ngrx/store';
-import * as fromStore from 'app/root-store/productos-store';
-// Models
-import { CategoriaProducto, GrupoCategoriaProducto } from 'app/models/productos';
-import { OSBaseFormContainer } from 'app/modules/shared';
-import { DialogBoxService } from 'app/services/dialog-box.service';
 import { Actions } from '@ngrx/effects';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PRODUCTOS_NOTIFICATIONS } from 'app/notifications';
+import * as fromStore from 'app/root-store/productos-store';
+// Components
+import { OSBaseFormContainer } from 'app/modules/shared';
+// Services
+import { DialogBoxService } from 'app/services/dialog-box.service';
+// Models
+import { CategoriaProducto } from 'app/models/productos';
+// Constants
+import { CATEGORIA_PRODUCTO_FORM } from '../../constants';
 
 @Component({
   selector: 'app-categoria-producto',
@@ -29,24 +32,13 @@ export class CategoriaProductoComponent extends OSBaseFormContainer<CategoriaPro
     router: Router,
     route: ActivatedRoute
   ) {
-    super(dialog, actions$, router, route,
-      fromStore.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_SUCCESS,
-      fromStore.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_FAIL,
-      PRODUCTOS_NOTIFICATIONS
-    );
-    this.form = this.fb.group({
-      'nombre': ['', Validators.required],
-      'catalogoID': [0, Validators.required],
-      'usaInventario': [true, Validators.required],
-      'requireProcesamiento': [false, Validators.required],
-      'tieneGrupos': [false, Validators.required],
-      'formatoNombre': ['']
-    });
+    super(dialog, actions$, router, route, fromStore.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_SUCCESS);
+    this.form = this.fb.group(CATEGORIA_PRODUCTO_FORM);
     //#region Get Store Data
+    this.loading$ = this.store.select(fromStore.getCategoriasLoading);
     // TODO: Look for a nicer way to do it
     this.item$ = this.store.select(fromStore.getSelectedCategoria)
       .pipe(map((data) => data ? data :  new CategoriaProducto('')));
-    this.loading$ = this.store.select(fromStore.getCategoriasLoading);
     //#endregion
   }
 

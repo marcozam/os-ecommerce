@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { CategoriaProducto } from 'app/models';
 import { OSBaseFormComponent } from 'app/modules/shared';
 

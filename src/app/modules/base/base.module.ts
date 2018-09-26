@@ -24,7 +24,6 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { PersonaComponent } from './components/persona/persona.component';
 import { EmpresaComponent } from './components/empresa/empresa.component';
 // Table
-import { TableComponent } from './components/table/table.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FilterComponent } from './components/filter/filter.component';
 // Services
@@ -49,7 +48,6 @@ import { EmpresasService } from './services/empresa.service';
     MatSnackBarModule,
   ],
   declarations: [
-    TableComponent,
     PaginatorComponent,
     FilterComponent,
     PersonaComponent,
@@ -60,7 +58,6 @@ import { EmpresasService } from './services/empresa.service';
     LoadingComponent,
   ],
   exports: [
-    TableComponent,
     FilterComponent,
     LoadingComponent,
     PersonaComponent,
