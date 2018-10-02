@@ -23,7 +23,6 @@ import { RootStoreModule } from './root-store/root-store.module';
 import { routing } from './app.routing';
 // Componentes
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 // Base Components
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
@@ -38,7 +37,6 @@ registerLocaleData(localeESMX);
     AppComponent,
     // Base components
     DialogBoxComponent,
-    LoginComponent,
     PageNotFoundComponent,
     PublicComponent,
     SecureComponent

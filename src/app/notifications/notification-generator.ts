@@ -3,16 +3,10 @@ import { NOTIFICATION_TYPES } from './enums';
 import { INotification } from './models';
 
 export class NotificatioGenerator {
-
     // TODO
     /*
-    private static ArticleGenerator(name: string) {
-
-    }
-
-    private static Sentence(sentence: string) {
-
-    }
+    private static ArticleGenerator(name: string) { }
+    private static Sentence(sentence: string) { }
     */
 
     static ItemNotFound(name: string): INotification {

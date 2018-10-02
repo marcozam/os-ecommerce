@@ -1,9 +1,8 @@
 import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-// CONSTANTS
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 import { NOTIFICATION_TYPES } from 'app/notifications';
-// Models
-import { OpenDialogEvent } from 'app/models/events';
+import { OpenDialogEvent } from 'app/shared';
 
 @Component({
   selector: 'os-dialog-box',
