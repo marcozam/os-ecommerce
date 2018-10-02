@@ -4,10 +4,10 @@ import { NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 // Services
 import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
-import { DialogBoxService } from 'app/services/dialog-box.service';
+import { DialogBoxService } from 'services/dialog-box.service';
 // Models
 import { MetaDataTable, MetaDataField, MetaDataCatalog } from '../../models/metadata-catalogs.models';
-import { GenericCatalog } from 'app/modules/base/models/base.models';
+import { GenericCatalog } from 'app/common';
 // Constants
 import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
 

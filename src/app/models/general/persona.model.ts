@@ -1,9 +1,6 @@
-import { Field } from 'app/helpers/decorators';
-
-import { BaseCatalog } from '../base';
+import { BaseCatalog, Field } from 'app/common';
 
 export class Persona extends BaseCatalog {
-    // DB Fields
     @Field('C1', 101) nombre: string;
     @Field('C2', 102) apellidoPaterno: string;
     @Field('C3', 103) apellidoMaterno: string;
@@ -23,7 +20,6 @@ export class Persona extends BaseCatalog {
 
     constructor(nombre: string = '', apellidoPaterno: string = '', apellidoMaterno: string = '') {
         super();
-        // this.keysChanges = ['nombre', 'apellidoPaterno', 'apellidoMaterno', 'fechaNacimiento', 'sexo'];
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;

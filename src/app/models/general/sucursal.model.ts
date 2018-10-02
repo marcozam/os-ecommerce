@@ -1,6 +1,4 @@
-import { Field } from 'app/helpers/decorators';
-
-import { BaseCatalog } from '../base';
+import { BaseCatalog, Field } from 'app/common';
 
 export class Sucursal extends BaseCatalog {
     @Field('C1') nombre: string;

@@ -1,8 +1,8 @@
-import { OSBaseCatalog } from 'app/shared';
+import { BaseCatalog } from 'app/common';
 import { Persona, Empresa } from '../general';
 import { DatoContacto } from '.';
 
-export class Contacto extends OSBaseCatalog {
+export class Contacto extends BaseCatalog {
     key: number;
     tipoID: number;
     referenceID: number;

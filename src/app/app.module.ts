@@ -18,14 +18,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 // Store
-import { RootStoreModule } from './root-store/root-store.module';
+import { RootStoreModule } from 'ngrx-store/root-store.module';
 // Routing
 import { routing } from './app.routing';
 // Componentes
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-// Base Components
-import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 // Auth Module
 import { PublicComponent } from './layouts/public/public.component';
 import { SecureComponent } from './layouts/secure/secure.component';
@@ -36,7 +34,6 @@ registerLocaleData(localeESMX);
   declarations: [
     AppComponent,
     // Base components
-    DialogBoxComponent,
     PageNotFoundComponent,
     PublicComponent,
     SecureComponent
@@ -59,9 +56,6 @@ registerLocaleData(localeESMX);
     MatSnackBarModule,
   ],
   exports: [],
-  entryComponents: [
-    DialogBoxComponent
-  ],
   providers: [
     Title,
     { provide: LOCALE_ID, useValue: 'es-MX'},

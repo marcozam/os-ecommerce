@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 // Models
-import { GenericCatalog } from 'app/modules/base/models/base.models';
+import { GenericCatalog } from 'app/common';
 import { MetaDataCatalog, MetaDataField } from '../../models/metadata-catalogs.models';
 // Services
-import { DialogBoxService } from 'app/services/dialog-box.service';
+import { DialogBoxService } from 'services/dialog-box.service';
 import { GenericCatalogService } from '../../services/generic.service';
 import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
 // Constants

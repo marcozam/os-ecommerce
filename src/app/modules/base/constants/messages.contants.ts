@@ -1,9 +1,0 @@
-export const SuccessTitle = 'Exito!!';
-export const WarningTitle = 'Advertencia';
-export const ErrorTitle = 'Ups!!';
-export const SuccessMessage = 'Informacion guardada con exito.';
-export const ErrorMessage = 'Ha ocurrido un error al intentar guardar la informacion';
-export const LeaveWarningMessage = 'Se perderan los datos capturados.¿Desea continuar?';
-export const InternalServerErrorMessage = 'Hubo un problema en el Servidor. Contacte al Administrador';
-export const AuthErrorMessage = 'No se ha establecido una relacion. de confianza con el servidor';
-export const NotAllowErrorMessage = 'No permitido';

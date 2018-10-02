@@ -1,4 +1,4 @@
-import { GenericCatalog } from 'app/modules/base/models/base.models';
+import { GenericCatalog } from 'app/common';
 import { Field } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
 
 export class MetaDataTable {

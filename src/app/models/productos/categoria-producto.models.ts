@@ -1,6 +1,4 @@
-import { Field } from 'app/helpers/decorators';
-
-import { BaseCatalog } from '../base';
+import { BaseCatalog, Field } from 'app/common';
 import { MarcaProducto } from './marca-producto.models';
 import { GrupoCategoriaProducto } from './grupo-categoria-producto.models';
 

@@ -1,10 +1,7 @@
 import { Producto } from 'app/models/productos/producto.models';
-import { GenericCatalog, BaseGenericCatalog } from 'app/modules/base/models/base.models';
+import { GenericCatalog, BaseCatalog } from 'app/common';
 
-export class TipoMovimientoInventario extends GenericCatalog {
-
-}
-
+export class TipoMovimientoInventario extends GenericCatalog { }
 
 export class MovimientoInventario {
     tipoMovimiento: TipoMovimientoInventario;
@@ -19,7 +16,7 @@ export class MovimientoInventario {
     }
 }
 
-export class Inventario extends BaseGenericCatalog {
+export class Inventario extends BaseCatalog {
     producto?: Producto;
     cantidad: number;
     cantidadFisica?: number;

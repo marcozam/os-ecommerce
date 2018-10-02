@@ -1,17 +1,18 @@
 import { Subject } from 'rxjs';
 
 // Models
-import { BaseGenericCatalog,  GenericCatalog,  Persona, Status } from 'app/modules/base/models/base.models';
+// Persona, Status
+import { GenericCatalog, IBaseCatalog } from 'app/common';
 import { Producto } from 'app/models/productos/producto.models';
 import { Contacto } from 'app/modules/crm/models/crm.models';
 import { Sucursal } from 'app/modules/generic-catalogs/models/generic-catalogs.models';
 
 import { Field } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
 
-export class Venta extends BaseGenericCatalog {
+export class Venta {
     private _detalle: DetalleVenta[] = [];
 
-    get detalle(): DetalleVenta[]{ return this._detalle; }
+    get detalle(): DetalleVenta[] { return this._detalle; }
 
     pagos: DetallePagos[];
     comentarios: ComentariosVenta[];
@@ -21,7 +22,6 @@ export class Venta extends BaseGenericCatalog {
     onDetalleChanged: Subject<DetalleVenta[]> = new Subject();
 
     constructor() {
-        super();
         this.pagos = new Array<DetallePagos>();
         this.comentarios = new Array<ComentariosVenta>();
         this.sumary = new SumaryVenta();
@@ -71,47 +71,9 @@ export class Venta extends BaseGenericCatalog {
 
 export class Usuario extends GenericCatalog { }
 
-export class SumaryVenta extends BaseGenericCatalog {
-    cliente: Contacto;
-    vendedor: Usuario;
-    sucursal?: Sucursal;
-    status?: Status;
-    subTotal: number;
-    descuento = 0;
-    totalPagado: number;
-    totalRecibido?: number;
-    impuestos: number;
-    fecha: Date;
 
-    get total(): number { return Math.floor((this.subTotal - this.descuento + this.impuestos) * 100) / 100; }
 
-    get saldo(): number { return this.total - this.totalPagado; }
 
-    constructor() {
-        super();
-        this.key = 0;
-        this.cliente = new Contacto();
-        this.cliente.persona = new Persona();
-        this.sucursal = new Sucursal();
-        this.sucursal.nombre = 'MATRIZ';
-        this.vendedor = new Usuario();
-        this.vendedor.nombre = 'ROCIO GASTELUM';
-        this.subTotal = 0;
-        this.impuestos = 0;
-        this.totalPagado = 0;
-        this.fecha = new Date();
-    }
-}
-
-export class DetallePagos {
-    fecha: Date;
-    esPagoInicial: boolean;
-    corteID: number;
-    monto: number;
-    totalRecibido: number;
-    metodoPago: MetodoPago;
-    key: number;
-}
 
 export class ComentariosVenta {
     key: number;
@@ -122,34 +84,6 @@ export class ComentariosVenta {
     constructor(public comentario: string) { }
 }
 
-export class DetalleVenta extends BaseGenericCatalog {
-    cantidad: number;
-    precioUnitario: number;
-    promocionID: number;
-    tipoDescuentoID = 1;
-    valorDescuento = 0;
-    descuento = 0;
-    comentario: string;
-
-    // use to group products
-    moduleID = 1;
-    canBeRemoved = true;
-    canEditCantidad?: boolean;
-    canEditPrecio?: boolean;
-
-    productoVenta: Producto;
-
-    get importe(): number { return this.cantidad * (this.precioUnitario - this.descuento); }
-    get importeNeto(): number { return this.cantidad * this.precioUnitario; }
-
-    constructor(_producto: Producto, precio?: number) {
-        super();
-        this.productoVenta = _producto;
-        this.cantidad = 1;
-        this.precioUnitario = precio ? precio : 0;
-        // this.keysChanges = ['cantidad', 'precioUnitario', 'descuento'];
-    }
-}
 
 // MOVE SOMEWHERE ELSE
 export class MetodoPago extends BaseGenericCatalog {

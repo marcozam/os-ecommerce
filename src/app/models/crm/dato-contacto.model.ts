@@ -1,4 +1,4 @@
-import { BaseCatalog } from '../base';
+import { BaseCatalog } from 'app/common';
 
 import { TipoDatosContacto } from '.';
 
