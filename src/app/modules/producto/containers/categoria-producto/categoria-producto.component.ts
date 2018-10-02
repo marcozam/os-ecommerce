@@ -33,7 +33,10 @@ export class CategoriaProductoComponent extends OSBaseFormContainer<CategoriaPro
     route: ActivatedRoute
   ) {
     super(dialog, actions$, router, route, fromStore.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_SUCCESS);
-    this.form = this.fb.group(CATEGORIA_PRODUCTO_FORM);
+    this.form = this.fb.group({
+      ...CATEGORIA_PRODUCTO_FORM,
+      'grupos': this.fb.array([])
+    });
     //#region Get Store Data
     this.loading$ = this.store.select(fromStore.getCategoriasLoading);
     // TODO: Look for a nicer way to do it

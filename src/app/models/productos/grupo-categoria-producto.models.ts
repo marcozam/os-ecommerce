@@ -12,5 +12,4 @@ export class GrupoCategoriaProducto extends BaseCatalog {
         this.nombre = _nombre;
         this.categoriaProductoID = categoria ? categoria.key : 0;
     }
-
 }

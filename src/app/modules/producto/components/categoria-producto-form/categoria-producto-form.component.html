@@ -2,16 +2,13 @@
   <mat-form-field>
     <input matInput placeholder="Nombre" formControlName="nombre"/>
   </mat-form-field>
+  <!--
   <mat-form-field>
     <mat-select placeholder="Catalogo" formControlName="catalogoID">
       <mat-option [value]="0"> NINGUNO </mat-option>
-      <!--
-      <mat-option *ngFor="let c of catalogos" [value]="c.key">
-        {{c.nombre}}
-      </mat-option>
-      -->
     </mat-select>
   </mat-form-field>
+  -->
   <mat-form-field *ngIf="catalogoID && catalogoID > 0">
     <input matInput placeholder="Formato Nombre del Producto" formControlName="formatoNombre"/>
   </mat-form-field>

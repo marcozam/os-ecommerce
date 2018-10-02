@@ -1,19 +1,15 @@
 <div class="row center-xs">
-  <!--  col-md-6 -->
-  <div class="col-xs col-md-4">
+  <div class="col-xs col-md-6">
     <os-base-form [loading$]="loading$">
       <span class="sub-titles" osFormTitle> Categoria <small>({{ item.nombre ? item.nombre : 'nueva' }})</small></span>
       <div class="row">
-        <!--  col-md-7 -->
-        <div class="col-xs">
+        <div class="col-xs col-md-6">
           <app-categoria-producto-form [form]="form" [value]="item$ | async"></app-categoria-producto-form>
         </div>
         <!-- TODO:  -->
-        <!--
         <div class="col-xs col-md-5">
-          <app-grupo-categoria [parent]="form" [categoria]="item$ | async"></app-grupo-categoria>
+          <app-grupo-categoria [form]="form" [value]="item$ | async"></app-grupo-categoria>
         </div>
-        -->
       </div>
 
       <!-- Buttons -->

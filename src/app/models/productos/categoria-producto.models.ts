@@ -2,6 +2,7 @@ import { Field } from 'app/helpers/decorators';
 
 import { BaseCatalog } from '../base';
 import { MarcaProducto } from './marca-producto.models';
+import { GrupoCategoriaProducto } from './grupo-categoria-producto.models';
 
 export class CategoriaProducto extends BaseCatalog {
   @Field('C1', 40301) nombre: string;
@@ -14,7 +15,9 @@ export class CategoriaProducto extends BaseCatalog {
   // For data management
   productosLoaded: boolean;
   marcasLoaded: boolean;
+  gruposLoaded: boolean;
   marcas: MarcaProducto[];
+  grupos: GrupoCategoriaProducto[];
 
   constructor(_nombre: string) {
     super();
@@ -27,5 +30,7 @@ export class CategoriaProducto extends BaseCatalog {
     this.productosLoaded = false;
     this.marcasLoaded = false;
     this.marcas = [];
+    this.gruposLoaded = false;
+    this.grupos = [];
   }
 }
