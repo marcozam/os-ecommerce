@@ -3,16 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 // Material
-import {
-  MatProgressBarModule,
-  MatButtonModule,
-  MatIconModule,
-  MatListModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatDialogModule,
-  MatPaginatorIntl,
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
 
 // Components
 import {

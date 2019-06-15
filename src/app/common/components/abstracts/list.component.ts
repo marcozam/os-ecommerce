@@ -1,7 +1,7 @@
 // RxJs
 import { Observable } from 'rxjs';
 // Material
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 // Models
 import { IBaseCatalog, OSTableColumn } from '../../models';
 
