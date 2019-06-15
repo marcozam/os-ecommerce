@@ -22,7 +22,7 @@ import { GlobalEffects } from './effects';
     StoreDevtoolsModule.instrument({
       maxAge: 50
     }),
-    StoreRouterConnectingModule,
+    StoreRouterConnectingModule.forRoot(),
     ProductosStoreModule,
   ],
   declarations: [],
