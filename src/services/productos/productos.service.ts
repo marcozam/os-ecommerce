@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { BaseAjaxService } from '../base-ajax.service';
 import { GenericService } from '../generic.service';
 // Models
-import { Producto } from 'app/models/productos/producto.models';
+import { Producto } from 'models/productos/producto.models';
 
 @Injectable()
 export class ProductosService extends GenericService<Producto> {

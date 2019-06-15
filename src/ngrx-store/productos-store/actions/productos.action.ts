@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 // Models
-import { Producto } from 'app/models/productos/producto.models';
+import { Producto } from 'models/productos/producto.models';
 import { MessageAction } from 'app/common';
 // Constants
 import { NOTIFICATION_CODE, PRODUCTOS_NOTIFICATION_SECTIONS } from 'app/notifications';

@@ -22,3 +22,25 @@ import { services } from 'services/productos';
   declarations: []
 })
 export class ProductosStoreModule { }
+
+
+function getApplicants() {
+  return store.Application.Applicants;
+}
+
+function getBisApplicant() {
+  return getApplicants().filter(a => a.ApplicantType === 1);
+}
+
+
+const store = {
+  Application: {
+    Applicants: [
+      { ApplicantType: 1 },
+      { ApplicantType: 2 }
+    ]
+  },
+  productos: [
+    { id: 1 }
+  ]
+}

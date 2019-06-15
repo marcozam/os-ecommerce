@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 // Models
-import { CategoriaProducto, MarcaProducto } from 'app/models/productos';
+import { CategoriaProducto, MarcaProducto } from 'models/productos';
 // Services
 import { BaseAjaxService } from '../base-ajax.service';
 import { GenericService } from '../generic.service';

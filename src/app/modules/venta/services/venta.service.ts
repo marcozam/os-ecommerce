@@ -4,7 +4,7 @@ import * as moment from 'moment';
 // Models
 import { Venta, DetalleVenta, DetallePagos, MetodoPago, ComentariosVenta } from '../models/venta.models';
 import { Status } from 'app/modules/base/models/base.models';
-import { Producto } from 'app/models/productos/producto.models';
+import { Producto } from 'models/productos/producto.models';
 // Services
 import { BaseAjaxService } from '../../base/services/base-ajax.service';
 import { ContactoService } from 'app/modules/crm/services/contacto.service';

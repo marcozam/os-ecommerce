@@ -10,7 +10,8 @@ import {
   MatListModule,
   MatTableModule,
   MatPaginatorModule,
-  MatPaginatorIntl
+  MatDialogModule,
+  MatPaginatorIntl,
 } from '@angular/material';
 
 // Components
@@ -40,11 +41,11 @@ import { OSPaginatorIntl } from './services/os-paginator';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDialogModule
   ],
   declarations: [
     // Components
     MultipleSelectionComponent,
-    DialogBoxComponent,
     BaseFormComponent,
     LoadingComponent,
     TableComponent,
@@ -54,9 +55,6 @@ import { OSPaginatorIntl } from './services/os-paginator';
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: OSPaginatorIntl }
-  ],
-  entryComponents: [
-    DialogBoxComponent
   ],
   exports: [
     MultipleSelectionComponent,

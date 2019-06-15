@@ -11,7 +11,7 @@ import * as productosActions from '../actions/productos.action';
 // Services
 import { CategoriaProductoService, MarcaProductoService } from 'services/productos';
 // Models
-import { MarcaProducto, CategoriaProducto } from 'app/models';
+import { MarcaProducto, CategoriaProducto } from 'models';
 
 @Injectable()
 export class CategoriasEffects {

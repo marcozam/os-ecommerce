@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { NOTIFICATION_CODE, PRODUCTOS_NOTIFICATION_SECTIONS } from 'app/notifications';
 import { MessageAction } from 'app/common';
 // Models
-import { CategoriaProducto, MarcaProducto } from 'app/models/productos';
+import { CategoriaProducto, MarcaProducto } from 'models/productos';
 
 // CONSTANTS
 export enum CATEGORIAS_ACTION_TYPES {
@@ -42,10 +42,24 @@ export const CATEGORIAS_NOTIFICATION_ACTIONS = [
 ];
 
 // ACTIONS
+
+
+
 // Load All
 export class LoadAllCategorias implements Action {
     readonly type = CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIAS;
 }
+
+
+
+
+
+
+
+
+
+
+
 export class LoadCategoriasFail implements Action, MessageAction {
     readonly type = CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIAS_FAIL;
     readonly messageSection = PRODUCTOS_NOTIFICATION_SECTIONS.CATEGORIAS;
@@ -58,7 +72,7 @@ export class LoadCategoriasSuccess implements Action {
 // Load By ID
 export class LoadCategoriaByID implements Action {
     readonly type = CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIA_BY_ID;
-    constructor(public payload: number) { }
+    constructor(public payload: number, public name: string) { }
 }
 export class LoadCategoriaByIDSuccess implements Action {
     readonly type = CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIA_BY_ID_SUCCESS;

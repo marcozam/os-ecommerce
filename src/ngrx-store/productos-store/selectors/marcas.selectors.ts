@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { getRouterState } from 'ngrx-store/state/router.state';
 import { ProductsModuleState } from '../state';
 // Selectors
-import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/producto/constants';
+import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/private/modules/producto/constants';
 import { getProductsModuleState } from './state.selectors';
 import * as fromSelectors from '../../general.selectors';
 

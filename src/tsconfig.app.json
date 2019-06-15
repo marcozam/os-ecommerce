@@ -1,5 +1,6 @@
 {
   "extends": "../tsconfig.json",
+  "baseUrl": "src",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "module": "es2015",
@@ -8,6 +9,7 @@
   },
   "exclude": [
     "app/modules/**",
+    "app/layouts/components/public/**",
     "test.ts",
     "**/*.spec.ts"
   ]

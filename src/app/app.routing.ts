@@ -3,17 +3,20 @@ import { Routes, RouterModule } from '@angular/router';
 // import { AuthGuard } from './modules/auth/auth.guard';
 
 // Routes
-import { SECURE_ROUTES } from './layouts/secure/secure.routing';
-import { PUBLIC_ROUTES } from './layouts/public/public.routing';
+import {
+    PUBLIC_ROUTES,
+    SECURE_ROUTES
+} from './layouts/constants';
 // Layouts
-import { PublicComponent } from './layouts/public/public.component';
-import { SecureComponent } from './layouts/secure/secure.component';
+import {
+    PublicComponent,
+} from './layouts/components';
 // Components
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
     { path: '', component: PublicComponent, children: PUBLIC_ROUTES },
-    { path: 'secure', component: SecureComponent, children: SECURE_ROUTES },
+    { path: 'secure', loadChildren: 'app/private/private.module#PrivateModule' },
     { path: '404', component: PageNotFoundComponent, data: { title: ''} },
     { path: '**', component: PageNotFoundComponent, data: { title: ''} }
 ];

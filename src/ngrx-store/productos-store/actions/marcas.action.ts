@@ -6,7 +6,7 @@ import {
 } from 'app/notifications';
 // Models
 import { MessageAction } from 'app/common';
-import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
+import { MarcaProducto, CategoriaProducto } from 'models/productos';
 
 // CONSTANTS
 export enum MARCAS_ACTION_TYPES {

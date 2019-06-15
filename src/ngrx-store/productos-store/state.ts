@@ -1,5 +1,5 @@
 import * as fromState from '../general.states';
-import { Producto, CategoriaProducto, MarcaProducto } from 'app/models/productos';
+import { Producto, CategoriaProducto, MarcaProducto } from 'models/productos';
 
 export interface ProductsModuleState {
     productos: fromState.GeneralListState<Producto>;

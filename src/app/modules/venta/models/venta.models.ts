@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 // Models
 // Persona, Status
 import { GenericCatalog, IBaseCatalog } from 'app/common';
-import { Producto } from 'app/models/productos/producto.models';
+import { Producto } from 'models/productos/producto.models';
 import { Contacto } from 'app/modules/crm/models/crm.models';
 import { Sucursal } from 'app/modules/generic-catalogs/models/generic-catalogs.models';
 

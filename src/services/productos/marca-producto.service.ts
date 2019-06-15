@@ -6,7 +6,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { BaseAjaxService } from '../base-ajax.service';
 import { GenericService } from '../generic.service';
 // Models
-import { MarcaProducto } from 'app/models/productos';
+import { MarcaProducto } from 'models/productos';
 
 @Injectable()
 export class MarcaProductoService extends GenericService<MarcaProducto> {

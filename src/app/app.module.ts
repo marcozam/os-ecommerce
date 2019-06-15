@@ -1,17 +1,12 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { BrowserModule, Title, DomSanitizer } from '@angular/platform-browser';
 import localeESMX from '@angular/common/locales/es-MX';
 
 // Material Modules
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatButtonModule } from '@angular/material/button';
+import { MatIconRegistry } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 // Material Tokens for Date format
@@ -24,9 +19,8 @@ import { routing } from './app.routing';
 // Componentes
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-// Auth Module
-import { PublicComponent } from './layouts/public/public.component';
-import { SecureComponent } from './layouts/secure/secure.component';
+
+import { LayoutsModule } from './layouts/layouts.module';
 
 registerLocaleData(localeESMX);
 
@@ -34,26 +28,20 @@ registerLocaleData(localeESMX);
   declarations: [
     AppComponent,
     // Base components
-    PageNotFoundComponent,
-    PublicComponent,
-    SecureComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     routing,
     BrowserAnimationsModule,
     HttpClientModule,
     // Store
     RootStoreModule,
     // Angular Material
-    MatSidenavModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
     MatDialogModule,
     MatSnackBarModule,
+    LayoutsModule
   ],
   exports: [],
   providers: [
@@ -63,7 +51,7 @@ registerLocaleData(localeESMX);
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [ AppComponent ],
 })
 export class AppModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

@@ -14,7 +14,7 @@ import {
     DetallePagos,
     MetodoPago,
     VentaComment
-} from 'app/models';
+} from 'models';
 
 @Injectable()
 export class VentaService {

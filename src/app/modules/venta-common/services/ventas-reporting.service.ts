@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Status } from 'app/modules/base/models/base.models';
 import { MetodoPago, Venta, DetalleVenta } from 'app/modules/venta/models/venta.models';
 import { ResumenVenta, Ingresos } from '../models/ventas-reporting.models';
-import { Producto } from 'app/models/productos/producto.models';
+import { Producto } from 'models/productos/producto.models';
 // Services
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
 

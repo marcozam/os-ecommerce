@@ -13,7 +13,7 @@ import {
     CategoriaProductoService
 } from 'services/productos';
 // Models
-import { MarcaProducto, CategoriaProducto } from 'app/models/productos';
+import { MarcaProducto, CategoriaProducto } from 'models/productos';
 
 @Injectable()
 export class MarcasEffects {

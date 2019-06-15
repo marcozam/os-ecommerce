@@ -14,5 +14,5 @@ export abstract class OSListComponent<T extends IBaseCatalog> {
         this.list$ = data;
         this.dataSource = new MatTableDataSource();
         this.list$.subscribe(list => this.dataSource.data = list);
-    }
+    } 
 }

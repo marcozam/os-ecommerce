@@ -6,7 +6,7 @@ import { InventarioService } from 'app/modules/inventario/services/inventario.se
 import { DialogBoxService } from 'services/dialog-box.service';
 
 import { Inventario } from 'app/modules/inventario/models/inventario.models';
-import { CategoriaProducto } from 'app/models/productos';
+import { CategoriaProducto } from 'models/productos';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 
 @Component({

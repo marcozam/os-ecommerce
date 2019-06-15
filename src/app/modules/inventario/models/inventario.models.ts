@@ -1,4 +1,4 @@
-import { Producto } from 'app/models/productos/producto.models';
+import { Producto } from 'models/productos/producto.models';
 import { GenericCatalog, BaseCatalog } from 'app/common';
 
 export class TipoMovimientoInventario extends GenericCatalog { }

@@ -3,7 +3,7 @@ import { data2Entities } from '../../general.selectors';
 import * as fromProductos from '../actions/productos.action';
 
 // Models
-import { Producto } from 'app/models/productos/producto.models';
+import { Producto } from 'models/productos/producto.models';
 
 export const initialState: GeneralListState<Producto> = {
     entities: {},

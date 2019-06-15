@@ -1,9 +1,9 @@
 import { createSelector } from '@ngrx/store';
 // Models
 import { ProductsModuleState } from '../state';
-import { Producto } from 'app/models/productos';
+import { Producto } from 'models/productos';
 // Selectors
-import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/producto/constants';
+import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/private/modules/producto/constants';
 import { getProductsModuleState } from './state.selectors';
 import * as fromSelectors from '../../general.selectors';
 import * as fromRoot from 'ngrx-store/state/router.state';
