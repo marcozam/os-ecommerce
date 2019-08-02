@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 // RxJS
 import { of, concat } from 'rxjs';
 import { map, catchError, switchMap, tap, filter } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import * as marcasActions from '../actions/marcas.action';
 import {
     MarcaProductoService,
     CategoriaProductoService
-} from 'services/productos';
+} from 'services/http/productos';
 // Models
 import { MarcaProducto, CategoriaProducto } from 'models/productos';
 
@@ -24,7 +24,8 @@ export class MarcasEffects {
     ) { }
 
     @Effect()
-    loadMarcas$ = this.actions$.ofType(marcasActions.MARCAS_ACTION_TYPES.LOAD_MARCAS).pipe(
+    loadMarcas$ = this.actions$.pipe(
+        ofType(marcasActions.MARCAS_ACTION_TYPES.LOAD_MARCAS),
         switchMap(() => {
             return this.service.getList().pipe(
                 map(list => new marcasActions.LoadMarcasSuccess(list)),
@@ -34,7 +35,8 @@ export class MarcasEffects {
     );
 
     @Effect()
-    loadMarcasByID$ = this.actions$.ofType(marcasActions.MARCAS_ACTION_TYPES.LOAD_MARCA_BY_ID).pipe(
+    loadMarcasByID$ = this.actions$.pipe(
+        ofType(marcasActions.MARCAS_ACTION_TYPES.LOAD_MARCA_BY_ID),
         switchMap((action: marcasActions.LoadMarcaByID) => {
             let _categorias: CategoriaProducto[];
             const get$ = this.service.getByID(action.payload);
@@ -59,28 +61,28 @@ export class MarcasEffects {
     );
 
     @Effect()
-    loadCategoriaByMarcaID$ = this.actions$.ofType(marcasActions.MARCAS_ACTION_TYPES.LOAD_CATEGORIAS_BY_MARCA)
-        .pipe(
-            switchMap((action: marcasActions.LoadCategoriasByMarcaID) => {
-                return this.categoriaService.getByMarca(action.payload).pipe(
-                    map(items => {
-                        return items ?
-                        new marcasActions.LoadCategoriasByMarcaIDSuccess(items, action.payload) :
-                        new marcasActions.LoadCategoriasByMarcaIDFail(NOTIFICATION_CODE.NO_DATA);
-                    }),
-                    catchError(() => of(new marcasActions.LoadCategoriasByMarcaIDFail(NOTIFICATION_CODE.GENERAL_ERROR)))
-                );
-            })
-        );
+    loadCategoriaByMarcaID$ = this.actions$.pipe(
+        ofType(marcasActions.MARCAS_ACTION_TYPES.LOAD_CATEGORIAS_BY_MARCA),
+        switchMap((action: marcasActions.LoadCategoriasByMarcaID) => {
+            return this.categoriaService.getByMarca(action.payload).pipe(
+                map(items => {
+                    return items ?
+                    new marcasActions.LoadCategoriasByMarcaIDSuccess(items, action.payload) :
+                    new marcasActions.LoadCategoriasByMarcaIDFail(NOTIFICATION_CODE.NO_DATA);
+                }),
+                catchError(() => of(new marcasActions.LoadCategoriasByMarcaIDFail(NOTIFICATION_CODE.GENERAL_ERROR)))
+            );
+        })
+    );
 
     @Effect()
-    saveMarca$ = this.actions$.ofType( marcasActions.MARCAS_ACTION_TYPES.SAVE_MARCA)
-        .pipe(
-            switchMap((action: marcasActions.SaveMarca) => {
-                return this.service.save(action.newItem, action.oldItem).pipe(
-                    map(item => new marcasActions.SaveMarcaSuccess(item, NOTIFICATION_CODE.ITEM_SAVED)),
-                    catchError(() => of(new marcasActions.SaveMarcaFail(NOTIFICATION_CODE.GENERAL_ERROR)))
-                );
-            })
-        );
+    saveMarca$ = this.actions$.pipe(
+        ofType( marcasActions.MARCAS_ACTION_TYPES.SAVE_MARCA),
+        switchMap((action: marcasActions.SaveMarca) => {
+            return this.service.save(action.newItem, action.oldItem).pipe(
+                map(item => new marcasActions.SaveMarcaSuccess(item, NOTIFICATION_CODE.ITEM_SAVED)),
+                catchError(() => of(new marcasActions.SaveMarcaFail(NOTIFICATION_CODE.GENERAL_ERROR)))
+            );
+        })
+    );
 }

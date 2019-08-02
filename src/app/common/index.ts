@@ -1,5 +1,5 @@
 // TODO: Add Public
-export * from './decorators';
+export * from '../../core/decorators';
 export * from './components';
 export * from './directives';
 export * from './validators';

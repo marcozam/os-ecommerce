@@ -19,7 +19,7 @@ export class TableComponent implements AfterViewInit {
     return [ ...this.columns.map(col => col.uniqueID), 'actions' ];
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

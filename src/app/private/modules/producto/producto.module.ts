@@ -18,7 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 
 // Routing
-import { ProductoRoutingModule } from './producto-routing.module';
+import { ProductoRoutingModule } from './routing/producto-routing.module';
 // Containers
 import { MarcaProductoComponent } from './containers/marca-producto/marca-producto.component';
 import { CategoriaProductoComponent } from './containers/categoria-producto/categoria-producto.component';

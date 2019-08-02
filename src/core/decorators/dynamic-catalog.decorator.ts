@@ -60,8 +60,7 @@ export function getFields(item: any) {
     const fields: FieldProperty[] = [];
     // tslint:disable-next-line:forin
     for (const prop in item) {
-        const idx = prop.indexOf('__dbData');
-        if (idx >= 0) {
+        if (prop.includes('__dbData')) {
             fields.push(item[prop]);
         }
     }

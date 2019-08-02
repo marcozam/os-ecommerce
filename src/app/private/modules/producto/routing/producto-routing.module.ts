@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // Resolvers
-import * as fromResolvers from './routing/resolvers';
+import * as fromResolvers from './resolvers';
 
 // Containers
-import { MarcaProductoComponent } from './containers/marca-producto/marca-producto.component';
-import { CategoriaProductoComponent } from './containers/categoria-producto/categoria-producto.component';
-import { ProductosComponent } from './containers/productos/productos.component';
+import { MarcaProductoComponent } from '../containers/marca-producto/marca-producto.component';
+import { CategoriaProductoComponent } from '../containers/categoria-producto/categoria-producto.component';
+import { ProductosComponent } from '../containers/productos/productos.component';
 // Components
-import { ProductosListComponent } from './components/productos-list/productos-list.component';
-import { CategoriasListComponent } from './components/categorias-list/categorias-list.component';
-import { MarcasListComponent } from './components/marcas-list/marcas-list.component';
-import { PRODUCTOS_ROUTE_STATE_PARAMS } from './constants';
+import { ProductosListComponent } from '../components/productos-list/productos-list.component';
+import { CategoriasListComponent } from '../components/categorias-list/categorias-list.component';
+import { MarcasListComponent } from '../components/marcas-list/marcas-list.component';
+import { PRODUCTOS_ROUTE_STATE_PARAMS } from '../constants';
 
 const routes: Routes = [
   {

@@ -3,7 +3,7 @@
   "baseUrl": "src",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "module": "es2015",
+    "module": "commonjs",
     "baseUrl": "",
     "types": []
   },

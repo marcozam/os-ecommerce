@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 // RxJs
 import { map } from 'rxjs/operators';
 // Services
-import { BaseAjaxService } from '../base-ajax.service';
-import { GenericService } from '../generic.service';
+import { GenericCatalogService, BaseGenericCatalogService } from '../generic-catalogs';
 // Models
 import { Producto } from 'models/productos/producto.models';
 
 @Injectable()
-export class ProductosService extends GenericService<Producto> {
+export class ProductosService extends BaseGenericCatalogService<Producto> {
 
-    constructor(db: BaseAjaxService) { super(db, 402); }
+    constructor(db: GenericCatalogService) { super(db, 402); }
 
     newInstance(): Producto { return new Producto(''); }
 

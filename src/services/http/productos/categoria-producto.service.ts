@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-// Models
-import { CategoriaProducto, MarcaProducto } from 'models/productos';
-// Services
-import { BaseAjaxService } from '../base-ajax.service';
-import { GenericService } from '../generic.service';
+// RxJs
 import { map } from 'rxjs/operators';
+// Services
+import { GenericCatalogService, BaseGenericCatalogService } from '../generic-catalogs';
+// Models
+import { CategoriaProducto } from 'models/productos';
 
 @Injectable()
-export class CategoriaProductoService extends GenericService<CategoriaProducto> {
-    constructor(_db: BaseAjaxService) { super(_db, 403); }
+export class CategoriaProductoService extends BaseGenericCatalogService<CategoriaProducto> {
+    constructor(_db: GenericCatalogService) { super(_db, 403); }
     newInstance() { return new CategoriaProducto(''); }
 
     mapData(data: any): CategoriaProducto {

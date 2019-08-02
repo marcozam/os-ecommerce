@@ -1,10 +1,13 @@
+import { environment } from 'environments/environment';
+// Ng
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { registerLocaleData, CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { BrowserModule, Title, DomSanitizer } from '@angular/platform-browser';
 import localeESMX from '@angular/common/locales/es-MX';
-
+// Tokens
+import { BASE_URL } from 'services/http';
 // Material Modules
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -48,6 +51,7 @@ registerLocaleData(localeESMX);
     Title,
     { provide: LOCALE_ID, useValue: 'es-MX'},
     { provide: MAT_DATE_LOCALE, useValue: 'es-MX'},
+    { provide: BASE_URL, useValue: environment.webServiceURL },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],

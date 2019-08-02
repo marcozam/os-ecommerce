@@ -1,4 +1,4 @@
-import { getFields } from '../decorators';
+import { getFields } from '../../../core/decorators';
 
 export interface IBaseCatalog {
     key: number;

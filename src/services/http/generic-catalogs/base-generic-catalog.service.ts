@@ -1,13 +1,15 @@
 import { OnDestroy } from '@angular/core';
-// RxJS
-import { map } from 'rxjs/operators';
+// RxJs
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+// Core
+import { getFields } from 'core/decorators';
 // DB Helpers
-import { getFields, IBaseCatalog } from 'app/common';
+import { IBaseCatalog } from 'app/common';
 // Services
-import { BaseAjaxService } from './base-ajax.service';
+import { GenericCatalogService } from './generic-catalog.service';
 
-export interface IGenericService<T extends IBaseCatalog> {
+export interface IBaseGenericCatalogService<T extends IBaseCatalog> {
     autoSort: Boolean;
     save(newItem: T, oldItem?: T): Observable<T>;
     newInstance(): T;
@@ -16,17 +18,27 @@ export interface IGenericService<T extends IBaseCatalog> {
     map2Server?(value: T): any;
 }
 
-export abstract class GenericService<T extends IBaseCatalog> implements OnDestroy, IGenericService<T> {
-    constructor(protected db: BaseAjaxService, protected catalogID, public autoSort = true) { }
+export abstract class BaseGenericCatalogService<T extends IBaseCatalog>
+    implements OnDestroy, IBaseGenericCatalogService<T> {
+
+    constructor(
+        protected db: GenericCatalogService,
+        protected catalogID,
+        public autoSort = true) { }
+
     ngOnDestroy() { console.log('NGRX Service DESTROYED'); }
+
     // MAPPINGS
     newInstance(): T { return null; }
+
     mapData(data: any): T { return this.mapGenericData(this.newInstance(), data); }
+
     mapList(list: any[]): T[] {
         let respond = list.map(p => this.mapData(p));
         if (this.autoSort) { respond = this.baseSort(respond); }
         return respond;
     }
+
     map2Server(value: T) {
         // Made sure we get fields
         const fieldsMD = getFields(this.newInstance());
@@ -45,11 +57,14 @@ export abstract class GenericService<T extends IBaseCatalog> implements OnDestro
             })
         );
     }
+
     getList(mapData: boolean = true) {
         return this.db.getAllDataFromCatalog<any>(this.catalogID)
             .pipe(map(result => mapData ? this.mapList(result) : result));
     }
+
     delete(ID: number): Observable<T> { return this.db.removeItem(this.catalogID, ID); }
+
     save(newItem: T, oldItem: T): Observable<T> {
         if (oldItem.hasChanges(newItem)) {
             return this.db.saveDynamicCatalog(this.map2Server(newItem), this.catalogID, newItem.key)
@@ -69,6 +84,7 @@ export abstract class GenericService<T extends IBaseCatalog> implements OnDestro
             return 0;
         });
     }
+
     protected mapGenericData(item: T, data: any) {
         if (data) {
             if (data.C0) { item.key = data.C0; }

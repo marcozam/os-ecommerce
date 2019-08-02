@@ -8,7 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './reducers';
 import { effects } from './effects';
 // Services
-import { services } from 'services/productos';
+import { services } from 'services/http/productos';
 
 @NgModule({
   imports: [

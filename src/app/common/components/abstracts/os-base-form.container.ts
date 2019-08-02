@@ -5,7 +5,7 @@ import { OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 // NgRx
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 // Models
 import { IBaseCatalog } from '../../models';
 // Notifications
@@ -29,8 +29,10 @@ export abstract class OSBaseFormContainer<T extends IBaseCatalog> implements OnI
         successAction?: string
     ) {
         if (successAction) {
-            actions$.ofType(successAction).pipe(
-                takeUntil(this.destroyed$), tap(() => { this.goBack(); })
+            actions$.pipe(
+                ofType(successAction),
+                takeUntil(this.destroyed$),
+                tap(() => this.goBack())
             ).subscribe();
         }
     }

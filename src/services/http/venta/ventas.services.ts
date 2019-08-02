@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // Services
-import { BaseAjaxService } from '../base-ajax.service';
+import { BaseHttpService } from '../base-http.service';
 // Models
 import {
     Venta,
@@ -18,7 +18,7 @@ import {
 
 @Injectable()
 export class VentaService {
-    constructor(private db: BaseAjaxService) { }
+    constructor(private db: BaseHttpService) { }
 
     /* ===> MAPPINGS <=== */
     mapDetalleVentaData(item: any): DetalleVenta {

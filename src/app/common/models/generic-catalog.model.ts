@@ -1,4 +1,4 @@
-import { Field } from '../decorators';
+import { Field } from '../../../core/decorators';
 import { BaseCatalog } from './base-catalog.model';
 
 export interface IGenericCatalog {

@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 // Services
-import { BaseAjaxService } from '../base-ajax.service';
-import { GenericService } from '../generic.service';
+import { GenericCatalogService, BaseGenericCatalogService } from '../generic-catalogs';
 // Models
 import { MarcaProducto } from 'models/productos';
 
 @Injectable()
-export class MarcaProductoService extends GenericService<MarcaProducto> {
-    constructor(_db: BaseAjaxService) { super(_db, 405); }
+export class MarcaProductoService extends BaseGenericCatalogService<MarcaProducto> {
+    constructor(_db: GenericCatalogService) { super(_db, 405); }
     newInstance() { return new MarcaProducto(); }
     save(newItem: MarcaProducto, oldItem: MarcaProducto): Observable<MarcaProducto> {
         return super.save(newItem, oldItem).pipe(
