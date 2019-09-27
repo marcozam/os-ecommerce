@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 // Material
 import { MatTableDataSource } from '@angular/material/table';
 // Models
-import { IBaseCatalog, OSTableColumn } from '../../models';
+import { IBaseCatalog } from 'models';
+import { OSTableColumn } from '../../models';
 
 export abstract class OSListComponent<T extends IBaseCatalog> {
     dataSource: MatTableDataSource<T>;
@@ -14,5 +15,5 @@ export abstract class OSListComponent<T extends IBaseCatalog> {
         this.list$ = data;
         this.dataSource = new MatTableDataSource();
         this.list$.subscribe(list => this.dataSource.data = list);
-    } 
+    }
 }

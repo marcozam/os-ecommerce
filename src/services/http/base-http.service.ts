@@ -13,7 +13,6 @@ import { CoreLoadingService } from '../core-handlers';
 // Utils
 import { GUID_GENERATOR } from 'core/utils';
 // Models
-import { GenericCatalog } from 'app/common';
 import { AjaxRequestResult } from '../models';
 import { AJAX_RESULT_CODE } from '../enums';
 
@@ -50,13 +49,6 @@ export class BaseHttpService {
             catchError(error => of(new AjaxRequestResult(AJAX_RESULT_CODE.error, error)))
         );
         return post;
-    }
-
-    mapGeneric(r): GenericCatalog {
-        const item = new GenericCatalog();
-        item.key = r.C0;
-        item.nombre = r.C1;
-        return item;
     }
 
     getData(data: { Parametros: string }): Observable<any> {

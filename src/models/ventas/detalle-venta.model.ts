@@ -1,4 +1,4 @@
-import { BaseCatalog } from 'app/common';
+import { BaseCatalog } from '../base-catalog.model';
 import { Producto } from '../productos';
 
 export class DetalleVenta extends BaseCatalog {

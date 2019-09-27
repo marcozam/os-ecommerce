@@ -1,5 +1,4 @@
-import { BaseCatalog } from 'app/common';
-
+import { BaseCatalog } from '../base-catalog.model';
 import { TipoDatosContacto } from '../crm';
 
 export class DatoContacto extends BaseCatalog {

@@ -21,7 +21,6 @@ import { RootStoreModule } from 'ngrx-store/root-store.module';
 import { routing } from './app.routing';
 // Componentes
 import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 import { LayoutsModule } from './layouts/layouts.module';
 
@@ -29,9 +28,7 @@ registerLocaleData(localeESMX);
 
 @NgModule({
   declarations: [
-    AppComponent,
-    // Base components
-    PageNotFoundComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

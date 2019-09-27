@@ -1,13 +1,12 @@
 import { Subject } from 'rxjs';
+import { Field } from 'core/decorators';
 
 // Models
-// Persona, Status
-import { GenericCatalog, IBaseCatalog } from 'app/common';
-import { Producto } from 'models/productos/producto.models';
-import { Contacto } from 'app/modules/crm/models/crm.models';
-import { Sucursal } from 'app/modules/generic-catalogs/models/generic-catalogs.models';
-
-import { Field } from 'app/modules/generic-catalogs/decorator/dynamic-catalog.decorator';
+// import { Sucursal } from 'models/generic-catalogs/field-property.models';
+import { BaseCatalog } from 'models';
+import { DetalleVenta } from './detalle-venta.model';
+import { DetallePagos } from './detalle-pagos.model';
+import { SumaryVenta } from './sumary-venta.model';
 
 export class Venta {
     private _detalle: DetalleVenta[] = [];
@@ -69,24 +68,18 @@ export class Venta {
     }
 }
 
-export class Usuario extends GenericCatalog { }
-
-
-
-
+export class Usuario extends BaseCatalog { }
 
 export class ComentariosVenta {
     key: number;
     productoID: number;
     // use to group products
     moduleID = 1;
-
     constructor(public comentario: string) { }
 }
 
-
 // MOVE SOMEWHERE ELSE
-export class MetodoPago extends BaseGenericCatalog {
+export class MetodoPago extends BaseCatalog {
     @Field('C1', 30401) nombre: string;
     @Field('C2', 30402) enVenta: boolean;
     @Field('C3', 30503) enCorte: boolean;

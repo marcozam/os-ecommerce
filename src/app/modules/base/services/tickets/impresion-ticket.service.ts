@@ -1,5 +1,5 @@
 import { GeneralTicket } from 'app/modules/base/services/tickets/general-ticket';
-import { Sucursal } from 'app/modules/generic-catalogs/models/generic-catalogs.models';
+// import { Sucursal } from 'models/generic-catalogs/field-property.models';
 
 export abstract class ImpresionTicketService {
 
@@ -44,7 +44,7 @@ export abstract class ImpresionTicketService {
     </html>`;
   }
 
-  private createTicketHeader(sucursal: Sucursal, optinalHeader?: string) {
+  private createTicketHeader(sucursal: any, optinalHeader?: string) {
     return `<table>
       <thead>
         <tr>
@@ -101,7 +101,7 @@ export abstract class ImpresionTicketService {
     </table>`;
   }
 
-  print(service: GeneralTicket, sucursal: Sucursal) {
+  print(service: GeneralTicket, sucursal: any) {
     const ticket: string = this.createTicket(
       this.createTicketHeader(sucursal, service.createHeader()),
       this.createTicketContent(service.createContent(), service.createFooter())

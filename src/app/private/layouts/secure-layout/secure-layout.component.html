@@ -27,6 +27,7 @@
     </mat-menu>
 
     <mat-menu #nomina="matMenu" class="main-menu-submenu" [overlapTrigger]="false">
+      <a mat-menu-item routerLink="nominas/empleados" (click)="sidenav.close()">Empleados</a>
       <a mat-menu-item routerLink="nominas/finiquito" (click)="sidenav.close()">Finiquitos</a>
     </mat-menu>
 

@@ -12,3 +12,13 @@ export class OSTableColumn {
         public description: OSColumnDescriptionFuntion<any>
     ) { }
 }
+
+export class OSTableActions {
+    constructor(
+        public uniqueID: string,
+        public text: string,
+        public color: string,
+        public inHeader: boolean = false,
+        public icon?: string
+    ) { }
+}

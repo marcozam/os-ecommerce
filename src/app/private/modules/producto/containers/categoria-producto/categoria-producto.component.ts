@@ -23,7 +23,7 @@ import { CATEGORIA_PRODUCTO_FORM } from '../../constants';
 export class CategoriaProductoComponent extends OSBaseFormContainer<CategoriaProducto> {
   // catalogos: MetaDataCatalog[];
   constructor(
-    private store: Store<fromStore.ProductsModuleState>,
+    private store$: Store<fromStore.ProductsModuleState>,
     private fb: FormBuilder,
     actions$: Actions,
     dialog: DialogBoxService,
@@ -36,14 +36,13 @@ export class CategoriaProductoComponent extends OSBaseFormContainer<CategoriaPro
       'grupos': this.fb.array([])
     });
     //#region Get Store Data
-    this.loading$ = this.store.select(fromStore.getCategoriasLoading);
     // TODO: Look for a nicer way to do it
-    this.item$ = this.store.select(fromStore.getSelectedCategoria)
+    this.item$ = this.store$.select(fromStore.getSelectedCategoria)
       .pipe(map((data) => data ? data :  new CategoriaProducto('')));
     //#endregion
   }
 
   onSave(newItem: CategoriaProducto) {
-    this.store.dispatch(new fromStore.SaveCategoria(newItem, this.item));
+    this.store$.dispatch(new fromStore.SaveCategoria(newItem, this.item));
   }
 }

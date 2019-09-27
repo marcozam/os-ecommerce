@@ -1,3 +1,6 @@
+// Store
+import { Store } from '@ngrx/store';
+import * as fromStore from 'ngrx-store/loading-store';
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
@@ -7,5 +10,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  constructor() { }
+
+  loading$ = this.store$.select(fromStore.getIsLoading);
+
+  constructor(private store$: Store<fromStore.LoadingModuleState>) { }
 }

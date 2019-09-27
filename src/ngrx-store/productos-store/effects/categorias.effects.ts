@@ -6,12 +6,34 @@ import { switchMap, map, catchError, tap, filter } from 'rxjs/operators';
 // Notifications
 import { NOTIFICATION_CODE } from 'app/notifications';
 // Actions
+import * as loadingActions from '../../loading-store/actions';
 import * as categoriasActions from '../actions/categorias.action';
 import * as productosActions from '../actions/productos.action';
 // Services
 import { CategoriaProductoService, MarcaProductoService } from 'services/http/productos';
 // Models
 import { MarcaProducto, CategoriaProducto } from 'models';
+
+const startRequestActions = [
+    categoriasActions.CATEGORIAS_ACTION_TYPES.DELETE_CATEGORIA,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIAS,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIA_BY_ID,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_MARCAS_BY_CATEGORIA,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA
+];
+
+const endRequestActions = [
+    categoriasActions.CATEGORIAS_ACTION_TYPES.DELETE_CATEGORIA_FAIL,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.DELETE_CATEGORIA_SUCCESS,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIAS_FAIL,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIAS_SUCCESS,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIA_BY_ID_FAIL,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_CATEGORIA_BY_ID_SUCCESS,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_MARCAS_BY_CATEGORIA_FAIL,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.LOAD_MARCAS_BY_CATEGORIA_SUCCESS,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_FAIL,
+    categoriasActions.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_SUCCESS
+];
 
 @Injectable()
 export class CategoriasEffects {
@@ -20,6 +42,18 @@ export class CategoriasEffects {
         private service: CategoriaProductoService,
         private marcaService: MarcaProductoService
     ) { }
+
+    @Effect()
+    startRequest$ = this.actions$.pipe(
+        ofType(...startRequestActions),
+        map(() => new loadingActions.StartRequest())
+    );
+
+    @Effect()
+    endRequest$ = this.actions$.pipe(
+        ofType(...startRequestActions),
+        map(() => new loadingActions.EndRequest())
+    );
 
     @Effect()
     loadProductosByCategorySuccess$ = this.actions$.pipe(

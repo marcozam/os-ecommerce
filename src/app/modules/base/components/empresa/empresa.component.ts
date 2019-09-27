@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 // Services
-import { EmpresasService } from '../../services/empresa.service';
+import { EmpresasService } from '../../../../../services/http/base/empresa.service';
 // Models
 import { Empresa } from '../../models/base.models';
 

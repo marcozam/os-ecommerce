@@ -7,7 +7,7 @@ import { takeUntil, tap } from 'rxjs/operators';
 // NgRx
 import { Actions, ofType } from '@ngrx/effects';
 // Models
-import { IBaseCatalog } from '../../models';
+import { IBaseCatalog } from 'models';
 // Notifications
 import { WARNING_TITLE, LEAVE_WARNING_MESSAGE, NOTIFICATION_TYPES } from 'app/notifications';
 // Services

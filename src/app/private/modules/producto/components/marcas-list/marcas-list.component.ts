@@ -15,6 +15,7 @@ export class MarcasListComponent extends OSListComponent<MarcaProducto> {
   tableColumns = [
     new OSTableColumn('nombre', 'Nombre', (item: MarcaProducto) => item.nombre)
   ];
+
   constructor(store: Store<fromStore.ProductsModuleState>) {
     super(store.select(fromStore.getMarcas));
   }

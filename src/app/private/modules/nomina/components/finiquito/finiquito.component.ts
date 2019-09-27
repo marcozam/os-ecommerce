@@ -10,6 +10,10 @@ import { GET_YEAR_DIFF, GET_DAYS_DIFF } from 'core/utils';
 })
 export class FiniquitoComponent implements OnInit {
 
+  // TODO:
+  // Agregar apartatdo Fiscal (Sueldo Diario, Fecha Ingreso) con deducciones,
+  // y Dias de vacaciones pendientes
+
   // Mock data
   salarioMinimo = 80;
   primaVacacional = 0.25;

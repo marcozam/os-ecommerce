@@ -1,6 +1,7 @@
-import { Producto } from 'app/producto';
+import { BaseCatalog } from 'models';
+import { Producto } from 'models/productos';
 
-export class DetalleVenta extends BaseGenericCatalog {
+export class DetalleVenta extends BaseCatalog {
     cantidad: number;
     precioUnitario: number;
     promocionID: number;

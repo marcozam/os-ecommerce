@@ -1,9 +1,8 @@
-import { BaseCatalog } from 'app/common';
+import { BaseCatalog } from '../base-catalog.model';
 import { Persona, Empresa } from '../general';
 import { DatoContacto } from '../crm';
 
 export class Contacto extends BaseCatalog {
-    key: number;
     tipoID: number;
     referenceID: number;
     persona?: Persona;

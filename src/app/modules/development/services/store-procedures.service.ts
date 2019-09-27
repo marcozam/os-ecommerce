@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { StoreProcedureMetaData, StoreProcedureOptionMetaData } from 'app/modules/development/models/store-procedure.models';
 // Services
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
-import { GenericService, GenericServiceBase } from 'app/modules/generic-catalogs/services/generic.service';
+import { GenericService, GenericServiceBase } from 'services/http/generic-catalogs/generic.service';
 
 @Injectable()
 export class StoreProceduresService extends GenericService<StoreProcedureMetaData> implements GenericServiceBase<StoreProcedureMetaData> {

@@ -11,16 +11,19 @@
   <!-- Actions -->
   <ng-container matColumnDef="actions">
     <mat-header-cell class="end-xs" *matHeaderCellDef>
-      <button routerLink="new" mat-icon-button matTooltip="Nueva Marca" color="primary">
-        <mat-icon>add_circle_outline</mat-icon>
+      <button *ngFor="let action of headerActions" mat-icon-button
+        (click)="performAction(action.uniqueID)"
+        [color]="action.color"
+        [matTooltip]="action.text">
+        <mat-icon>{{action.icon}}</mat-icon>
       </button>
     </mat-header-cell>
     <mat-cell class="table-actions end-xs" *matCellDef="let item">
-      <a mat-icon-button matTooltip="Editar" color="primary" routerLink="./{{item.key}}">
-        <mat-icon>edit</mat-icon>
-      </a>
-      <button mat-icon-button matTooltip="Eliminar" color="warn">
-        <mat-icon>delete</mat-icon>
+      <button *ngFor="let action of rowActions" mat-icon-button
+        (click)="performAction(action.uniqueID, item)"
+        [color]="action.color"
+        [matTooltip]="action.text">
+        <mat-icon>{{action.icon}}</mat-icon>
       </button>
     </mat-cell>
   </ng-container>

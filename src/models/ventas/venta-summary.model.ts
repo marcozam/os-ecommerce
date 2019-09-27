@@ -1,4 +1,4 @@
-import { BaseCatalog } from 'app/common';
+import { BaseCatalog } from '../base-catalog.model';
 
 import { Sucursal, Status, Persona, Usuario } from '../general';
 import { Contacto } from '../crm';

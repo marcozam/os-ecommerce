@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { MetaDataField, MetaDataCatalog } from '../../models/metadata-catalogs.models'
+import { MetaDataField, MetaDataCatalog } from '../../../../../models/generic-catalogs/metadata-catalogs.models'
 import { GenericCatalog } from 'app/common';
 
 import { FormControl, FormGroup } from '@angular/forms'

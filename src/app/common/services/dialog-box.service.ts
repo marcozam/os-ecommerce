@@ -17,7 +17,7 @@ const DEFAULT_DIALOG_BOX_OPTIONS: DialogBoxOptions = {
   showButtons: false
 };
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class DialogBoxService {
   isOpen = false;
   constructor(public dialog: MatDialog) { }

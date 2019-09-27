@@ -5,17 +5,22 @@ import { map } from 'rxjs/operators';
 // Core
 import { getFields } from 'core/decorators';
 // DB Helpers
-import { IBaseCatalog } from 'app/common';
+import { IBaseCatalog, BaseCatalog } from 'models';
 // Services
 import { GenericCatalogService } from './generic-catalog.service';
 
 export interface IBaseGenericCatalogService<T extends IBaseCatalog> {
     autoSort: Boolean;
-    save(newItem: T, oldItem?: T): Observable<T>;
     newInstance(): T;
+    // Mappings
     mapData(object: any): T;
     mapList?(objects: any[]): T[];
     map2Server?(value: T): any;
+    // Data Management
+    getList(): Observable<T[]>;
+    getByID(key: number): Observable<T>;
+    delete(key: number): Observable<T>;
+    save(newItem: T, oldItem?: T): Observable<T>;
 }
 
 export abstract class BaseGenericCatalogService<T extends IBaseCatalog>
@@ -48,7 +53,7 @@ export abstract class BaseGenericCatalogService<T extends IBaseCatalog>
          }).join('~');
     }
 
-    // POST Data
+    // Data Management
     getByID(ID: number): Observable<T> {
         if (Number.isNaN(ID)) { console.error('ID is not a number'); }
         return this.db.getDetailedData<T>(this.catalogID, ID)
@@ -63,7 +68,7 @@ export abstract class BaseGenericCatalogService<T extends IBaseCatalog>
             .pipe(map(result => mapData ? this.mapList(result) : result));
     }
 
-    delete(ID: number): Observable<T> { return this.db.removeItem(this.catalogID, ID); }
+    delete(key: number): Observable<T> { return this.db.removeItem(this.catalogID, key); }
 
     save(newItem: T, oldItem: T): Observable<T> {
         if (oldItem.hasChanges(newItem)) {
@@ -85,7 +90,7 @@ export abstract class BaseGenericCatalogService<T extends IBaseCatalog>
         });
     }
 
-    protected mapGenericData(item: T, data: any) {
+    protected mapGenericData<T extends BaseCatalog>(item: T, data: any): T {
         if (data) {
             if (data.C0) { item.key = data.C0; }
             const fieldsMD = getFields(item);

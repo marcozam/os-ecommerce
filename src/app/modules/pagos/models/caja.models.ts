@@ -1,13 +1,13 @@
-import { BaseGenericCatalog } from 'app/modules/base/models/base.models';
-import { Sucursal } from 'app/modules/generic-catalogs/models/generic-catalogs.models';
+import { BaseCatalog } from 'models';
+// import { Sucursal } from 'models/generic-catalogs/field-property.models';
 import { MetodoPago, Usuario } from 'app/modules/venta/models/venta.models';
 
-export class CorteCaja extends BaseGenericCatalog {
+export class CorteCaja extends BaseCatalog {
     movimientos: MovimientoCaja[];
     detalle: DetalleCorteCaja[];
     fechaCorte: Date;
     usuario: Usuario;
-    sucursal: Sucursal;
+    // sucursal: Sucursal;
 
     totalEsperado: number;
     totalRecibido: number;
@@ -21,8 +21,8 @@ export class CorteCaja extends BaseGenericCatalog {
         this.movimientos = [];
         this.usuario = new Usuario();
         this.usuario.key = usuarioID;
-        this.sucursal = new Sucursal();
-        this.sucursal.key = sucursalID;
+        // this.sucursal = new Sucursal();
+        // this.sucursal.key = sucursalID;
     }
 }
 
@@ -38,7 +38,7 @@ export class DetalleCorteCaja {
     }
 }
 
-export class MovimientoCaja extends BaseGenericCatalog {
+export class MovimientoCaja extends BaseCatalog {
     ordenVentaID: number;
     nombreCliente: string;
     fecha: Date;

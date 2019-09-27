@@ -1,4 +1,4 @@
-import { BaseCatalog } from 'app/common';
+import { BaseCatalog } from '../base-catalog.model';
 
 export class VentaComment extends BaseCatalog {
     productoID: number;

@@ -1,7 +1,8 @@
 import { Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 // Models
-import { FormSaveEvent, IBaseCatalog } from '../../models';
+import { IBaseCatalog } from 'models';
+import { FormSaveEvent } from '../../models';
 
 export abstract class OSBaseFormComponent<T extends IBaseCatalog> {
     private hasPendingChanges: boolean;

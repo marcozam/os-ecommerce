@@ -14,7 +14,10 @@ import { CategoriaProducto } from 'models/productos';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoriasListComponent {
-  categorias$: Observable<CategoriaProducto[]> = this.store.select(fromStore.getStandAloneCategories);
+
+  categorias$: Observable<CategoriaProducto[]> = this.store$.select(fromStore.getStandAloneCategories);
   tableColumns = ['nombre', 'inventario', 'requireProcesamiento', 'actions'];
-  constructor(private store: Store<fromStore.ProductsModuleState>) { }
+
+  constructor(private store$: Store<fromStore.ProductsModuleState>) { }
+
 }

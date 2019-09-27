@@ -6,7 +6,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Modules
-import { ProductosStoreModule } from './productos-store';
+import { ProductosStoreModule } from './productos-store/productos-store.module';
+import { LoadingStoreModule } from './loading-store/loading-store.module';
 // Router
 import * as fromRouterState from './state/router.state';
 // Effects
@@ -24,6 +25,7 @@ import { GlobalEffects } from './effects';
     }),
     StoreRouterConnectingModule.forRoot(),
     ProductosStoreModule,
+    LoadingStoreModule
   ],
   declarations: [],
   providers: [

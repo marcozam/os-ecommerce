@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // Services
 import { DialogBoxService } from 'services/dialog-box.service';
-import { GenericCatalogService } from 'app/modules/generic-catalogs/services/generic.service';
-import { CatalogsMetadataService } from 'app/modules/generic-catalogs/services/catalogs-metadata.service';
+import { GenericCatalogService } from 'services/http/generic-catalogs/generic.service';
+import { CatalogsMetadataService } from 'services/http/generic-catalogs/catalogs-metadata.service';
 // Models
 import { GenericCatalog } from 'app/common';
-import { MetaDataCatalog, MetaDataField } from '../../models/metadata-catalogs.models';
+import { MetaDataCatalog, MetaDataField } from '../../../../../models/generic-catalogs/metadata-catalogs.models';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { OSBaseComponent } from '../../../base/typings/os-base.component';
 import { of } from 'rxjs';

@@ -1,4 +1,5 @@
-import { BaseCatalog, Field } from 'app/common';
+import { Field } from 'core/decorators';
+import { BaseCatalog } from '../base-catalog.model';
 import { CategoriaProducto } from './categoria-producto.models';
 
 export class GrupoCategoriaProducto extends BaseCatalog {

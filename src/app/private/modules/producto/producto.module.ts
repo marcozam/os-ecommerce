@@ -34,7 +34,6 @@ import { CategoriaProductoFormComponent } from './components/categoria-producto-
 import { GrupoCategoriaComponent } from './components/grupo-categoria/grupo-categoria.component';
 // Shared Components
 import { OSCommonModule } from 'app/common/common.module';
-import { DialogBoxComponent } from 'app/common/components';
 
 @NgModule({
   imports: [
@@ -72,17 +71,13 @@ import { DialogBoxComponent } from 'app/common/components';
     MarcasListComponent,
     MarcaProductoFormComponent,
     CategoriaProductoFormComponent,
-    GrupoCategoriaComponent,
-    DialogBoxComponent
+    GrupoCategoriaComponent
   ],
   exports: [
     ProductoRoutingModule,
     ProductosComponent,
     ProductosListComponent,
     DetallePreciosProductoComponent
-  ],
-  entryComponents: [
-    DialogBoxComponent
-  ],
+  ]
 })
 export class ProductoModule { }

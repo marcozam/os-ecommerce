@@ -7,12 +7,46 @@ import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
 import { NOTIFICATION_CODE } from 'app/notifications';
 // Actions
 import * as productosActions from '../actions/productos.action';
+import * as loadingActions from '../../loading-store/actions';
 // Services
 import { ProductosService } from 'services/http/productos';
+
+const startRequestActions = [
+    productosActions.PRODUCTOS_ACTION_TYPES.DELETE_PRODUCTO,
+    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS,
+    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_BY_CATEGORY_ID,
+    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTO_BY_ID,
+    productosActions.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO
+];
+
+const endRequestActions = [
+    productosActions.PRODUCTOS_ACTION_TYPES.DELETE_PRODUCTO_FAIL,
+    productosActions.PRODUCTOS_ACTION_TYPES.DELETE_PRODUCTO_SUCCESS,
+    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_FAIL,
+    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_SUCCESS,
+    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_BY_CATEGORY_ID_FAIL,
+    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_BY_CATEGORY_ID_SUCCESS,
+    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTO_BY_ID_FAIL,
+    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTO_BY_ID_SUCCESS,
+    productosActions.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_FAIL,
+    productosActions.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_SUCCESS
+];
 
 @Injectable()
 export class ProductosEffects {
     constructor(private actions$: Actions, private service: ProductosService) { }
+
+    @Effect()
+    startRequest$ = this.actions$.pipe(
+        ofType(...startRequestActions),
+        map(() => new loadingActions.StartRequest())
+    );
+
+    @Effect()
+    endRequest$ = this.actions$.pipe(
+        ofType(...startRequestActions),
+        map(() => new loadingActions.EndRequest())
+    );
 
     @Effect()
     loadProductos$ = this.actions$.pipe(

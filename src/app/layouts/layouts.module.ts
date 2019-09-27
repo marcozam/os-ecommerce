@@ -9,7 +9,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 
-import { PublicComponent } from './components';
+import {
+    PublicComponent,
+    SpinnerComponent,
+    PageNotFoundComponent
+} from './components';
 import * as services from './services';
 
 @NgModule({
@@ -25,10 +29,15 @@ import * as services from './services';
         MatButtonModule
     ],
     declarations: [
-        PublicComponent
+        PublicComponent,
+        SpinnerComponent,
+        PageNotFoundComponent
     ],
     providers: [
         services.LayoutService
+    ],
+    exports: [
+        SpinnerComponent
     ]
 })
 export class LayoutsModule { }

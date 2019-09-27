@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MetaDataCatalog } from '../../models/metadata-catalogs.models';
+import { MetaDataCatalog } from '../../../../../models/generic-catalogs/metadata-catalogs.models';
 
-import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
+import { CatalogsMetadataService } from '../../../../../services/http/generic-catalogs/catalogs-metadata.service';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { of } from 'rxjs';
 

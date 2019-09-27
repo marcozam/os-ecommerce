@@ -8,7 +8,7 @@ import { Producto } from 'models/productos/producto.models';
 // Services
 import { BaseAjaxService } from '../../base/services/base-ajax.service';
 import { ContactoService } from 'app/modules/crm/services/contacto.service';
-import { GenericServiceBase } from 'app/modules/generic-catalogs/services/generic.service';
+import { GenericServiceBase } from 'services/http/generic-catalogs/generic.service';
 
 @Injectable()
 export class VentaService implements GenericServiceBase<Venta> {

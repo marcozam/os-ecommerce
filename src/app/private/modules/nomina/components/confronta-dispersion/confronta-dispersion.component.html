@@ -1,0 +1,57 @@
+<div class="row center-xs">
+    <div class="col-xs col-md-8">
+        <div class="sub-container">
+            This is a test
+            <input type="file" confirmacionDispersionBanorte (dataProccess)="validateData($event)">
+            <mat-form-field>
+                <mat-label>Patron</mat-label>
+                <mat-select multiple [(ngModel)]="filtros">
+                    <mat-option *ngFor="let client of patrones" [value]="client.key">
+                        {{ client.Nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <div>
+                    Total de Registrtos: <strong> {{ tableData?.length }} </strong>
+                    <button type="button" (click)="generarComprobante()">
+                        Generar Comprobante
+                    </button>
+                </div>
+                <mat-table [dataSource]="tableView">
+                    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+                    <mat-row *matRowDef="let myRowData; columns: tableColumns"></mat-row>
+                    <ng-container matColumnDef="selected">
+                        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                        <mat-cell *matCellDef="let item"> 
+                            <mat-checkbox [checked]="item.checked" (change)="checkToggle(item)"></mat-checkbox>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="patron">
+                        <mat-header-cell *matHeaderCellDef> Patron </mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{ item.Patron?.Nombre }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="nombre">
+                        <mat-header-cell *matHeaderCellDef> Empleado </mat-header-cell>
+                        <mat-cell *matCellDef="let item" class="text-left" [ngClass]="{'mat-error': item.Movimiento.Estatus === 'RECHAZADO' || !item.Empleado }"> 
+                            <strong *ngIf="item.Empleado; else notFound"> {{ item.Empleado?.Nombre }} </strong>
+                            <ng-template #notFound>
+                                Empleado no encontrado - {{ item.Movimiento.Nombre }}
+                            </ng-template>
+                    </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="importe">
+                        <mat-header-cell *matHeaderCellDef> Importe </mat-header-cell>
+                        <mat-cell *matCellDef="let item" class="text-right"> {{ item.Movimiento.Importe }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="mensaje">
+                        <mat-header-cell *matHeaderCellDef> Mensaje </mat-header-cell>
+                        <mat-cell *matCellDef="let item"  class="text-left" [ngClass]="{'mat-error': item.Movimiento.Estatus === 'RECHAZADO' }"> 
+                            {{ item.Movimiento.Mensaje ? item.Movimiento.Mensaje : item.Movimiento.Estatus }}
+                        </mat-cell>
+                    </ng-container>
+                </mat-table>
+            </div>
+        </div>
+    </div>
+</div>

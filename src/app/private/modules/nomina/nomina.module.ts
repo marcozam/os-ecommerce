@@ -7,16 +7,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { OSCommonModule } from 'app/common/common.module';
 // Routing
 import { NominaRoutingModule } from './routing/nomina-routing.module';
-// Containers
-
-// Components
 import * as components from './components';
-
-// Shared Components
-
+import * as directives from './directives';
 
 @NgModule({
   imports: [
@@ -26,16 +24,21 @@ import * as components from './components';
     FormsModule,
     // Material
     MatDatepickerModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatButtonModule,
     MatSelectModule,
-    MatInputModule
+    MatTableModule,
+    MatInputModule,
+    OSCommonModule
   ],
   declarations: [
-    components.FiniquitoComponent
+    components.FiniquitoComponent,
+    components.ConfrontaDispersionComponent,
+    components.EmpleadoComponent,
+    components.ListaEmpleadosComponent,
+    directives.ConfirmacionDispersionBanorteDirective
   ],
-  exports: [
-    NominaRoutingModule
-  ],
+  exports: [ ],
 })
 export class NominaModule { }

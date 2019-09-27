@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 // RxJs
 import { map } from 'rxjs/operators';
 // Services
-import { GenericService, GenericServiceBase } from 'app/modules/generic-catalogs/services/generic.service';
+import { GenericService, GenericServiceBase } from 'services/http/generic-catalogs/generic.service';
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
 // Models
 import { Inventario } from 'app/modules/inventario/models/inventario.models';

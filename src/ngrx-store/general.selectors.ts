@@ -1,4 +1,5 @@
-import { IBaseCatalog, BaseEntitie } from 'app/common';
+import { BaseEntitie } from 'app/common';
+import { IBaseCatalog } from 'models';
 import * as fromHelpers from 'app/common/utilities';
 
 import { GeneralListState } from './general.states';

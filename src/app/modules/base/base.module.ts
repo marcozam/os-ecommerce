@@ -21,14 +21,10 @@ import { DateSelectionComponent } from './components/date-selection/date-selecti
 import { SelectComponent } from './components/select/select.component';
 import { LoadingComponent } from './components/loading/loading.component';
 // Basic Catalogs
-import { PersonaComponent } from './components/persona/persona.component';
 import { EmpresaComponent } from './components/empresa/empresa.component';
 // Table
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FilterComponent } from './components/filter/filter.component';
-// Services
-import { PersonasService } from './services/personas.service';
-import { EmpresasService } from './services/empresa.service';
 
 @NgModule({
   imports: [
@@ -45,12 +41,11 @@ import { EmpresasService } from './services/empresa.service';
     MatSelectModule,
     MatTooltipModule,
     MatProgressBarModule,
-    MatSnackBarModule,
+    MatSnackBarModule
   ],
   declarations: [
     PaginatorComponent,
     FilterComponent,
-    PersonaComponent,
     MonthYearSelectorComponent,
     DateSelectionComponent,
     EmpresaComponent,
@@ -60,14 +55,10 @@ import { EmpresasService } from './services/empresa.service';
   exports: [
     FilterComponent,
     LoadingComponent,
-    PersonaComponent,
     EmpresaComponent,
     MonthYearSelectorComponent,
     DateSelectionComponent,
   ],
-  providers: [
-    PersonasService,
-    EmpresasService,
-  ]
+  providers: [ ]
 })
 export class BaseModule { }

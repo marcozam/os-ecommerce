@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 // Services
 import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
-import { GenericServiceBase, GenericService } from 'app/modules/generic-catalogs/services/generic.service';
+import { GenericServiceBase, GenericService } from 'services/http/generic-catalogs/generic.service';
 // Models
 import { MovimientoCaja, CorteCaja, DetalleCorteCaja } from '../models/caja.models';
 import { MetodoPago } from 'app/modules/venta/models/venta.models';

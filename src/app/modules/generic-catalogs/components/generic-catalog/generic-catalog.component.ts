@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 // Models
 import { GenericCatalog } from 'app/common';
-import { MetaDataCatalog, MetaDataField } from '../../models/metadata-catalogs.models';
+import { MetaDataCatalog, MetaDataField } from '../../../../../models/generic-catalogs/metadata-catalogs.models';
 // Services
 import { DialogBoxService } from 'services/dialog-box.service';
-import { GenericCatalogService } from '../../services/generic.service';
-import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
+import { GenericCatalogService } from '../../../../../services/http/generic-catalogs/generic.service';
+import { CatalogsMetadataService } from '../../../../../services/http/generic-catalogs/catalogs-metadata.service';
 // Constants
 import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
 

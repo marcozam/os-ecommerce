@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 // Services
-import { CatalogsMetadataService } from '../../services/catalogs-metadata.service';
+import { CatalogsMetadataService } from '../../../../../services/http/generic-catalogs/catalogs-metadata.service';
 import { DialogBoxService } from 'services/dialog-box.service';
 // Models
-import { MetaDataTable, MetaDataField, MetaDataCatalog } from '../../models/metadata-catalogs.models';
+import { MetaDataTable, MetaDataField, MetaDataCatalog } from '../../../../../models/generic-catalogs/metadata-catalogs.models';
 import { GenericCatalog } from 'app/common';
 // Constants
 import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';

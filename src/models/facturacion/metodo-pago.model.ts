@@ -1,4 +1,5 @@
-import { BaseCatalog, Field } from 'app/common';
+import { Field } from 'core/decorators';
+import { BaseCatalog } from '../base-catalog.model';
 
 export class MetodoPago extends BaseCatalog {
     @Field('C1', 30401) nombre: string;

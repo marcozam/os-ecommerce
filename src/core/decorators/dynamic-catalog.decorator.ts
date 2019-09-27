@@ -1,4 +1,4 @@
-import { FieldProperty } from 'app/modules/generic-catalogs/models/generic-catalogs.models';
+import { FieldProperty } from 'models/generic-catalogs/field-property.models';
 import * as moment from 'moment';
 
 const DefaultConverter = (value: any) => value;
