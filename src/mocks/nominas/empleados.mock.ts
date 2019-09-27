@@ -1,22 +1,23 @@
 import { Empleados, Empleado } from 'models/nominas';
 
 import { listaPersonasMock } from '../general';
+import { listaClientesMock } from './empresas.mock';
 
 export const _listaEmpleadosMock: Empleado[] = [
-    new Empleado(listaPersonasMock[0], 1, 1),
-    new Empleado(listaPersonasMock[1], 2, 2),
-    new Empleado(listaPersonasMock[2], 4, 3),
-    new Empleado(listaPersonasMock[3], 5, 4),
-    new Empleado(listaPersonasMock[4], 1, 5),
-    new Empleado(listaPersonasMock[5], 1, 6),
-    new Empleado(listaPersonasMock[6], 2, 7),
-    new Empleado(listaPersonasMock[7], 3, 8),
-    new Empleado(listaPersonasMock[8], 4, 9),
-    new Empleado(listaPersonasMock[9], 5, 10),
-    new Empleado(listaPersonasMock[10], 6, 11),
-    new Empleado(listaPersonasMock[11], 7, 12),
-    new Empleado(listaPersonasMock[12], 8, 13),
-    new Empleado(listaPersonasMock[13], 9, 14),
+    new Empleado(listaPersonasMock[0], 1, 1, listaClientesMock[0]),
+    new Empleado(listaPersonasMock[1], 2, 2, listaClientesMock[0]),
+    new Empleado(listaPersonasMock[2], 4, 3, listaClientesMock[0]),
+    new Empleado(listaPersonasMock[3], 5, 4, listaClientesMock[0]),
+    new Empleado(listaPersonasMock[4], 1, 5, listaClientesMock[1]),
+    new Empleado(listaPersonasMock[5], 1, 6, listaClientesMock[2]),
+    new Empleado(listaPersonasMock[6], 2, 7, listaClientesMock[2]),
+    new Empleado(listaPersonasMock[7], 3, 8, listaClientesMock[2]),
+    new Empleado(listaPersonasMock[8], 4, 9, listaClientesMock[2]),
+    new Empleado(listaPersonasMock[9], 5, 10, listaClientesMock[2]),
+    new Empleado(listaPersonasMock[10], 6, 11, listaClientesMock[2]),
+    new Empleado(listaPersonasMock[11], 7, 12, listaClientesMock[2]),
+    new Empleado(listaPersonasMock[12], 8, 13, listaClientesMock[2]),
+    new Empleado(listaPersonasMock[13], 9, 14, listaClientesMock[2]),
     new Empleado(listaPersonasMock[14], 1, 15),
     new Empleado(listaPersonasMock[15], 1, 16),
     new Empleado(listaPersonasMock[16], 1, 17),

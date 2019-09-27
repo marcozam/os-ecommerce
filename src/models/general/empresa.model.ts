@@ -3,4 +3,8 @@ import { BaseCatalog } from '../base-catalog.model';
 
 export class Empresa extends BaseCatalog {
     @Field('C1') nombre: string;
+    constructor(key: number, _nombre: string) {
+      super(key);
+      this.nombre = _nombre;
+    }
 }

@@ -16,6 +16,7 @@ export class Empleado extends BaseCatalog {
 
     @Field('C1') noEmpleado: number;
     @Field('C2') personaId: number;
+    @Field('C3') patronId: number;
 
     get datosPersonales() { return this._datosPersonales; }
     set datosPersonales(value: Persona) {
@@ -26,12 +27,15 @@ export class Empleado extends BaseCatalog {
     get patron() { return this._patron; }
     set patron(value: Empresa) {
         this._patron = value;
-        // this.patronId = value ? value.key : 0;
+        this.patronId = value ? value.key : 0;
     }
 
     constructor(datosPersonales: Persona, noEmpleado: number, key = 0, patron?: Empresa) {
         super(key);
         this.noEmpleado = noEmpleado;
         this.datosPersonales = datosPersonales;
+        if (patron) {
+          this.patron = patron;
+        }
     }
 }

@@ -13,7 +13,8 @@ import { _listaEmpleadosMock } from 'mocks/nominas';
 })
 export class ListaEmpleadosComponent extends OSListComponent<Empleado> {
   tableColumns = [
-    new OSTableColumn('nombre', 'Nombre Completo', (item: Empleado) => item.datosPersonales.nombreCompleto)
+    new OSTableColumn('nombre', 'Nombre Completo', (item: Empleado) => item.datosPersonales.nombreCompleto),
+    new OSTableColumn('patron', 'Patron', (item: Empleado) => item.patron ? item.patron.nombre : 'Sin Registro' )
   ];
 
   constructor() {
