@@ -42,6 +42,29 @@ export const _listaEmpleadosMock: Empleado[] = [
     new Empleado(listaPersonasMock[35], 2, 36),
     new Empleado(listaPersonasMock[36], 3, 37),
     new Empleado(listaPersonasMock[37], 5, 38),
+    // X
+    new Empleado(listaPersonasMock[154], 5, 155),
+    new Empleado(listaPersonasMock[155], 5, 156),
+    new Empleado(listaPersonasMock[156], 5, 157),
+    new Empleado(listaPersonasMock[157], 6, 158),
+    new Empleado(listaPersonasMock[158], 7, 159),
+    new Empleado(listaPersonasMock[159], 8, 160),
+    new Empleado(listaPersonasMock[160], 1, 161),
+    new Empleado(listaPersonasMock[161], 2, 162),
+    new Empleado(listaPersonasMock[162], 3, 163),
+    new Empleado(listaPersonasMock[163], 5, 164),
+    new Empleado(listaPersonasMock[164], 1, 165),
+    new Empleado(listaPersonasMock[165], 2, 166),
+    new Empleado(listaPersonasMock[166], 3, 167),
+    new Empleado(listaPersonasMock[167], 5, 168),
+    new Empleado(listaPersonasMock[168], 1, 169),
+    new Empleado(listaPersonasMock[169], 2, 170),
+    new Empleado(listaPersonasMock[170], 3, 171),
+    new Empleado(listaPersonasMock[171], 5, 172),
+    new Empleado(listaPersonasMock[172], 1, 173),
+    new Empleado(listaPersonasMock[173], 2, 174),
+    new Empleado(listaPersonasMock[174], 3, 175),
+    new Empleado(listaPersonasMock[175], 5, 176),
     /*
     { key: 39, Nombre: 'IRINEO ALEJANDRE BLANCO', keyPatron: 13, NoEmpleado: 1 },
     { key: 40, Nombre: 'DIANA LAURA ALVAREZ MERINOS', keyPatron: 13, NoEmpleado: 2 },
@@ -1427,5 +1450,6 @@ export const listaEmpleadosMock: Empleados[] = [
     { key: 741, Nombre: 'TORRES TOVAR JOSE ISRAEL', keyPatron: 36, NoEmpleado: 4 },
     { key: 742, Nombre: 'SA DE CV SELECT DENIM', keyPatron: 36, NoEmpleado: 5 },
     { key: 743, Nombre: 'BARRAÑON. MAURICIO NAHED', keyPatron: 36, NoEmpleado: 6 },
-    { key: 743, Nombre: 'KARINA RODRIGUEZ RENTERIA', keyPatron: 37, NoEmpleado: 3 }
+    { key: 743, Nombre: 'KARINA RODRIGUEZ RENTERIA', keyPatron: 37, NoEmpleado: 3 },
+    { key: 743, Nombre: 'EDGAR MARCELINO VARGAS RAMOS', keyPatron: 16, NoEmpleado: 5047 }
 ];
