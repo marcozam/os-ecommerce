@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-// Component
-import { OSBaseFormComponent } from 'app/common';
+// Common forms
+import { OSBaseFormComponent } from 'app/common-forms/components';
 // Model
 import { GrupoCategoriaProducto, CategoriaProducto } from 'models';
 import { FormArray, FormControl } from '@angular/forms';

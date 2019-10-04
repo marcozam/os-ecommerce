@@ -10,10 +10,10 @@ import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as fromStore from 'ngrx-store/productos-store';
 // Shared
-import {
-  DialogBoxService,
-  OSBaseFormContainer
-} from 'app/common';
+// Services
+import { DialogBoxService } from 'app/common/services';
+// Common forms
+import { OSBaseFormContainer } from 'app/common-forms/components';
 // Models
 import { Producto, CategoriaProducto } from 'models';
 // Constants

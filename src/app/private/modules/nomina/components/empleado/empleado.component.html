@@ -1,6 +1,7 @@
-<p>
-  empleado works!
-</p>
-<!--
-<os-persona-form></os-persona-form>
--->
+<div class="row center-xs">
+  <div class="col-xs col-md-4">
+    <os-form-container title="Datos de Empleado" (actionTriggered)="onActionTriggered($event)">
+      <app-empleado-form [form]="form" [patrones]="patrones" [value]="item"></app-empleado-form>
+    </os-form-container>
+  </div>
+</div>

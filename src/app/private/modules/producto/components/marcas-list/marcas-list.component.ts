@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 // Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'ngrx-store/productos-store';
@@ -12,11 +13,12 @@ import { OSListComponent, OSTableColumn } from 'app/common';
   styleUrls: ['./marcas-list.component.scss']
 })
 export class MarcasListComponent extends OSListComponent<MarcaProducto> {
+
   tableColumns = [
     new OSTableColumn('nombre', 'Nombre', (item: MarcaProducto) => item.nombre)
   ];
 
-  constructor(store: Store<fromStore.ProductsModuleState>) {
-    super(store.select(fromStore.getMarcas));
+  constructor(router: Router, route: ActivatedRoute, store: Store<fromStore.ProductsModuleState>) {
+    super(router, route, store.select(fromStore.getMarcas));
   }
 }

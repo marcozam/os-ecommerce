@@ -1,7 +1,15 @@
 import { Field } from 'core/decorators';
 import { BaseCatalog } from '../base-catalog.model';
 
-export class Persona extends BaseCatalog {
+export interface IPersona {
+  nombre: any;
+  apellidoPaterno: any;
+  apellidoMaterno: any;
+  fechaNacimiento?: any;
+  sexo?: any;
+}
+
+export class Persona extends BaseCatalog implements IPersona {
     @Field('C1', 101) nombre: string;
     @Field('C2', 102) apellidoPaterno: string;
     @Field('C3', 103) apellidoMaterno: string;

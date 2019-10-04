@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { Empleado } from 'models';
 import { OSListComponent, OSTableColumn } from 'app/common';
@@ -17,7 +18,7 @@ export class ListaEmpleadosComponent extends OSListComponent<Empleado> {
     new OSTableColumn('patron', 'Patron', (item: Empleado) => item.patron ? item.patron.nombre : 'Sin Registro' )
   ];
 
-  constructor() {
-    super(of(_listaEmpleadosMock));
+  constructor(router: Router, route: ActivatedRoute) {
+    super(router, route, of(_listaEmpleadosMock));
   }
 }

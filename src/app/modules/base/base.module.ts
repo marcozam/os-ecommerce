@@ -21,7 +21,6 @@ import { DateSelectionComponent } from './components/date-selection/date-selecti
 import { SelectComponent } from './components/select/select.component';
 import { LoadingComponent } from './components/loading/loading.component';
 // Basic Catalogs
-import { EmpresaComponent } from './components/empresa/empresa.component';
 // Table
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FilterComponent } from './components/filter/filter.component';
@@ -48,14 +47,12 @@ import { FilterComponent } from './components/filter/filter.component';
     FilterComponent,
     MonthYearSelectorComponent,
     DateSelectionComponent,
-    EmpresaComponent,
     SelectComponent,
     LoadingComponent,
   ],
   exports: [
     FilterComponent,
     LoadingComponent,
-    EmpresaComponent,
     MonthYearSelectorComponent,
     DateSelectionComponent,
   ],

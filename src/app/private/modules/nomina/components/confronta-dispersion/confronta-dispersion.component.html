@@ -7,7 +7,7 @@
                 <mat-label>Patron</mat-label>
                 <mat-select multiple [(ngModel)]="filtros">
                     <mat-option *ngFor="let client of patrones" [value]="client.key">
-                        {{ client.Nombre }}
+                        {{ client.nombre }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -23,18 +23,22 @@
                     <mat-row *matRowDef="let myRowData; columns: tableColumns"></mat-row>
                     <ng-container matColumnDef="selected">
                         <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
-                        <mat-cell *matCellDef="let item"> 
+                        <mat-cell *matCellDef="let item">
                             <mat-checkbox [checked]="item.checked" (change)="checkToggle(item)"></mat-checkbox>
                         </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="patron">
                         <mat-header-cell *matHeaderCellDef> Patron </mat-header-cell>
-                        <mat-cell *matCellDef="let item"> {{ item.Patron?.Nombre }} </mat-cell>
+                        <mat-cell *matCellDef="let item">
+                          <ng-container *ngIf="item.Empleado">
+                            {{ item.Empleado.patron ? item.Empleado.patron.nombre : 'Sin Patron' }}
+                          </ng-container>
+                        </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="nombre">
                         <mat-header-cell *matHeaderCellDef> Empleado </mat-header-cell>
-                        <mat-cell *matCellDef="let item" class="text-left" [ngClass]="{'mat-error': item.Movimiento.Estatus === 'RECHAZADO' || !item.Empleado }"> 
-                            <strong *ngIf="item.Empleado; else notFound"> {{ item.Empleado?.Nombre }} </strong>
+                        <mat-cell *matCellDef="let item" class="text-left" [ngClass]="{'mat-error': item.Movimiento.Estatus === 'RECHAZADO' || !item.Empleado }">
+                            <strong *ngIf="item.Empleado; else notFound"> {{ item.Empleado?.datosPersonales.nombreCompleto }} </strong>
                             <ng-template #notFound>
                                 Empleado no encontrado - {{ item.Movimiento.Nombre }}
                             </ng-template>
@@ -46,7 +50,7 @@
                     </ng-container>
                     <ng-container matColumnDef="mensaje">
                         <mat-header-cell *matHeaderCellDef> Mensaje </mat-header-cell>
-                        <mat-cell *matCellDef="let item"  class="text-left" [ngClass]="{'mat-error': item.Movimiento.Estatus === 'RECHAZADO' }"> 
+                        <mat-cell *matCellDef="let item"  class="text-left" [ngClass]="{'mat-error': item.Movimiento.Estatus === 'RECHAZADO' }">
                             {{ item.Movimiento.Mensaje ? item.Movimiento.Mensaje : item.Movimiento.Estatus }}
                         </mat-cell>
                     </ng-container>

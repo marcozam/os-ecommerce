@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 // Material
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   MultipleSelectionComponent,
   DialogBoxComponent,
-  BaseFormComponent,
+  FormContainerComponent,
   LoadingComponent,
   TableComponent,
 } from './components';
@@ -34,8 +35,6 @@ import {
   OSPaginatorIntl
 } from './services';
 
-import { PersonaFormComponent } from './forms';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -45,30 +44,23 @@ import { PersonaFormComponent } from './forms';
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
-    MatButtonModule,
-    MatIconModule,
+    MatInputModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatTooltipModule,
     MatFormFieldModule,
-    MatDialogModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
     MatDatepickerModule,
-    MatRadioModule
+    MatRadioModule,
   ],
   declarations: [
     // Components
     MultipleSelectionComponent,
-    BaseFormComponent,
+    FormContainerComponent,
     LoadingComponent,
     TableComponent,
     DialogBoxComponent,
-    // Forms
-    PersonaFormComponent,
     // Directives
     FormTitleDirective,
     FormButtonDirective
@@ -78,9 +70,8 @@ import { PersonaFormComponent } from './forms';
     { provide: MatPaginatorIntl, useClass: OSPaginatorIntl }
   ],
   exports: [
-    PersonaFormComponent,
     MultipleSelectionComponent,
-    BaseFormComponent,
+    FormContainerComponent,
     TableComponent,
     FormTitleDirective,
     FormButtonDirective

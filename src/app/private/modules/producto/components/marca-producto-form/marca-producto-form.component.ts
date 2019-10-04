@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 // Models
 import { MarcaProducto } from 'models';
 // Components
-import { OSBaseFormComponent } from 'app/common';
+import { OSBaseFormComponent } from 'app/common-forms/components';
 
 @Component({
   selector: 'app-marca-producto-form',

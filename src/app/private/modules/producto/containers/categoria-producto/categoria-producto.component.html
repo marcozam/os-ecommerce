@@ -1,6 +1,6 @@
 <div class="row center-xs">
   <div class="col-xs col-md-6">
-    <os-base-form>
+    <os-form-container>
       <span class="sub-titles" osFormTitle> Categoria <small>({{ item.nombre ? item.nombre : 'nueva' }})</small></span>
       <div class="row">
         <div class="col-xs col-md-6">
@@ -17,10 +17,10 @@
         (click)="onCancel()">
         <mat-icon>clear</mat-icon> Cancelar
       </button>
-      <button mat-raised-button color="primary" osFormButton type="submit" 
+      <button mat-raised-button color="primary" osFormButton type="submit"
         (click)="onContinue()" [disabled]="form.invalid">
         <mat-icon>save</mat-icon> Guardar
       </button>
-    </os-base-form>
+    </os-form-container>
   </div>
 </div>

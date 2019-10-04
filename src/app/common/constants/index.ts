@@ -1,2 +1,2 @@
 export * from './date-time.constants';
-export * from './table-actions.constants';
+export * from './actions.constants';

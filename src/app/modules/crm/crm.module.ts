@@ -24,7 +24,7 @@ import { HomeComponent } from './containers/home/home.component';
 import { NameValidatorDirective } from './directives/name-validator.directive';
 // Services
 import { ContactoService } from './services/contacto.service';
-import { PersonasService } from 'app/modules/base/services/personas.service';
+import { PersonasService } from 'services/http/base';
 import { DatosContactoComponent } from './components/datos-contacto/datos-contacto.component';
 
 @NgModule({

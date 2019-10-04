@@ -7,8 +7,10 @@ import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Actions } from '@ngrx/effects';
 import * as fromStore from 'ngrx-store/productos-store';
-// Shared
-import { OSBaseFormContainer, DialogBoxService } from 'app/common';
+// Services
+import { DialogBoxService } from 'app/common/services';
+// Common forms
+import { OSBaseFormContainer } from 'app/common-forms/components';
 // Models
 import { CategoriaProducto } from 'models/productos';
 // Constants

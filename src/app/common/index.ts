@@ -6,4 +6,3 @@ export * from './services';
 export * from './models';
 export * from './constants';
 export * from './utilities';
-export * from './common.module';

@@ -1,0 +1,21 @@
+<div class="sub-container">
+  <div class="sub-container-header">
+    <span *ngIf="title" class="sub-titles">
+      {{ title }}
+    </span>
+    <ng-content select="[osFormTitle]"></ng-content>
+  </div>
+  <!--<os-loading [loading]="loading$ | async"></os-loading>-->
+  <div class="sub-container-content">
+    <ng-content></ng-content>
+  </div>
+  <div class="sub-container-footer">
+    <div class="buttons-container between-xs">
+      <ng-content select="[osFormButton]"></ng-content>
+      <button *ngFor="let action of actions" mat-button [color]="action.color" (click)="performAction(action.uniqueID)">
+        <mat-icon *ngIf="action.icon">{{action.icon}}</mat-icon>
+        {{action.text}}
+      </button>
+    </div>
+  </div>
+</div>

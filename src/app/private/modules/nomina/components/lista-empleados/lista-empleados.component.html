@@ -5,7 +5,7 @@
         <span class="sub-titles"> Empleados </span>
       </div>
       <div class="sub-container-content">
-        <os-table [dataSource]="dataSource" [columns]="tableColumns">
+        <os-table [dataSource]="dataSource" [columns]="tableColumns" (actionTriggered)="onAction($event)">
         </os-table>
       </div>
     </div>

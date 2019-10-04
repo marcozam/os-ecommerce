@@ -10,7 +10,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 // Models
-import { OSTableColumn, OSTableActions } from '../../models';
+import { OSTableColumn, OSActions } from '../../models';
 import { defaultTableActions } from '../../constants';
 
 @Component({
@@ -22,7 +22,7 @@ import { defaultTableActions } from '../../constants';
 export class TableComponent implements AfterViewInit {
 
   @Input() columns: OSTableColumn[];
-  @Input() actions: OSTableActions[] = defaultTableActions;
+  @Input() actions: OSActions[] = defaultTableActions;
   @Input() dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
   @Output() actionTriggered: EventEmitter<{action: string, item: any}> = new EventEmitter();
 
@@ -32,11 +32,11 @@ export class TableComponent implements AfterViewInit {
     return [ ...this.columns.map(col => col.uniqueID), 'actions' ];
   }
 
-  get headerActions(): OSTableActions[] {
+  get headerActions(): OSActions[] {
     return this.actions.filter(ac => ac.inHeader);
   }
 
-  get rowActions(): OSTableActions[] {
+  get rowActions(): OSActions[] {
     return this.actions.filter(ac => !ac.inHeader);
   }
 

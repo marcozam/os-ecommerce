@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 // Models
 import { Producto, CategoriaProducto } from 'models/productos';
 // Components
-import { OSBaseFormComponent } from 'app/common';
+import { OSBaseFormComponent } from 'app/common-forms/components';
 
 @Component({
   selector: 'app-producto-form',

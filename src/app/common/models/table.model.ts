@@ -13,7 +13,7 @@ export class OSTableColumn {
     ) { }
 }
 
-export class OSTableActions {
+export class OSActions {
     constructor(
         public uniqueID: string,
         public text: string,

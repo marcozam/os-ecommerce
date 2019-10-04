@@ -5,7 +5,7 @@
   <ng-template ngFor let-col [ngForOf]="columns">
     <ng-container [matColumnDef]="col.uniqueID">
       <mat-header-cell *matHeaderCellDef> {{ col.header }} </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{ col.description(item) }} </mat-cell>
+      <mat-cell *matCellDef="let item" class="text-left"> {{ col.description(item) }} </mat-cell>
     </ng-container>
   </ng-template>
   <!-- Actions -->
@@ -30,6 +30,6 @@
 </mat-table>
 <mat-paginator
   [length]="dataSource.data.length"
-  [pageSize]="10" 
+  [pageSize]="10"
   [pageSizeOptions]="pageSizeOptions">
 </mat-paginator>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { DispersionBanorteDto, Empleados, Empresas } from 'models/nominas';
-import { listaEmpleadosMock, listaClientesMock } from 'mocks/nominas';
+import { DispersionBanorteDto, Empleado } from 'models/nominas';
+import { Empresa } from 'models';
+import { _listaEmpleadosMock } from 'mocks/nominas';
 
 @Component({
   selector: 'app-confronta-dispersion',
@@ -12,16 +13,16 @@ export class ConfrontaDispersionComponent implements OnInit {
 
     ngOnInit() { }
 
-    tableData: {  Empleado: Empleados, Movimiento: DispersionBanorteDto, Patron: Empresas, checked: boolean }[];
+    tableData: {  Empleado: Empleado, Movimiento: DispersionBanorteDto, checked: boolean }[];
     tableColumns = ['selected', 'nombre', 'patron', 'importe', 'mensaje'];
-    patrones: Empresas[] = [];
+    patrones: Empresa[] = [];
     filtros = [];
     private comprobante;
 
     get tableView() {
         if (this.filtros.length > 0 ) {
             return this.tableData.filter(row => {
-                return this.filtros.includes(row.Patron.key);
+                return this.filtros.includes(row.Empleado.patron.key);
             });
         }
         return this.tableData;
@@ -31,16 +32,15 @@ export class ConfrontaDispersionComponent implements OnInit {
         const list: DispersionBanorteDto[] = event.Movimientos,
             htmlComprobante: string = event.html;
         this.comprobante = htmlComprobante;
+        this.patrones = [];
         this.tableData = list.map(Movimiento => {
-            const Empleado = listaEmpleadosMock.find(emp => emp.Nombre.toUpperCase() === Movimiento.Nombre.toUpperCase());
-            let Patron;
+            const Empleado = _listaEmpleadosMock.find(emp => emp.datosPersonales.nombreCompleto.toUpperCase().trim() === Movimiento.Nombre.toUpperCase());
             if (Empleado) {
-                Patron = listaClientesMock.find(clt => clt.key === Empleado.keyPatron);
-                if (!this.patrones.includes(Patron)) {
-                    this.patrones = [ ...this.patrones, Patron ];
+                if (Empleado.patron && !this.patrones.includes(Empleado.patron)) {
+                  this.patrones = [ ...this.patrones, Empleado.patron ];
                 }
             }
-            return { Empleado, Movimiento, Patron, checked: true };
+            return { Empleado, Movimiento, checked: true };
         });
     }
 

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-// Component
-import { OSBaseFormComponent } from 'app/common';
+// Common forms
+import { OSBaseFormComponent } from 'app/common-forms/components';
 // Model
 import { CategoriaProducto } from 'models';
 
