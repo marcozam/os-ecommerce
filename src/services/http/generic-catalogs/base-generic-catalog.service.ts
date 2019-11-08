@@ -31,7 +31,7 @@ export abstract class BaseGenericCatalogService<T extends IBaseCatalog>
         protected catalogID,
         public autoSort = true) { }
 
-    ngOnDestroy() { console.log('NGRX Service DESTROYED'); }
+    ngOnDestroy() { console.log('NG Service DESTROYED'); }
 
     // MAPPINGS
     newInstance(): T { return null; }
