@@ -1,6 +1,9 @@
 <os-persona-form [form]="form.get('datosPersonales')" [value]="value.datosPersonales"></os-persona-form>
 <form [formGroup]="form">
   <mat-form-field>
+    <input matInput placeholder="NSS" formControlName="NSS">
+  </mat-form-field>
+  <mat-form-field>
     <input matInput placeholder="Fecha de ingreso" [matDatepicker]="picker" formControlName="fechaIngreso">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker startView="year"></mat-datepicker>
@@ -10,6 +13,13 @@
     <mat-select placeholder="Patron" formControlName="patronId">
       <mat-option *ngFor="let p of patrones" [value]="p.key">
           {{p.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Periocidad Pago" formControlName="periocidadPagoId">
+      <mat-option *ngFor="let periodo of periocidadPago" [value]="periodo.key">
+        {{periodo.nombre}}
       </mat-option>
     </mat-select>
   </mat-form-field>
