@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { OS_ACTION_TYPE } from 'store/models';
-import { Empleado } from 'models';
-
+import { OS_ACTION_TYPE } from '../../models';
 import { namespace } from '../constants';
+// Models
+import { Empleado } from 'models';
 
 const EMPLEADO_ACTION_TYPES = {
   Save: `${namespace} Save`,

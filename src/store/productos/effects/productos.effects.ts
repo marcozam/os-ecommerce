@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Effect, Actions, ofType, createEffect } from '@ngrx/effects';
 // RxJS
 import { of } from 'rxjs';
 import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
@@ -10,14 +10,6 @@ import * as productosActions from '../actions/productos.action';
 import * as loadingActions from '../../loading-store/actions';
 // Services
 import { ProductosService } from 'services/http/productos';
-
-const startRequestActions = [
-    productosActions.PRODUCTOS_ACTION_TYPES.DELETE_PRODUCTO,
-    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS,
-    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_BY_CATEGORY_ID,
-    productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTO_BY_ID,
-    productosActions.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO
-];
 
 const endRequestActions = [
     productosActions.PRODUCTOS_ACTION_TYPES.DELETE_PRODUCTO_FAIL,
@@ -36,11 +28,16 @@ const endRequestActions = [
 export class ProductosEffects {
     constructor(private actions$: Actions, private service: ProductosService) { }
 
-    @Effect()
-    startRequest$ = this.actions$.pipe(
-        ofType(...startRequestActions),
+    startRequest$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(
+          productosActions.LoadProductos,
+          productosActions.LoadProductoByID,
+          productosActions.SaveProducto,
+          productosActions.LoadProductosByCategoryID
+        ),
         map(() => new loadingActions.StartRequest())
-    );
+      ));
 
     @Effect()
     endRequest$ = this.actions$.pipe(

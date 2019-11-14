@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { EntityState } from '@ngrx/entity';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 // Models
 import { Empleado } from 'models';
 // Actions
@@ -8,6 +8,8 @@ import * as empleadoActions from '../actions/empleado.actions';
 export interface EmpleadosState extends EntityState<Empleado> {
   selectedEmpleadoId: number;
 }
+
+export const empleadoAdapter: EntityAdapter<Empleado> = createEntityAdapter<Empleado>();
 
 const initialState: EmpleadosState = {
   ids: [],
@@ -20,10 +22,7 @@ const scoreboardReducer = createReducer(
   on(
     empleadoActions.GetEmpleadoSuccesAction,
     empleadoActions.SaveEmpleadoSuccesAction,
-    (state, action) => {
-      const empleado = action.value;
-      return { ...state };
-    }
+    (state, action) => empleadoAdapter.addOne(action.value, state)
   ),
 );
 
