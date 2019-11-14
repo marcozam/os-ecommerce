@@ -26,7 +26,7 @@ import { PRODUCTO_FORM } from '../../constants';
   styleUrls: ['./productos.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductosComponent extends OSBaseFormContainer<Producto> {
+export class ProductosComponent extends OSBaseFormContainer<Producto, Producto> {
   categoria: CategoriaProducto;
   categoria$: Observable<CategoriaProducto>;
 

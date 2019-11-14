@@ -5,7 +5,7 @@ import { Empleado } from 'models';
 import { OSListComponent, OSTableColumn } from 'app/common';
 
 // Mock Data
-import { _listaEmpleadosMock } from 'mocks/nominas';
+import { listaEmpleadosMock } from 'mocks/nominas';
 
 @Component({
   selector: 'app-lista-empleados',
@@ -19,6 +19,6 @@ export class ListaEmpleadosComponent extends OSListComponent<Empleado> {
   ];
 
   constructor(router: Router, route: ActivatedRoute) {
-    super(router, route, of(_listaEmpleadosMock));
+    super(router, route, of(listaEmpleadosMock));
   }
 }

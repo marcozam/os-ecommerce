@@ -1,7 +1,7 @@
 import { Validators } from '@angular/forms';
 import { IPersona } from 'models';
 
-export function PERSONA_FORM(optionals = false): IPersona {
+export const PERSONA_FORM = (optionals = false): IPersona => {
   const optinalFields = {
     fechaNacimiento: [''], // Today - 18 years
     sexo: [1],
@@ -15,4 +15,4 @@ export function PERSONA_FORM(optionals = false): IPersona {
     fields = { ...fields, ...optinalFields };
   }
   return fields;
-}
+};

@@ -13,7 +13,7 @@ import { WARNING_TITLE, LEAVE_WARNING_MESSAGE, NOTIFICATION_TYPES } from 'app/no
 // Services
 import { DialogBoxService } from 'app/common/services';
 
-export abstract class OSBaseFormContainer<T extends IBaseCatalog> implements OnInit, OnDestroy {
+export abstract class OSBaseFormContainer<T extends IBaseCatalog, F> implements OnInit, OnDestroy {
   protected destroyed$ = new Subject<boolean>();
   form: FormGroup;
   loading$: Observable<boolean>;
@@ -46,7 +46,7 @@ export abstract class OSBaseFormContainer<T extends IBaseCatalog> implements OnI
   }
   //#endregion
 
-  protected onSave(newItem: T) {
+  protected onSave(newItem: F) {
     throw new Error('OnSave funciont not implemnted');
   }
 

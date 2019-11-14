@@ -44,6 +44,7 @@ import * as directives from './directives';
     components.ListaEmpleadosComponent,
     components.EmpleadoComponent,
     components.EmpleadoFormComponent,
+    components.RelacionLaboralFormComponent,
     directives.ConfirmacionDispersionBanorteDirective
   ]
 })

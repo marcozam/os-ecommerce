@@ -23,7 +23,7 @@ import { MARCA_PRODUCTO_FORM } from '../../constants';
   styleUrls: ['./marca-producto.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MarcaProductoComponent extends OSBaseFormContainer<MarcaProducto> {
+export class MarcaProductoComponent extends OSBaseFormContainer<MarcaProducto, MarcaProducto> {
   categorias$: Observable<CategoriaProducto[]>;
 
   constructor(

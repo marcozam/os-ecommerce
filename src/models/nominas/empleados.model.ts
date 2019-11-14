@@ -2,9 +2,9 @@ import { Field } from 'core/decorators';
 
 import { BaseCatalog } from '../base-catalog.model';
 import { Persona, Empresa } from '../general';
+import { RelacionLaboral } from './relacion-laboral.model';
 
-export interface Empleados {
-    key: number;
+export interface IEmpleadoForm {
     Nombre: string;
     NoEmpleado: number;
     keyPatron: number;
@@ -12,13 +12,13 @@ export interface Empleados {
 
 export class Empleado extends BaseCatalog {
     private _datosPersonales: Persona;
+    // TODO: Remove this props
     private _patron: Empresa;
+    patronId: number;
 
-    @Field('C1') noEmpleado: number;
-    @Field('C2') personaId: number;
-    @Field('C3') patronId: number;
-    @Field('C4') periocidadPagoId: number;
-    @Field('C5') NSS: string;
+    @Field('C1') personaId: number;
+    @Field('C2') NSS: string;
+    relacionesLaborales: RelacionLaboral[] = [];
 
     get datosPersonales() { return this._datosPersonales; }
     set datosPersonales(value: Persona) {
@@ -26,16 +26,17 @@ export class Empleado extends BaseCatalog {
         this.personaId = value ? value.key : 0;
     }
 
+    // TODO: Remove
     get patron() { return this._patron; }
     set patron(value: Empresa) {
         this._patron = value;
         this.patronId = value ? value.key : 0;
     }
 
-    constructor(datosPersonales: Persona, noEmpleado: number, key = 0, patron?: Empresa) {
+    constructor(datosPersonales?: Persona, key = 0, patron?: Empresa) {
         super(key);
-        this.noEmpleado = noEmpleado;
         this.datosPersonales = datosPersonales;
+        // TODO: Remove
         if (patron) {
           this.patron = patron;
         }

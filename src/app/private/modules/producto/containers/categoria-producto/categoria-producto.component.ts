@@ -22,7 +22,7 @@ import { CATEGORIA_PRODUCTO_FORM } from '../../constants';
   styleUrls: ['./categoria-producto.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoriaProductoComponent extends OSBaseFormContainer<CategoriaProducto> {
+export class CategoriaProductoComponent extends OSBaseFormContainer<CategoriaProducto, CategoriaProducto> {
   // catalogos: MetaDataCatalog[];
   constructor(
     private store$: Store<fromStore.ProductsModuleState>,

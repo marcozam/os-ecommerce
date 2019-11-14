@@ -26,6 +26,7 @@
     "@angular/router": "^8.2.8",
     "@mdi/font": "^4.4.95",
     "@ngrx/effects": "^8.5.1",
+    "@ngrx/entity": "^8.5.1",
     "@ngrx/router-store": "^8.5.1",
     "@ngrx/store": "^8.5.1",
     "@ngrx/store-devtools": "^8.5.1",
