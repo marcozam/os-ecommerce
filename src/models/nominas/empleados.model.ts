@@ -17,6 +17,8 @@ export class Empleado extends BaseCatalog {
     @Field('C1') noEmpleado: number;
     @Field('C2') personaId: number;
     @Field('C3') patronId: number;
+    @Field('C4') periocidadPagoId: number;
+    @Field('C5') NSS: string;
 
     get datosPersonales() { return this._datosPersonales; }
     set datosPersonales(value: Persona) {

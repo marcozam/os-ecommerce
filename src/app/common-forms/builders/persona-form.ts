@@ -7,9 +7,9 @@ export function PERSONA_FORM(optionals = false): IPersona {
     sexo: [1],
   };
   let fields = {
-    nombre: ['', Validators.required],
-    apellidoPaterno: ['', Validators.required],
-    apellidoMaterno: ['', Validators.required],
+    nombre: ['', Validators.required, Validators.maxLength(50)],
+    apellidoPaterno: ['', Validators.required, Validators.maxLength(50)],
+    apellidoMaterno: ['', Validators.required, Validators.maxLength(50)],
   };
   if (optionals) {
     fields = { ...fields, ...optinalFields };

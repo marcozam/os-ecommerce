@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 // NgRx
 import { Actions } from '@ngrx/effects';
+// Core
+import { PERIODO_TIEMPO_KEY } from 'core/constants';
 // Services
 import { DialogBoxService } from 'app/common/services';
 // Common forms
@@ -45,6 +47,9 @@ export class EmpleadoComponent extends OSBaseFormContainer<Empleado> implements 
     this.form = this.fb.group({
       patronId: [0, Validators.required],
       fechaIngreso: [new Date(), Validators.required],
+      NSS: ['', Validators.required, Validators.maxLength(11)],
+      noEmpleado: [''],
+      periocidadPagoId: [PERIODO_TIEMPO_KEY.Quincenal, Validators.required],
       datosPersonales: this.fb.group(PERSONA_FORM())
     });
     // super.ngOnInit();

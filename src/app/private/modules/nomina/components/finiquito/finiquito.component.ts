@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import moment = require('moment');
 import { GET_YEAR_DIFF, GET_DAYS_DIFF } from 'core/utils';
+import { PERIODOS_TIEMPO, PERIODO_TIEMPO_KEY } from 'core/constants';
 
 @Component({
   selector: 'app-finiquito',
@@ -17,12 +18,7 @@ export class FiniquitoComponent implements OnInit {
   // Mock data
   salarioMinimo = 80;
   primaVacacional = 0.25;
-  periocidadPago = [
-    { key: 1, nombre: 'Diario' },
-    { key: 2, nombre: 'Semanal' },
-    { key: 3, nombre: 'Quincenal' },
-    { key: 4, nombre: 'Mensual' }
-  ];
+  periocidadPago = PERIODOS_TIEMPO;
   form: FormGroup;
   result: {
     sueldoDiario: number,
@@ -37,7 +33,7 @@ export class FiniquitoComponent implements OnInit {
     const endDate = moment(new Date());
     this.form = this.fb.group({
       sueldo: [this.salarioMinimo, Validators.required],
-      periodoPago: [3, Validators.required],
+      periodoPago: [PERIODO_TIEMPO_KEY.Quincenal, Validators.required],
       fechaIngreso: ['', Validators.required],
       fechaSalida: [endDate, Validators.required]
     });
