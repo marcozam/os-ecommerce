@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { Actions } from '@ngrx/effects';
 // Store
 import { Store } from '@ngrx/store';
-import * as fromStore from 'ngrx-store/productos-store';
+import * as fromStore from 'store/productos';
 // Services
 import { DialogBoxService } from 'app/common/services';
 // Common forms

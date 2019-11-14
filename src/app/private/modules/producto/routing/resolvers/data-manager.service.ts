@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { tap, filter, first } from 'rxjs/operators';
 // Stores
 import { Store } from '@ngrx/store';
-import * as fromStore from 'ngrx-store/productos-store';
+import * as fromStore from 'store/productos';
 
 @Injectable()
 export class ProductosDataManagerService {

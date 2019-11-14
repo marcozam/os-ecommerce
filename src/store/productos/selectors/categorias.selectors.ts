@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 // State
-import { getRouterState } from 'ngrx-store/state/router.state';
+import { getRouterState } from 'store/state/router.state';
 import { ProductsModuleState } from '../state';
 // Selectors
 import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/private/modules/producto/constants';

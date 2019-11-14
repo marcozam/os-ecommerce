@@ -16,7 +16,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
-
+// Stores
+import { ProductosStoreModule } from 'store/productos/productos-store.module';
 // Routing
 import { ProductoRoutingModule } from './routing/producto-routing.module';
 // Containers
@@ -41,6 +42,8 @@ import { OSCommonModule } from 'app/common/common.module';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+    // Stores
+    ProductosStoreModule,
     // Routing
     ProductoRoutingModule,
     // Shared Components

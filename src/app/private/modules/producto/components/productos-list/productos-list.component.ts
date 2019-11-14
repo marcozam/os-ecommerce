@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 // Store
 import { Store } from '@ngrx/store';
-import * as fromStore from 'ngrx-store/productos-store';
+import * as fromStore from 'store/productos';
 // Services
 import { DialogBoxService } from 'app/common';
 // Models

@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 // NgRx
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -12,7 +10,6 @@ import { services } from 'services/http/productos';
 
 @NgModule({
   imports: [
-    CommonModule,
     StoreModule.forFeature('products', { ...reducers }),
     EffectsModule.forFeature([...effects])
   ],

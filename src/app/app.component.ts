@@ -1,6 +1,6 @@
 // Store
 import { Store } from '@ngrx/store';
-import * as fromStore from 'ngrx-store/loading-store';
+import * as fromStore from 'store/loading-store';
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({

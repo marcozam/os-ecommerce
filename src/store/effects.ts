@@ -7,7 +7,7 @@ import {
     PRODUCTOS_NOTIFICATION_ACTIONS,
     MARCAS_NOTIFICATION_ACTIONS,
     CATEGORIAS_NOTIFICATION_ACTIONS
-} from './productos-store/actions';
+} from './productos/actions';
 // Notifications
 import {
     NotificationService,

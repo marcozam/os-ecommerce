@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 // NgRX
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Modules
-import { ProductosStoreModule } from './productos-store/productos-store.module';
 import { LoadingStoreModule } from './loading-store/loading-store.module';
 // Router
 import * as fromRouterState from './state/router.state';
@@ -15,7 +13,6 @@ import { GlobalEffects } from './effects';
 
 @NgModule({
   imports: [
-    CommonModule,
     StoreModule.forRoot({
       ...fromRouterState.routerReducers
     }),
@@ -24,7 +21,6 @@ import { GlobalEffects } from './effects';
       maxAge: 50
     }),
     StoreRouterConnectingModule.forRoot(),
-    ProductosStoreModule,
     LoadingStoreModule
   ],
   declarations: [],

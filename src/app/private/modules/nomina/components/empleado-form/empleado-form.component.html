@@ -1,7 +1,13 @@
 <os-persona-form [form]="form.get('datosPersonales')" [value]="value.datosPersonales"></os-persona-form>
 <form [formGroup]="form">
   <mat-form-field>
-    <input matInput placeholder="NSS" formControlName="NSS">
+    <input matInput type="number" placeholder="NSS" formControlName="NSS" maxlength="11">
+    <mat-error *ngIf="form.get('NSS').hasError('required')">
+      El NSS es requerido.
+    </mat-error>
+    <mat-error *ngIf="form.get('NSS').hasError('maxlength')">
+      Solo se permiten 11 caracteres.
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Fecha de ingreso" [matDatepicker]="picker" formControlName="fechaIngreso">

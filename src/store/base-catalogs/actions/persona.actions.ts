@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { OS_ACTION_TYPE } from 'ngrx-store/models';
+import { OS_ACTION_TYPE } from 'store/models';
 import { Persona } from 'models';
 
 const namespace = '[Base Catalog - Persona]';

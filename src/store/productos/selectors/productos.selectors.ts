@@ -6,7 +6,7 @@ import { Producto } from 'models/productos';
 import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/private/modules/producto/constants';
 import { getProductsModuleState } from './state.selectors';
 import * as fromSelectors from '../../general.selectors';
-import * as fromRoot from 'ngrx-store/state/router.state';
+import * as fromRoot from 'store/state/router.state';
 
 export const getProductosState = createSelector(
     getProductsModuleState,

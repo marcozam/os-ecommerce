@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 // Store
 import { Store } from '@ngrx/store';
-import * as fromStore from 'ngrx-store/productos-store';
+import * as fromStore from 'store/productos';
 // Models
 import { MarcaProducto } from 'models/productos';
 import { OSListComponent, OSTableColumn } from 'app/common';

@@ -3,7 +3,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 // Store
 import { Store } from '@ngrx/store';
-import * as fromStore from 'ngrx-store/productos-store';
+import * as fromStore from 'store/productos';
 // Models
 import { CategoriaProducto } from 'models/productos';
 
