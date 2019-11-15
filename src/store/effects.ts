@@ -4,7 +4,6 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 // Product Actions
 import {
-    PRODUCTOS_NOTIFICATION_ACTIONS,
     MARCAS_NOTIFICATION_ACTIONS,
     CATEGORIAS_NOTIFICATION_ACTIONS
 } from './productos/actions';
@@ -31,7 +30,6 @@ export class GlobalEffects {
     @Effect({ dispatch: false })
     notifications$ = this.actions$.pipe(
         ofType(
-            ...PRODUCTOS_NOTIFICATION_ACTIONS,
             ...MARCAS_NOTIFICATION_ACTIONS,
             ...CATEGORIAS_NOTIFICATION_ACTIONS
         ),

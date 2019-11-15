@@ -8,7 +8,7 @@ import { NOTIFICATION_CODE } from 'app/notifications';
 // Actions
 import * as loadingActions from '../../loading-store/actions';
 import * as categoriasActions from '../actions/categorias.action';
-import * as productosActions from '../actions/productos.action';
+import * as productosActions from '../productos/productos.action';
 // Services
 import { CategoriaProductoService, MarcaProductoService } from 'services/http/productos';
 // Models
@@ -57,10 +57,8 @@ export class CategoriasEffects {
 
     @Effect()
     loadProductosByCategorySuccess$ = this.actions$.pipe(
-        ofType(productosActions.PRODUCTOS_ACTION_TYPES.LOAD_PRODUCTOS_BY_CATEGORY_ID_SUCCESS),
-        map((action: productosActions.LoadProductosByCategoryIDSuccess) => {
-            return new categoriasActions.SetCategoriaLoadedState(action.payload.id);
-        })
+        ofType(productosActions.LoadProductosByCategoryIDSuccess),
+        map(({ payload }) => new categoriasActions.SetCategoriaLoadedState(payload.id))
     );
 
     @Effect()

@@ -30,7 +30,7 @@ export class ProductosListComponent implements OnInit {
 
   ngOnInit() {
     this.categoria$ = this.store.select(fromStore.getSelectedCategoria);
-    this.productos$ = this.store.select(fromStore.getProductosBySelectedCategory);
+    this.productos$ = this.store.select(fromStore.selectProductosByCategoria);
   }
 
   onDelete(item: Producto) {

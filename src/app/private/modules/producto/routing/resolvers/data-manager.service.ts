@@ -10,10 +10,10 @@ export class ProductosDataManagerService {
     constructor(private store: Store<fromStore.ProductsModuleState>) { }
 
     //#region Load By ID
-    loadProductoByID(ID: number) {
-        return this.store.select(fromStore.getSelectedProducto).pipe(
+    loadProductoByID(payload: number) {
+        return this.store.select(fromStore.selectSelectedProducto).pipe(
             filter(data => {
-                if (!data) { this.store.dispatch(new fromStore.LoadProductoByID(ID)); }
+                if (!data) { this.store.dispatch(fromStore.LoadProductoByID({ payload })); }
                 return !!data;
             }),
             first()
@@ -63,11 +63,11 @@ export class ProductosDataManagerService {
         );
     }
 
-    loadProductosByCategoriaID(ID: number) {
-        return this.loadCategoriaByID(ID).pipe(
+    loadProductosByCategoriaID(payload: number) {
+        return this.loadCategoriaByID(payload).pipe(
             tap(categoria => {
                 if (categoria && !categoria.productosLoaded) {
-                    this.store.dispatch(new fromStore.LoadProductosByCategoryID(ID));
+                    this.store.dispatch(fromStore.LoadProductosByCategoryID({ payload }));
                 }
             })
         );

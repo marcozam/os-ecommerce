@@ -1,10 +1,9 @@
 import { createSelector } from '@ngrx/store';
 // State
 import { getRouterState } from 'store/state/router.state';
-import { ProductsModuleState } from '../state';
 // Selectors
 import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/private/modules/producto/constants';
-import { getProductsModuleState } from './state.selectors';
+import { ProductsModuleState, getProductsModuleState } from '../constants';
 import * as fromSelectors from '../../general.selectors';
 
 export const getMarcasState = createSelector(
@@ -15,11 +14,6 @@ export const getMarcasState = createSelector(
 export const getMarcasLoaded = createSelector(
     getMarcasState,
     fromSelectors.getLoaded
-);
-
-export const getMarcasLoading = createSelector(
-    getMarcasState,
-    fromSelectors.getLoading
 );
 
 export const getMarcasEntities = createSelector(

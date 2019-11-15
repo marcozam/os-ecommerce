@@ -5,6 +5,7 @@ import { OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 // NgRx
+import { ActionCreator } from '@ngrx/store';
 import { Actions, ofType } from '@ngrx/effects';
 // Models
 import { IBaseCatalog } from 'models';
@@ -26,7 +27,7 @@ export abstract class OSBaseFormContainer<T extends IBaseCatalog, F> implements 
     protected actions$: Actions,
     protected router: Router,
     protected route: ActivatedRoute,
-    successAction?: string
+    successAction?: string | ActionCreator
   ) {
     if (successAction) {
       actions$.pipe(

@@ -16,10 +16,6 @@ export function getLoaded<T>(state: GeneralListState<T>) {
     return state.loaded;
 }
 
-export function getLoading<T>(state: GeneralListState<T>) {
-    return state.loading;
-}
-
 export function geSelectedtItem<T extends IBaseCatalog>(entities: BaseEntitie<T>, router, ID: string): T {
     return router.state && entities[router.state.params[ID]];
 }

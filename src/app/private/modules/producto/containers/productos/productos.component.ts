@@ -38,21 +38,20 @@ export class ProductosComponent extends OSBaseFormContainer<Producto, Producto> 
     router: Router,
     route: ActivatedRoute
   ) {
-    super(dialog, actions$, router, route, fromStore.PRODUCTOS_ACTION_TYPES.SAVE_PRODUCTO_SUCCESS);
+    super(dialog, actions$, router, route, fromStore.SaveProductoSuccess);
     //#region Get Store Data
     // TODO: Look for a nicer way to do it
-    this.loading$ = this.store.select(fromStore.getProductossLoading);
     this.categoria$ = this.store.select(fromStore.getSelectedCategoria)
       .pipe(tap(value => this.categoria = value));
-    this.item$ = this.store.select(fromStore.getSelectedProducto)
+    this.item$ = this.store.select(fromStore.selectSelectedProducto)
       .pipe(map(data => data ? data : new Producto('')));
     //#endregion
 
     this.form = this.fb.group(PRODUCTO_FORM);
   }
 
-  onSave(newItem: Producto) {
-    newItem.categoriaProducto = this.categoria;
-    this.store.dispatch(new fromStore.SaveProducto(newItem));
+  onSave(value: Producto) {
+    value.categoriaProducto = this.categoria;
+    this.store.dispatch(fromStore.SaveProducto({ payload: { value } }));
   }
 }

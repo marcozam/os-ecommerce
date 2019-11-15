@@ -36,7 +36,6 @@ export class MarcaProductoComponent extends OSBaseFormContainer<MarcaProducto, M
   ) {
     super(dialog, actions$, router, route, fromStore.MARCAS_ACTION_TYPES.SAVE_MARCA_SUCCESS);
     //#region Get Store Date
-    this.loading$ = this.store.select(fromStore.getMarcasLoading);
     this.categorias$ = this.store.select(fromStore.getAllCategories);
     this.item$ = this.store.select(fromStore.getSelectedMarca)
       .pipe(map(data => data ? data : new MarcaProducto()));

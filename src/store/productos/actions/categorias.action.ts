@@ -8,8 +8,8 @@ import { CategoriaProducto, MarcaProducto } from 'models/productos';
 export enum CATEGORIAS_ACTION_TYPES {
     // Load All
     LOAD_CATEGORIAS = '[Products] Load All Categorias',
-    LOAD_CATEGORIAS_FAIL = '[Products] Load Categorias fail',
-    LOAD_CATEGORIAS_SUCCESS = '[Products] Load Categorias success',
+    LOAD_CATEGORIAS_FAIL = '[Products] Load All Categorias fail',
+    LOAD_CATEGORIAS_SUCCESS = '[Products] Load All Categorias success',
     // Load By ID
     LOAD_CATEGORIA_BY_ID = '[Products] Load Categoria By ID',
     LOAD_CATEGORIA_BY_ID_FAIL = '[Products] Load Categoria By ID fail',
