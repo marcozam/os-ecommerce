@@ -1,8 +1,9 @@
 import { CREAT_CRUD_ACTIONS, CREATE_ACTION_RUTIN } from '../../helpers';
 import { namespace } from '../constants';
-import { entityName } from './productos.entities';
 // Models
 import { Producto } from 'models/productos';
+
+const entityName = 'Productos';
 
 // Actions
 export const {
