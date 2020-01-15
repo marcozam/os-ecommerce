@@ -10,16 +10,14 @@ export class FilterComponent implements OnInit {
   @Input()
   uniqueID: string;
 
-  @ViewChild('filterTemplate')
+  @ViewChild('filterTemplate', { static: true })
   template: TemplateRef<any>;
 
   constructor() { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 
   onFilterChange(event){
-    console.log('Filter Change', event)
+    console.log('Filter Change', event);
   }
 }

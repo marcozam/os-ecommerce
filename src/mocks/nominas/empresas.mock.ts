@@ -38,5 +38,6 @@ export const listaClientesMock: Empresa[] = [
     new Empresa(35, 'MAESTROS(CIRCULO)'),
     new Empresa(36, 'SELECT DENIM'),
     new Empresa(37, 'CLAUDIA RAMIREZ SEMANAL'),
-    new Empresa(38, 'CLAUDIA RAMIREZ QUINCENAL')
+    new Empresa(38, 'CLAUDIA RAMIREZ QUINCENAL'),
+    new Empresa(39, 'QUEVARA SPORTS')
 ];

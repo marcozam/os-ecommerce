@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TablePagingSettings } from 'app/modules/base/models/data-source.models';
+// import { TablePagingSettings } from 'app/common/models';
 
 @Component({
   selector: 'os-paginator',
@@ -8,8 +8,10 @@ import { TablePagingSettings } from 'app/modules/base/models/data-source.models'
 })
 export class PaginatorComponent implements OnInit {
 
+  /*
   @Input()
   pagingSettings: TablePagingSettings;
+  */
 
   @Input()
   columns: number;
@@ -19,13 +21,17 @@ export class PaginatorComponent implements OnInit {
   ngOnInit() {
   }
 
-  nextPage(){
+  nextPage() {
+    /*
     if(!this.pagingSettings.lastPage)
       this.pagingSettings.currentPage++;
+      */
   }
 
-  prevPage(){
+  prevPage() {
+    /*
     if(this.pagingSettings.currentPage > 1)
       this.pagingSettings.currentPage--;
+    */
   }
 }

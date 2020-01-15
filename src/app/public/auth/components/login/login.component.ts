@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // Services
-import { OSAuthService } from '../../services/auth.service';
+import { OSAuthService } from 'services/http/auth';
 
 @Component({
   selector: 'app-login',

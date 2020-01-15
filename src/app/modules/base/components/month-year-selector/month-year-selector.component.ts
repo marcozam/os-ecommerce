@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { months } from 'app/modules/base/constants/date-time.constants';
+import { months } from 'app/common/constants';
 
 @Component({
   selector: 'os-month-year-selector',
@@ -15,8 +15,8 @@ export class MonthYearSelectorComponent implements OnInit {
 
   @Input()
   get month(): number { return this._month; }
-  set month(value: number) { 
-    if(value){ 
+  set month(value: number) {
+    if(value){
       this._month = value;
       this.monthChange.emit(value);
     }
@@ -25,8 +25,8 @@ export class MonthYearSelectorComponent implements OnInit {
 
   @Input()
   get year(): number { return this._year; }
-  set year(value: number) { 
-    if(value){ 
+  set year(value: number) {
+    if(value){
       this._year = value;
       this.yearChange.emit(value);
     }

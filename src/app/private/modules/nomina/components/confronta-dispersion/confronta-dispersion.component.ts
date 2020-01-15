@@ -45,7 +45,7 @@ export class ConfrontaDispersionComponent implements OnInit {
     }
 
     checkToggle(item) {
-        const row = this.tableData.find(r => r.Empleado.key === item.Empleado.key);
+        const row = this.tableData.find(r => r.Empleado.key === item.Empleado.key && r.Movimiento.Importe === item.Movimiento.Importe);
         row.checked = !row.checked;
     }
 

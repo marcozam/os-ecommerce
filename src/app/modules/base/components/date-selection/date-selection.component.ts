@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { OSPeriodo } from 'app/modules/base/models/time-frame.models';
-import { periodos } from 'app/modules/base/constants/date-time.constants';
+
+
+import { OSPeriodo } from 'app/common/models';
+import { periodos } from 'app/common/constants';
 
 @Component({
   selector: 'os-date-selection',
