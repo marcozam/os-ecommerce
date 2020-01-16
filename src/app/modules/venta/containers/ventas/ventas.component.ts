@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ViewContainerRef, Input, Output, EventEmi
 import { ActivatedRoute } from '@angular/router';
 // Models
 import { Contacto } from 'app/modules/crm/models/crm.models';
-import { Inventario } from 'app/modules/inventario/models/inventario.models';
+import { Inventario } from 'models/inventario';
 import { Venta, DetalleVenta, DetallePagos } from '../../models/venta.models';
 // Services
 import { VentaService } from '../../services/venta.service';

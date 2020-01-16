@@ -3,16 +3,20 @@ import * as moment from 'moment';
 // RxJs
 import { map } from 'rxjs/operators';
 // Models
-import { Status } from 'app/modules/base/models/base.models';
-import { MetodoPago, Venta, DetalleVenta } from 'app/modules/venta/models/venta.models';
+import { Status } from 'models/general';
+import { Producto } from 'models/productos';
+import {
+  MetodoPago,
+  Venta,
+  DetalleVenta,
+} from 'app/modules/venta/models';
 import { ResumenVenta, Ingresos } from '../models/ventas-reporting.models';
-import { Producto } from 'models/productos/producto.models';
 // Services
-import { BaseAjaxService } from 'app/modules/base/services/base-ajax.service';
+import { BaseHttpService } from 'services/http/base-http.service';
 
 @Injectable()
 export class VentasReportingService {
-    constructor(private db: BaseAjaxService) { }
+    constructor(private db: BaseHttpService) { }
 
     mapList(list: any[]): Venta[] { return list.map(p => this.mapData(p)); }
 

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { MetodoPago } from 'app/modules/venta/models/venta.models';
-import { BaseAjaxService } from '../../base/services/base-ajax.service';
-import { GenericService, GenericServiceBase } from '../../../../services/http/generic-catalogs/generic.service';
+// Services
+import { BaseGenericCatalogService, GenericCatalogService } from 'services/http/generic-catalogs';
+// Models
+import { MetodoPago } from 'models/facturacion';
 
 @Injectable()
-export class MetodosPagoService extends GenericService<MetodoPago> implements GenericServiceBase<MetodoPago> {
+export class MetodosPagoService extends BaseGenericCatalogService<MetodoPago> {
 
-    constructor(_db: BaseAjaxService) {
-        super(_db);
-        this.catalogID = 304;
-        this.autoSort = false;
-    }
+  constructor(_db: GenericCatalogService) {
+    super(_db, 304);
+    this.autoSort = false;
+  }
 
-    newInstance(): MetodoPago { return new MetodoPago(); }
+  newInstance(): MetodoPago { return new MetodoPago(); }
 }

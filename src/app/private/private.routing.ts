@@ -7,7 +7,8 @@ import { SecureLayoutComponent } from './layouts';
 const privateRoutes: Routes = [
     { path: '', component: SecureLayoutComponent, children: [
         { path: 'productos', loadChildren: () => import('./modules/producto/producto.module').then(m => m.ProductoModule) },
-        { path: 'nominas', loadChildren: () => import('./modules/nomina/nomina.module').then(m => m.NominaModule) }
+        { path: 'nominas', loadChildren: () => import('./modules/nomina/nomina.module').then(m => m.NominaModule) },
+        { path: 'crm', loadChildren: () => import('./modules/crm/crm.module').then(m => m.CRMModule) },
     ]},
 ];
 

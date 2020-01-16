@@ -1,8 +1,12 @@
-export class SumaryVenta extends BaseGenericCatalog {
+import { BaseCatalog } from 'models';
+import { Contacto } from 'models/crm';
+import { Usuario, Sucursal, Persona, Status } from 'models/general';
+
+export class SumaryVenta extends BaseCatalog {
     cliente: Contacto;
     vendedor: Usuario;
     sucursal?: Sucursal;
-    // status?: Status;
+    status?: Status;
     subTotal: number;
     descuento = 0;
     totalPagado: number;
