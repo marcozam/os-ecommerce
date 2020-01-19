@@ -848,7 +848,7 @@ export const listaPersonasMock: Persona[] = [
     new Persona('SALATIEL ACULTECO PIO', '', '', 768),
     new Persona('CRESENCIO ALEJANDRO VAZQUEZ AGUILAR', '', '', 768),
     new Persona('NANCY VANESA CANELA GARCIA', '', '', 768),
-    new Persona('', '', '', 768),
+    new Persona('EUGENIO MEDINA BARRERA', '', '', 768),
     new Persona('', '', '', 768),
     new Persona('', '', '', 768),
     new Persona('', '', '', 768),
