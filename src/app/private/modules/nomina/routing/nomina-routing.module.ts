@@ -9,6 +9,7 @@ import * as components from '../components';
 import { NOMINAS_ROUTE_STATE_PARAMS } from './constants';
 
 const routes: Routes = [
+  { path: 'patrones', component: components.PatronComponent },
   { path: 'empleados', component: components.ListaEmpleadosComponent },
   { path: `empleados/:${NOMINAS_ROUTE_STATE_PARAMS.EMPLEADO_ID}`, component: components.EmpleadoComponent },
   { path: 'finiquito', component: components.FiniquitoComponent },

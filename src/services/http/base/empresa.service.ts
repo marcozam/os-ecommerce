@@ -6,4 +6,6 @@ import { BaseGenericCatalogService, GenericCatalogService } from '../generic-cat
 @Injectable()
 export class EmpresasService extends BaseGenericCatalogService<Empresa> {
     constructor(_db: GenericCatalogService) { super(_db, 2); }
+
+    newInstance() { return new Empresa(0, ''); }
 }

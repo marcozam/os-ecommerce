@@ -1,6 +1,5 @@
 <form [formGroup]="form">
   <mat-form-field>
-    <input matInput placeholder="Nombre" required autofocus
-        name="nombre" [ngModel]="empresa.nombre">
+    <input matInput placeholder="Nombre" formControlName="nombre">
   </mat-form-field>
 </form>

@@ -121,9 +121,7 @@
     "templates-use-public": true,
     "invoke-injectable": true,
     "import-blacklist": [
-      true, [
-        "rxjs"
-      ]
+      true, [ ]
     ]
   }
 }
