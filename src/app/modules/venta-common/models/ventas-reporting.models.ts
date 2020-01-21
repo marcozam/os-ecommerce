@@ -1,16 +1,16 @@
-// Move to some Base Module
-import { MetodoPago, Venta } from 'app/modules/venta/models/venta.models';
+import { Venta } from 'models/ventas';
+import { MetodoPago } from 'models/facturacion';
 
-export class Ingresos {
-    constructor(public metodPago: MetodoPago, public monto: number) {}
+export interface Ingresos {
+  metodPago: MetodoPago;
+  monto: number;
 }
 
-export class ResumenVenta {
+export interface ResumenVenta {
     totalVenta: number;
     noVentas: number;
     totalPagado: number;
 
     ingresos: Ingresos[];
     lista: Venta[];
-    constructor() {}
 }

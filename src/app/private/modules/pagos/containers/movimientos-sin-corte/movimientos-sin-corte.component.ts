@@ -4,15 +4,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'environments/environment';
 
 // Services
-import { CorteTicketService } from '../../services/tickets/corte-ticket.service';
-import { CajaService } from '../../services/caja.service';
-import { DialogBoxService } from 'services/dialog-box.service';
+import { CorteTicketService } from '../../services/corte-ticket.service';
+import { CajaService } from 'services/http/pagos';
+import { DialogBoxService } from 'app/common/services';
 // Models
-import { CorteCaja } from '../../models/caja.models';
+import { CorteCaja } from 'models/pagos';
 // Components
 import { RegistrarCorteComponent } from '../../components/registrar-corte/registrar-corte.component';
 // Constants
-import { WarningTitle } from 'app/modules/base/constants/messages.contants';
+import { WARNING_TITLE } from 'app/notifications';
 
 @Component({
   selector: 'app-movimientos-sin-corte',
@@ -54,7 +54,7 @@ export class MovimientosSinCorteComponent implements OnInit {
             .subscribe(result => {
               this._ticket.corte = result;
               this._ticket.print();
-              // this._dialog.openDialog(SuccessTitle, SuccessMessage);
+              // this._dialog.openDialog(SUCCESS_TITLE, SuccessMessage);
               // TODO: Add option to update
               // this.dataSource.updateDataSource([])
               this.corte = new CorteCaja(this.sucursalID, environment.defaultUser);
@@ -62,7 +62,7 @@ export class MovimientosSinCorteComponent implements OnInit {
         }
       });
     } else {
-      this._dialog.openDialog(WarningTitle, 'No existen movimiento para realizar el corte');
+      this._dialog.openDialog(WARNING_TITLE, 'No existen movimiento para realizar el corte');
     }
   }
 }

@@ -9,7 +9,7 @@ import { DialogBoxService } from 'services/dialog-box.service';
 import { MetaDataTable, MetaDataField, MetaDataCatalog } from '../../../../../models/generic-catalogs/metadata-catalogs.models';
 import { GenericCatalog } from 'app/common';
 // Constants
-import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
+import { SUCCESS_TITLE, SuccessMessage } from 'app/modules/base/constants/messages.contants';
 
 @Component({
   selector: 'app-dynamic-catalog',
@@ -75,7 +75,7 @@ export class DynamicCatalogComponent implements OnInit {
   onSave(data: MetaDataCatalog) {
     this._service.save(data)
       .subscribe(() => {
-        this._dialog.openDialog(SuccessTitle, SuccessMessage);
+        this._dialog.openDialog(SUCCESS_TITLE, SuccessMessage);
         this.router.navigate(['/DCG']);
       });
   }

@@ -34,7 +34,7 @@ export class MarcaProductoComponent extends OSBaseFormContainer<MarcaProducto, M
     router: Router,
     route: ActivatedRoute
   ) {
-    super(dialog, actions$, router, route, fromStore.MARCAS_ACTION_TYPES.SAVE_MARCA_SUCCESS);
+    super(dialog, actions$, router, route, fromStore.SaveMarcaSuccess);
     //#region Get Store Date
     this.categorias$ = this.store.select(fromStore.getAllCategories);
     this.item$ = this.store.select(fromStore.getSelectedMarca)
@@ -47,7 +47,7 @@ export class MarcaProductoComponent extends OSBaseFormContainer<MarcaProducto, M
     });
   }
 
-  onSave(newItem: MarcaProducto) {
-    this.store.dispatch(new fromStore.SaveMarca(newItem, this.item));
+  onSave(value: MarcaProducto) {
+    this.store.dispatch(fromStore.SaveMarca({ payload: { value, oldValue: this.item }}));
   }
 }

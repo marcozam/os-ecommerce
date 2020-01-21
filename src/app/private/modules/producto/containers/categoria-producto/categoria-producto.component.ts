@@ -32,7 +32,7 @@ export class CategoriaProductoComponent extends OSBaseFormContainer<CategoriaPro
     router: Router,
     route: ActivatedRoute
   ) {
-    super(dialog, actions$, router, route, fromStore.CATEGORIAS_ACTION_TYPES.SAVE_CATEGORIA_SUCCESS);
+    super(dialog, actions$, router, route, fromStore.SaveCategoriaSuccess);
     this.form = this.fb.group({
       ...CATEGORIA_PRODUCTO_FORM,
       'grupos': this.fb.array([])
@@ -44,7 +44,7 @@ export class CategoriaProductoComponent extends OSBaseFormContainer<CategoriaPro
     //#endregion
   }
 
-  onSave(newItem: CategoriaProducto) {
-    this.store$.dispatch(new fromStore.SaveCategoria(newItem, this.item));
+  onSave(value: CategoriaProducto) {
+    this.store$.dispatch(fromStore.SaveCategoria({ payload: { value, oldValue: this.item }}));
   }
 }

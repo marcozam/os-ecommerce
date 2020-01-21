@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DecimalPipe, DatePipe } from '@angular/common';
-import { VentaTicketService } from 'app/modules/venta/services/tickets/venta-ticket.service';
-import { Venta } from 'app/modules/venta/models/venta.models';
-import { VentaService } from 'app/modules/venta/services/venta.service';
+import { VentaTicketService } from './venta-ticket.service';
+import { Venta } from 'models/ventas';
+import { VentaService } from 'services/http/venta';
 
 @Injectable()
 export class VentaOptikaTicketService extends VentaTicketService {

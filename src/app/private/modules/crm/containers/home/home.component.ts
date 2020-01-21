@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogActionsComponent } from '../../components/dialog-actions/dialog-actions.component';
 
 import { Contacto } from 'models/crm';
-import { Venta } from 'app/modules/venta/models/venta.models';
+import { Venta } from 'models/ventas';
 
 import { ContactoService } from 'services/http/crm';
 import { VentasReportingService } from 'app/modules/venta-common/services/ventas-reporting.service';

@@ -26,9 +26,9 @@ export class MarcasEffects {
         marcasActions.LoadMarcas,
         marcasActions.LoadMarcaByID,
         marcasActions.SaveMarca,
-        // marcasActions.LoadCategoriasByMarcaID,
+        marcasActions.LoadMarcasByCategoriaID,
       ),
-      map(() => new loadingActions.StartRequest())
+      map(() => new loadingActions.StartRequest()),
     ));
 
   endRequest$ = createEffect(() =>
@@ -40,10 +40,10 @@ export class MarcasEffects {
         marcasActions.LoadMarcaByIDFail,
         marcasActions.SaveMarcaSuccess,
         marcasActions.SaveMarcaFail,
-        // marcasActions.LoadCategoriasByMarcaIDSuccess,
-        // marcasActions.LoadCategoriasByMarcaIDFail,
+        marcasActions.LoadMarcasByCategoriaIDSuccess,
+        marcasActions.LoadMarcasByCategoriaIDFail,
       ),
-      map(() => new loadingActions.EndRequest())
+      map(() => new loadingActions.EndRequest()),
   ));
 
   loadMarcas$ = createEffect(() =>
@@ -51,7 +51,7 @@ export class MarcasEffects {
       ofType(marcasActions.LoadMarcas),
       concatMap(() => this.service.getList().pipe(
         map(payload => marcasActions.LoadMarcasSuccess({ payload })),
-        catchError(error => of(marcasActions.LoadMarcasFail({ payload: error })))
+        catchError(error => of(marcasActions.LoadMarcasFail({ payload: error }))),
       ))));
 
   loadMarcasByID$ = createEffect(() =>
@@ -66,11 +66,10 @@ export class MarcasEffects {
             marca.categoriasLoaded = true;
             marca.categorias = categorias;
             return marcasActions.LoadMarcaByIDSuccess({ payload: marca });
-          } else {
-            return marcasActions.LoadMarcaByIDFail({}); // NOTIFICATION_CODE.ITEM_NOT_FOUND
           }
+          return marcasActions.LoadMarcaByIDFail({}); // NOTIFICATION_CODE.ITEM_NOT_FOUND
         }),
-        catchError(() => of(marcasActions.LoadMarcaByIDFail({}))) // NOTIFICATION_CODE.GENERAL_ERROR
+        catchError(() => of(marcasActions.LoadMarcaByIDFail({}))), // NOTIFICATION_CODE.GENERAL_ERROR
       ))));
 
   saveMarca$ = createEffect(() =>
@@ -79,5 +78,16 @@ export class MarcasEffects {
       concatMap(({ payload }) => this.service.save(payload.value, payload.oldValue).pipe(
         map(payload => marcasActions.SaveMarcaSuccess({ payload })),
         catchError(() => of(marcasActions.SaveMarcaFail({}))),
+      ))));
+
+  loadMarcasByCategoriaID$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(marcasActions.LoadMarcasByCategoriaID),
+      concatMap(({ payload: id }) => this.service.getByCategoria(id).pipe(
+        map(list => list ?
+          marcasActions.LoadMarcasByCategoriaIDSuccess({ payload: { id, list }}) :
+          marcasActions.LoadMarcasByCategoriaIDFail({}) // NOTIFICATION_CODE.NO_DATA
+        ),
+        catchError(() => of(marcasActions.LoadMarcasByCategoriaIDFail({})))
       ))));
 }

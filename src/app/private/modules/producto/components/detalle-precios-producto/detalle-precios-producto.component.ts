@@ -9,7 +9,7 @@ import { CategoriaProducto, PrecioProducto } from 'models/productos';
 // import { CategoriaProductoService } from 'app/producto/services/categoria-producto.service';
 import { DialogBoxService } from 'app/common';
 // Constants
-// import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
+// import { SUCCESS_TITLE, SuccessMessage } from 'app/modules/base/constants/messages.contants';
 
 @Component({
   selector: 'app-detalle-precios-producto',
@@ -75,7 +75,7 @@ export class DetallePreciosProductoComponent implements OnInit {
       }));
     });
     this._listaPreciosService.setPreciosProductos(this.listaPreciosID, precios, () => {
-      this.dialog.openDialog(SuccessTitle, SuccessMessage, false);
+      this.dialog.openDialog(SUCCESS_TITLE, SuccessMessage, false);
     });
     */
   }

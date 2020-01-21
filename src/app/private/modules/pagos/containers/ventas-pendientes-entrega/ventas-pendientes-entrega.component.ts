@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 // Services
 import { VentasReportingService } from 'app/modules/venta-common/services/ventas-reporting.service';
 // Models
-import { Venta } from 'app/modules/venta/models/venta.models';
+import { Venta } from 'models/ventas';
 
 @Component({
   selector: 'app-ventas-pendientes-entrega',

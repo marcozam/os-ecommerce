@@ -1,7 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
-import { Observable ,  of } from 'rxjs';
-// Material
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 // Services
 import { DialogBoxService } from 'app/common/services';
 // HTTP
@@ -10,7 +8,7 @@ import { CategoriaProductoService } from 'services/http/productos';
 // Models
 import { Inventario } from 'models/inventario';
 import { CategoriaProducto } from 'models/productos';
-import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
+import { OSListComponent, OSTableColumn } from 'app/common';
 
 @Component({
   selector: 'app-corte-inventario',
@@ -22,25 +20,28 @@ import { TableSource, TableColumn } from 'app/modules/base/models/data-source.mo
     DialogBoxService
   ]
 })
-export class CorteInventarioComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CorteInventarioComponent extends OSListComponent<Inventario> implements OnInit {
 
   sucursalID: number;
   categorias: CategoriaProducto[];
   selectedCategory: CategoriaProducto;
-  dataSource: MatTableDataSource<Inventario>;
 
-  private loading$: Observable<boolean>;
-  loading = false;
-
-  @ViewChild('cantidadTemplate', { static: true }) cantidadTemplate: TemplateRef<any>;
+  // Define Columns
+  tableColumns = [
+    new OSTableColumn('categoria', 'Categoria', item => item.producto.categoriaProducto ? item.producto.categoriaProducto.nombre : ''),
+    new OSTableColumn('producto', 'Producto', item => item.producto.nombre),
+    new OSTableColumn('cantidad_actual', 'Sistema', item => item.cantidad),
+    new OSTableColumn('cantidad_fisica', 'Fisico', item => item.cantidadFisica ? item.cantidadFisica : 0)
+  ];
 
   constructor(
+    router: Router,
+    route: ActivatedRoute,
     private _service: InventarioService,
     private _categoriaService: CategoriaProductoService,
     private dialog: DialogBoxService
   ) {
-
-    this.dataSource = new MatTableDataSource();
+    super(router, route);
     /*
     this.dataSource.filter = () => {
       return this.selectedCategory ?
@@ -49,27 +50,16 @@ export class CorteInventarioComponent implements OnInit, OnDestroy, AfterViewIni
         this.dataSource.data.filter(inv => inv.producto.categoriaProductoID === this.selectedCategory.key) : this.dataSource.data;
     };
     */
-    // Define Columns
-    this.dataSource.columns = {
-      'categoria': new TableColumn('Categoria', 'categoria', (item: Inventario) => item.producto.categoriaProducto ? item.producto.categoriaProducto.nombre : ''),
-      'producto': new TableColumn('Producto', 'producto', (item: Inventario) => item.producto.nombre),
-      'cantidad_actual': new TableColumn('Sistema', 'cantidad_actual', (item: Inventario) => item.cantidad),
-      'cantidad_fisica': new TableColumn('Fisico', 'cantidad_fisica', (item: Inventario) => item.cantidadFisica ? item.cantidadFisica : 0)
-    };
     // Defines default sort
+    /*
     this.dataSource.columns[0].sortOrder = 0;
     this.dataSource.columns[0].sortDirection = 'desc';
     this.dataSource.columns[1].sortOrder = 1;
     this.dataSource.columns[1].sortDirection = 'desc';
-
-    // Observer when app is retriving data
-    this.loading$ = this._service.loading$;
+    */
   }
 
   createSubscriptions() {
-    this.loading$.subscribe(() => {
-      this.loading = this._service.isLoading;
-    });
     /*
     this._categoriaService.source$.subscribe(result => this.categorias = result);
 
@@ -88,13 +78,8 @@ export class CorteInventarioComponent implements OnInit, OnDestroy, AfterViewIni
     // this._categoriaService.getStockCategories();
   }
 
-  ngAfterViewInit() {
-    // Set Template for Cantidad Fisica
-    this.dataSource.columns[3].columnTemplate = this.cantidadTemplate;
-  }
-
+  /*
   ngOnDestroy() {
-    /*
     const workingData = this.dataSource.data.filter(row => row.cantidadFisica);
     if (workingData.length > 0) {
       this.dialog.openDialog('Advertencia!', '¿Desea guardar la informacion capturada?', true, (res) => {
@@ -105,8 +90,8 @@ export class CorteInventarioComponent implements OnInit, OnDestroy, AfterViewIni
         }
       });
     }
-    */
   }
+  */
 
   syncWithLocalCopy() {
     const data = localStorage.getItem('inventario');
@@ -142,6 +127,6 @@ export class CorteInventarioComponent implements OnInit, OnDestroy, AfterViewIni
 
   onCategoriaChange(cat: CategoriaProducto) {
     this.selectedCategory = cat;
-    this.dataSource.applyFilters();
+    // this.dataSource.applyFilters();
   }
 }

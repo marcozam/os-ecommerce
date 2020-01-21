@@ -9,7 +9,7 @@ import { DialogBoxService } from 'services/dialog-box.service';
 import { GenericCatalogService } from '../../../../../services/http/generic-catalogs/generic.service';
 import { CatalogsMetadataService } from '../../../../../services/http/generic-catalogs/catalogs-metadata.service';
 // Constants
-import { SuccessTitle, SuccessMessage } from 'app/modules/base/constants/messages.contants';
+import { SUCCESS_TITLE, SuccessMessage } from 'app/modules/base/constants/messages.contants';
 
 @Component({
   selector: 'app-generic-catalog',
@@ -62,7 +62,7 @@ export class GenericCatalogComponent implements OnInit, OnDestroy {
     const _url = this.catalog.listURL ? this.catalog.listURL : '/DCG/catalogo/' + this.catalogID;
     this.genericService.save(newValue)
       .subscribe(() => {
-        this.dialog.openDialog(SuccessTitle, SuccessMessage);
+        this.dialog.openDialog(SUCCESS_TITLE, SuccessMessage);
         this.router.navigate([_url]);
       });
   }

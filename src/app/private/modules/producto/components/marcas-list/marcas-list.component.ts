@@ -18,7 +18,9 @@ export class MarcasListComponent extends OSListComponent<MarcaProducto> {
     new OSTableColumn('nombre', 'Nombre', (item: MarcaProducto) => item.nombre)
   ];
 
-  constructor(router: Router, route: ActivatedRoute, store: Store<fromStore.ProductsModuleState>) {
-    super(router, route, store.select(fromStore.getMarcas));
+  list$ = this.store$.select(fromStore.getMarcas);
+
+  constructor(router: Router, route: ActivatedRoute, private store$: Store<fromStore.ProductsModuleState>) {
+    super(router, route);
   }
 }

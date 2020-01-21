@@ -13,8 +13,8 @@ import { BaseModule } from 'app/modules/base/base.module';
 // Routing
 import { VentaCommonRoutingModule } from './venta-common-routing.module';
 // Services
-import { VentaService } from 'app/modules/venta/services/venta.service';
-import { ContactoService } from 'app/modules/crm/services/contacto.service';
+import { VentaService } from 'services/http/venta';
+import { ContactoService } from 'services/http/crm';
 // Components
 import { ListaVentasComponent } from './components/lista-ventas/lista-ventas.component';
 import { MetodoPagoVentaComponent } from './components/metodo-pago-venta/metodo-pago-venta.component';

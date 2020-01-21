@@ -1,13 +1,13 @@
-import { Component, TemplateRef, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DecimalPipe, DatePipe } from '@angular/common';
-// RxJs
-import { of } from 'rxjs';
 // Services
 import { VentaOptikaTicketService } from 'app/modules/venta/services/tickets/venta-optika-ticket.service';
 import { DialogPagosService } from 'app/modules/venta-common/services/dialog-pagos.service';
-import { VentaService } from 'app/modules/venta/services/venta.service';
+import { VentaService } from 'services/http/venta';
+// Common
+import { OSListComponent, OSTableColumn } from 'app/common';
 // Models
-import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
 import { Venta, DetallePagos } from 'models/ventas';
 
 @Component({
@@ -22,7 +22,18 @@ import { Venta, DetallePagos } from 'models/ventas';
     DatePipe
   ]
 })
-export class ListaVentasComponent implements AfterViewInit {
+export class ListaVentasComponent extends OSListComponent<Venta> {
+
+  tableColumns = [
+    new OSTableColumn('orden', 'Orden', item => item.sumary.key),
+    new OSTableColumn('fecha', 'Fecha', item => this._date.transform(item.sumary.fecha, 'dd MMM yyyy HH:mm')),
+    new OSTableColumn('status', 'Status', item => item.sumary.status.nombre),
+    new OSTableColumn('Cliente', 'cliente', item => item.sumary.cliente.nombre),
+    new OSTableColumn('Total Venta', 'total', item => `$ ${this._decimal.transform(item.sumary.total, '1.2-2')}`), // , true, item => item.sumary.total
+    new OSTableColumn('Total Pagado', 'totalPagado',
+      item => `$ ${this._decimal.transform(item.sumary.totalPagado, '1.2-2')}`), // , true, item => item.sumary.totalPagado
+    new OSTableColumn('Saldo', 'saldo', item => `$ ${this._decimal.transform(item.sumary.saldo, '1.2-2')}`) // , true, item => item.sumary.saldo
+  ];
 
   // private _ventasSource: Venta[];
   @Input()
@@ -31,40 +42,21 @@ export class ListaVentasComponent implements AfterViewInit {
     // this._ventasSource = value ? value : [];
     // this.dataSource.updateDataSource(this._ventasSource);
     console.log(value);
-    this.loading = false;
   }
 
-  dataSource: TableSource<Venta>;
-  loading = false;
-
-  @ViewChild('actionsTemplate', { static: true }) actionsTemplate: TemplateRef<any>;
-
   constructor(
+    router: Router,
+    route: ActivatedRoute,
     private ventaService: VentaService,
     private _printVentaService: VentaOptikaTicketService,
     private pagosDialog: DialogPagosService,
     private _decimal: DecimalPipe,
-    private _date: DatePipe,
-  ) {
-    this.dataSource = new TableSource(of(null));
-    this.dataSource.columns = {
-      'orden': new TableColumn('Orden', 'orden', item => item.sumary.key),
-      'fecha': new TableColumn('Fecha', 'fecha', item => this._date.transform(item.sumary.fecha, 'dd MMM yyyy HH:mm')),
-      'status': new TableColumn('Status', 'status', item => item.sumary.status.nombre),
-      'cliente': new TableColumn('Cliente', 'cliente', item => item.sumary.cliente.nombre),
-      'total': new TableColumn('Total Venta', 'total', item => `$ ${this._decimal.transform(item.sumary.total, '1.2-2')}`, true, item => item.sumary.total),
-      'totalPagado': new TableColumn('Total Pagado', 'totalPagado',
-        item => `$ ${this._decimal.transform(item.sumary.totalPagado, '1.2-2')}`, true, item => item.sumary.totalPagado),
-      'saldo': new TableColumn('Saldo', 'saldo', item => `$ ${this._decimal.transform(item.sumary.saldo, '1.2-2')}`, true, item => item.sumary.saldo)
-    };
-  }
-
-  ngAfterViewInit() {
-    // Set Template for Actions
-    this.dataSource.actionsTemplate = this.actionsTemplate;
+    private _date: DatePipe) {
+    super(router, route);
   }
 
   generarPago(venta: Venta) {
+    /*
     this.pagosDialog.openDialog(venta, (dp: DetallePagos[]) => {
       if (dp) {
         if (dp.length > 0) {
@@ -76,21 +68,26 @@ export class ListaVentasComponent implements AfterViewInit {
               this._printVentaService.esPagoInicial = false;
               this._printVentaService.corteID = 0;
               this._printVentaService.getServerData(Number(venta.sumary.key));
+              */
               /*
               if (venta.sumary.saldo === 0 && venta.sumary.status.key === 40203) {
                 this.dataSource.updateDataSource(this.dataSource.data.filter(vta => vta.sumary.key !== venta.sumary.key));
               } else { this.dataSource.refresh(); }
               */
+             /*
             });
         }
       }
     });
+    */
   }
 
   entregarOrden(venta: Venta) {
+    /*
     this.ventaService.changeStatus(Number(venta.sumary.key), 40203)
       .subscribe(() => {
         // this.dataSource.updateDataSource(this.dataSource.data.filter(vta => vta.sumary.key !== venta.sumary.key));
       });
+    */
   }
 }

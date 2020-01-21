@@ -2,7 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { OnInit, OnDestroy } from '@angular/core';
 // RxJS
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 // NgRx
 import { ActionCreator } from '@ngrx/store';
@@ -13,9 +13,9 @@ import { IBaseCatalog } from 'models';
 import { WARNING_TITLE, LEAVE_WARNING_MESSAGE, NOTIFICATION_TYPES } from 'app/notifications';
 // Services
 import { DialogBoxService } from 'app/common/services';
+import { OSBaseDestroyComponent } from './os-base-destroy.component';
 
-export abstract class OSBaseFormContainer<T extends IBaseCatalog, F> implements OnInit, OnDestroy {
-  protected destroyed$ = new Subject<boolean>();
+export abstract class OSBaseFormContainer<T extends IBaseCatalog, F> extends OSBaseDestroyComponent implements OnInit, OnDestroy {
   form: FormGroup;
   loading$: Observable<boolean>;
   // TODO: Find a nicer way to do it.
@@ -29,21 +29,20 @@ export abstract class OSBaseFormContainer<T extends IBaseCatalog, F> implements 
     protected route: ActivatedRoute,
     successAction?: string | ActionCreator
   ) {
+    super();
     if (successAction) {
       actions$.pipe(
         ofType(successAction),
         takeUntil(this.destroyed$),
-        tap(() => this.goBack())
-      ).subscribe();
+      ).subscribe(() => this.goBack());
     }
   }
 
   //#region Angular LifeCycle Hooks
-  ngOnInit() { this.item$.subscribe(value => { this.item = value; }); }
-
-  ngOnDestroy() {
-    this.destroyed$.next(true);
-    this.destroyed$.complete();
+  ngOnInit() {
+    this.item$.pipe(
+      takeUntil(this.destroyed$),
+    ).subscribe(value => { this.item = value; });
   }
   //#endregion
 

@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 // Components
 import { MetodoPagoVentaComponent } from '../components/metodo-pago-venta/metodo-pago-venta.component';
 // Models
-import { Venta } from 'app/modules/venta/models/venta.models';
+import { Venta } from 'models/ventas';
 
 @Injectable()
 export class DialogPagosService {

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { DecimalPipe, DatePipe } from '@angular/common';
+// Move to Venta Common
 import { GeneralTicket } from 'app/modules/base/services/tickets/general-ticket';
 import { ImpresionTicketService } from 'app/modules/base/services/tickets/impresion-ticket.service';
-import { Venta } from 'app/modules/venta/models/venta.models';
-import { VentaService } from 'app/modules/venta/services/venta.service';
+import { Venta } from 'models/ventas';
+import { VentaService } from 'services/http/venta';
 
 @Injectable()
 export class VentaTicketService extends ImpresionTicketService implements GeneralTicket {

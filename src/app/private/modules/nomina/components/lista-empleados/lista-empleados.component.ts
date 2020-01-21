@@ -17,8 +17,9 @@ export class ListaEmpleadosComponent extends OSListComponent<Empleado> {
     new OSTableColumn('nombre', 'Nombre Completo', (item: Empleado) => item.datosPersonales.nombreCompleto),
     new OSTableColumn('patron', 'Patron', (item: Empleado) => item.patron ? item.patron.nombre : 'Sin Registro' )
   ];
+  list$ = of(listaEmpleadosMock);
 
   constructor(router: Router, route: ActivatedRoute) {
-    super(router, route, of(listaEmpleadosMock));
+    super(router, route);
   }
 }

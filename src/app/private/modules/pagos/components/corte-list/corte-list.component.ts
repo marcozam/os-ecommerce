@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
-
+import { Component, OnInit} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DecimalPipe, DatePipe } from '@angular/common';
-
-import { CorteTicketService } from '../../services/tickets/corte-ticket.service';
-import { CajaService } from '../../services/caja.service';
-
-import { CorteCaja, DetalleCorteCaja } from '../../models/caja.models';
-import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
-import { of } from 'rxjs';
+// Services
+import { CajaService } from 'services/http/pagos';
+import { CorteTicketService } from '../../services/corte-ticket.service';
+// Commmon
+import { OSTableColumn, OSListComponent } from 'app/common';
+// Models
+import { CorteCaja, DetalleCorteCaja } from 'models/pagos';
 
 @Component({
   selector: 'app-corte-list',
@@ -15,53 +15,45 @@ import { of } from 'rxjs';
   styleUrls: ['./corte-list.component.scss'],
   providers: [ CajaService, CorteTicketService, DecimalPipe, DatePipe ]
 })
-export class CorteListComponent implements OnInit, AfterViewInit {
-
-  dataSource: TableSource<CorteCaja>;
+export class CorteListComponent extends OSListComponent<CorteCaja> implements OnInit {
+  // Defines Columns
+  tableColumns = [
+    new OSTableColumn('id', 'Folio', item => item.key),
+    new OSTableColumn('fecha', 'Fecha', item => this._date.transform(item.fechaCorte, 'dd MMM yyyy HH:mm')),
+    new OSTableColumn('usuario', 'Cajero', item => item.usuario.nombre),
+    new OSTableColumn('sucursal', 'Sucursal', item => item.sucursal.nombre),
+    new OSTableColumn('diferencia', 'Diferencia Total', item => `$ ${this._decimal.transform(item.diferencia, '1.2-2')}`) // , true, item => item.diferencia
+  ];
+  /*
   detailsDataSource: TableSource<DetalleCorteCaja>;
+  this.detailsDataSource.columns = [
+    new OSTableColumn('Metodo de Pago', 'metodoPago', item => item.metodoPago.nombre),
+    new OSTableColumn('Esperado', 'esperado', item => `$ ${this._decimal.transform(item.montoEsperado, '1.2-2')}`, true, item => item.montoEsperado),
+    new OSTableColumn('Recibido', 'recibido', item => `$ ${this._decimal.transform(item.montoRecibido, '1.2-2')}`, true, item => item.montoRecibido),
+    new OSTableColumn('Diferencia', 'diferencia', item => `$ ${this._decimal.transform(item.diferencia, '1.2-2')}`, true, item => item.diferencia),
+  ];
+  */
+
+  constructor(
+    router: Router,
+    route: ActivatedRoute,
+    private _service: CajaService,
+    private _ticket: CorteTicketService,
+    private _decimal: DecimalPipe,
+    private _date: DatePipe) {
+    super(router, route);
+  }
+
   selectedCorte: CorteCaja;
   showDetails = false;
   showMovimeintos = false;
   loadingDetail = false;
   sucursalID: number;
 
-  @ViewChild('actionsTemplate', { static: true }) actionsTemplate: TemplateRef<any>;
-
-  constructor(
-    private _service: CajaService,
-    private _ticket: CorteTicketService,
-    private _decimal: DecimalPipe,
-    private _date: DatePipe) {
-      this.dataSource = new TableSource(of(null));
-      this.detailsDataSource = new TableSource(of(null));
-
-      // Defines Columns
-      this.dataSource.columns = {
-        'id': new TableColumn('Folio', 'id', item => item.key),
-        'fecha': new TableColumn('Fecha', 'fecha', item => this._date.transform(item.fechaCorte, 'dd MMM yyyy HH:mm')),
-        'usuario': new TableColumn('Cajero', 'usuario', item => item.usuario.nombre),
-        'sucursal': new TableColumn('Sucursal', 'sucursal', item => item.sucursal.nombre),
-        'diferencia': new TableColumn('Diferencia Total', 'diferencia', item => `$ ${this._decimal.transform(item.diferencia, '1.2-2')}`, true, item => item.diferencia)
-      };
-      this.detailsDataSource.columns = {
-        'metodoPago': new TableColumn('Metodo de Pago', 'metodoPago', item => item.metodoPago.nombre),
-        'esperado': new TableColumn('Esperado', 'esperado', item => `$ ${this._decimal.transform(item.montoEsperado, '1.2-2')}`, true, item => item.montoEsperado),
-        'recibido': new TableColumn('Recibido', 'recibido', item => `$ ${this._decimal.transform(item.montoRecibido, '1.2-2')}`, true, item => item.montoRecibido),
-        'diferencia': new TableColumn('Diferencia', 'diferencia', item => `$ ${this._decimal.transform(item.diferencia, '1.2-2')}`, true, item => item.diferencia),
-      };
-    }
-
   ngOnInit() {
     this.sucursalID = 1;
-    /*
-    this._service.getCortes(this.sucursalID)
-      .subscribe(result => this.dataSource.updateDataSource(result));
-      */
-  }
-
-  ngAfterViewInit() {
-    // Set Template for Actions
-    this.dataSource.actionsTemplate = this.actionsTemplate;
+    this.list$ = this._service.getCortes(this.sucursalID);
+    super.ngOnInit();
   }
 
   printTicket(item: CorteCaja) {
