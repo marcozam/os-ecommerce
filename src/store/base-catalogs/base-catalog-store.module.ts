@@ -3,14 +3,17 @@ import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 // Store
-// import { reducers } from './reducers';
+import { reducers } from './reducers';
 import { effects } from './effects';
 import { featureName } from './constants';
+// Services
+import { BaseServicesModule } from 'services/http/base/base-services.module';
 
 @NgModule({
   imports: [
-    // StoreModule.forFeature(featureName, { ...reducers }),
-    EffectsModule.forFeature([...effects])
+    StoreModule.forFeature(featureName, { ...reducers }),
+    EffectsModule.forFeature([...effects]),
+    BaseServicesModule
   ],
   declarations: []
 })

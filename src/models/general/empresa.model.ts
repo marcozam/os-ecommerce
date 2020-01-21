@@ -6,7 +6,7 @@ export interface IEmpresa {
 }
 
 export class Empresa extends BaseCatalog implements IEmpresa {
-    @Field('C1') nombre: string;
+    @Field('C1', 201) nombre: string;
     constructor(key: number, _nombre: string) {
       super(key);
       this.nombre = _nombre;

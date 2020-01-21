@@ -1,4 +1,4 @@
-import { CREAT_CRUD_ACTIONS, CREATE_ACTION_RUTIN } from '../../helpers';
+import { CREATE_CRUD_ACTIONS, CREATE_ACTION_RUTIN } from '../../helpers';
 import { namespace } from '../constants';
 // Models
 import { Producto } from 'models/productos';
@@ -16,7 +16,7 @@ export const {
   initialSave: SaveProducto,
   successSave: SaveProductoSuccess,
   failSave: SaveProductoFail
-} = CREAT_CRUD_ACTIONS<Producto>(namespace, entityName);
+} = CREATE_CRUD_ACTIONS<Producto>(namespace, entityName);
 
 export const {
   initial: LoadProductosByCategoryID,

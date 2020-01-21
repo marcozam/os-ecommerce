@@ -39,10 +39,11 @@ import * as directives from './directives';
     NominaRoutingModule,
   ],
   declarations: [
-    components.FiniquitoComponent,
     components.ConfrontaDispersionComponent,
     components.ListaEmpleadosComponent,
+    components.FiniquitoComponent,
     components.EmpleadoComponent,
+    components.PatronComponent,
     components.EmpleadoFormComponent,
     components.RelacionLaboralFormComponent,
     directives.ConfirmacionDispersionBanorteDirective

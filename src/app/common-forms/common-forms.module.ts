@@ -27,11 +27,11 @@ import * as components from '../common-forms/components';
   declarations: [
     // Components
     components.PersonaFormComponent,
-    components.PersonaFormComponent,
+    components.EmpresaFormComponent,
   ],
   exports: [
     components.PersonaFormComponent,
-    components.PersonaFormComponent
+    components.EmpresaFormComponent
   ],
 })
 export class OSCommonFormsModule { }

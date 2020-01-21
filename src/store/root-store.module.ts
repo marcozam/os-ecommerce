@@ -6,6 +6,7 @@ import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Modules
 import { LoadingStoreModule } from './loading-store/loading-store.module';
+import { BaseCatalogsStoreModule } from 'store/base-catalogs/base-catalog-store.module';
 // Router
 import * as fromRouterState from './state/router.state';
 // Effects
@@ -21,7 +22,8 @@ import { GlobalEffects } from './effects';
       maxAge: 50
     }),
     StoreRouterConnectingModule.forRoot(),
-    LoadingStoreModule
+    LoadingStoreModule,
+    BaseCatalogsStoreModule,
   ],
   declarations: [],
   providers: [

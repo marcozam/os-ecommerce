@@ -50,8 +50,7 @@ export class EmpleadoComponent extends OSBaseFormContainer<Empleado, IEmpleadoFu
     });
   }
 
-  onSave(formValue: IEmpleadoFullForm) {
-    const { empleado, datosPersonales, relacionLaboral } = formValue;
+  onSave({ empleado, datosPersonales, relacionLaboral }) {
     const { patronId, fechaIngreso, periocidadPagoId } = relacionLaboral;
     const _persona = Object.assign(new Persona(), datosPersonales);
     const _empleado = Object.assign(new Empleado(), empleado);
