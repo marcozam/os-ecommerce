@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+// RxJs
 import { Observable } from 'rxjs';
+// NgRx
+import { Store } from '@ngrx/store';
+import { SearchContactoAction } from 'store';
 // Services
 import { ContactoService } from 'services/http/crm';
 // Models
@@ -24,7 +28,9 @@ export class SearchPersonaComponent implements OnInit {
   @Input() catalogName: string;
   @Output() onChange = new EventEmitter<any>();
 
-  constructor(private contactoService: ContactoService) { }
+  constructor(
+    private contactoService: ContactoService,
+    private store$: Store<any>) { }
 
   ngOnInit() { }
 
@@ -32,6 +38,8 @@ export class SearchPersonaComponent implements OnInit {
     _nombre = _nombre.trim();
     const _names = _nombre.split(',');
     if (_names.length >= 2) {
+      const [ nombre, apellido ] = _names;
+      this.store$.dispatch(SearchContactoAction({ payload: { nombre, apellido } }));
       // this.isLoading = true;
       this.contactoService.getPersonaByName(_names[1], _names[0])
         .subscribe(data => this.resultados = data);

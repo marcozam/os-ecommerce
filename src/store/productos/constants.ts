@@ -1,13 +1,13 @@
 import { createFeatureSelector } from '@ngrx/store';
+// States
+import { MarcasState } from './marcas/marcas.entities';
 import { ProducstosState } from './productos/productos.entities';
-// TODO: Replae with new States
-import * as fromState from '../general.states';
-import { CategoriaProducto, MarcaProducto } from 'models/productos';
+import { CategoriasState } from './categorias/categorias.entities';
 
 export interface ProductsModuleState {
   productos: ProducstosState;
-  categorias: fromState.GeneralListState<CategoriaProducto>;
-  marcas: fromState.GeneralListState<MarcaProducto>;
+  categorias: CategoriasState;
+  marcas: MarcasState;
 }
 
 export const namespace = '[Productos]';

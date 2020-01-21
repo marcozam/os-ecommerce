@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { CREAT_CRUD_ACTIONS, CREATE_ACTION_RUTIN } from '../../helpers';
+import { CREATE_CRUD_ACTIONS, CREATE_ACTION_RUTIN } from '../../helpers';
 import { namespace } from '../constants';
 // Models
 import { CategoriaProducto } from 'models/productos';
@@ -17,7 +17,7 @@ export const {
   initialSave: SaveCategoria,
   successSave: SaveCategoriaSuccess,
   failSave: SaveCategoriaFail
-} = CREAT_CRUD_ACTIONS<CategoriaProducto>(namespace, entityName);
+} = CREATE_CRUD_ACTIONS<CategoriaProducto>(namespace, entityName);
 
 export const {
   initial: LoadCategoriasByMarcaID,
