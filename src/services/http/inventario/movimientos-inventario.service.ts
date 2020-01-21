@@ -52,7 +52,7 @@ export class MovimientosInventarioService {
   }
 
   getTipoMovimientos() {
-    this.db.getAllDataFromCatalog(this.catalogoTipoMovimientoInventario).pipe(
+    return this.db.getAllDataFromCatalog(this.catalogoTipoMovimientoInventario).pipe(
       map((res: any[]) => res.map(tm => {
         const item = new TipoMovimientoInventario();
         item.key = tm.C0;

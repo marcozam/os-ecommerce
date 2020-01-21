@@ -1,21 +1,38 @@
 import { NgModule } from '@angular/core';
 // NgRx
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducerMap, Action } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-// Store
-import { reducers } from './reducers';
-import { effects } from './effects';
-import { featureName } from './constants';
+import { featureName, ProductsModuleState } from './constants';
 // Services
-import { services } from 'services/http/productos';
+import {
+  ProductosService,
+  MarcaProductoService,
+  CategoriaProductoService,
+} from 'services/http/productos';
+
+import { CategoriasState, CategoriasEffects, categoriasReducer } from './categorias';
+import { ProducstosState, ProductosEffects, productosReducer } from './productos';
+import { MarcasState, MarcasEffects, marcasReducer } from './marcas';
+
+const reducers: ActionReducerMap<ProductsModuleState> = {
+  productos: (state: ProducstosState, action: Action) => productosReducer(state, action),
+  categorias: (state: CategoriasState, action: Action) => categoriasReducer(state, action),
+  marcas: (state: MarcasState, action: Action) => marcasReducer(state, action),
+};
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(featureName, { ...reducers }),
-    EffectsModule.forFeature([...effects])
+    StoreModule.forFeature(featureName, reducers),
+    EffectsModule.forFeature([
+      CategoriasEffects,
+      ProductosEffects,
+      MarcasEffects,
+    ])
   ],
   providers: [
-    ...services
+    ProductosService,
+    MarcaProductoService,
+    CategoriaProductoService,
   ],
   declarations: []
 })

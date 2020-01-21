@@ -16,7 +16,7 @@ export class StoreProcedureListComponent implements OnInit, AfterViewInit {
   showOptions = false;
   selectedItem: StoreProcedureMetaData;
 
-  @ViewChild('actionsTemplate') actionsTemplate: TemplateRef<any>;
+  @ViewChild('actionsTemplate', { static: true }) actionsTemplate: TemplateRef<any>;
 
   constructor(private _service: StoreProceduresService) {
     // Creates Data Source

@@ -6,15 +6,15 @@ import { map } from 'rxjs/operators';
 // Services
 import { BaseHttpService } from '../base-http.service';
 // Models
+import { Status } from 'models/general';
+import { Producto } from 'models/productos';
+import { MetodoPago } from 'models/facturacion';
 import {
     Venta,
-    Status,
     DetalleVenta,
-    Producto,
     DetallePagos,
-    MetodoPago,
     VentaComment
-} from 'models';
+} from 'models/ventas';
 
 @Injectable()
 export class VentaService {

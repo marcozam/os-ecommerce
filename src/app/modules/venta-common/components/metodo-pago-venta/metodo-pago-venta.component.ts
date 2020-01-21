@@ -1,22 +1,23 @@
+import { FormControl } from '@angular/forms';
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-import { MetodoPago, DetallePagos, Venta } from 'app/modules/venta/models/venta.models';
 import { MetodosPagoService } from '../../services/metodos-pago.service';
-import { FormControl } from '@angular/forms';
+
+import { DetallePagos, Venta } from 'models/ventas';
+import { MetodoPago } from 'models/facturacion';
 
 @Component({
   selector: 'app-metodo-pago-venta',
   templateUrl: './metodo-pago-venta.component.html',
   styleUrls: ['./metodo-pago-venta.component.scss'],
-  providers: [MetodosPagoService]
+  providers: [ MetodosPagoService ]
 })
 export class MetodoPagoVentaComponent implements OnInit {
 
   totalPagado = 0;
   metodosPago: MetodoPago[];
   venta: Venta;
-  @ViewChild('pagoForm') form: FormControl;
+  @ViewChild('pagoForm', { static: true }) form: FormControl;
 
   constructor(
     private _metodoPagoService: MetodosPagoService,

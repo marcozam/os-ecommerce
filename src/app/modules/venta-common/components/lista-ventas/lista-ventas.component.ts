@@ -1,19 +1,26 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { DecimalPipe, DatePipe } from '@angular/common';
+// RxJs
+import { of } from 'rxjs';
 // Services
 import { VentaOptikaTicketService } from 'app/modules/venta/services/tickets/venta-optika-ticket.service';
 import { DialogPagosService } from 'app/modules/venta-common/services/dialog-pagos.service';
 import { VentaService } from 'app/modules/venta/services/venta.service';
 // Models
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
-import { Venta, DetallePagos } from 'app/modules/venta/models/venta.models';
-import { of } from 'rxjs';
+import { Venta, DetallePagos } from 'models/ventas';
 
 @Component({
   selector: 'app-lista-ventas',
   templateUrl: './lista-ventas.component.html',
   styleUrls: ['./lista-ventas.component.scss'],
-  providers: [VentaService, DialogPagosService, VentaOptikaTicketService, DecimalPipe, DatePipe]
+  providers: [
+    VentaService,
+    DialogPagosService,
+    VentaOptikaTicketService,
+    DecimalPipe,
+    DatePipe
+  ]
 })
 export class ListaVentasComponent implements AfterViewInit {
 
@@ -30,7 +37,7 @@ export class ListaVentasComponent implements AfterViewInit {
   dataSource: TableSource<Venta>;
   loading = false;
 
-  @ViewChild('actionsTemplate') actionsTemplate: TemplateRef<any>;
+  @ViewChild('actionsTemplate', { static: true }) actionsTemplate: TemplateRef<any>;
 
   constructor(
     private ventaService: VentaService,

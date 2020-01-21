@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MovimientosInventarioService } from 'app/modules/inventario/services/movimientos-inventario.service';
-
+// Services
+import { MovimientosInventarioService } from 'services/http/inventario';
+// Models
 import { MovimientoInventario, TipoMovimientoInventario } from 'models/inventario';
 import { CategoriaProducto } from 'models/productos';
-import { OSPeriodo } from 'app/modules/base/models/time-frame.models';
-import { periodos } from 'app/modules/base/constants/date-time.constants';
+import { OSPeriodo, periodos } from 'app/common';
 
 @Component({
   selector: 'app-movimientos',
@@ -44,7 +44,7 @@ export class MovimientosComponent implements OnInit {
   ngOnInit() {
     this.sucursalID = 1;
     // this._categoriaService.getStockCategories();
-    this.service.getTipoMovimientos(res => this.tipoMovimientos = res);
+    this.service.getTipoMovimientos().subscribe(res => this.tipoMovimientos = res);
   }
 
   onCategoriaChange(categoria: CategoriaProducto) {

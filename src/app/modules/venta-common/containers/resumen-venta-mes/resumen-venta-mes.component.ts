@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+// RxJs
+import { of } from 'rxjs';
+// Services
 import { VentasReportingService } from '../../services/ventas-reporting.service';
+// Models
+import { Venta } from 'models/ventas';
 import { ResumenVenta, Ingresos } from '../../models/ventas-reporting.models';
 import { TableSource, TableColumn } from 'app/modules/base/models/data-source.models';
-import { DecimalPipe } from '@angular/common';
-import { Venta } from '../../../venta/models/venta.models';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-resumen-venta-mes',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { environment } from '../../../../../environments/environment';
+import { environment } from 'environments/environment';
 
 // Services
 import { CorteTicketService } from '../../services/tickets/corte-ticket.service';

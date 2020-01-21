@@ -14,7 +14,7 @@ import { VentaCommonModule } from 'app/modules/venta-common/venta-common.module'
 import { PagosRoutingModule } from './pagos-routing.module';
 // Services
 import { VentaService } from 'app/modules/venta/services/venta.service';
-import { ContactoService } from 'app/modules/crm/services/contacto.service';
+import { ContactoService } from 'services/http/crm';
 // Components
 import { MovimientosSinCorteComponent } from './containers/movimientos-sin-corte/movimientos-sin-corte.component';
 import { RegistrarCorteComponent } from './components/registrar-corte/registrar-corte.component';

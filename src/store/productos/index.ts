@@ -1,5 +1,10 @@
 export { ProductsModuleState } from './constants';
-export * from './selectors';
-export * from './reducers';
-export * from './actions';
-export * from './effects';
+// Marcas
+export * from './marcas/marcas.action';
+export * from './marcas/marcas.selectors';
+// Productos
+export * from './productos/productos.action';
+export * from './productos/productos.selectors';
+// Categorias
+export * from './categorias/categorias.action';
+export * from './categorias/categorias.selectors';

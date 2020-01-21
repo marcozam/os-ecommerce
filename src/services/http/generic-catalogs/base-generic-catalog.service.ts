@@ -63,7 +63,7 @@ export abstract class BaseGenericCatalogService<T extends IBaseCatalog>
   }
 
   getList(mapData: boolean = true) {
-    return this.db.getAllDataFromCatalog<any>(this.catalogID).pipe(
+    return this.db.getAllDataFromCatalog<T>(this.catalogID).pipe(
       map(result => mapData ? this.mapList(result) : result));
   }
 

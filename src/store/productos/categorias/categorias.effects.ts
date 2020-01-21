@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Effect, Actions, ofType, createEffect } from '@ngrx/effects';
 // RxJS
 import { of, concat } from 'rxjs';
-import { switchMap, map, catchError, tap, filter } from 'rxjs/operators';
+import { switchMap, map, catchError, tap, filter, concatMap } from 'rxjs/operators';
 // Notifications
 import { NOTIFICATION_CODE } from 'app/notifications';
 // Actions
 import * as loadingActions from '../../loading-store/actions';
-import * as categoriasActions from '../actions/categorias.action';
+import * as categoriasActions from './categorias.action';
 import * as productosActions from '../productos/productos.action';
 // Services
 import { CategoriaProductoService, MarcaProductoService } from 'services/http/productos';
 // Models
-import { MarcaProducto, CategoriaProducto } from 'models';
+import { MarcaProducto, CategoriaProducto } from 'models/productos';
 
 const startRequestActions = [
     categoriasActions.CATEGORIAS_ACTION_TYPES.DELETE_CATEGORIA,
@@ -55,6 +55,7 @@ export class CategoriasEffects {
         map(() => new loadingActions.EndRequest())
     );
 
+    /*
     @Effect()
     loadProductosByCategorySuccess$ = this.actions$.pipe(
         ofType(productosActions.LoadProductosByCategoryIDSuccess),
@@ -71,6 +72,7 @@ export class CategoriasEffects {
             );
         })
     );
+    */
 
     @Effect()
     loadCategoriaByID$ = this.actions$.pipe(
@@ -123,4 +125,15 @@ export class CategoriasEffects {
             );
         })
     );
+
+    loadCategoriaByMarcaID$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(categoriasActions.LoadCategoriasByMarcaID),
+        concatMap(({ payload: id }) => this.service.getByMarca(id).pipe(
+          map(list => list ?
+            categoriasActions.LoadCategoriasByMarcaIDSuccess({ payload: { list, id }}) :
+            categoriasActions.LoadCategoriasByMarcaIDFail({}) // NOTIFICATION_CODE.NO_DATA
+          ),
+          catchError(() => of(categoriasActions.LoadCategoriasByMarcaIDFail({})))
+        ))));
 }

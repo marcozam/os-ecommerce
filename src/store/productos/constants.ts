@@ -5,9 +5,9 @@ import * as fromState from '../general.states';
 import { CategoriaProducto, MarcaProducto } from 'models/productos';
 
 export interface ProductsModuleState {
-    productos: ProducstosState;
-    categorias: fromState.GeneralListState<CategoriaProducto>;
-    marcas: fromState.GeneralListState<MarcaProducto>;
+  productos: ProducstosState;
+  categorias: fromState.GeneralListState<CategoriaProducto>;
+  marcas: fromState.GeneralListState<MarcaProducto>;
 }
 
 export const namespace = '[Productos]';
