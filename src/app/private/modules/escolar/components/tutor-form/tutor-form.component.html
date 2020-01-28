@@ -1,0 +1,19 @@
+<os-persona-form  class="form-component col3"
+  [form]="form.get('datosPersonales')" [value]="value?.datosPersonales">
+</os-persona-form>
+<!--
+<form [formGroup]="form.get('empleado')">
+  <mat-form-field>
+    <input matInput placeholder="NSS" formControlName="NSS" maxlength="11">
+    <mat-error *ngIf="form.get('empleado').get('NSS').hasError('required')">
+      El NSS es requerido.
+    </mat-error>
+    <mat-error *ngIf="form.get('empleado').get('NSS').hasError('pattern')">
+      Solo se permiten numeros.
+    </mat-error>
+    <mat-error *ngIf="form.get('empleado').get('NSS').hasError('maxlength')">
+      Solo se permiten 11 caracteres.
+    </mat-error>
+  </mat-form-field>
+</form>
+-->

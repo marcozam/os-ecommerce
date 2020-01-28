@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Modules
+import { AuthStoreModule } from './auth/auth-store.module';
 import { LoadingStoreModule } from './loading-store/loading-store.module';
 import { BaseCatalogsStoreModule } from 'store/base-catalogs/base-catalog-store.module';
 // Router
@@ -22,6 +23,7 @@ import { GlobalEffects } from './effects';
       maxAge: 50
     }),
     StoreRouterConnectingModule.forRoot(),
+    AuthStoreModule,
     LoadingStoreModule,
     BaseCatalogsStoreModule,
   ],

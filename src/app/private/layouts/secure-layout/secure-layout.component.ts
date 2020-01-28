@@ -1,6 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+// RxJs
+import { map } from 'rxjs/operators';
+// NgRx Store
+import { Store } from '@ngrx/store';
+import * as fromStore from 'store/auth';
 
 @Component({
   selector: 'app-secure-layout',
@@ -10,7 +15,13 @@ import { Title } from '@angular/platform-browser';
 })
 export class SecureLayoutComponent {
 
-  constructor(titleService: Title, router: Router) {
+  userInfo$ = this.store$.select(fromStore.getUserPersona).pipe(
+    map(({ nombre, apellidoPaterno }) =>
+      `${nombre} ${apellidoPaterno}`
+      .toLocaleLowerCase())
+  );
+
+  constructor(titleService: Title, router: Router, private store$: Store<fromStore.AuthModuleState>) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const title = this.getTitle(router.routerState, router.routerState.root).join('-');

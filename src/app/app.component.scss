@@ -21,7 +21,7 @@ $menu-height: 54px;
   md-form-field, footer{
     width: 100%;
   }
-  
+
   footer{
     display: flex;
     flex-wrap: wrap;
@@ -38,6 +38,19 @@ $menu-height: 54px;
   left: 0;
   z-index: 2;
   height: $menu-height !important;
+  .label {
+    font-size: 0.8em;
+    text-transform: capitalize;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  .divider {
+    width: 1px;
+    height: 1.5em;
+    margin: 0 10px;
+    background-color: #FFF;
+  }
 }
 
 .main-menu-container {

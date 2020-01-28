@@ -6,7 +6,7 @@ import { OSBaseFormComponent } from '../abstracts';
   selector: 'os-persona-form',
   templateUrl: './persona-form.component.html',
   styleUrls: [ './persona-form.component.scss' ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonaFormComponent extends OSBaseFormComponent<Persona> {
 

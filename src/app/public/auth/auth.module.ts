@@ -1,34 +1,20 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-// Material
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+// Common
+import { OSCommonModule } from 'app/common/common.module';
 // Routing
 import { AuthRoutingModule } from './routing/auth-routing.module';
 // Componets
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-// Modules
-import { BaseModule } from 'app/modules/base/base.module';
-// Services
-import { OSAuthService } from 'services/http/auth';
+import * as components from './components';
 
 @NgModule({
   imports: [
-    CommonModule,
+    OSCommonModule,
     AuthRoutingModule,
-    BaseModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
   ],
   declarations: [
-    LoginComponent,
-    SignupComponent
+    components.LoginComponent,
+    components.SignupComponent,
+    components.LoginFormComponent,
   ],
-  providers: [
-    OSAuthService
-  ]
 })
 export class AuthModule { }

@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { adapter, State } from './persona.entity';
-import * as fromActions from './persona.actions';
+import { adapter, State } from './contacto.entity';
+import * as fromActions from './contacto.actions';
 
 export const initialState: State = adapter.getInitialState({
     loaded: false
@@ -8,6 +8,7 @@ export const initialState: State = adapter.getInitialState({
 
 const _reducer = createReducer(
     initialState,
+    /*
     on(
         fromActions.SavePersonaSuccessAction,
         fromActions.GetPersonaSuccessAction,
@@ -16,6 +17,7 @@ const _reducer = createReducer(
     on(fromActions.LoadPersonasSuccessAction,
         (state, { payload }) => adapter.addAll(payload, { ...state, loaded: true })
     ),
+    */
 );
 
 export function reducer(state: State, action: Action) {

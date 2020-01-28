@@ -74,7 +74,14 @@ import {
     FormContainerComponent,
     TableComponent,
     FormTitleDirective,
-    FormButtonDirective
+    FormButtonDirective,
+    // Modules to Export
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
   ],
   entryComponents: [
     DialogBoxComponent

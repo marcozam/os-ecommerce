@@ -1,0 +1,34 @@
+<div class="row center-xs">
+  <div class="col-md col-lg-10">
+    <div class="sub-container">
+      <div class="sub-container-header">
+        <span class="sub-titles">
+          Datos Familiares
+        </span>
+      </div>
+      <div class="sub-container-content" [formGroup]="form">
+        <!-- TUTORES -->
+        <div class="row tutores-container">
+          <div class="col-xs col-md-6">
+            Datos del Padre:
+            <app-tutor-form [form]="form.get('padre')"></app-tutor-form>
+          </div>
+          <div class="col-xs col-md-6">
+            Datos de la Madre:
+            <app-tutor-form [form]="form.get('madre')"></app-tutor-form>
+          </div>
+        </div>
+        <!-- ALUMNOS -->
+        <div class="row alumnos-container" formArrayName="alumnos"
+          *ngFor="let item of form.get('alumnos').controls; let i = index;">
+          <div class="col-xs">
+            Datos del Alumno:
+            <app-alumno-form [form]="item"></app-alumno-form>
+          </div>
+        </div>
+      </div>
+      <div class="sub-container-footer">
+      </div>
+    </div>
+  </div>
+</div>

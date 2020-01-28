@@ -15,6 +15,7 @@ export class Persona extends BaseCatalog implements IPersona {
     @Field('C3', 103) apellidoMaterno: string;
     @Field('C4', 104) fechaNacimiento?: Date;
     @Field('C5', 105) sexo?: number;
+    CURP?: string;
 
     public get nombreCompleto(): string {
         return `${this.nombre} ${this.apellidoPaterno} ${this.apellidoMaterno}`;

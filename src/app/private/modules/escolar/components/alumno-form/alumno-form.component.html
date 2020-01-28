@@ -1,0 +1,7 @@
+<os-persona-form class="form-component col2" [showOptionals]="true"
+  [form]="form.get('datosPersonales')" [value]="value?.datosPersonales"></os-persona-form>
+<form [formGroup]="form.get('alumno')">
+  <mat-form-field>
+    <input matInput placeholder="Matricula" formControlName="matricula">
+  </mat-form-field>
+</form>

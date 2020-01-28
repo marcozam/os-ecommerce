@@ -1,0 +1,12 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Usuario" formControlName="userName">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Contraseña" formControlName="password"
+      [type]="showPassword ? 'text' : 'password'">
+    <mat-icon matSuffix (click)="showPassword = !showPassword">
+      {{ showPassword ? 'visibility_off' : 'visibility' }}
+    </mat-icon>
+  </mat-form-field>
+</form>

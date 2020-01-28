@@ -3,6 +3,49 @@
     min-width: 50px;
     width: 100%;
 }
+
 .mat-form-field.sm {
     max-width: 120px;
+}
+
+.form-component {
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    .mat-form-field {
+      flex-grow: 1;
+      padding-right: 10px;
+      box-sizing: border-box;
+      &:last-child{
+        padding-right: 0;
+      }
+    }
+  }
+
+  &.col2 {
+    form {
+      .mat-form-field {
+        max-width: 50%;
+        flex-basis: 50%;
+      }
+    }
+  }
+
+  &.col3 {
+    form {
+      .mat-form-field {
+        max-width: 33.33%;
+        flex-basis: 33.33%;
+      }
+    }
+  }
+
+  &.col4 {
+    form {
+      .mat-form-field {
+        max-width: 25%;
+        flex-basis: 25%;
+      }
+    }
+  }
 }

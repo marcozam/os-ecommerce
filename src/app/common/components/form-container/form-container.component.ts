@@ -13,7 +13,7 @@ export class FormContainerComponent implements OnInit {
 
   @Input() title: string;
   @Input() actions: OSActions[] = defaultFormActions;
-  @Output() actionTriggered: EventEmitter<string> = new EventEmitter();
+  @Output() readonly actionTriggered: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 

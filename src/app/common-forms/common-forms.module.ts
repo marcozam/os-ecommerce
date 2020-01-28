@@ -31,7 +31,10 @@ import * as components from '../common-forms/components';
   ],
   exports: [
     components.PersonaFormComponent,
-    components.EmpresaFormComponent
+    components.EmpresaFormComponent,
+    // Export Forms
+    CommonModule,
+    ReactiveFormsModule,
   ],
 })
 export class OSCommonFormsModule { }
