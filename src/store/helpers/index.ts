@@ -14,10 +14,16 @@ export const CREATE_ACTION_RUTIN = <I, S, F>(type: string) => ({
   fail: createAction(`${type} ${OS_ACTION_TYPE.Fail}`, props<{ payload?: F }>()),
 });
 
-export const CREATE_CRUD_ACTIONS = <T>(namespace: string, entityName: string) => {
-  const TYPES = CREATE_CRUD_ACTION_TYPES(namespace, entityName);
+export const CREATE_ACTION_RUTIN_WITHOUT_INITIAL = <S, F>(type: string) => ({
+  initial: createAction(type),
+  success: createAction(`${type} ${OS_ACTION_TYPE.Success}`, props<{ payload: S }>()),
+  fail: createAction(`${type} ${OS_ACTION_TYPE.Fail}`, props<{ payload?: F }>()),
+});
+
+export const CREATE_CRUD_ACTIONS = <T>(namespace: string, entityName: string, _TYPES?: { [key: string]: string}) => {
+  const TYPES = _TYPES || CREATE_CRUD_ACTION_TYPES(namespace, entityName);
   const { initial: initialLoad, success: successLoad, fail: failLoad } =
-    CREATE_ACTION_RUTIN<{}, T[], any>(TYPES.Load);
+    CREATE_ACTION_RUTIN_WITHOUT_INITIAL<T[], any>(TYPES.Load);
   const { initial: initialGet, success: successGet, fail: failGet } =
     CREATE_ACTION_RUTIN<number, T, any>(TYPES.Get);
   const { initial: initialSave, success: successSave, fail: failSave } =
@@ -31,6 +37,6 @@ export const CREATE_CRUD_ACTIONS = <T>(namespace: string, entityName: string) =>
     failGet,
     initialSave,
     successSave,
-    failSave
+    failSave,
   };
 };

@@ -16,7 +16,7 @@
               <mat-option [value]="{nombre: 'All'}">
                 TODAS
               </mat-option>
-              <mat-option *ngFor="let cat of categorias" [value]="cat">
+              <mat-option *ngFor="let cat of (categorias$ | async)" [value]="cat">
                 {{cat.nombre}}
               </mat-option>
             </mat-select>
@@ -41,7 +41,7 @@
               <mat-option [value]="{nombre: 'All'}">
                 TODOS
               </mat-option>
-              <mat-option *ngFor="let tm of tipoMovimientos" [value]="tm">
+              <mat-option *ngFor="let tm of (tipoMovimientos$ | async)" [value]="tm">
                 {{tm.nombre}}
               </mat-option>
             </mat-select>

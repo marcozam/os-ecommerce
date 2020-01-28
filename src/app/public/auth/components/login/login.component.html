@@ -1,6 +1,7 @@
 <div class="row center-xs">
   <div class="col-xs col-sm-4">
     <os-form-container title="Iniciar Session" [actions]="loginActions" (actionTriggered)="onAction($event)">
+      <!-- Is it worth to have a separate component? -->
       <app-login-form [form]="form"></app-login-form>
     </os-form-container>
   </div>

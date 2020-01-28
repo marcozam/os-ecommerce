@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 // Services
 import { DialogBoxService } from 'app/common/services';
 // HTTP
-import { InventarioService } from 'services/http/inventario';
+import { InventarioService } from 'services/http/inventarios';
 import { CategoriaProductoService } from 'services/http/productos';
 // Models
 import { Inventario } from 'models/inventario';

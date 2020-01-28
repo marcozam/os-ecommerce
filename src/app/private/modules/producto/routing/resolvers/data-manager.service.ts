@@ -52,7 +52,7 @@ export class ProductosDataManagerService {
     return this.store.select(fromStore.getCategoriasLoaded).pipe(
       filter(loaded => {
         if (!loaded) {
-          this.store.dispatch(fromStore.LoadAllCategorias({ payload: {} }));
+          this.store.dispatch(fromStore.LoadAllCategorias());
         }
         return loaded;
       }),
@@ -64,7 +64,7 @@ export class ProductosDataManagerService {
     return this.store.select(fromStore.getMarcasLoaded).pipe(
       filter(loaded => {
         if (!loaded) {
-          this.store.dispatch(fromStore.LoadMarcas({ payload: {} }));
+          this.store.dispatch(fromStore.LoadMarcas());
         }
         return loaded;
       }),

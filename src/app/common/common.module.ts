@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 // Material
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,6 +39,7 @@ import {
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     RouterModule,
     // Material
@@ -77,11 +79,13 @@ import {
     FormButtonDirective,
     // Modules to Export
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
-    RouterModule,
+    // Materials
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatSelectModule,
   ],
   entryComponents: [
     DialogBoxComponent

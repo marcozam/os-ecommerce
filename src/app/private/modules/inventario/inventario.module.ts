@@ -1,36 +1,24 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-// Material
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-// OS Modules
-import { BaseModule } from 'app/modules/base/base.module';
-
-import { InventarioRoutingModule } from './inventario-routing.module';
-import { MovimientosComponent } from './components/movimientos/movimientos.component';
-import { CorteInventarioComponent } from './components/corte-inventario/corte-inventario.component';
+// OS Common
+import { OSCommonModule } from 'app/common/common.module';
+// Store Modules
+import { ProductosStoreModule } from 'store/productos/productos-store.module';
+import { InventariosStoreModule } from 'store/inventarios/inventarios-store.module';
+// Routing Modules
+import { InventarioRoutingModule } from './routing/inventario-routing.module';
+// Components
+import * as components from './components';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
+    OSCommonModule,
+    ProductosStoreModule,
+    InventariosStoreModule,
     InventarioRoutingModule,
-    // Material
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    // OS Modules
-    BaseModule
   ],
   declarations: [
-    MovimientosComponent,
-    CorteInventarioComponent
+    components.MovimientosComponent,
+    components.CorteInventarioComponent,
   ]
 })
 export class InventarioModule { }

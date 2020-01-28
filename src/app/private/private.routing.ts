@@ -12,10 +12,11 @@ const privateRoutes: Routes = [
     component: SecureLayoutComponent,
     canActivate: [ AuthGuard ],
     children: [
+      { path: 'inventarios', loadChildren: () => import('./modules/inventario/inventario.module').then(m => m.InventarioModule) },
       { path: 'productos', loadChildren: () => import('./modules/producto/producto.module').then(m => m.ProductoModule) },
+      { path: 'escolar', loadChildren: () => import('./modules/escolar/escolar.module').then(m => m.EscolarModule) },
       { path: 'nominas', loadChildren: () => import('./modules/nomina/nomina.module').then(m => m.NominaModule) },
       { path: 'crm', loadChildren: () => import('./modules/crm/crm.module').then(m => m.CRMModule) },
-      { path: 'escolar', loadChildren: () => import('./modules/escolar/escolar.module').then(m => m.EscolarModule) },
     ],
   },
 ];

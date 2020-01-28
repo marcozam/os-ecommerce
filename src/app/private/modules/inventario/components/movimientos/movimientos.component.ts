@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+// NgRx Store
+import { Store } from '@ngrx/store';
+import * as fromStore from 'store';
 // Services
-import { MovimientosInventarioService } from 'services/http/inventario';
+import { MovimientosInventarioService } from 'services/http/inventarios';
 // Models
 import { MovimientoInventario, TipoMovimientoInventario } from 'models/inventario';
 import { CategoriaProducto } from 'models/productos';
@@ -17,34 +20,25 @@ export class MovimientosComponent implements OnInit {
   sucursalID: number;
   movimientos: MovimientoInventario[];
   movimientosFull: MovimientoInventario[];
-  categorias: CategoriaProducto[];
-  tipoMovimientos: TipoMovimientoInventario[];
+
+  tipoMovimientos$ = this.store$.select(fromStore.selectAllTiposMovimientoInvetarios);
+  categorias$ = this.store$.select(fromStore.getStandAloneCategories);
 
   // TODO: Add table component with filters
   // Filter Options
-  showFilters = false;
+  showFilters = true;
   selectedCategory: CategoriaProducto;
   selectedTipoMovimiento: TipoMovimientoInventario;
 
   _periodos: OSPeriodo[];
 
-  constructor(private service: MovimientosInventarioService) {
+  constructor(private store$: Store<fromStore.InventarioModuleState>, private service: MovimientosInventarioService) {
     this._periodos = periodos;
-  }
-
-  createSubscriptions() {
-    /*
-    this.loading$.subscribe((isLoading: boolean) => {
-      this.loading = this._categoriaService.isLoading || this._service.isLoading;
-    });
-    */
-    // this._categoriaService.source$.subscribe(result => this.categorias = result);
   }
 
   ngOnInit() {
     this.sucursalID = 1;
     // this._categoriaService.getStockCategories();
-    this.service.getTipoMovimientos().subscribe(res => this.tipoMovimientos = res);
   }
 
   onCategoriaChange(categoria: CategoriaProducto) {
@@ -69,8 +63,7 @@ export class MovimientosComponent implements OnInit {
     this.service.getMovimientos(
       this.sucursalID,
       _periodo.start,
-      _periodo.end,
-      (res: MovimientoInventario[]) => {
+      _periodo.end).subscribe((res: MovimientoInventario[]) => {
         this.movimientos = this.movimientosFull = res;
       });
   }

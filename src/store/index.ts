@@ -1,3 +1,4 @@
+export * from './inventarios';
 export * from './productos';
 export * from './base-catalogs';
 export * from './state/router.state';

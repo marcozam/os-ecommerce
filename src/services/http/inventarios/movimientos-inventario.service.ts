@@ -40,7 +40,7 @@ export class MovimientosInventarioService {
     return mi;
   }
 
-  getMovimientos(sucursalID: number, fechaInicio: Date, fechaFin: Date, callback) {
+  getMovimientos(sucursalID: number, fechaInicio: Date, fechaFin: Date) {
     const params = this.db.createParameter('INV0002', 1, {
       'V4': sucursalID,
       'V6': fechaInicio.toJSON(),

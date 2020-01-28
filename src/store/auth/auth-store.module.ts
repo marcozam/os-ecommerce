@@ -17,6 +17,5 @@ import { AuthEffects } from './auth.effects';
   providers: [
     AuthService
   ],
-  declarations: []
 })
 export class AuthStoreModule { }
