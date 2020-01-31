@@ -7,8 +7,8 @@ export const listaClientesMock: Empresa[] = [
     new Empresa(4, 'CEPROVI '),
     new Empresa(5, 'DANIELA CABRERA'),
     new Empresa(6, 'FABIAN DE ARCO'),
-    new Empresa(7, 'GUEVARA SPORTS '),
-    new Empresa(8, 'GUEVARA SPORTS'),
+    new Empresa(7, 'GUEVARA SPORTS'),
+    new Empresa(8, 'GUEVARA SPORTS'), // REMOVE DUPLICATE
     new Empresa(9, 'JORGE ALBERTO'),
     new Empresa(10, 'JPHT'),
     new Empresa(11, 'LADRON DE GUEVARA'),
