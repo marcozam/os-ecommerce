@@ -4,82 +4,13 @@
         Reporte de Movimientos de Inventario
     </span>
   </div>
-  <table class="os-table highlight">
-    <thead>
-      <tr>
-        <th>
-          <span *ngIf="!showFilters">
-            Categoria
-          </span>
-          <mat-form-field *ngIf="showFilters" class="sm">
-            <mat-select placeholder="Categoria" (change)="onCategoriaChange($event.value)">
-              <mat-option [value]="{nombre: 'All'}">
-                TODAS
-              </mat-option>
-              <mat-option *ngFor="let cat of (categorias$ | async)" [value]="cat">
-                {{cat.nombre}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </th>
-        <th> Producto </th>
-        <th>
-          <mat-form-field class="sm">
-            <mat-select (change)="onRangoChanged($event.value)" placeholder="Fecha">
-              <mat-option *ngFor="let p of _periodos" [value]="p">
-                {{p.nombre}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </th>
-        <th>
-          <span *ngIf="!showFilters">
-            Tipo Movimiento
-          </span>
-          <mat-form-field *ngIf="showFilters" class="sm">
-            <mat-select placeholder="Tipo Movimiento" (change)="onTipoMovimientoChange($event.value)">
-              <mat-option [value]="{nombre: 'All'}">
-                TODOS
-              </mat-option>
-              <mat-option *ngFor="let tm of (tipoMovimientos$ | async)" [value]="tm">
-                {{tm.nombre}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </th>
-        <th> Cantidad </th>
-        <th>
-          <button mat-icon-button matTooltip="Filtros">
-            <mat-icon (click)="toggleFilters()">{{showFilters ? 'clear' : 'filter_list'}}</mat-icon>
-          </button>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let mov of movimientos">
-          <td>
-              {{mov.producto.categoriaProducto.nombre}}
-          </td>
-          <td>
-              {{mov.producto.nombre}}
-          </td>
-          <td>
-              {{mov.fecha | date: 'dd MMMM yy'}}
-          </td>
-          <td>
-              {{mov.tipoMovimiento.nombre}}
-          </td>
-          <td class="text-center">
-              {{mov.cantidad}}
-          </td>
-        </tr>
-        <tr *ngIf="movimientos?.length <= 0">
-          <td colspan="6">
-            <strong>
-              No hay informacion para mostrar.
-            </strong>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+  <mat-form-field class="md">
+    <mat-select (selectionChange)="onRangoChanged($event.value)" placeholder="Movimiento de">
+      <mat-option *ngFor="let p of periodos" [value]="p">
+        {{p.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <os-table class="highlight" [dataSource]="dataSource" [columns]="tableColumns" [actions]="[]">
+  </os-table>
 </div>

@@ -4,12 +4,16 @@
   <!-- Columns Definition -->
   <ng-template ngFor let-col [ngForOf]="columns">
     <ng-container [matColumnDef]="col.uniqueID">
-      <mat-header-cell *matHeaderCellDef> {{ col.header }} </mat-header-cell>
-      <mat-cell *matCellDef="let item" class="text-left"> {{ col.description(item) }} </mat-cell>
+      <mat-header-cell *matHeaderCellDef class="{{col.configuration.align}}-xs">
+        {{ col.header }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let item" class="{{col.configuration.align}}-xs">
+        {{ col.description(item) }}
+      </mat-cell>
     </ng-container>
   </ng-template>
   <!-- Actions -->
-  <ng-container matColumnDef="actions">
+  <ng-container *ngIf="actions.length > 0" matColumnDef="actions">
     <mat-header-cell class="end-xs" *matHeaderCellDef>
       <button *ngFor="let action of headerActions" mat-icon-button
         (click)="performAction(action.uniqueID)"

@@ -29,7 +29,11 @@ export class TableComponent implements AfterViewInit {
   pageSizeOptions: number[] = [10, 25, 50];
 
   get tableColumns(): string[] {
-    return [ ...this.columns.map(col => col.uniqueID), 'actions' ];
+    const actionColumn = this.actions.length > 0 ? ['actions'] : [];
+    return [
+      ...this.columns.map(col => col.uniqueID),
+      ...actionColumn,
+    ];
   }
 
   get headerActions(): OSActions[] {

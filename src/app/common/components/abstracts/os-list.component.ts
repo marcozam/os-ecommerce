@@ -17,8 +17,8 @@ export abstract class OSListComponent<T> extends OSBaseDestroyComponent implemen
   keyColumn = 'key';
 
   constructor(
-    protected router: Router,
-    protected route: ActivatedRoute) {
+    protected router?: Router,
+    protected route?: ActivatedRoute) {
     super();
   }
 
@@ -42,7 +42,9 @@ export abstract class OSListComponent<T> extends OSBaseDestroyComponent implemen
     switch (event.action) {
       case 'edit':
       case 'new':
-        this.router.navigate([`./${event ? event.item[this.keyColumn] : 'new'}`], { relativeTo: this.route});
+        if (this.router) {
+          this.router.navigate([`./${event ? event.item[this.keyColumn] : 'new'}`], { relativeTo: this.route});
+        }
         break;
     }
   }

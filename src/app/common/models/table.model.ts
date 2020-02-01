@@ -1,6 +1,6 @@
 // TODO: Change for enum
 export type SortDirection = 'asc' | 'desc' | 'none';
-export type ColumnAlign = 'left' | 'center' | 'right';
+export type ColumnAlign = 'start' | 'center' | 'end';
 
 export type OSColumnDescriptionFuntion<T> = (item: T) => string;
 
@@ -12,14 +12,13 @@ export interface OSColumnConfiguration {
 }
 
 export const OS_COLUMN_DEFAULT_CONFIGURATION: OSColumnConfiguration = {
-  align: 'left',
+  align: 'start',
   sortable: false,
   filtrable: false,
   autoSum: false,
 }
 
 export class OSTableColumn {
-  align: ColumnAlign = 'left';
   constructor(
     public uniqueID: string,
     public header: string,

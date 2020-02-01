@@ -16,7 +16,7 @@ export const categoriasReducer = createReducer(
     (state, { payload }) => categoriasAdapter.upsertOne(payload, state)
   ),
   on(fromCategorias.LoadAllCategoriasSuccess,
-    (state, { payload }) => categoriasAdapter.addAll(payload, state)
+    (state, { payload }) => categoriasAdapter.addAll(payload, { ...state, loaded: true})
   ),
   on(fromCategorias.LoadCategoriasByMarcaIDSuccess,
     (state, { payload }) => categoriasAdapter.upsertMany(payload.list, state)

@@ -1,23 +1,11 @@
-table.os-table{
-    thead{
-        th.item-description{
-            .mat-icon{
-                font-size: 12px;
-                height: 12px;
-                width: 12px;
-                margin-left: 15px;
-            }
+:host {
+  &.highlight {
+    .mat-table {
+      .mat-row {
+        &:hover {
+          background-color: #f2f2f2;
         }
+      }
     }
-    .no-data{
-        font-weight: 700;
-    }
-
-    .loading{
-        .mat-progress-bar{
-            margin: 20px 0;
-        }
-        font-weight: 700;
-        // color: $primary-color;
-    }
+  }
 }

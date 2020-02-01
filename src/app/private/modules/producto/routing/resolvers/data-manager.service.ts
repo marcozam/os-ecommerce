@@ -48,18 +48,6 @@ export class ProductosDataManagerService {
   }
   //#endregion
 
-  loadCategorias() {
-    return this.store.select(fromStore.getCategoriasLoaded).pipe(
-      filter(loaded => {
-        if (!loaded) {
-          this.store.dispatch(fromStore.LoadAllCategorias());
-        }
-        return loaded;
-      }),
-      first()
-    );
-  }
-
   loadMarcas() {
     return this.store.select(fromStore.getMarcasLoaded).pipe(
       filter(loaded => {

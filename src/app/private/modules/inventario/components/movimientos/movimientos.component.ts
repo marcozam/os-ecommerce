@@ -1,44 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 // NgRx Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'store';
-// Services
-import { MovimientosInventarioService } from 'services/http/inventarios';
+// Common
+import {
+  periodos,
+  OSPeriodo,
+  OSTableColumn,
+  OSListComponent,
+} from 'app/common';
 // Models
 import { MovimientoInventario, TipoMovimientoInventario } from 'models/inventario';
 import { CategoriaProducto } from 'models/productos';
-import { OSPeriodo, periodos } from 'app/common';
+import { GetMovimientosInventario } from 'store';
 
 @Component({
   selector: 'app-movimientos',
   templateUrl: './movimientos.component.html',
   styleUrls: ['./movimientos.component.scss'],
-  providers: [MovimientosInventarioService]
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovimientosComponent implements OnInit {
-
-  sucursalID: number;
-  movimientos: MovimientoInventario[];
-  movimientosFull: MovimientoInventario[];
+export class MovimientosComponent extends OSListComponent<MovimientoInventario> implements OnInit {
 
   tipoMovimientos$ = this.store$.select(fromStore.selectAllTiposMovimientoInvetarios);
-  categorias$ = this.store$.select(fromStore.getStandAloneCategories);
+  categorias$ = this.store$.select(fromStore.getStockCategories);
+  list$ = this.store$.select(fromStore.selectMovimientosInvetarios);
+
+  tableColumns = [
+    new OSTableColumn('categoria', 'Categoria', (item: MovimientoInventario) => item.producto.categoriaProducto.nombre),
+    new OSTableColumn('producto', 'Producto', (item: MovimientoInventario) => item.producto.nombre ),
+    new OSTableColumn('fecha', 'Fecha', (item: MovimientoInventario) => ''/*item.fecha*/),
+    new OSTableColumn('tipoMovimiento', 'Tipo Movimiento', (item: MovimientoInventario) => item.tipoMovimiento.nombre ),
+    new OSTableColumn('cantidad', 'Cantidad', (item: MovimientoInventario) => `${item.cantidad}`, { align: 'center' } ),
+  ];
 
   // TODO: Add table component with filters
   // Filter Options
-  showFilters = true;
+  showFilters = false;
   selectedCategory: CategoriaProducto;
   selectedTipoMovimiento: TipoMovimientoInventario;
 
-  _periodos: OSPeriodo[];
+  periodos: OSPeriodo[] = periodos;
 
-  constructor(private store$: Store<fromStore.InventarioModuleState>, private service: MovimientosInventarioService) {
-    this._periodos = periodos;
-  }
+  constructor(
+    private store$: Store<fromStore.InventarioModuleState>,
+    private ref: ChangeDetectorRef,
+  ) { super(); }
 
   ngOnInit() {
-    this.sucursalID = 1;
-    // this._categoriaService.getStockCategories();
+    super.ngOnInit();
   }
 
   onCategoriaChange(categoria: CategoriaProducto) {
@@ -57,22 +67,17 @@ export class MovimientosComponent implements OnInit {
     this.applyFilters();
   }
 
-  onRangoChanged(option: OSPeriodo) {
-    const _periodo = option.getTimeFrame();
-
-    this.service.getMovimientos(
-      this.sucursalID,
-      _periodo.start,
-      _periodo.end).subscribe((res: MovimientoInventario[]) => {
-        this.movimientos = this.movimientosFull = res;
-      });
+  onRangoChanged(payload: OSPeriodo) {
+    this.store$.dispatch(GetMovimientosInventario({ payload }));
   }
 
   applyFilters() {
+    /*
     this.movimientos = this.movimientosFull.filter(mi => {
       return (this.selectedCategory ? mi.producto.categoriaProductoID === this.selectedCategory.key : true)
         && (this.selectedTipoMovimiento ? mi.tipoMovimiento.key === this.selectedTipoMovimiento.key : true);
     });
+    */
   }
 
   toggleFilters() {

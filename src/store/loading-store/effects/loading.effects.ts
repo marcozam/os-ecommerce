@@ -20,11 +20,8 @@ export class LoadingEffects {
     @Effect({ dispatch: false })
     startRequest$ = this.actions$.pipe(
         ofType(loadingActions.LOADING_ACTION_TYPES.START_REQUEST),
-        withLatestFrom(this.isLoading$, this.requests$),
-        tap((data) => {
-            const isLoading = data[1], requests = data[2];
-            // Implement logic to determine to show spinner
-            console.log('startRequest', requests);
+        withLatestFrom(this.isLoading$),
+        tap(([ action, isLoading ]) => {
             if (!isLoading) {
                 this.store$.dispatch(new loadingActions.ShowSpinner());
             }
@@ -34,11 +31,8 @@ export class LoadingEffects {
     @Effect({ dispatch: false })
     endRequest$ = this.actions$.pipe(
         ofType(loadingActions.LOADING_ACTION_TYPES.END_REQUEST),
-        withLatestFrom(this.isLoading$, this.requests$),
-        tap((data) => {
-            const isLoading = data[1], requests = data[2];
-            // Implement logic to determine to hide spinner
-            console.log('endRequest', requests);
+        withLatestFrom(this.requests$),
+        tap(([ action, requests ]) => {
             if (requests <= 0 ) {
                 this.store$.dispatch(new loadingActions.HideSpinner());
             }
