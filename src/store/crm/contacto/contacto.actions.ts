@@ -1,3 +1,5 @@
+
+import { createAction, props } from '@ngrx/store';
 import { CREATE_CRUD_ACTIONS, CREATE_ACTION_RUTIN } from 'store/helpers';
 // Models
 import { Contacto } from 'models/crm';
@@ -21,3 +23,7 @@ export const {
   success: SearchContactoSuccessAction,
   fail: SearchContactoFailAction,
 } = CREATE_ACTION_RUTIN<{ nombre: string, apellido: string }, Contacto[], any>(`${namespace} Search ${entityName}`);
+
+export const SelectContactoAction = createAction(
+  `${namespace} Select ${entityName}`,
+  props<{ payload: number }>());

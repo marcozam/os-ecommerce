@@ -1,11 +1,15 @@
 
 import { createSelector } from '@ngrx/store';
-import { getInventariosModuleState, InventarioModuleState } from '../constants';
+import { getInventariosModuleState } from '../constants';
 
-export const selectMovimientosInventarioState = createSelector(
-  getInventariosModuleState, (state: InventarioModuleState) => state.movimientos
+export const selectInventarioState = createSelector(
+  getInventariosModuleState, state => state.inventario
 );
 
 export const selectMovimientosInvetarios = createSelector(
-  selectMovimientosInventarioState, state => state.list
+  selectInventarioState, state => state.movimientos
+);
+
+export const selectInvetario = createSelector(
+  selectInventarioState, state => state.inventario
 );

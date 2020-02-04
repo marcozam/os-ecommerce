@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import * as moment from 'moment';
+import 'moment/locale/es';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 // NgRx Store
 import { Store } from '@ngrx/store';
 import * as fromStore from 'store';
@@ -12,7 +14,6 @@ import {
 // Models
 import { MovimientoInventario, TipoMovimientoInventario } from 'models/inventario';
 import { CategoriaProducto } from 'models/productos';
-import { GetMovimientosInventario } from 'store';
 
 @Component({
   selector: 'app-movimientos',
@@ -27,11 +28,11 @@ export class MovimientosComponent extends OSListComponent<MovimientoInventario> 
   list$ = this.store$.select(fromStore.selectMovimientosInvetarios);
 
   tableColumns = [
-    new OSTableColumn('categoria', 'Categoria', (item: MovimientoInventario) => item.producto.categoriaProducto.nombre),
-    new OSTableColumn('producto', 'Producto', (item: MovimientoInventario) => item.producto.nombre ),
-    new OSTableColumn('fecha', 'Fecha', (item: MovimientoInventario) => ''/*item.fecha*/),
-    new OSTableColumn('tipoMovimiento', 'Tipo Movimiento', (item: MovimientoInventario) => item.tipoMovimiento.nombre ),
-    new OSTableColumn('cantidad', 'Cantidad', (item: MovimientoInventario) => `${item.cantidad}`, { align: 'center' } ),
+    new OSTableColumn('fecha', 'Fecha', (item: MovimientoInventario) => moment(item.fecha).locale('es').format('DD/MMMM/YY'), { align: 'start', className: 'md' }),
+    new OSTableColumn('tipoMovimiento', 'Tipo Movimiento', (item: MovimientoInventario) => item.tipoMovimiento.nombre, { align: 'start', className: 'md' }),
+    new OSTableColumn('categoria', 'Categoria', (item: MovimientoInventario) => item.producto.categoriaProducto.nombre, { align: 'start', className: 'md' }),
+    new OSTableColumn('producto', 'Producto', (item: MovimientoInventario) => item.producto.nombre),
+    new OSTableColumn('cantidad', 'Cantidad', (item: MovimientoInventario) => `${item.cantidad}`, { align: 'center', className: 'sm' }),
   ];
 
   // TODO: Add table component with filters
@@ -42,14 +43,7 @@ export class MovimientosComponent extends OSListComponent<MovimientoInventario> 
 
   periodos: OSPeriodo[] = periodos;
 
-  constructor(
-    private store$: Store<fromStore.InventarioModuleState>,
-    private ref: ChangeDetectorRef,
-  ) { super(); }
-
-  ngOnInit() {
-    super.ngOnInit();
-  }
+  constructor(private store$: Store<fromStore.InventarioModuleState>) { super(); }
 
   onCategoriaChange(categoria: CategoriaProducto) {
     this.selectedCategory = categoria;
@@ -68,7 +62,7 @@ export class MovimientosComponent extends OSListComponent<MovimientoInventario> 
   }
 
   onRangoChanged(payload: OSPeriodo) {
-    this.store$.dispatch(GetMovimientosInventario({ payload }));
+    this.store$.dispatch(fromStore.GetMovimientosInventario({ payload }));
   }
 
   applyFilters() {

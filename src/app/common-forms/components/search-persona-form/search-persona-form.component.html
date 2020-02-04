@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Nombre" autofocus formControlName="nombre">
+    <mat-hint>
+      Para la busqueda separe <strong>Nombre(s), Apellido Paterno</strong> por coma.
+    </mat-hint>
+    <mat-error>
+      Favor de capturar al menos 3 caracteres del nombre y apellido.
+    </mat-error>
+  </mat-form-field>
+</form>

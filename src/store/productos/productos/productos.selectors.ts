@@ -8,14 +8,14 @@ import { productosAdapter } from './productos.entities';
 import { PRODUCTOS_ROUTE_STATE_PARAMS } from 'app/private/modules/producto/constants';
 import * as fromRoot from 'store/state/router.state';
 
-export const {
-  selectEntities: selectProductosEntities,
-  selectAll: selectAllProductos,
-} = productosAdapter.getSelectors();
-
 export const selectProductosState = createSelector(
   getProductsModuleState, (state: ProductsModuleState) => state.productos
 );
+
+export const {
+  selectEntities: selectProductosEntities,
+  selectAll: selectAllProductos,
+} = productosAdapter.getSelectors(selectProductosState);
 
 export const selectProductosLoaded = createSelector(
   selectProductosState, state => state.loaded

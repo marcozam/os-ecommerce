@@ -9,7 +9,7 @@ import * as fromStore from 'store/base-catalogs';
 import { DialogBoxService } from 'app/common/services';
 // Common forms
 import { OSBaseFormContainer } from 'app/common-forms/components';
-import { EMPRESA_FORM } from 'app/common-forms/builders';
+import { EMPRESA_FORM } from 'app/common-forms';
 // Models
 import { Empresa, IEmpresa } from 'models';
 

@@ -1,0 +1,52 @@
+<form #meterialForm="ngForm">
+  <div class="row">
+    <div class="col-xs col-md-3">
+      <mat-form-field>
+        <mat-select placeholder="Material" name="material" ngModel (change)="onMaterialChange($event.value)" required>
+          <mat-option *ngFor="let material of materialesMicas" [value]="material">
+            {{material.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2 precio-mica-header"> MICAS / TRATAMIENTOS </div>
+    <div class="col-md precio-mica-header center-md" *ngFor="let tratamiento of tratamientosMicas">
+      <strong>
+        {{tratamiento.nombre}}
+      </strong>
+    </div>
+  </div>
+  <div class="row" *ngFor="let f of fields" [formGroup]="f.formGroup">
+    <div class="col-md-1 precio-mica-header">
+      <span>
+        {{f.nombre}}
+      </span>
+    </div>
+    <div class="col-md-1">
+      <mat-form-field class="sm">
+        <span matPrefix>$ &nbsp;</span>
+        <input placeholder="Precio Base" matInput class="text-right" type="number" step="50" required formControlName="precioBase" />
+      </mat-form-field>
+    </div>
+    <div class="col-md center-md" *ngFor="let tratamiento of tratamientosMicas">
+      <mat-form-field class="sm">
+        <span matPrefix>$ &nbsp;</span>
+        <input matInput class="text-right" type="number" step="50" required formControlName="tratamiento_{{tratamiento.key}}"/>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs text-right buttons-containers">
+      <button mat-raised-button color="primary"
+        [disabled]="meterialForm.invalid"
+        (click)="onSave()">
+        <mat-icon aria-label="Guardar">save</mat-icon>
+        Guardar Precio de Micas
+      </button>
+    </div>
+  </div>
+</form>

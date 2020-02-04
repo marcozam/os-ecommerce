@@ -1,3 +1,5 @@
+import { TemplateRef } from "@angular/core";
+
 // TODO: Change for enum
 export type SortDirection = 'asc' | 'desc' | 'none';
 export type ColumnAlign = 'start' | 'center' | 'end';
@@ -8,6 +10,7 @@ export interface OSColumnConfiguration {
   sortable?: boolean;
   filtrable?: boolean;
   autoSum?: boolean;
+  className?: string;
   align: ColumnAlign;
 }
 
@@ -16,15 +19,18 @@ export const OS_COLUMN_DEFAULT_CONFIGURATION: OSColumnConfiguration = {
   sortable: false,
   filtrable: false,
   autoSum: false,
-}
+};
 
 export class OSTableColumn {
+  template?: TemplateRef<any>;
   constructor(
     public uniqueID: string,
     public header: string,
     public description: OSColumnDescriptionFuntion<any>,
-    public configuration: OSColumnConfiguration = OS_COLUMN_DEFAULT_CONFIGURATION) {
+    public configuration: OSColumnConfiguration = OS_COLUMN_DEFAULT_CONFIGURATION,
+    _template?: TemplateRef<any>) {
     this.configuration = { ...OS_COLUMN_DEFAULT_CONFIGURATION, ...configuration };
+    this.template = _template;
   }
 }
 

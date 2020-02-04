@@ -7,11 +7,11 @@ import { featureName, InventarioModuleState } from './constants';
 import { InventarioService, MovimientosInventarioService } from 'services/http/inventarios';
 
 import { TiposMovimientoInventarioState, TiposMovimientoInventarioEffects, tiposMovimientoReducer } from './tipos-movimiento';
-import { MovimientosInventarioState, MovimientosInventarioEffects, movimientosReducer } from './movimientos';
+import { MovimientosInventarioEffects, movimientosReducer, InventarioState } from './movimientos';
 
 const reducers: ActionReducerMap<InventarioModuleState> = {
   tiposMovimientos: (state: TiposMovimientoInventarioState, action: Action) => tiposMovimientoReducer(state, action),
-  movimientos: (state: MovimientosInventarioState, action: Action) => movimientosReducer(state, action),
+  inventario: (state: InventarioState, action: Action) => movimientosReducer(state, action),
 };
 
 @NgModule({

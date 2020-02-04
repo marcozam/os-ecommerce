@@ -3,12 +3,14 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span> {{title}}</span>
-  <span class="spacer"></span>
-  <mat-icon>store</mat-icon>
-  <span class="sucursal label">
-    matriz
-  </span>
-  <span class="divider"></span>
+  <ng-container *ngIf="activeSucursal$ | async as activeSucursal">
+    <span class="spacer"></span>
+    <mat-icon>store</mat-icon>
+    <span class="sucursal label">
+      {{ activeSucursal.nombre }}
+    </span>
+    <span class="divider"></span>
+  </ng-container>
   <mat-icon>person</mat-icon>
   <span class="user-name label">
     {{ userInfo$ | async }}

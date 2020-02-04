@@ -2,8 +2,7 @@ import { Validators } from '@angular/forms';
 import { IEmpresa } from 'models';
 
 export const EMPRESA_FORM = (): IEmpresa => {
-  const fields = {
+  return {
     nombre: ['', Validators.required]
   };
-  return fields;
 };

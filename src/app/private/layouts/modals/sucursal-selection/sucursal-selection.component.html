@@ -1,0 +1,7 @@
+<mat-form-field>
+  <mat-select (selectionChange)="sucursalSelected($event.value)" placeholder="Sucursal">
+    <mat-option *ngFor="let s of sucursales$ | async" [value]="s.key">
+      {{s.nombre}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

@@ -9,18 +9,19 @@ import { PersonasService } from 'services/http/base';
 
 @Injectable()
 export class PersonaEffects {
+
+  constructor(
+    private actions$: Actions,
+    private service: PersonasService
+  ) { }
+
   save$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.SavePersonaAction),
-    concatMap(({ payload }) => this.personasService.save(payload.value, payload.oldValue)
+    concatMap(({ payload }) => this.service.save(payload.value, payload.oldValue)
       .pipe(
         map(payload => fromActions.SavePersonaSuccessAction({ payload })),
         catchError(() => of(fromActions.SavePersonaFailAction({ payload: '' })))
       ))
     )
   );
-
-  constructor(
-    private actions$: Actions,
-    private personasService: PersonasService
-  ) { }
 }

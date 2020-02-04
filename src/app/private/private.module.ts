@@ -2,30 +2,43 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // Angular Material
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { SecureLayoutComponent } from './layouts';
-import { PrivateRoutingModule } from './private.routing';
+import {
+  SecureLayoutComponent,
+  SucursalSelectionComponent,
+} from './layouts';
+import { PrivateRoutingModule } from './routing/private.routing';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        PrivateRoutingModule,
-        // Angular Material
-        MatSidenavModule,
-        MatMenuModule,
-        MatToolbarModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonModule
-    ],
-    declarations: [
-        SecureLayoutComponent
-    ],
+  imports: [
+    CommonModule,
+    PrivateRoutingModule,
+    // Angular Material
+    MatMenuModule,
+    MatListModule,
+    MatIconModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+  ],
+  declarations: [
+    SecureLayoutComponent,
+    SucursalSelectionComponent,
+  ],
+  entryComponents: [
+    SucursalSelectionComponent,
+  ]
 })
 export class PrivateModule { }

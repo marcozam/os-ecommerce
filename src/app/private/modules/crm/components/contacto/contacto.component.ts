@@ -1,33 +1,26 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
-import { EmailValidator } from '@angular/forms';
-// Serives
-import { ContactoService } from 'services/http/crm';
+import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, EmailValidator, FormGroup } from '@angular/forms';
+// NgRx
+import { Store } from '@ngrx/store';
+import * as fromStore from 'store/crm';
+// Common Forms
+import { PERSONA_FORM } from 'app/common-forms';
 // Models
 import { TipoDatosContacto, Contacto } from 'models/crm';
 import { Persona } from 'models/general';
 
 @Component({
-  selector: 'os-contacto',
+  selector: 'app-contacto',
   templateUrl: './contacto.component.html',
   styleUrls: ['./contacto.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [EmailValidator]
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactoComponent implements OnInit {
 
   datosContacto = { telefono: null, email: null, colonia: null };
-  get isNew(): boolean { return this.contactoID ? true : false; }
-  private _contactoID: number;
-
-  @Input()
-  get contactoID(): number { return this._contactoID; }
-  set contactoID(value: number){
-    this._contactoID = value;
-    this.getContactData();
-  }
-
-  @Input() catalogName: string;
-  @Input() initialData: Persona;
+  // get isNew(): boolean { return this.contactoID ? true : false; }
+  contacto$ = this.store$.select(fromStore.selectSelectedContacto);
+  form: FormGroup;
 
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
@@ -37,14 +30,17 @@ export class ContactoComponent implements OnInit {
   isChildValid = false;
 
   constructor(
-    // private _personaService: PersonasService,
-    private _contactoService: ContactoService
+    private fb: FormBuilder,
+    private store$: Store<fromStore.CRMModuleState>
   ) { }
 
   ngOnInit() {
-    this.contacto = new Contacto();
+    this.form = this.fb.group({
+      persona: this.fb.group(PERSONA_FORM(true))
+    });
   }
 
+  /*
   getContactData() {
     if (this.contactoID) {
       this._contactoService.getByID(this.contactoID)
@@ -58,6 +54,7 @@ export class ContactoComponent implements OnInit {
         });
     }
   }
+  */
 
   onPersonaChanged(event) {
     this.isChildValid = event.isValid;
@@ -82,5 +79,5 @@ export class ContactoComponent implements OnInit {
       */
   }
 
-  onSaved(data: Contacto) { this.onChange.emit({ Data: data, isNew: this.isNew }); }
+  // onSaved(data: Contacto) { this.onChange.emit({ Data: data, isNew: this.isNew }); }
 }

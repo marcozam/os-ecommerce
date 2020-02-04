@@ -4,8 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 // Common Forms
-import { PERSONA_FORM } from 'app/common-forms/builders';
-import { OSBaseDestroyComponent } from 'app/common-forms/components';
+import { OSBaseDestroyComponent, PERSONA_FORM } from 'app/common-forms';
 
 import {
   ITutorFullForm,

@@ -1,14 +1,20 @@
-<mat-table [dataSource]="dataSource">
+<mat-table [dataSource]="dataSource" matSort (matSortChange)="sortChange($event)">
   <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
   <mat-row *matRowDef="let myRowData; columns: tableColumns"></mat-row>
   <!-- Columns Definition -->
   <ng-template ngFor let-col [ngForOf]="columns">
     <ng-container [matColumnDef]="col.uniqueID">
-      <mat-header-cell *matHeaderCellDef class="{{col.configuration.align}}-xs">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="{{col.configuration.align}}-xs {{col.configuration.className}}">
         {{ col.header }}
       </mat-header-cell>
-      <mat-cell *matCellDef="let item" class="{{col.configuration.align}}-xs">
-        {{ col.description(item) }}
+      <mat-cell *matCellDef="let item" class="{{col.configuration.align}}-xs {{col.configuration.className}}">
+        <ng-container *ngIf="columnsTemplate[col.uniqueID]; else defaultValue"
+          [ngTemplateOutlet]="columnsTemplate[col.uniqueID]"
+          [ngTemplateOutletContext]="item">
+        </ng-container>
+        <ng-template #defaultValue>
+          {{ col.description(item) }}
+        </ng-template>
       </mat-cell>
     </ng-container>
   </ng-template>
@@ -37,3 +43,6 @@
   [pageSize]="10"
   [pageSizeOptions]="pageSizeOptions">
 </mat-paginator>
+<!--
+{{ columnsTemplate | json }}
+-->

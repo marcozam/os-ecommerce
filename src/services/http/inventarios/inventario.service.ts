@@ -6,6 +6,7 @@ import { BaseHttpService } from '../base-http.service';
 // Models
 import { Inventario } from 'models/inventario';
 import { Producto, CategoriaProducto } from 'models/productos';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class InventarioService {
@@ -51,9 +52,11 @@ export class InventarioService {
     );
   }
 
-  getInventarioActual(sucursalID: number) {
+  getInventarioActual(sucursalID: number): Observable<Inventario[]> {
     const params = this.db.createParameter('INV0001', 1, { 'V4': sucursalID });
-    return this.db.getData(params);
+    return this.db.getData(params).pipe(
+      map(result => result.Table.map(row => this.mapData(row)))
+    );
   }
 
   realizarCorte(sucursalID: number, inventario: Inventario[]) {

@@ -1,36 +1,56 @@
-<ng-template #cantidadTemplate let-item>
-  <mat-form-field class="sm">
-    <input type="number" placeholder="Cantidad" matInput
-      class="text-right" required
-      [(ngModel)]="item.cantidadFisica"/>
-  </mat-form-field>
-</ng-template>
-<div class="row">
-  <div class="col-md-8">
-    <div class="sub-container">
-      <!--
-      <os-table [dataSource]="dataSource" [loading]="loading" [canEdit]="false" [canAdd]="false" [canDelete]="false">
-        <os-filter uniqueID="categoria">
+<div class="sub-container">
+  <div class="sub-container-header">
+    <span class="sub-titles">
+      Corte de Inventario
+    </span>
+  </div>
+
+  <div class="sub-container-content">
+    <mat-table [dataSource]="dataSource" matSort>
+      <mat-header-row *matHeaderRowDef="columnsName"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnsName"></mat-row>
+
+      <ng-container matColumnDef="categoria">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="md"> Categoria </mat-header-cell>
+        <mat-cell *matCellDef="let item" class="md">
+          {{ item.categoria }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto">
+        <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+        <mat-cell *matCellDef="let item">
+          {{ item.producto }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="cantidad">
+        <mat-header-cell *matHeaderCellDef class="center-xs sm"> Sistema </mat-header-cell>
+        <mat-cell *matCellDef="let item" class="center-xs sm">
+          {{ item.cantidad }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="cantidadFisica">
+        <mat-header-cell *matHeaderCellDef class="center-xs sm"> Fisico </mat-header-cell>
+        <mat-cell *matCellDef="let item" class="sm">
+          {{ item.cantidadFisica }}
           <mat-form-field class="sm">
-            <mat-select placeholder="Categoria" (change)="onCategoriaChange($event.value)">
-              <mat-option [value]="{nombre: 'All'}">
-                TODAS
-              </mat-option>
-              <mat-option *ngFor="let cat of categorias" [value]="cat">
-                {{cat.nombre}}
-              </mat-option>
-            </mat-select>
+            <input type="number" placeholder="Cantidad" matInput class="text-right" required [(ngModel)]="item.cantidadFisica"/>
           </mat-form-field>
-        </os-filter>
-      </os-table>
-      -->
-      <div class="text-right buttons-containers">
-        <button mat-raised-button color="primary" [disabled]="loading"
-          (click)="onSave()">
-          <mat-icon>save</mat-icon>
-          {{loading ? 'Espere ...' : 'Guardar'}}
-        </button>
-      </div>
+        </mat-cell>
+      </ng-container>
+    </mat-table>
+    <mat-paginator
+      [length]="dataSource.data.length"
+      [pageSize]="50"
+      [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+  </div>
+
+  <div class="sub-container-footer">
+    <div class="text-right buttons-containers">
+      <button mat-raised-button color="primary" [disabled]="loading" (click)="onSave()">
+        <mat-icon>save</mat-icon>
+        {{loading ? 'Espere ...' : 'Guardar'}}
+      </button>
     </div>
   </div>
 </div>

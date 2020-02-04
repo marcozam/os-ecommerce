@@ -15,6 +15,7 @@ import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginato
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 // Components
@@ -49,6 +50,7 @@ import {
     MatInputModule,
     MatListModule,
     MatTableModule,
+    MatSortModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatTooltipModule,

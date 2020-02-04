@@ -1,25 +1,37 @@
-import { createReducer, on, Action } from '@ngrx/store';
-import { adapter, State } from './contacto.entity';
+import { createReducer, on } from '@ngrx/store';
+import { contactosAdapter, searchContactosAdapter, ContactoState } from './contacto.entities';
 import * as fromActions from './contacto.actions';
 
-export const initialState: State = adapter.getInitialState({
-    loaded: false
-});
+export const initialState: ContactoState = {
+  loaded: false,
+  selected: null,
+  contactos: contactosAdapter.getInitialState(),
+  search: searchContactosAdapter.getInitialState(),
+};
 
-const _reducer = createReducer(
-    initialState,
-    /*
-    on(
-        fromActions.SavePersonaSuccessAction,
-        fromActions.GetPersonaSuccessAction,
-        (state, { payload }) => adapter.upsertOne(payload, state)
-    ),
-    on(fromActions.LoadPersonasSuccessAction,
-        (state, { payload }) => adapter.addAll(payload, { ...state, loaded: true })
-    ),
-    */
+export const contactoReducer = createReducer(
+  initialState,
+  on(fromActions.SelectContactoAction, (state, { payload: selected }) => ({
+    ...state,
+    selected,
+  })),
+  on(fromActions.SaveContactoSuccessAction, fromActions.GetContactoSuccessAction,
+    (state, { payload }) => ({
+      ...state,
+      contactos: contactosAdapter.upsertOne(payload, state.contactos)
+    })
+  ),
+  on(fromActions.LoadContactosSuccessAction,
+    (state, { payload }) => ({
+      ...state,
+      contactos: contactosAdapter.addAll(payload, state.contactos)
+    })
+  ),
+  on(fromActions.SearchContactoSuccessAction,
+    (state, { payload }) => ({
+      ...state,
+      search: searchContactosAdapter.addAll(payload, state.search),
+      contactos: contactosAdapter.upsertMany(payload, state.contactos)
+    })
+  ),
 );
-
-export function reducer(state: State, action: Action) {
-    return _reducer(state, action);
-}

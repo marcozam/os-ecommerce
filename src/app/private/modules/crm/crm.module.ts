@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Material
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,22 +16,17 @@ import { CrmRoutingModule } from './crm-routing.module';
 import { OSCommonFormsModule } from 'app/common-forms/common-forms.module';
 import { BaseModule } from 'app/modules/base/base.module';
 // Components
-import { ContactoComponent } from './components/contacto/contacto.component';
+import * as components from './components';
 import { SearchPersonaComponent } from './components/search-persona/search-persona.component';
-import { DialogActionsComponent } from './components/dialog-actions/dialog-actions.component';
-import { DatosContactoComponent } from './components/datos-contacto/datos-contacto.component';
 import { HomeComponent } from './containers/home/home.component';
-// Directives
-import { NameValidatorDirective } from './directives/name-validator.directive';
 // Services
 import { ContactoService } from 'services/http/crm';
 import { PersonasService } from 'services/http/base';
+import { CRMStoreModule } from 'store/crm/crm-store.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     // Routing
     CrmRoutingModule,
     // OS Module
@@ -48,25 +42,28 @@ import { PersonasService } from 'services/http/base';
     MatTooltipModule,
     MatMenuModule,
     MatTabsModule,
+    // Store
+    CRMStoreModule,
   ],
   declarations: [
-    ContactoComponent,
-    SearchPersonaComponent,
-    DialogActionsComponent,
+    components.ContactoComponent,
+    components.ContactoFormComponent,
+    components.DialogActionsComponent,
+    components.DatosContactoComponent,
     HomeComponent,
-    NameValidatorDirective,
-    DatosContactoComponent
+    SearchPersonaComponent,
   ],
   providers: [
     ContactoService,
     PersonasService,
   ],
   exports: [
-    ContactoComponent,
+    components.ContactoComponent,
     SearchPersonaComponent
   ],
   entryComponents: [
-    DialogActionsComponent
+    components.DialogActionsComponent,
+    components.ContactoFormComponent,
   ]
 })
 export class CRMModule { }

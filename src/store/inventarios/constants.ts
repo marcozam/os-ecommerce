@@ -1,11 +1,11 @@
 import { createFeatureSelector } from '@ngrx/store';
 // States
 import { TiposMovimientoInventarioState } from './tipos-movimiento/tipos-movimiento.entities';
-import { MovimientosInventarioState } from './movimientos/movimientos.entities';
+import { InventarioState } from './movimientos/movimientos.entities';
 
 export interface InventarioModuleState {
   tiposMovimientos: TiposMovimientoInventarioState;
-  movimientos: MovimientosInventarioState;
+  inventario: InventarioState;
 }
 
 export const namespace = '[Inventarios]';

@@ -1,47 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+// Angular Material
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+// RxJS
+import { takeUntil, map } from 'rxjs/operators';
+// NgRx Store
+import { Store } from '@ngrx/store';
+import * as fromStore from 'store';
+// Common
+import { OSBaseDestroyComponent } from 'app/common-forms/components';
 // Services
 import { DialogBoxService } from 'app/common/services';
-// HTTP
-import { InventarioService } from 'services/http/inventarios';
-import { CategoriaProductoService } from 'services/http/productos';
 // Models
 import { Inventario } from 'models/inventario';
 import { CategoriaProducto } from 'models/productos';
-import { OSListComponent, OSTableColumn } from 'app/common';
+import { OSTableColumn } from 'app/common';
+import { importExpr } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-corte-inventario',
   templateUrl: './corte-inventario.component.html',
   styleUrls: ['./corte-inventario.component.scss'],
-  providers: [
-    InventarioService,
-    CategoriaProductoService,
-    DialogBoxService
-  ]
 })
-export class CorteInventarioComponent extends OSListComponent<Inventario> implements OnInit {
+export class CorteInventarioComponent extends OSBaseDestroyComponent implements OnInit, AfterViewInit {
 
-  sucursalID: number;
-  categorias: CategoriaProducto[];
+  categorias$ = this.store$.select(fromStore.getStockCategories);
+  dataSource: MatTableDataSource<{
+    categoria: string;
+    producto: string;
+    cantidad: number;
+    cantidadFisica: number;
+  }>;
+  columnsName = ['categoria', 'producto', 'cantidad', 'cantidadFisica'];
+  pageSizeOptions: number[] = [25, 50, 100];
+
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
   selectedCategory: CategoriaProducto;
 
-  // Define Columns
-  tableColumns = [
-    new OSTableColumn('categoria', 'Categoria', item => item.producto.categoriaProducto ? item.producto.categoriaProducto.nombre : ''),
-    new OSTableColumn('producto', 'Producto', item => item.producto.nombre),
-    new OSTableColumn('cantidad_actual', 'Sistema', item => item.cantidad),
-    new OSTableColumn('cantidad_fisica', 'Fisico', item => item.cantidadFisica ? item.cantidadFisica : 0)
-  ];
-
   constructor(
-    router: Router,
-    route: ActivatedRoute,
-    private _service: InventarioService,
-    private _categoriaService: CategoriaProductoService,
+    private store$: Store<fromStore.InventarioModuleState>,
     private dialog: DialogBoxService
   ) {
-    super(router, route);
+    super();
     /*
     this.dataSource.filter = () => {
       return this.selectedCategory ?
@@ -50,32 +53,31 @@ export class CorteInventarioComponent extends OSListComponent<Inventario> implem
         this.dataSource.data.filter(inv => inv.producto.categoriaProductoID === this.selectedCategory.key) : this.dataSource.data;
     };
     */
-    // Defines default sort
-    /*
-    this.dataSource.columns[0].sortOrder = 0;
-    this.dataSource.columns[0].sortDirection = 'desc';
-    this.dataSource.columns[1].sortOrder = 1;
-    this.dataSource.columns[1].sortDirection = 'desc';
-    */
   }
 
-  createSubscriptions() {
-    /*
-    this._categoriaService.source$.subscribe(result => this.categorias = result);
-
+  /*
     this._service.source$.subscribe(result => {
       this.dataSource.updateDataSource(result);
       this.syncWithLocalCopy();
     });
     */
-  }
 
   ngOnInit() {
-    this.sucursalID = 1;
-    this.createSubscriptions();
-    // Get Initial Data
-    this._service.getInventarioActual(this.sucursalID);
-    // this._categoriaService.getStockCategories();
+    this.dataSource = new MatTableDataSource();
+    this.store$.select(fromStore.selectInvetario).pipe(
+      takeUntil(this.destroyed$),
+      map(inventario => inventario.map(({ producto, cantidad, cantidadFisica }) => ({
+          categoria: producto.categoriaProducto.nombre,
+          producto: producto.nombre,
+          cantidad,
+          cantidadFisica,
+        })))
+    ).subscribe(list => this.dataSource.data = list);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   /*

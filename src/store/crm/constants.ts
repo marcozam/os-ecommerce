@@ -1,10 +1,11 @@
 import { createFeatureSelector } from '@ngrx/store';
-// import { ProducstosState } from './productos/productos.entities';
+import { ContactoState } from './contacto';
 
-export interface ContactsModuleState {
-  // contactos: ProducstosState;
+export interface CRMModuleState {
+  contactos: ContactoState;
 }
 
-export const namespace = '[Contactos]';
-export const featureName = 'contacts';
-export const getProductsModuleState = createFeatureSelector<ContactsModuleState>(featureName);
+export const namespace = '[CRM]';
+export const featureName = 'CRM';
+
+export const getCRMModuleState = createFeatureSelector<CRMModuleState>(featureName);

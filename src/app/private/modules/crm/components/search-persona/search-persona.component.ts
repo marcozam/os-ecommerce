@@ -1,11 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-// RxJs
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+// Angular Material
+import { MatDialog } from '@angular/material/dialog';
 // NgRx
 import { Store } from '@ngrx/store';
-// import { SearchContactoAction } from 'store';
-// Services
-import { ContactoService } from 'services/http/crm';
+import * as fromStore from 'store/crm';
+// Common Forms
+import { SEARCH_PERSONA_FORM } from 'app/common-forms';
+// Components
+import { ContactoComponent } from '../contacto/contacto.component';
+import { ContactoFormComponent } from '../contacto-form/contacto-form.component';
+import { DialogActionsComponent } from '../dialog-actions/dialog-actions.component';
 // Models
 import { Contacto } from 'models/crm';
 import { Persona } from 'models/general';
@@ -13,64 +18,101 @@ import { Persona } from 'models/general';
 @Component({
   selector: 'app-search-persona',
   templateUrl: './search-persona.component.html',
-  styleUrls: ['./search-persona.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchPersonaComponent implements OnInit {
 
-  resultados: Contacto[] = [];
-  _contacto: Contacto;
-  contactoID: number;
-  loading$: Observable<boolean>;
-  isLoading = false;
-  triggerSearch = false;
-  showAdd = false;
+  contacto: Contacto;
+  searchForm: FormGroup;
+  searchTriggered: boolean;
+  resultados$ = this.store$.select(fromStore.selectAllSearchContactos);
 
-  @Input() catalogName: string;
   @Output() onChange = new EventEmitter<any>();
 
   constructor(
-    private contactoService: ContactoService,
-    private store$: Store<any>) { }
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private store$: Store<fromStore.CRMModuleState>) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.searchForm = this.fb.group(SEARCH_PERSONA_FORM());
+    this.searchTriggered = false;
+  }
 
-  onSearch(_nombre: string) {
-    _nombre = _nombre.trim();
-    const _names = _nombre.split(',');
-    if (_names.length >= 2) {
-      const [ nombre, apellido ] = _names;
-      // this.store$.dispatch(SearchContactoAction({ payload: { nombre, apellido } }));
-      // this.isLoading = true;
-      this.contactoService.getPersonaByName(_names[1], _names[0])
-        .subscribe(data => this.resultados = data);
-      this.triggerSearch = true;
+  private splitNames(value: string): { nombre: string; apellido: string } {
+    const names = value.trim().split(',');
+    if (names.length >= 2) {
+      const [ nombre, apellido ] = names;
+      return { nombre, apellido };
+    }
+    return null;
+  }
+
+  search({ nombre }) {
+    const payload = this.splitNames(nombre);
+    if (payload) {
+      this.searchTriggered = true;
+      this.store$.dispatch(fromStore.SearchContactoAction({ payload }));
     }
   }
 
-  onItemSelected(item: Contacto) {
-    this.onChange.emit({data: item, exist: true});
-  }
-
-  onViewContactClick(item: Contacto) {
-    this.contactoID = item.key;
-    this.showAdd = true;
-  }
-
-  onAddClick(_nombre: string) {
-    if (!_nombre) {
-      _nombre = ',';
+  onItemSelected(contacto: Contacto) {
+    if (contacto.key === 0) {
+      // this._contactoService.save(item.data).subscribe((data: Contacto) => this.checkData(data));
+    } else {
+      this.checkData(Contacto);
     }
-    const _names = _nombre.split(',');
-    const $persona = new Persona();
-    $persona.nombre = _names[0].trim();
-    $persona.apellidoPaterno = _names[1].trim();
-    this.showAdd = true;
-    this._contacto = new Contacto();
-    this._contacto.persona = $persona;
   }
 
-  personaAdded(data: any) {
-    this.showAdd = false;
-    this.onChange.emit({data: data.Data, exist: data.isNew});
+  onAddClick(nombres: string) {
+    const { nombre, apellido } = this.splitNames(nombres || ',');
+    const persona = new Persona(nombre, apellido);
+    this.contacto = new Contacto();
+    this.contacto.persona = persona;
+  }
+
+  personaAdded(contacto: any) {
+    // this.onChange.emit({data: data.Data, exist: data.isNew});
+  }
+
+  checkData(contacto: Contacto) {
+    /*
+    this._ventaService.getOrdenesPendientesEntrega(0, _contacto.key)
+      .subscribe(result => {
+        this.ordenesPendientes = result;*/
+        this.openDialog(contacto);
+        /*
+      });
+    */
+  }
+
+  openContactDialog(contacto: Contacto) {
+    const { key: payload } = contacto;
+    this.store$.dispatch(fromStore.SelectContactoAction({ payload }));
+    this.dialog.open(ContactoComponent);
+  }
+
+  openDialog(contacto: Contacto) {
+    const { key, nombre } = contacto;
+    const actions = [
+      { name: 'Realizar examen', route: `/optika/examen/${key}` },
+      { name: 'Generar venta', route: `/optika/venta/${key}` },
+      /*{ name: 'Historial de Compra', route: '/crm/historial/' + _contacto.key },*/
+    ];
+
+    /*
+    if (this.ordenesPendientes.length > 0) {
+      _actions.push({ name: `Ordenes por Entregar (${this.ordenesPendientes.length})`, route: '/caja/entregas/' + _contacto.key });
+    } */
+
+    const dialogRef = this.dialog.open(DialogActionsComponent, {
+      data: { actions, title: nombre }
+    });
+
+    /*
+    if (_onClose) {
+      dialogRef.afterClosed().subscribe(result => { _onClose(result); });
+    }
+    */
   }
 }

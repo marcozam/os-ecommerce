@@ -8,8 +8,7 @@ import { Actions } from '@ngrx/effects';
 // Services
 import { DialogBoxService } from 'app/common/services';
 // Common forms
-import { OSBaseFormContainer } from 'app/common-forms/components';
-import { PERSONA_FORM } from 'app/common-forms/builders';
+import { PERSONA_FORM, OSBaseFormContainer } from 'app/common-forms';
 // Models
 import { Alumno, Persona } from 'models';
 import { IAlumnoFullForm } from '../../components';

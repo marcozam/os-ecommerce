@@ -9,6 +9,12 @@ import { EmpresasService } from 'services/http/base';
 
 @Injectable()
 export class EmpresaEffects {
+
+  constructor(
+    private actions$: Actions,
+    private empresasService: EmpresasService
+  ) { }
+
   save$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.SaveEmpresaAction),
     concatMap(({ payload }) => this.empresasService.save(payload.value, payload.oldValue)
@@ -18,9 +24,4 @@ export class EmpresaEffects {
       ))
     )
   );
-
-  constructor(
-    private actions$: Actions,
-    private empresasService: EmpresasService
-  ) { }
 }

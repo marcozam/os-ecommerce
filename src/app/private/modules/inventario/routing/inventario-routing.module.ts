@@ -19,14 +19,18 @@ const routes: Routes = [
     path: 'corte',
     component: components.CorteInventarioComponent,
     data: { title: 'Corte de Inventario' },
+    resolve: {
+      inventario: resolvers.InventarioLoadedResolver,
+    }
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   providers: [
-    resolvers.TipoMovimientoInventarioLoadedResolver,
     productResolvers.CategoriasListResolver,
+    resolvers.TipoMovimientoInventarioLoadedResolver,
+    resolvers.InventarioLoadedResolver,
   ],
   exports: [RouterModule]
 })

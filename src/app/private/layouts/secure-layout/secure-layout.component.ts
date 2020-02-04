@@ -1,38 +1,52 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 // RxJs
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 // NgRx Store
 import { Store } from '@ngrx/store';
-import * as fromStore from 'store/auth';
+import * as fromStore from 'store';
+import { MatDialog } from '@angular/material/dialog';
+import { SucursalSelectionComponent } from '../modals/sucursal-selection/sucursal-selection.component';
 
 @Component({
   selector: 'app-secure-layout',
   templateUrl: './secure-layout.component.html',
   styleUrls: ['./secure-layout.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SecureLayoutComponent {
+export class SecureLayoutComponent implements OnInit {
+
+  appName = 'OS';
+  title = 'OS';
 
   userInfo$ = this.store$.select(fromStore.getUserPersona).pipe(
     map(({ nombre, apellidoPaterno }) =>
-      `${nombre} ${apellidoPaterno}`
-      .toLocaleLowerCase())
+      `${nombre} ${apellidoPaterno}`));
+
+  activeSucursal$ = this.store$.select(fromStore.selectActiveSucursal).pipe(
+    tap(sucursal => {
+      if (!sucursal) {
+        this.dialog.open(SucursalSelectionComponent);
+      }
+    })
   );
 
-  constructor(titleService: Title, router: Router, private store$: Store<fromStore.AuthModuleState>) {
+  constructor(
+    private store$: Store<fromStore.RootState>,
+    private dialog: MatDialog,
+    titleService: Title,
+    router: Router) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const title = this.getTitle(router.routerState, router.routerState.root).join('-');
-        titleService.setTitle(this.appName + ' :: ' + title);
+        titleService.setTitle(this.appName + ' | ' + title);
         this.setTitle(title);
       }
     });
   }
 
-  appName = 'OS';
-  title = 'OS';
+  ngOnInit() { }
 
   getTitle(state, parent) {
     const data = [];

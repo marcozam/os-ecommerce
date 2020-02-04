@@ -1,5 +1,6 @@
-import { MovimientoInventario } from 'models/inventario';
+import { MovimientoInventario, Inventario } from 'models/inventario';
 
-export interface MovimientosInventarioState {
-  list: MovimientoInventario[];
+export interface InventarioState {
+  movimientos: MovimientoInventario[];
+  inventario: Inventario[];
 }

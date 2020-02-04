@@ -8,3 +8,13 @@
     }
   }
 }
+
+mat-cell, mat-footer-cell, mat-header-cell {
+  padding: 0 10px;
+  &.sm {
+    max-width: 85px;
+  }
+  &.md {
+    max-width: 170px;
+  }
+}

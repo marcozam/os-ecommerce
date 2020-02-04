@@ -1,37 +1,18 @@
-<form #formContacto="ngForm">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="sub-container">
-        <div class="sub-container-header">
-          <span class="sub-titles"> {{catalogName}} </span>
-        </div>
-        <mat-form-field>
-          <input matInput placeholder="Empresa">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Departamento">
-        </mat-form-field>
-        <os-persona-form></os-persona-form>
-        <!--<os-empresa [catalogName]="catalogName"></os-empresa>-->
-      </div>
-    </div>
-    <div class="col-md-4">
-      <app-datos-contacto></app-datos-contacto>
-    </div>
+<ng-container *ngIf="contacto$ | async as contacto">
+  <h1 mat-dialog-title>
+    Datos
+  </h1>
+  <div mat-dialog-content>
+    <app-contacto-form [form]="form" [value]="contacto"></app-contacto-form>
   </div>
-  
-  <div class="row">
-    <div class="col-md-12">
-      <div class="text-right buttons-containers">
-        <button mat-button color="warn" routerLink="/crm/search" (click)="cancel()">
-          <mat-icon>clear</mat-icon>
-          Cancelar
-        </button>
-        <button mat-raised-button color="primary" (click)="onSave(formContacto.value)" [disabled]="formContacto.invalid || !isChildValid">
-          <mat-icon aria-label="Guardar">save</mat-icon>
-          Guardar {{catalogName}}
-        </button>
-      </div>
-    </div>
+  <div class="buttons-containers end-xs" mat-dialog-actions>
+    <button mat-button color="warn" (click)="cancel()">
+      <mat-icon>clear</mat-icon>
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" (click)="onSave(form.value)" [disabled]="form.invalid">
+      <mat-icon aria-label="Guardar">save</mat-icon>
+      Guardar {{catalogName}}
+    </button>
   </div>
-</form>
+</ng-container>

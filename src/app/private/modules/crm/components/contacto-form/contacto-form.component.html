@@ -1,0 +1,18 @@
+<form>
+  <!--
+  <mat-form-field>
+    <input matInput placeholder="Empresa">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Departamento">
+  </mat-form-field>
+  -->
+  <div class="row">
+    <div class="col-xs col-sm-8">
+      <os-persona-form [form]="form.get('persona')" [showOptionals]="true"></os-persona-form>
+    </div>
+    <div class="col-xs col-sm-4">
+      <app-datos-contacto></app-datos-contacto>
+    </div>
+  </div>
+</form>

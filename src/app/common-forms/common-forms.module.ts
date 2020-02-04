@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 // Material
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -9,12 +9,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-// Components
-import * as components from '../common-forms/components';
+import * as components from './components';
+import * as validators from './validators';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     // Material
     MatButtonModule,
@@ -28,12 +29,19 @@ import * as components from '../common-forms/components';
     // Components
     components.PersonaFormComponent,
     components.EmpresaFormComponent,
+    components.SearchPersonaFormComponent,
+    // Validators
+    validators.NameValidatorDirective,
   ],
   exports: [
     components.PersonaFormComponent,
     components.EmpresaFormComponent,
+    components.SearchPersonaFormComponent,
+    // Validators
+    validators.NameValidatorDirective,
     // Export Forms
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
   ],
 })
