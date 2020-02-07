@@ -2,9 +2,9 @@
 import { createAction, props } from '@ngrx/store';
 import { CREATE_CRUD_ACTIONS, CREATE_ACTION_RUTIN } from 'store/helpers';
 // Models
-import { Contacto } from 'models/crm';
+import { Contacto, DatoContacto } from 'models/crm';
+import { entityName } from './constants';
 import { namespace } from '../constants';
-const entityName = 'Contacto';
 
 export const {
     initialSave: SaveContactoAction,
@@ -17,6 +17,12 @@ export const {
     successLoad: LoadContactosSuccessAction,
     failLoad: LoadContactosFailAction,
 } = CREATE_CRUD_ACTIONS<Contacto>(namespace, entityName);
+
+export const {
+  initial: LoadDatosContactoAction,
+  success: LoadDatosContactoSuccessAction,
+  fail: LoadDatosContactoFailAction,
+} = CREATE_ACTION_RUTIN<number, DatoContacto[], any>(`${namespace} Load Datos de Contacto`);
 
 export const {
   initial: SearchContactoAction,

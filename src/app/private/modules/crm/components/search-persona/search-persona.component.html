@@ -8,7 +8,7 @@
     <form (ngSubmit)="search(searchForm.value)">
       <os-search-persona-form [form]="searchForm"></os-search-persona-form>
       <div class="buttons-containers end-xs">
-        <button type="submit" mat-raised-button color="primary" [disabled]="searchForm.invalid">
+        <button mat-raised-button color="primary" [disabled]="searchForm.invalid">
           <mat-icon aria-label="Buscar">search</mat-icon>
           Buscar
         </button>

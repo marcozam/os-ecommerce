@@ -8,11 +8,24 @@
   </mat-form-field>
   -->
   <div class="row">
-    <div class="col-xs col-sm-8">
+    <div class="col-xs col-sm-7">
       <os-persona-form [form]="form.get('persona')" [showOptionals]="true"></os-persona-form>
     </div>
-    <div class="col-xs col-sm-4">
-      <app-datos-contacto></app-datos-contacto>
+    <div class="col-xs col-sm-5">
+      <div class="end-xs">
+        <button mat-icon-button [matMenuTriggerFor]="tipoDatoMenu">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+
+        <mat-menu #tipoDatoMenu="matMenu" class="slim">
+          <button mat-menu-item *ngFor="let tdc of tiposDatos">
+            {{ tdc.nombre }}
+          </button>
+        </mat-menu>
+      </div>
+      <mat-form-field *ngFor="let dc of value.datos">
+        <input matInput [placeholder]="dc.nombre" [value]="dc.valor">
+      </mat-form-field>
     </div>
   </div>
 </form>

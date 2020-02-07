@@ -1,10 +1,10 @@
 
 import { createSelector } from '@ngrx/store';
-import { getCRMModuleState } from '../constants';
+import { selectCRMModuleState } from '../constants';
 import { contactosAdapter, searchContactosAdapter } from './contacto.entities';
 
 export const selectContactosState = createSelector(
-  getCRMModuleState, state => state.contactos
+  selectCRMModuleState, state => state.contactos
 );
 
 export const selectContactosSearchState = createSelector(

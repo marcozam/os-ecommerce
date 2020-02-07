@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<ng-container [formGroup]="form">
   <mat-form-field>
     <input matInput placeholder="Nombre" autofocus formControlName="nombre">
     <mat-hint>
@@ -8,4 +8,4 @@
       Favor de capturar al menos 3 caracteres del nombre y apellido.
     </mat-error>
   </mat-form-field>
-</form>
+</ng-container>

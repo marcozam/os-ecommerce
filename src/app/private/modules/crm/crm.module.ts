@@ -11,7 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 // Routing
-import { CrmRoutingModule } from './crm-routing.module';
+import { CrmRoutingModule } from './routing/crm-routing.module';
 // OSModules
 import { OSCommonFormsModule } from 'app/common-forms/common-forms.module';
 import { BaseModule } from 'app/modules/base/base.module';

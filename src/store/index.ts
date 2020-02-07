@@ -5,3 +5,4 @@ export * from './root-state';
 export * from './productos';
 export * from './state';
 export * from './auth';
+export * from './crm';

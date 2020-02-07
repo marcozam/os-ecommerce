@@ -1,18 +1,18 @@
-<ng-container *ngIf="contacto$ | async as contacto">
+<form *ngIf="data$ | async as data">
   <h1 mat-dialog-title>
     Datos
   </h1>
   <div mat-dialog-content>
-    <app-contacto-form [form]="form" [value]="contacto"></app-contacto-form>
+    <app-contacto-form [form]="form" [value]="data.contacto" [tiposDatos]="data.tipoDatos"></app-contacto-form>
   </div>
   <div class="buttons-containers end-xs" mat-dialog-actions>
     <button mat-button color="warn" (click)="cancel()">
       <mat-icon>clear</mat-icon>
       Cancelar
     </button>
-    <button mat-raised-button color="primary" (click)="onSave(form.value)" [disabled]="form.invalid">
+    <button type="submit" mat-raised-button color="primary" (click)="onSave(form.value)" [disabled]="form.invalid">
       <mat-icon aria-label="Guardar">save</mat-icon>
-      Guardar {{catalogName}}
+      Guardar
     </button>
   </div>
-</ng-container>
+</form>

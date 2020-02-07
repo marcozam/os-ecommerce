@@ -2,7 +2,10 @@ import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from
 import { FormBuilder, EmailValidator, FormGroup } from '@angular/forms';
 // NgRx
 import { Store } from '@ngrx/store';
-import * as fromStore from 'store/crm';
+import * as fromStore from 'store';
+// RxJs
+import { combineLatest } from 'rxjs';
+import { withLatestFrom, map, filter } from 'rxjs/operators';
 // Common Forms
 import { PERSONA_FORM } from 'app/common-forms';
 // Models
@@ -19,19 +22,30 @@ export class ContactoComponent implements OnInit {
 
   datosContacto = { telefono: null, email: null, colonia: null };
   // get isNew(): boolean { return this.contactoID ? true : false; }
-  contacto$ = this.store$.select(fromStore.selectSelectedContacto);
+
+  data$ = combineLatest([
+    this.store$.select(fromStore.selectSelectedPersona),
+    this.store$.select(fromStore.selectSelectedContacto),
+  ]).pipe(
+    withLatestFrom(this.store$.select(fromStore.selectAllTipoDatoContacto)),
+    map(([[persona, contacto], tipoDatos]) => {
+      if (persona) {
+        contacto.persona = persona;
+      }
+      return { contacto, tipoDatos };
+    })
+  );
+
   form: FormGroup;
 
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
 
-  contacto: Contacto;
-  tiposDatosContacto: TipoDatosContacto[];
   isChildValid = false;
 
   constructor(
     private fb: FormBuilder,
-    private store$: Store<fromStore.CRMModuleState>
+    private store$: Store<fromStore.RootState>
   ) { }
 
   ngOnInit() {
@@ -57,15 +71,16 @@ export class ContactoComponent implements OnInit {
   */
 
   onPersonaChanged(event) {
+    /*
     this.isChildValid = event.isValid;
     if (this.isChildValid) { this.contacto.persona = event.data; }
+    */
   }
 
   cancel() { this.onCancel.emit(); }
 
   onSave() {
     // TODO: Add contact type
-    this.contacto.tipoID = 1;
     // this.contacto.datos = datos;
 
     // ADD Store here

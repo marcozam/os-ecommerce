@@ -1,6 +1,6 @@
 
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Contacto } from 'models';
+import { Contacto } from 'models/crm';
 
 export interface ContactoState {
   contactos: EntityState<Contacto>;

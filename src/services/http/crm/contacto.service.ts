@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 // RxJs
-import { of, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 // Services
-import { PersonasService } from '../base';
 import { BaseGenericCatalogService, GenericCatalogService } from '../generic-catalogs';
 // Models
 import { Persona } from 'models/general';
-import { Contacto, DatoContacto } from 'models/crm';
+import { Contacto, DatoContacto, TipoDatoContacto } from 'models/crm';
 
 @Injectable()
 export class ContactoService extends BaseGenericCatalogService<Contacto> {
 
-  constructor(_db: GenericCatalogService, private personaService: PersonasService) {
+  constructor(_db: GenericCatalogService) {
     super(_db, 403);
   }
 
@@ -36,43 +35,43 @@ export class ContactoService extends BaseGenericCatalogService<Contacto> {
   getPersonaByName(apellido: string, nombre: string): Observable<Contacto[]> {
     const params = this.db.createParameter('CRM0001', 4, { V3: apellido.trim(), V4: nombre.trim(), V5: '' });
     return this.db.getData(params).pipe(
-      map(result => result.Table.map(item => {
-        const cnt = new Contacto();
-        cnt.key = item.C0;
-        cnt.tipoID = 1;
-        cnt.persona = new Persona();
-        cnt.persona.key = item.C1;
-        cnt.persona.nombre = item.C2;
-        cnt.persona.apellidoPaterno = item.C3;
-        cnt.persona.apellidoMaterno = item.C4;
-        return cnt;
+      map(result => result.Table.map(({ C0, C1, C2, C3, C4 }) => {
+        const contacto = new Contacto();
+        contacto.key = C0;
+        contacto.tipoID = TipoDatoContacto.Persona;
+        contacto.referenceID = C1;
+        contacto.persona = new Persona(C2, C3, C4, C1);
+        return contacto;
       })));
   }
 
-  getByID(ID: number) {
+  getByID(ID: number): Observable<Contacto> {
     const params = this.db.createParameter('CRM0001', 2, { V3: 0, V4: ID});
     return this.db.getData(params).pipe(
-      switchMap(result => {
-        let contacto = <Contacto>result.Table[0];
-        if (contacto) {
-          contacto = this.mapData(contacto);
-          contacto.datos = result.Table1.map(t => this.mapDatosData(t));
-          if (contacto.tipoID === 1) {
-              return this.personaService.getByID(contacto.referenceID).pipe(
-                map((persona: Persona) => {
-                  contacto.persona = persona;
-                  return contacto;
-                })
-              );
-          }
-          return of(contacto);
+      map(({ Table, Table1 }) => {
+        console.log('getById', Table, Table1);
+        const item = Table[0];
+        if (item) {
+          const contacto = this.mapData(item);
+          console.log('getById mapper', item);
+          contacto.datos = Table1.map(t => this.mapDatosData(t));
+          return contacto;
         }
-        return of(null); // TODO Throw an exception
+        return null; // TODO Throw an exception
       })
     );
   }
 
-  save(item: Contacto) {
+  getDatosContactoByID(ID: number): Observable<DatoContacto[]> {
+    const params = this.db.createParameter('CRM0001', 2, { V3: 0, V4: ID});
+    return this.db.getData(params).pipe(
+      map(({ Table, Table1 }) => Table && Table[0] ?
+          Table1.map(t => this.mapDatosData(t)) :
+          null // TODO Throw an exception
+      ));
+  }
+
+  save(item: Contacto): Observable<Contacto> {
     let DCA = [];
     DCA.push('C0,C1,C2');
     DCA = DCA.concat(this.mapDatos2Server(item.datos));
@@ -82,6 +81,7 @@ export class ContactoService extends BaseGenericCatalogService<Contacto> {
       V4: item.tipoID === 1 ? item.persona.key : item.empresa.key,
       V7: DCA.join('&')
     });
+
     return this.db.getData(tParams).pipe(
       map((result: any) => {
         const newItem = this.mapData(result.Table[0]);

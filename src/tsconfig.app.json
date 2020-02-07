@@ -9,6 +9,7 @@
   },
   "exclude": [
     "app/modules/**",
+    "app/private/modules/optica/**",
     "app/layouts/components/public/**",
     "test.ts",
     "**/*.spec.ts"

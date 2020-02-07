@@ -58,7 +58,7 @@ export class HomeComponent {
     }
 
     const dialogRef = this.dialog.open(DialogActionsComponent, {
-      data: { title: _contacto.nombre, actions: _actions }
+      data: { title: '', actions: _actions }
     });
 
     if (_onClose) {

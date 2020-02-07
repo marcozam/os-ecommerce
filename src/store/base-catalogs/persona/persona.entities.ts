@@ -4,6 +4,7 @@ import { Persona } from 'models';
 
 export interface State extends EntityState<Persona> {
   loaded: boolean;
+  selected: number;
 }
 
 export const adapter: EntityAdapter<Persona> = createEntityAdapter<Persona>({

@@ -1,27 +1,37 @@
 import { Component, OnInit, Input } from '@angular/core';
- import { FormControl, Validators } from '@angular/forms';
-// Services
-import { TipoDatoContactoService } from 'services/http/crm';
+ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+ // NgRx
+import { Store } from '@ngrx/store';
+import * as fromStore from 'store/crm';
 // Models
 import { TipoDatosContacto, DatoContacto } from 'models/crm';
 // Constants
 import { OSValidators } from 'app/common/validators';
+import { map, withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'app-datos-contacto',
   templateUrl: './datos-contacto.component.html',
   styleUrls: ['./datos-contacto.component.scss'],
-  providers: [TipoDatoContactoService]
 })
 export class DatosContactoComponent implements OnInit {
 
-  tiposDato: TipoDatosContacto[];
+  tiposDatos$ = this.store$.select(fromStore.selectAllTipoDatoContacto);
+  fields$ = this.store$.select(fromStore.selectSelectedContacto).pipe(
+    withLatestFrom(this.tiposDatos$),
+    map(([contacto, tipoDatos]) => {
+      return contacto.datos;
+    })
+  );
+
   fields: { control: FormControl, value: DatoContacto}[];
 
-  @Input() contactoID: number;
   @Input() datos: DatoContacto[];
 
-  constructor(private _service: TipoDatoContactoService) { }
+  constructor(
+    private fb: FormBuilder,
+    private store$: Store<fromStore.CRMModuleState>
+  ) { }
 
   ngOnInit() {
     /*
@@ -31,7 +41,6 @@ export class DatosContactoComponent implements OnInit {
       this.loadInitialFields(this.tiposDato.filter(td => td.visible));
     });
     */
-    this._service.getList();
   }
 
   loadInitialFields(fields: TipoDatosContacto[]) {
@@ -40,7 +49,6 @@ export class DatosContactoComponent implements OnInit {
 
   setField(tipo: TipoDatosContacto, value?: string) {
     const dc = new DatoContacto();
-    dc.contactoID = this.contactoID;
     dc.tipoDatoContacto = tipo;
     // Creates Form Control
     const fc = new FormControl(value ? value : '', { updateOn: 'blur' });

@@ -1,7 +1,7 @@
 import { createFeatureSelector } from '@ngrx/store';
 // Persona
 import * as personaConstants from './persona/constants';
-import * as personaState from './persona/persona.entity';
+import * as personaState from './persona/persona.entities';
 // Empresa
 import * as empresaConstants from './empresa/constants';
 import * as empresaState from './empresa/empresa.entity';

@@ -12,9 +12,11 @@ import {
 } from 'services/http/crm';
 
 import { ContactoEffects, contactoReducer, ContactoState } from './contacto';
+import { TipoDatoContactoEffects, tipoDatoContactoReducer, TipoDatoContactoState } from './tipo-dato-contacto';
 
 const reducers: ActionReducerMap<CRMModuleState> = {
   contactos: (state: ContactoState, action: Action) => contactoReducer(state, action),
+  tipoDatoContacto: (state: TipoDatoContactoState, action: Action) => tipoDatoContactoReducer(state, action),
 };
 
 @NgModule({
@@ -22,6 +24,7 @@ const reducers: ActionReducerMap<CRMModuleState> = {
     StoreModule.forFeature(featureName, reducers),
     EffectsModule.forFeature([
       ContactoEffects,
+      TipoDatoContactoEffects
     ])
   ],
   providers: [

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 // NgRx
 import { Store } from '@ngrx/store';
-import * as fromStore from 'store/crm';
+import * as fromStore from 'store';
 // Common Forms
 import { SEARCH_PERSONA_FORM } from 'app/common-forms';
 // Components
@@ -60,7 +60,7 @@ export class SearchPersonaComponent implements OnInit {
     if (contacto.key === 0) {
       // this._contactoService.save(item.data).subscribe((data: Contacto) => this.checkData(data));
     } else {
-      this.checkData(Contacto);
+      this.checkData(contacto);
     }
   }
 
@@ -68,7 +68,7 @@ export class SearchPersonaComponent implements OnInit {
     const { nombre, apellido } = this.splitNames(nombres || ',');
     const persona = new Persona(nombre, apellido);
     this.contacto = new Contacto();
-    this.contacto.persona = persona;
+    // this.contacto.persona = persona;
   }
 
   personaAdded(contacto: any) {
@@ -87,13 +87,15 @@ export class SearchPersonaComponent implements OnInit {
   }
 
   openContactDialog(contacto: Contacto) {
-    const { key: payload } = contacto;
+    const { key: payload, referenceID } = contacto;
     this.store$.dispatch(fromStore.SelectContactoAction({ payload }));
+    this.store$.dispatch(fromStore.GetPersonaAction({ payload: referenceID }));
+    this.store$.dispatch(fromStore.LoadDatosContactoAction({ payload }));
     this.dialog.open(ContactoComponent);
   }
 
   openDialog(contacto: Contacto) {
-    const { key, nombre } = contacto;
+    const { key } = contacto;
     const actions = [
       { name: 'Realizar examen', route: `/optika/examen/${key}` },
       { name: 'Generar venta', route: `/optika/venta/${key}` },
@@ -106,7 +108,7 @@ export class SearchPersonaComponent implements OnInit {
     } */
 
     const dialogRef = this.dialog.open(DialogActionsComponent, {
-      data: { actions, title: nombre }
+      data: { actions, title: '' }
     });
 
     /*

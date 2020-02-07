@@ -1,0 +1,9 @@
+:host {
+  .sub-container {
+    &-header {
+      button {
+        margin-left: auto;
+      }
+    }
+  }
+}
