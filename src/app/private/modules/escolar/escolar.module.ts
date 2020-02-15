@@ -41,6 +41,9 @@ import * as components from './components';
     containers.FamiliaComponent,
     components.TutorFormComponent,
     components.AlumnoFormComponent,
+  ],
+  entryComponents: [
+    containers.AlumnoComponent,
   ]
 })
 export class EscolarModule { }

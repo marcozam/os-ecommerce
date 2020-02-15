@@ -34,6 +34,7 @@ export class CorteInventarioComponent extends OSBaseDestroyComponent implements 
   }>;
   columnsName = ['categoria', 'producto', 'cantidad', 'cantidadFisica'];
   pageSizeOptions: number[] = [25, 50, 100];
+  loading = false;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

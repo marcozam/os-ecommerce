@@ -1,16 +1,16 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import { categoriasAdapter } from './categorias.entities';
 import * as fromCategorias from './categorias.action';
 
 // Models
 import { CategoriaProducto } from 'models/productos';
 
-export const initialState = categoriasAdapter.getInitialState({
+const initialState = categoriasAdapter.getInitialState({
   loaded: false,
   selected: null
 });
 
-export const categoriasReducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(fromCategorias.SaveCategoriaSuccess, fromCategorias.LoadCategoriaByIDSuccess,
     (state, { payload }) => categoriasAdapter.upsertOne(payload, state)
@@ -22,3 +22,7 @@ export const categoriasReducer = createReducer(
     (state, { payload }) => categoriasAdapter.upsertMany(payload.list, state)
   ),
 );
+
+export function categoriasReducer(state, action: Action) {
+  return reducer(state, action);
+}

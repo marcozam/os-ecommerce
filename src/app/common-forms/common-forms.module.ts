@@ -30,6 +30,7 @@ import * as validators from './validators';
     components.PersonaFormComponent,
     components.EmpresaFormComponent,
     components.SearchPersonaFormComponent,
+    components.DatosBancariosFormComponent,
     // Validators
     validators.NameValidatorDirective,
   ],

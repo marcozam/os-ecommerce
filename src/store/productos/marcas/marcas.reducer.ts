@@ -1,13 +1,13 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import { marcasAdapter } from './marcas.entities';
 import * as fromMarcas from './marcas.action';
 
-export const initialState = marcasAdapter.getInitialState({
+const initialState = marcasAdapter.getInitialState({
   loaded: false,
   selected: null
 });
 
-export const marcasReducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(fromMarcas.SaveMarcaSuccess, fromMarcas.LoadMarcaByIDSuccess,
     (state, { payload }) => marcasAdapter.upsertOne(payload, state)
@@ -22,3 +22,8 @@ export const marcasReducer = createReducer(
   ),
   */
 );
+
+
+export function marcasReducer(state, action: Action) {
+  return reducer(state, action);
+}

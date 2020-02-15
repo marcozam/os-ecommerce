@@ -6,12 +6,12 @@ import { featureName } from './constants';
 // Services
 import { AuthService } from 'services/http/auth';
 
-import { authReducer } from './auth.reducer';
+import { reducer } from './auth.reducer';
 import { AuthEffects } from './auth.effects';
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(featureName, authReducer),
+    StoreModule.forFeature(featureName, reducer),
     EffectsModule.forFeature([AuthEffects])
   ],
   providers: [

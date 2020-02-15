@@ -3,7 +3,6 @@ import { DecimalPipe, DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 // Services
 import { CajaService } from 'services/http/pagos';
-import { VentaOptikaTicketService } from 'app/modules/venta/services/tickets/venta-optika-ticket.service';
 // Common
 import { DialogBoxService } from 'app/common/services';
 import { OSTableColumn, OSListComponent } from 'app/common';
@@ -16,7 +15,7 @@ import { WARNING_TITLE, SUCCESS_TITLE } from 'app/notifications';
   selector: 'app-movimientos-caja',
   templateUrl: './movimientos-caja.component.html',
   styleUrls: ['./movimientos-caja.component.scss'],
-  providers: [DecimalPipe, DatePipe, VentaOptikaTicketService, CajaService]
+  providers: [DecimalPipe, DatePipe, CajaService]
 })
 export class MovimientosCajaComponent extends OSListComponent<MovimientoCaja> implements OnInit {
 
@@ -37,7 +36,7 @@ export class MovimientosCajaComponent extends OSListComponent<MovimientoCaja> im
     router: Router,
     route: ActivatedRoute,
     private _service: CajaService,
-    private _printVentaService: VentaOptikaTicketService,
+    // private _printVentaService: VentaOptikaTicketService,
     private _dialog: DialogBoxService,
     private _decimal: DecimalPipe,
     private _date: DatePipe) {
@@ -50,9 +49,11 @@ export class MovimientosCajaComponent extends OSListComponent<MovimientoCaja> im
   }
 
   onPrintTicket(ordenVentaID: number, esPagoInicial: boolean) {
+    /*
     this._printVentaService.esPagoInicial = esPagoInicial;
     this._printVentaService.corteID = 0;
     this._printVentaService.getServerData(ordenVentaID);
+    */
   }
 
   onCancel(item: MovimientoCaja) {

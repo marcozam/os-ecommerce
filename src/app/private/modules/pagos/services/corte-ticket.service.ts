@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import { DecimalPipe, DatePipe } from '@angular/common';
 // Services
-import { GeneralTicket } from 'app/modules/base/services/tickets/general-ticket';
-import { ImpresionTicketService } from 'app/modules/base/services/tickets/impresion-ticket.service';
 // Models
 import { CorteCaja } from 'models/pagos';
 
 @Injectable()
-export class CorteTicketService extends ImpresionTicketService implements GeneralTicket {
+export class CorteTicketService {
 
     corte: CorteCaja;
 
-    constructor(private _decimal: DecimalPipe, private _date: DatePipe) { super(); }
+    constructor(private _decimal: DecimalPipe, private _date: DatePipe) { }
 
     getServerData(key: number) { throw new Error('Method not implemented.' + key); }
 
@@ -82,5 +80,7 @@ export class CorteTicketService extends ImpresionTicketService implements Genera
         </tr>`;
     }
 
-    print() { super.print(this, this.corte.sucursal); }
+    print() {
+      // super.print(this, this.corte.sucursal);
+    }
 }

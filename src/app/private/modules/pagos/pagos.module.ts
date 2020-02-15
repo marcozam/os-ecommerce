@@ -7,9 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-// OS Modules
-import { BaseModule } from 'app/modules/base/base.module';
-import { VentaCommonModule } from 'app/modules/venta-common/venta-common.module';
 // Routing
 import { PagosRoutingModule } from './pagos-routing.module';
 // Services
@@ -33,9 +30,6 @@ import { VentasPendientesEntregaComponent } from './containers/ventas-pendientes
     MatInputModule,
     MatFormFieldModule,
     MatDialogModule,
-    // OS Modules
-    BaseModule,
-    VentaCommonModule,
   ],
   declarations: [
     MovimientosSinCorteComponent,

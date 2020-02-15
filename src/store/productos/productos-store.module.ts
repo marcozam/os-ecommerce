@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 // NgRx
-import { StoreModule, ActionReducerMap, Action } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { featureName, ProductsModuleState } from './constants';
+import { featureName } from './constants';
 // Services
 import {
   ProductosService,
@@ -10,19 +10,17 @@ import {
   CategoriaProductoService,
 } from 'services/http/productos';
 
-import { CategoriasState, CategoriasEffects, categoriasReducer } from './categorias';
-import { ProducstosState, ProductosEffects, productosReducer } from './productos';
-import { MarcasState, MarcasEffects, marcasReducer } from './marcas';
-
-const reducers: ActionReducerMap<ProductsModuleState> = {
-  productos: (state: ProducstosState, action: Action) => productosReducer(state, action),
-  categorias: (state: CategoriasState, action: Action) => categoriasReducer(state, action),
-  marcas: (state: MarcasState, action: Action) => marcasReducer(state, action),
-};
+import { CategoriasEffects, categoriasReducer } from './categorias';
+import { ProductosEffects, productosReducer } from './productos';
+import { MarcasEffects, marcasReducer } from './marcas';
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(featureName, reducers),
+    StoreModule.forFeature(featureName, {
+      productos: productosReducer,
+      categorias: categoriasReducer,
+      marcas: marcasReducer,
+    }),
     EffectsModule.forFeature([
       CategoriasEffects,
       ProductosEffects,

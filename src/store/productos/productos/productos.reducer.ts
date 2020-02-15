@@ -7,7 +7,7 @@ export const initialState = productosAdapter.getInitialState({
   selected: null
 });
 
-export const productosReducer = createReducer(
+export const reducer = createReducer(
   initialState,
   on(fromProductos.SaveProductoSuccess, fromProductos.LoadProductoByIDSuccess,
     (state, { payload }) => productosAdapter.upsertOne(payload, state)
@@ -19,3 +19,9 @@ export const productosReducer = createReducer(
     (state, { payload }) => productosAdapter.upsertMany(payload.list, state)
   ),
 );
+
+
+export function productosReducer(state: ProducstosState, action: Action) {
+  return reducer(state, action);
+}
+

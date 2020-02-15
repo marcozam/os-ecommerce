@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import { tipoDatoContactoAdapter, TipoDatoContactoState } from './tipo-dato-contacto.entities';
 import * as fromActions from './tipo-dato-contacto.actions';
 
@@ -6,7 +6,7 @@ const initialState: TipoDatoContactoState = tipoDatoContactoAdapter.getInitialSt
   loaded: false
 });
 
-export const tipoDatoContactoReducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(fromActions.SaveTipoDatoContactoSuccessAction, fromActions.GetTipoDatoContactoSuccessAction,
     (state, { payload }) => tipoDatoContactoAdapter.upsertOne(payload, state)
@@ -15,3 +15,7 @@ export const tipoDatoContactoReducer = createReducer(
     (state, { payload }) => tipoDatoContactoAdapter.addAll(payload, { ...state, loaded: true })
   ),
 );
+
+export function tipoDatoContactoReducer(state: TipoDatoContactoState, action: Action) {
+  return reducer(state, action);
+}

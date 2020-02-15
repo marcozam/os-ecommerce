@@ -15,6 +15,11 @@
     "lib": [
       "es2017",
       "dom"
-    ]
-  }
+    ],
+  },
+  "exclude": [
+    "src/app/modules/**",
+    "src/app/private/modules/optica/**",
+    "src/app/layouts/components/public/**",
+  ]
 }

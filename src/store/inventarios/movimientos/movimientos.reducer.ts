@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import * as fromMovimientos from './movimientos.action';
 import { InventarioState } from './movimientos.entities';
 
@@ -7,7 +7,7 @@ export const initialState: InventarioState = {
   inventario: [],
 };
 
-export const movimientosReducer = createReducer(
+export const reducer = createReducer(
   initialState,
   on(fromMovimientos.GetInventarioSuccess,
     (state, { payload: inventario }) => ({ ...state, inventario })
@@ -16,3 +16,7 @@ export const movimientosReducer = createReducer(
     (state, { payload: movimientos }) => ({ ...state, movimientos })
   ),
 );
+
+export function movimientosReducer(state: InventarioState, action: Action) {
+  return reducer(state, action);
+}

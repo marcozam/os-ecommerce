@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import { contactosAdapter, searchContactosAdapter, ContactoState } from './contacto.entities';
 import * as fromActions from './contacto.actions';
 
@@ -9,7 +9,7 @@ const initialState: ContactoState = {
   search: searchContactosAdapter.getInitialState(),
 };
 
-export const contactoReducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(fromActions.SelectContactoAction, (state, { payload: selected }) => ({
     ...state,
@@ -46,3 +46,7 @@ export const contactoReducer = createReducer(
     })
   ),
 );
+
+export function contactoReducer(state: ContactoState, action: Action) {
+  return reducer(state, action);
+}

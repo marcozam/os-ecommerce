@@ -4,7 +4,7 @@ import { OSBaseFormComponent } from '../abstracts';
 
 @Component({
   selector: 'os-datos-bancarios-form',
-  templateUrl: './datos-bancarios-form.component.html',
+  templateUrl: './datos-bancario-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatosBancariosFormComponent extends OSBaseFormComponent<Persona> {

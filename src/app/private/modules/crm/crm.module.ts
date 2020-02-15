@@ -14,7 +14,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CrmRoutingModule } from './routing/crm-routing.module';
 // OSModules
 import { OSCommonFormsModule } from 'app/common-forms/common-forms.module';
-import { BaseModule } from 'app/modules/base/base.module';
 // Components
 import * as components from './components';
 import { SearchPersonaComponent } from './components/search-persona/search-persona.component';
@@ -31,7 +30,6 @@ import { CRMStoreModule } from 'store/crm/crm-store.module';
     CrmRoutingModule,
     // OS Module
     OSCommonFormsModule,
-    BaseModule,
     // Material
     MatButtonModule,
     MatIconModule,
