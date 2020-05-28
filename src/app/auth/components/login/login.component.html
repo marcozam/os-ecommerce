@@ -1,0 +1,22 @@
+<div class="row center-xs">
+  <div class="col-md-3">
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)" class="sub-container">
+      <mat-form-field>
+        <input matInput placeholder="Usuario" required autofocus name="username" [(ngModel)]="value.username">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Contraseña" required name="password" [(ngModel)]="value.password"
+          [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">
+          {{hide ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+      </mat-form-field>
+      <div class="buttons-container center">
+        <button type="submit" mat-button color="primary" [disabled]="loginForm.invalid">
+          Iniciar Session
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

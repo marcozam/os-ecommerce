@@ -1,6 +1,6 @@
 <ng-template #cantidadTemplate let-item>
   <mat-form-field class="sm">
-    <input type="number" placeholder="Cantidad" matInput 
+    <input type="number" placeholder="Cantidad" matInput
       class="text-right" required
       [(ngModel)]="item.cantidadFisica"/>
   </mat-form-field>
@@ -22,7 +22,7 @@
           </mat-form-field>
         </os-filter>
       </os-table>
-      <div class="text-right buttons-containers">
+      <div class="buttons-container end">
         <button mat-raised-button color="primary" [disabled]="loading"
           (click)="onSave()">
           <mat-icon>save</mat-icon>

@@ -3,4 +3,12 @@
   margin-bottom: 15px;
   width: 100%;
   display: flex;
+  &.center {
+    justify-content: center;
+    text-align: center;
+  }
+  &.end {
+    justify-content: flex-end;
+    text-align: end;
+  }
 }

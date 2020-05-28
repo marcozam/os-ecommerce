@@ -18,7 +18,7 @@
           <mat-slide-toggle name="dynamic" [ngModel]="catalog.dynamic" labelPosition="before">Dinamico</mat-slide-toggle>
         </div>
         <mat-form-field *ngIf="!dcForm.value.dynamic">
-          <input type="text" placeholder="Tabla" name="tableName" matInput 
+          <input type="text" placeholder="Tabla" name="tableName" matInput
             (ngModelChange)="onTableModelChange($event)"
             [matAutocomplete]="auto" [ngModel]="catalog.tableName">
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onTableSelected($event)">
@@ -33,13 +33,13 @@
           <mat-slide-toggle name="filterAccount" [ngModel]="catalog.filterAccount" labelPosition="before">Restringir por Cuenta</mat-slide-toggle>
         </div>
         -->
-        <div class="buttons-containers">
+        <div class="buttons-container">
           <button mat-button color="warn" type="button" routerLink="/DCG">
             <mat-icon>cancel</mat-icon>
             Cancelar
           </button>
-    
-          <button mat-raised-button color="primary" 
+
+          <button mat-raised-button color="primary"
             [disabled]="dcForm.invalid"
             (click)="onSave(dcForm.value)">
             <mat-icon aria-label="Guardar">save</mat-icon>

@@ -10,6 +10,7 @@ import { OSAuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   hide = true;
+  value: { username: string, password: string } = { username: '', password: '' };
 
   constructor(private osAuth: OSAuthService) {
   }
@@ -17,8 +18,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login(userName: string, password: string) {
-    this.osAuth.login(userName, password);
+  login() {
+    const { username, password } = this.value;
+    this.osAuth.login(username, password);
   }
 
 }

@@ -17,7 +17,7 @@
       </mat-error>
     </mat-form-field>
 
-    <div class="text-right buttons-containers">
+    <div class="buttons-container end">
       <button mat-raised-button color="primary" [disabled]="searchForm.invalid || isLoading"
         (click)="onSearch(searchForm.value.nombre)">
         <mat-icon aria-label="Buscar">search</mat-icon>
@@ -45,7 +45,7 @@
 
     <os-loading *ngIf="isLoading"></os-loading>
 
-    <div class="text-right buttons-containers" *ngIf="triggerSearch && !isLoading">
+    <div class="buttons-container end" *ngIf="triggerSearch && !isLoading">
       <button type="button" mat-raised-button color="primary" (click)="onAddClick(searchForm.value.nombre)">
         <mat-icon aria-label="Agregar">add</mat-icon>
         Agregar {{catalogName}}

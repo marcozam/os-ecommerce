@@ -1,0 +1,13 @@
+My Files
+<mat-menu #addMenu="matMenu">
+  <button mat-menu-item (click)="openDialog('file')">File</button>
+  <button mat-menu-item (click)="openDialog('folder')">Folder</button>
+</mat-menu>
+
+<button mat-raised-button [matMenuTriggerFor]="addMenu">
+  <mat-icon>
+    add
+  </mat-icon>
+  New
+</button>
+Folder Navigation

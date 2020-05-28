@@ -12,6 +12,8 @@ import {
 
 const appRoutes: Routes = [
     { path: '', component: PublicComponent, children: PUBLIC_ROUTES },
+    { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+    { path: 'documents', loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule) },
     { path: 'secure', loadChildren: () => import('./private/private.module').then(m => m.PrivateModule) },
     { path: '404', component: PageNotFoundComponent, data: { title: ''} },
     { path: '**', redirectTo: '404' }

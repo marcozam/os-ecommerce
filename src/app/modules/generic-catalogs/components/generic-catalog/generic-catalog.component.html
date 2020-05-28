@@ -10,7 +10,7 @@
             <mat-form-field>
                 <input matInput placeholder="Nombre" name="nombre" type="text" required
                     #nombreControl="ngModel" [ngModel]="item?.nombre"/>
-                
+
                 <mat-error *ngIf="nombreControl.hasError('required')">
                   El nombre es <strong>requerido</strong>.
                 </mat-error>
@@ -18,13 +18,13 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xs text-right buttons-containers">
+          <div class="col-xs buttons-container end">
             <button mat-button color="warn" type="button" routerLink="/DCG/catalogo/{{catalogID}}">
               <mat-icon>cancel</mat-icon>
               Cancelar
             </button>
 
-            <button mat-raised-button color="primary" 
+            <button mat-raised-button color="primary"
               [disabled]="genericForm.invalid"
               (click)="onSave(genericForm.value)">
               <mat-icon aria-label="Guardar">save</mat-icon>

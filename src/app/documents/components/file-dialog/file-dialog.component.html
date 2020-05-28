@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>
+  File
+</h2>
+<mat-dialog-content class="mat-typography">
+  <os-file-form></os-file-form>
+  <os-tokenizer [(tokens)]="fileTokens" [allTokens]="tokens"></os-tokenizer>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" [mat-dialog-close]="true">Save</button>
+</mat-dialog-actions>

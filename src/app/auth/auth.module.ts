@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 // Material
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,23 +8,26 @@ import { MatButtonModule } from '@angular/material/button';
 // Routing
 import { AuthRoutingModule } from './auth-routing.module';
 // Componets
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-// Modules
-import { BaseModule } from 'app/modules/base/base.module';
+import {
+  AuthLayoutComponent,
+  LoginComponent,
+  SignupComponent,
+} from './components';
 // Services
 import { OSAuthService } from './services/auth.service';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     AuthRoutingModule,
-    BaseModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
   ],
   declarations: [
+    AuthLayoutComponent,
     LoginComponent,
     SignupComponent
   ],
