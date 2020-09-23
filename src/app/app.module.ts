@@ -23,12 +23,13 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 
 import { LayoutsModule } from './layouts/layouts.module';
+import { SmartHomeModule } from './oHome/smart-home.module';
 
 registerLocaleData(localeESMX);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,8 @@ registerLocaleData(localeESMX);
     // Angular Material
     MatDialogModule,
     MatSnackBarModule,
-    LayoutsModule
+    LayoutsModule,
+    SmartHomeModule,
   ],
   exports: [],
   providers: [

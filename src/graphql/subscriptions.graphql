@@ -1,0 +1,94 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateTokens {
+  onCreateTokens {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTokens {
+  onUpdateTokens {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTokens {
+  onDeleteTokens {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateFiles {
+  onCreateFiles {
+    id
+    name
+    description
+    tokens {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateFiles {
+  onUpdateFiles {
+    id
+    name
+    description
+    tokens {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteFiles {
+  onDeleteFiles {
+    id
+    name
+    description
+    tokens {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateDevice {
+  onCreateDevice {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateDevice {
+  onUpdateDevice {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteDevice {
+  onDeleteDevice {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}

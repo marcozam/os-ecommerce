@@ -1,0 +1,58 @@
+<mat-menu #deviceTypeMenu="matMenu">
+  <button mat-menu-item *ngFor="let type of deviceTypes" (click)="changeDeviceType(type.value)">
+    <mat-icon>{{ type.icon }}</mat-icon>
+    <span>{{ type.label }}</span>
+  </button>
+</mat-menu>
+
+<div class="home">
+  <div class="row">
+    <div cdkDropList class="col-xs col-sm-3 col-md-2 device-container"
+      [cdkDropListData]="syncDevices">
+      <div *ngFor="let device of syncDevices" class="device"
+        [class.active]="selectedDevice === device" cdkDrag (click)="selectedDevice = device">
+        <button mat-icon-button [matMenuTriggerFor]="deviceTypeMenu">
+          <mat-icon>
+            {{ getIcon(device.type) }}
+          </mat-icon>
+        </button>
+        {{ device.name }}
+      </div>
+    </div>
+    <div class="col-xs col-md-10">
+      <div class="row">
+        <div class="col-xs">
+          Casa
+        </div>
+      </div>
+      <div class="floor row" *ngFor="let floor of floors">
+        <mat-card class="room col-xs" *ngFor="let room of floor.rooms">
+          <mat-card-header>
+            <mat-card-title>
+              {{ room.name }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div cdkDropList class="device-container"
+              [cdkDropListData]="room.devices"
+              (cdkDropListDropped)="drop($event)">
+              <div class="device" *ngFor="let device of room.devices">
+                <button mat-flat-button>
+                  <mat-icon>
+                    {{ getIcon(device.type) }}
+                  </mat-icon>
+                  {{ device.name }}
+                </button>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>
+              Apagar
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

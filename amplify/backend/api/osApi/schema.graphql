@@ -1,0 +1,16 @@
+type Tokens @model {
+  id: ID!,
+  name: String!
+}
+
+type Files @model {
+  id: ID!,
+  name: String!,
+  description: String,
+  tokens: [Tokens!],
+}
+
+type Device @model {
+  id: ID!,
+  name: String!,
+}

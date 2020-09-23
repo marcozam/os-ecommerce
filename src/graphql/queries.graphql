@@ -1,0 +1,84 @@
+# this is an auto generated file. This will be overwritten
+query GetTokens($id: ID!) {
+  getTokens(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+query ListTokenss(
+  $filter: ModelTokensFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTokenss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetFiles($id: ID!) {
+  getFiles(id: $id) {
+    id
+    name
+    description
+    tokens {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListFiless(
+  $filter: ModelFilesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFiless(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      tokens {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetDevice($id: ID!) {
+  getDevice(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+query ListDevices(
+  $filter: ModelDeviceFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDevices(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

@@ -1,0 +1,18 @@
+<mat-form-field>
+  <mat-label>Nombre</mat-label>
+  <input matInput required cdkFocusInitial>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Fecha inicio</mat-label>
+  <input matInput required [matDatepicker]="pickerInicio">
+  <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+  <mat-datepicker #pickerInicio></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Fecha fin</mat-label>
+  <input matInput required [matDatepicker]="pickerFin">
+  <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+  <mat-datepicker #pickerFin></mat-datepicker>
+</mat-form-field>

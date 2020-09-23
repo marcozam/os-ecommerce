@@ -1,0 +1,121 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateTokens(
+  $input: CreateTokensInput!
+  $condition: ModelTokensConditionInput
+) {
+  createTokens(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTokens(
+  $input: UpdateTokensInput!
+  $condition: ModelTokensConditionInput
+) {
+  updateTokens(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTokens(
+  $input: DeleteTokensInput!
+  $condition: ModelTokensConditionInput
+) {
+  deleteTokens(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateFiles(
+  $input: CreateFilesInput!
+  $condition: ModelFilesConditionInput
+) {
+  createFiles(input: $input, condition: $condition) {
+    id
+    name
+    description
+    tokens {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateFiles(
+  $input: UpdateFilesInput!
+  $condition: ModelFilesConditionInput
+) {
+  updateFiles(input: $input, condition: $condition) {
+    id
+    name
+    description
+    tokens {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteFiles(
+  $input: DeleteFilesInput!
+  $condition: ModelFilesConditionInput
+) {
+  deleteFiles(input: $input, condition: $condition) {
+    id
+    name
+    description
+    tokens {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateDevice(
+  $input: CreateDeviceInput!
+  $condition: ModelDeviceConditionInput
+) {
+  createDevice(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateDevice(
+  $input: UpdateDeviceInput!
+  $condition: ModelDeviceConditionInput
+) {
+  updateDevice(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteDevice(
+  $input: DeleteDeviceInput!
+  $condition: ModelDeviceConditionInput
+) {
+  deleteDevice(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}

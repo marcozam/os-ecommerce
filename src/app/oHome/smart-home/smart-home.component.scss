@@ -1,0 +1,40 @@
+.device {
+  padding: 5px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+
+  &.active {
+    background-color: blue;
+  }
+
+  &-container{
+      border: solid 1px #ccc;
+      min-height: 120px;
+      background: white;
+      border-radius: 4px;
+      overflow: hidden;
+      display: block;
+  }
+}
+
+.floor {
+  border-bottom: solid 2px black;
+}
+
+.light {
+  &.on {
+    color: blue;
+  }
+
+  &.off {
+    color: gray;
+  }
+}
