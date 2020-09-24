@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatToolbarModule } from '@angular/material/toolbar';
 // Common
 import { OSCommonFormsModule } from 'app/common-forms/common-forms.module';
 // Routing
@@ -29,9 +30,10 @@ import * as layouts from './layouts';
     MatTabsModule,
     MatInputModule,
     MatIconModule,
+    MatSelectModule,
     MatButtonModule,
     MatDialogModule,
-    MatSelectModule,
+    MatToolbarModule,
     MatDatepickerModule,
     // Common
     OSCommonFormsModule,

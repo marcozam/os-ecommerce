@@ -1,2 +1,30 @@
-<p>school-layout works!</p>
-<router-outlet></router-outlet>
+
+<mat-toolbar>
+  <button mat-icon-button class="example-icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>
+    {{ title }}
+  </span>
+  <span class="spacer"></span>
+  <mat-select class="" [(value)]="plantelSeleccionado" placeholder="Plantel">
+    <mat-option [value]="1">
+      2019 - 2020
+    </mat-option>
+    <mat-option [value]="2">
+      2020 - 2021
+    </mat-option>
+    <mat-option [value]="3">
+      2021 - 2022
+    </mat-option>
+  </mat-select>
+  <button mat-icon-button class="favorite-icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button>
+  <mat-icon>share</mat-icon>
+</button>
+</mat-toolbar>
+<div class="margin-lr">
+  <router-outlet></router-outlet>
+</div>

@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SchoolLayoutComponent implements OnInit {
 
+  title = 'Inscripcion';
+  plantelSeleccionado: any;
+
   constructor() { }
 
   ngOnInit() {

@@ -1,0 +1,51 @@
+$normal-space: 10px;
+// Margin
+.margin-l {
+  margin-left: $normal-space;
+}
+.margin-r {
+  margin-right: $normal-space;
+}
+.margin-t {
+  margin-top: $normal-space;
+}
+.margin-b {
+  margin-bottom: $normal-space;
+}
+.margin-lr {
+  @extend .margin-l;
+  @extend .margin-r;
+}
+.margin-tb {
+  @extend .margin-t;
+  @extend .margin-b;
+}
+.margin {
+  @extend .margin-lr;
+  @extend .margin-tb;
+}
+// Padding
+.padding-l {
+  padding-left: $normal-space;
+}
+.padding-r {
+  padding-right: $normal-space;
+}
+.padding-t {
+  padding-top: $normal-space;
+}
+.padding-b {
+  padding-bottom: $normal-space;
+}
+.padding-lr {
+  @extend .padding-l;
+  @extend .padding-r;
+}
+.padding-tb {
+  @extend .padding-t;
+  @extend .padding-b;
+}
+.padding {
+  @extend .padding-lr;
+  @extend .padding-tb;
+}

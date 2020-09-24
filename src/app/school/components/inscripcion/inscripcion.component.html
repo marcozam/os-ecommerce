@@ -1,40 +1,47 @@
-<app-estudiante-form></app-estudiante-form>
-<mat-form-field>
-  <mat-select placeholder="Ciclo Escolar">
-    <mat-option [value]="1">
-      2019 - 2020
-    </mat-option>
-    <mat-option [value]="2">
-      2020 - 2021
-    </mat-option>
-    <mat-option [value]="3">
-      2021 - 2022
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <mat-select placeholder="Seccion">
-    <mat-option [value]="1">
-      Primaria
-    </mat-option>
-    <mat-option [value]="1">
-      Secundaria
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <mat-select placeholder="Grado">
-    <mat-option [value]="1">
-      1ro
-    </mat-option>
-    <mat-option [value]="2">
-      2do
-    </mat-option>
-    <mat-option [value]="3">
-      3ro
-    </mat-option>
-    <mat-option [value]="4">
-      4to
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<div class="row">
+  <app-estudiante-form class="col-xs"></app-estudiante-form>
+  <div class="col-xs">
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Ciclo Escolar
+      </mat-label>
+      <mat-select >
+        <mat-option [value]="1">
+          2019 - 2020
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Seccion
+      </mat-label>
+      <mat-select placeholder="Seccion">
+        <mat-option [value]="1">
+          Primaria
+        </mat-option>
+        <mat-option [value]="1">
+          Secundaria
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Grado
+      </mat-label>
+      <mat-select>
+        <mat-option [value]="1">
+          1ro
+        </mat-option>
+        <mat-option [value]="2">
+          2do
+        </mat-option>
+        <mat-option [value]="3">
+          3ro
+        </mat-option>
+        <mat-option [value]="4">
+          4to
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
